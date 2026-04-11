@@ -54,16 +54,20 @@ Does pytorch.org have content that addresses this question — regardless of whe
 | Partial | 5 | 33% |
 | None | 4 | 27% |
 
-### Dimension 2: Discoverability (automated, cheap)
+### Dimension 2: Discoverability (automated, cheap) — PRIMARY METRIC
 
-For each test question, run a web search and classify results:
+For each test question, run a web search and classify by **topic relevance** (not content quality):
 
 | Score | Label | Criteria |
 |-------|-------|----------|
-| 3 | **Direct** | Official pytorch.org page directly addresses the question |
-| 2 | **Tangential** | Official pytorch.org content appears but generic/partial |
-| 1 | **Community** | No official docs, but GitHub issues or forums have relevant content |
-| 0 | **Missing** | No helpful results from any source |
+| 3 | **Direct** | Official pytorch.org page is about this topic |
+| 2 | **Tangential** | Official pytorch.org page is tangentially related |
+| 1 | **Community** | No official docs; only GitHub issues or forums match the topic |
+| 0 | **Missing** | No results match the topic |
+
+**Rubric philosophy:** Keep scoring simple — judge whether search surfaces the right *page*, not whether the page contains a good *answer*. "Is this page about dynamic shapes?" is unambiguous. "Would this page fix the user's problem?" adds annotator disagreement without improving the discoverability measurement. Content quality is a downstream problem: if the page is found but thin, we can improve it.
+
+**Priority order:** Discoverability first (can search find the right page?), then coverage (does the page exist?), then content quality (is the page good?). Fixing discoverability unblocks everything else.
 
 **Search tool:** Three Pai external web search (Meta internal). Must be pinned for reproducibility — same API, same parameters, documented date.
 
@@ -223,7 +227,7 @@ No ground truth exists. The test is whether the agent is HONEST about uncertaint
    - LLM-as-judge with ground truth from resolved issues (scalable, needs calibration)
    - Hybrid: LLM scores, human reviews disagreements
 
-3. **Journey weighting**: J4 (2,053 issues) has 6x the volume of J2 (320). Should the final score weight by journey volume, or treat all journeys equally?
+3. **Journey weighting**: Equal weight across all 8 journeys. Issue volume is a biased sample — J1 (First Compile) is massively underreported because users who can't get started don't file issues, but it's the gateway journey. Issue counts reflect who persists, not who needs help.
 
 4. **Temporal stability**: Search results change. How often to re-baseline? Suggestion: snapshot quarterly, always record exact date.
 
