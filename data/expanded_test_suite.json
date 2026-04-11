@@ -1,0 +1,1201 @@
+[
+  {
+    "id": "J1-1",
+    "journey": "J1: First Compile",
+    "source_issue": 156797,
+    "source_url": "https://github.com/pytorch/pytorch/issues/156797",
+    "user_question": "How do I use compile cache in torch.compile so I don't have to recompile every time I restart my script?",
+    "difficulty": "beginner",
+    "expected_doc_topics": [
+      "compile cache",
+      "persistent cache",
+      "TORCHINDUCTOR_FX_GRAPH_CACHE"
+    ],
+    "issue_context": "According to the documentation at https://docs.pytorch.org/tutorials/recipes/torch_compile_caching_tutorial.html, we can use torch.compiler.save_cache_artifacts() and torch.compiler.load_cache_artifacts() to reduce compilation time. \n\nHowever, when exactly should we save the cache, and when should we load it? Is there a clear example or recommended practice for this?\n\ncc @svekars @sekyondaMeta @AlannaBurke @chauhang @penguinwu"
+  },
+  {
+    "id": "J1-2",
+    "journey": "J1: First Compile",
+    "source_issue": 91537,
+    "source_url": "https://github.com/pytorch/pytorch/issues/91537",
+    "user_question": "How do I change the backend compiler used by torch.compile? The docs mention 'inductor' but I want to use a different one.",
+    "difficulty": "beginner",
+    "expected_doc_topics": [
+      "backends",
+      "torch.compile API",
+      "custom backend"
+    ],
+    "issue_context": "### \ud83d\udcda The doc issue\r\n\r\nIt is not clear from https://pytorch.org/tutorials//intermediate/torch_compile_tutorial.html, nor from the docs in `torch.compile`, nor even from looking through `_dynamo/config.py`, how one can change the compiler used by PyTorch.\r\n\r\nRight now I am seeing the following issue. My code:\r\n\r\n```python\r\nimport torch\r\n\r\n@torch.compile\r\ndef f(x):\r\n    return 0.5 * x\r\n\r\nf(torch.tensor(1.0))\r\n```\r\n\r\n<details><summary>This produces the following error message (click to toggle):</summary>\r\n\r\n```\r\n---------------------------------------------------------------------------\r\nCalledProcessError                        Traceback (most recent call last)\r\nFile ~/venvs/main/lib/python3.10/site-packages/torch/_inductor/codecache.py:445, in CppCodeCache.load(cls, source_code)\r\n    444 try:\r\n--> 445     subprocess.check_output(cmd, stderr=subprocess.STDOUT)\r\n    446 except subprocess.CalledProcessError as e:\r\n\r\nFile /opt/homebrew/Cellar/python@3.10/3.10.9/Frameworks/Python.framework/Versions/3.10/lib/python3.10/subprocess.py:421, in check_output(timeout, *popenargs, **kwargs)\r\n    419     kwargs['input'] = empty\r\n--> 421 return run(*popenargs, stdout=PIPE, timeout=timeout, check=True,\r\n    422            **kwargs).stdout\r\n\r\nFile /opt/homebrew/Cellar/python@3.10/3.10.9/Frameworks/Python.framework/Versions/3.10/lib/python3.10/subprocess.py:526, in run(input, capture_output, timeout, check, *popenargs, **kwargs)\r\n    525     if check and retcode:\r\n--> 526         raise CalledPr..."
+  },
+  {
+    "id": "J1-3",
+    "journey": "J1: First Compile",
+    "source_issue": 149096,
+    "source_url": "https://github.com/pytorch/pytorch/issues/149096",
+    "user_question": "How can I tell which parts of my model are being recompiled after caching with torch.compile?",
+    "difficulty": "intermediate",
+    "expected_doc_topics": [
+      "recompilation",
+      "logging",
+      "torch._dynamo.config.log_recompilation"
+    ],
+    "issue_context": "### \ud83d\udc1b Describe the bug\n\nThanks for the helpful blog: https://dev-discuss.pytorch.org/t/how-to-bring-compile-time-down-to-zero-our-plans-and-direction-may-14th-edition/2089\n\nI am currently caching all 3 stages of the compiler but only seeing ~50% reduction in compile time. \nHow do I determine which part of the compilation is not being properly cached or recompiled every time?\n\n\nP.S. I am interested in finding which part of the process recompiles and any techniques to avoid recompilation not mentioned here: https://pytorch.org/docs/stable/torch.compiler_troubleshooting.html#dealing-with-recompilations\n\n### Error logs\n\n_No response_\n\n### Versions\n\ntorch 2.5\nCUDA 12.4\nGPU = A10G\n\ncc @chauhang @penguinwu"
+  },
+  {
+    "id": "J2-1",
+    "journey": "J2: Performance Diagnosis",
+    "source_issue": 110666,
+    "source_url": "https://github.com/pytorch/pytorch/issues/110666",
+    "user_question": "I wrapped my model with torch.compile but inference is actually slower than eager mode. How do I diagnose why?",
+    "difficulty": "intermediate",
+    "expected_doc_topics": [
+      "profiling",
+      "torch.profiler",
+      "compilation overhead",
+      "warmup"
+    ],
+    "issue_context": "### \ud83d\udc1b Describe the bug\n\nGetting significantly higher eval time for torch compile compared to eager mode. Train time is close to expected. The speedup for eval mode is around 0.017, while it should be greater than 1. Complete logs are given below. I am using Pytorch's 2.1.0 image (pytorch/pytorch:2.1.0-cuda11.8-cudnn8-devel) and Pytorch torch compile [tutorial](https://pytorch.org/tutorials/intermediate/torch_compile_tutorial.html) for this.\r\n\r\n```\r\neager: 0.2973194274902344\r\ncompile: 63.84834765625\r\neager eval time 0: 0.03339263916015625\r\neager eval time 1: 0.026991615295410155\r\neager eval time 2: 0.027637760162353517\r\neager eval time 3: 0.027448320388793947\r\neager eval time 4: 0.02708684730529785\r\neager eval time 5: 0.02836787223815918\r\neager eval time 6: 0.0277708797454834\r\neager eval time 7: 0.027261951446533202\r\neager eval time 8: 0.027030527114868166\r\neager eval time 9: 0.03097599983215332\r\n~~~~~~~~~~\r\ncompile eval time 0: 0.532326416015625\r\ncompile eval time 1: 0.6827396850585937\r\n/opt/conda/lib/python3.10/site-packages/torch/_inductor/cudagraph_trees.py:2049: UserWarning: Unable to hit fast path of CUDAGraphs because of pending, uninvoked backwards. Consider running with torch.no_grad() or using torch._inductor.cudagraph_mark_step_begin() before each model invocation\r\n  warnings.warn(\r\ncompile eval time 2: 0.9548626098632812\r\ncompile eval time 3: 1.202206787109375\r\ncompile eval time 4: 1.483588623046875\r\ncompile eval time 5: 1.758994384765625\r\ncompile eval time 6: 1.98..."
+  },
+  {
+    "id": "J2-2",
+    "journey": "J2: Performance Diagnosis",
+    "source_issue": 136263,
+    "source_url": "https://github.com/pytorch/pytorch/issues/136263",
+    "user_question": "torch.compile makes my backward pass 100x slower for torch.cumprod. How do I figure out what's going wrong?",
+    "difficulty": "advanced",
+    "expected_doc_topics": [
+      "backward pass",
+      "inductor codegen",
+      "profiling",
+      "operator performance"
+    ],
+    "issue_context": "### \ud83d\udc1b Describe the bug\n\n\r\nWhen using torch.compile on a model that includes the backward pass of torch.cumprod, the compiled version is significantly slower than the eager execution, especially for large input dimensions. The performance degradation appears to scale with the size of the dimension over which cumprod is computed.\r\n\r\n## To Reproduce\r\n```python\r\n#!/usr/bin/env python3\r\n\r\n# the dimention over which we compute cumprod\r\n# larger number results in much slower compilation and execution\r\nN_DIM = 8\r\nprint(f\"Running with N_DIM={N_DIM}\")\r\n\r\nimport torch\r\nimport torch.nn as nn\r\nimport time\r\n\r\nif torch.cuda.is_available():\r\n    torch.set_default_device('cuda')\r\n    device = torch.device('cuda')\r\nelse:\r\n    torch.set_default_device('cpu')\r\n    device = torch.device('cpu')\r\n\r\nN_REPEAT = 10\r\nN_WARMUP = 2\r\n\r\nclass CumProdModule(nn.Module):\r\n    def __init__(self):\r\n        super().__init__()\r\n\r\n    def forward(self, x):\r\n        a = torch.cumprod(x, dim=1)\r\n        y = a.sum()\r\n        return y\r\n\r\n# e.g. (batch_size, sequence_length, features)\r\nx = torch.rand(8, N_DIM, 5000, requires_grad=True)\r\n\r\nmodel = CumProdModule()\r\n\r\ndef benchmark(model, x, n_repeat, n_warmup):\r\n    # Warmup iterations\r\n    for _ in range(n_warmup):\r\n        y = model(x)\r\n        y.backward()\r\n    if torch.cuda.is_available():\r\n        torch.cuda.synchronize()\r\n\r\n    start_time = time.time()\r\n    for _ in range(n_repeat):\r\n        y = model(x)\r\n        y.backward()\r\n        if torch.cuda.is_available():\r..."
+  },
+  {
+    "id": "J2-3",
+    "journey": "J2: Performance Diagnosis",
+    "source_issue": 119611,
+    "source_url": "https://github.com/pytorch/pytorch/issues/119611",
+    "user_question": "My simple MLP is slower with torch.compile than without. Is torch.compile not suitable for small models?",
+    "difficulty": "beginner",
+    "expected_doc_topics": [
+      "compilation overhead",
+      "model size",
+      "when to use torch.compile",
+      "reduce-overhead mode"
+    ],
+    "issue_context": "### \ud83d\udc1b Describe the bug\n\n```\r\nimport torch\r\nfrom torch import Tensor\r\nfrom torch import nn\r\nimport torch.nn.functional as F\r\nimport torch._inductor.config\r\ntorch.set_default_device('cuda')\r\n# from torchvision.models import resnet18\r\n\r\nclass Layer(nn.Module):\r\n    def __init__(self):\r\n        super().__init__()\r\n        dim = 4096\r\n        self.mods = nn.Sequential(nn.Linear(dim, dim), nn.LayerNorm([dim]), nn.GELU())\r\n\r\n    def forward(self, x):\r\n        return self.mods(x)\r\n\r\nclass Layered(nn.Module):\r\n    def __init__(self):\r\n        super().__init__()\r\n        self.layers = nn.Sequential(*[Layer() for _ in range(10)])\r\n\r\n    def forward(self, x):\r\n        return self.layers(x)\r\n\r\ndef bench(f, name=None, iters=1000, warmup=5, display=True, profile=False):\r\n    import time\r\n    from triton.testing import do_bench\r\n\r\n    for _ in range(warmup):\r\n        f()\r\n    if profile:\r\n        with torch.profiler.profile() as prof:\r\n            f()\r\n        prof.export_chrome_trace(f\"{name if name is not None else 'trace'}.json\")\r\n\r\n    us_per_iter = do_bench(lambda: f())*1000\r\n\r\n    if name is None:\r\n        res = us_per_iter\r\n    else:\r\n        res= f\"{name}: {us_per_iter:.3f}us\"\r\n\r\n    if display:\r\n        print(res)\r\n    return res\r\n\r\nmod = Layered().to(dtype=torch.bfloat16)\r\ncomp_mod = torch.compile(mod)\r\ninp = torch.randn(2048, 4096, dtype=torch.bfloat16)\r\n\r\nbench(lambda: comp_mod(inp).sum().backward(), name=\"compiled\")\r\nprint(torch.cuda.max_memory_allocated()/1e9)\r\ntorch.cuda.reset..."
+  },
+  {
+    "id": "J3-1",
+    "journey": "J3: Correctness & Debugging",
+    "source_issue": 155690,
+    "source_url": "https://github.com/pytorch/pytorch/issues/155690",
+    "user_question": "torch.compile produces different numerical output compared to eager mode. How do I debug this?",
+    "difficulty": "advanced",
+    "expected_doc_topics": [
+      "accuracy debugging",
+      "torch._dynamo.config.repro_level",
+      "minifier",
+      "numerical precision"
+    ],
+    "issue_context": "### \ud83d\udc1b Describe the bug\n\nWhile working with `torch.compile`, I encountered a bug that can be reproduced using the following minimal example. To illustrate this issue, I created a simple toy function called `do_view`. Within the function, I performed two `view` operations on the input tensor without making any in-place modifications. The function then returns the tensor after the `view` operations. However, after compiling the `do_view` function with `torch.compile`, the returned tensor may have completely different values compared to the input tensor. The example is shown below:\n\n```\nimport torch\n\n@torch.compile(fullgraph=True)\ndef do_view(input):\n    dout, din = input.shape\n    input = input.view(-1, 1)\n    output = input.view(dout, din)\n    return output\n\ninputs = torch.randn(4, 128, 16, device='cuda', dtype=torch.float32)\nfor i in range(4):\n    output = do_view(inputs[i])\n\ninputs = torch.randn(4, 171, 6, device='cuda', dtype=torch.float32)\nfor i in range(4):\n    output = do_view(inputs[i])\n    print(torch.equal(output, inputs[i]))\n```\nOutputs:\n```\nTrue\nFalse\nTrue\nFalse\n```\n\nThe following characteristics are critical for reproducing this issue:\n1. **Non-zero** `storage_offset()`: The input to the `do_view` function must be a slice of a tensor (e.g., inputs[i]) so that the input tensor has a non-zero `storage_offset()`.\n2. **Alignment of** `data_ptr()`: The shape of the inputs tensor in the example, (4, 171, 6), is essential. It ensures that the data_ptr() values of some inpu..."
+  },
+  {
+    "id": "J3-2",
+    "journey": "J3: Correctness & Debugging",
+    "source_issue": 100794,
+    "source_url": "https://github.com/pytorch/pytorch/issues/100794",
+    "user_question": "My conv2d + interpolate model gives wrong gradients under torch.compile but correct ones in eager. How do I isolate the bug?",
+    "difficulty": "advanced",
+    "expected_doc_topics": [
+      "backward correctness",
+      "minifier",
+      "repro_level",
+      "accuracy tolerance"
+    ],
+    "issue_context": "### \ud83d\udc1b Describe the bug\n\ntorch.compile leads to wrong results in the following program. Please see the comments for the results of some variants.\r\n~~~ python\r\nimport torch\r\nimport torch.nn as nn\r\nimport copy\r\n\r\ntorch.manual_seed(0)\r\nclass Model(nn.Module):\r\n    def __init__(self):\r\n        super().__init__()\r\n        self.conv = torch.nn.Conv2d(in_channels=1, out_channels=1, kernel_size=4)\r\n\r\n    def forward(self, x):\r\n        v2 = self.conv(x)\r\n        ret = torch.nn.functional.interpolate(v2, size=[1, 1], mode=\"nearest\")\r\n        # \u2705 with mode = 'area', 'nearest-exact'\r\n        # \u274c with mode = 'nearest', 'bilinear', 'bicubic', produce the same wrong result in this program\r\n        return ret\r\n\r\nx = torch.ones(size=[1, 1, 4, 4], dtype=torch.float32)\r\nmodel = Model()\r\nmodel_tmp = copy.deepcopy(model)\r\n\r\nmodel_tmp.train()\r\ncompiled = torch.compile(model_tmp, fullgraph=True)\r\nparams = {k: v for k, v in compiled.named_parameters()}\r\nret_compiled = compiled(x)\r\ngrad_compiled = torch.autograd.grad(\r\n                    outputs=ret_compiled,\r\n                    inputs=params.values(),\r\n                    grad_outputs=torch.ones_like(ret_compiled),\r\n                    retain_graph=True,\r\n                    allow_unused=True,\r\n                )\r\n\r\nmodel.train()\r\nparams = {k: v for k, v in model.named_parameters()}\r\nret_eager = model(x)\r\ngrad_eager = torch.autograd.grad(\r\n                    outputs=ret_eager,\r\n                    inputs=params.values(),\r\n                    grad_o..."
+  },
+  {
+    "id": "J3-3",
+    "journey": "J3: Correctness & Debugging",
+    "source_issue": 135161,
+    "source_url": "https://github.com/pytorch/pytorch/issues/135161",
+    "user_question": "Compiled flex_attention gives significantly different accuracy compared to eager. Is this expected and how do I fix it?",
+    "difficulty": "advanced",
+    "expected_doc_topics": [
+      "numerical stability",
+      "flex_attention",
+      "precision settings",
+      "accuracy debugging"
+    ],
+    "issue_context": "### \ud83d\udc1b Describe the bug\r\n\r\nI struggled a bit to get a repro, but I think this is in the realm of reasonable and identifies the behavior that causes my runs to diverge.\r\n\r\n```python\r\nimport torch\r\nimport torch.nn as nn\r\nimport torch.nn.attention.flex_attention\r\n\r\nclass Repro(nn.Module):\r\n    def __init__(self):\r\n        super().__init__()\r\n        self.qkv_proj = nn.Linear(256, 256 * 3)\r\n        self.n_head = 256 // 64\r\n        self.d_attn = 256\r\n        self.qkv_proj.weight.data.fill_(0.1)\r\n        self.qkv_proj.bias.data.fill_(0.1)\r\n\r\n    def forward(self, x):\r\n        n_batch, n_ctx, _ = x.shape\r\n        q, k, v = self.qkv_proj(x).split([self.d_attn, self.d_attn, self.d_attn], dim=2)\r\n        q = q.reshape(n_batch, n_ctx, self.n_head, -1).transpose(1, 2)\r\n        k = k.reshape(n_batch, n_ctx, self.n_head, -1).transpose(1, 2)\r\n        v = v.reshape(n_batch, n_ctx, self.n_head, -1).transpose(1, 2)\r\n        return torch.nn.attention.flex_attention.flex_attention(q, k, v)\r\n\r\ntorch.set_default_device(\"cuda\")\r\ntorch.manual_seed(0)\r\n\r\nmodel = Repro()\r\n\r\ncompiled_model = Repro()\r\ncompiled_model = torch.compile(compiled_model)\r\n\r\nx = torch.randn((1, 512, 256), requires_grad=True)\r\nx_compiled = x.clone().detach().requires_grad_(True)\r\n\r\nout = model(x)\r\nout_compiled = compiled_model(x_compiled)\r\n\r\nout.sum().backward()\r\nout_compiled.sum().backward()\r\n\r\nweight_diff = torch.max(torch.abs(model.qkv_proj.weight.grad - compiled_model.qkv_proj.weight.grad)).item()\r\nbias_diff = torch.max(torch..."
+  },
+  {
+    "id": "J4-1",
+    "journey": "J4: Graph Breaks",
+    "source_issue": 164247,
+    "source_url": "https://github.com/pytorch/pytorch/issues/164247",
+    "user_question": "I'm getting a graph break in my flex_attention code when using fullgraph=True. How do I fix it?",
+    "difficulty": "intermediate",
+    "expected_doc_topics": [
+      "graph breaks",
+      "fullgraph mode",
+      "flex_attention",
+      "higher-order ops"
+    ],
+    "issue_context": "### \ud83d\udc1b Describe the bug\n\n```python\nimport torch\nimport torch.nn as nn\nfrom torch.nn.attention.flex_attention import create_block_mask, flex_attention\n\n\nclass MixedFakeModeModel(nn.Module):\n    def __init__(self, dim=64):\n        super().__init__()\n        self.dim = dim\n        self.lin = torch.nn.Linear(64, 64)\n\n    def forward(self, x):\n        batch_size, seq_len, _ = x.shape\n\n        # Process input first - this creates fake tensors in export's fake mode\n        processed = self.lin(x)\n\n        # Create some computation that depends on processed tensor\n        intermediate = processed.sum(dim=-1).detach()  # Shape: (batch, seq_len)\n\n        def dynamic_mask_function(batch_idx, head_idx, q_idx, kv_idx):\n            threshold = intermediate[\n                batch_idx, q_idx % seq_len\n            ]  # Access the captured tensor\n            return (kv_idx <= q_idx) & (threshold > 0)\n\n        block_mask = create_block_mask(\n            mask_mod=dynamic_mask_function,\n            B=batch_size,\n            H=None,\n            Q_LEN=seq_len,\n            KV_LEN=seq_len,\n            device=x.device,\n            _compile=False,  # HF sets this to True, which runs into the issue i am talking below\n        )\n        q = processed.view(batch_size, 1, seq_len, self.dim)\n        k = processed.view(batch_size, 1, seq_len, self.dim)\n        v = processed.view(batch_size, 1, seq_len, self.dim)\n\n        # this doesn't work\n        out = torch.compile(flex_attention)(q, k, v, block_mask=block_..."
+  },
+  {
+    "id": "J4-2",
+    "journey": "J4: Graph Breaks",
+    "source_issue": 139440,
+    "source_url": "https://github.com/pytorch/pytorch/issues/139440",
+    "user_question": "torch.compile with DDP causes a graph break on _broadcast_coalesced. How do I use torch.compile with distributed training?",
+    "difficulty": "advanced",
+    "expected_doc_topics": [
+      "DDP",
+      "distributed",
+      "graph breaks",
+      "compile + DDP integration"
+    ],
+    "issue_context": "### \ud83d\udc1b Describe the bug\n\nCompiling a whole ddp wrapped model I got this graph break\n\n### Error logs\n\n```python \r\n/opt/conda/lib/python3.11/site-packages/torch/_dynamo/variables/functions.py:743: UserWarning: Graph break due to unsupported builtin torch._C._distributed_c10d.PyCapsule._broadcast_coalesced. This function is either a Python builtin (e.g. _warnings.warn) or a third-party C/C++ Python extension (perhaps created with pybind). If it is a Python builtin, please file an issue on GitHub so the PyTorch team can add support for it and see the next case for a workaround. If it is a third-party C/C++ Python extension, please either wrap it into a PyTorch-understood custom operator (see https://pytorch.org/tutorials/advanced/custom_ops_landing_page.html for more details) or, if it is traceable, use torch.compiler.allow_in_graph.\r\n```\n\n### Minified repro\n\n_No response_\n\n### Versions\n\nnightly\n\ncc @H-Huang @awgu @kwen2501 @wanchaol @fegin @fduwjj @wz337 @wconstab @d4l3k @c-p-i-o @ezyang @chauhang @penguinwu @voznesenskym @EikanWang @jgong5 @Guobing-Chen @XiaobingSuper @zhuhaozhe @blzheng @wenzhe-nrv @jiayisunx @chenyang78 @kadeng @amjames"
+  },
+  {
+    "id": "J4-3",
+    "journey": "J4: Graph Breaks",
+    "source_issue": 137476,
+    "source_url": "https://github.com/pytorch/pytorch/issues/137476",
+    "user_question": "I'm getting 'Unsupported: __self__ mismatch for bound method' graph break after upgrading PyTorch. What changed and how do I fix it?",
+    "difficulty": "intermediate",
+    "expected_doc_topics": [
+      "graph breaks",
+      "bound methods",
+      "dynamo unsupported",
+      "migration"
+    ],
+    "issue_context": "### \ud83d\udc1b Describe the bug\r\n\r\n```python\r\nimport torch\r\nimport torch.nn as nn\r\n\r\ndef set_attrs_from_orig_model(cls_instance, mod, *func_names):\r\n    cls_instance.__dict__.update(mod.__dict__)\r\n    if func_names is not None:\r\n        for func in func_names:\r\n            setattr(cls_instance, func, getattr(mod, func))\r\n\r\nclass PatchedMyModule(nn.Module):\r\n    def __init__(self, mod):\r\n        super().__init__()\r\n        set_attrs_from_orig_model(self, mod, \"resolve_input\")\r\n\r\n    def forward(self, x):\r\n        x = self.resolve_input(x)\r\n        return x\r\n\r\nclass MyModule(nn.Module):\r\n    def __init__(self, input_dim, output_dim):\r\n        super().__init__()\r\n        self.linear = nn.Linear(in_features=input_dim, out_features=output_dim)\r\n\r\n    def resolve_input(self, x):\r\n        x = torch.nn.Dropout(0.1)(self.linear(x))\r\n        return x\r\n\r\n    def forward(self, x):\r\n        x = self.linear(x)\r\n        return x\r\n\r\nmodule = MyModule(input_dim=1, output_dim=1)\r\npatched_module = PatchedMyModule(module)\r\ncompiled_module = torch.compile(patched_module, fullgraph=True)\r\n\r\ninput_tensor = torch.tensor([1.], dtype=torch.float)\r\nres = compiled_module(input_tensor)\r\n```\r\nfail with: `torch._dynamo.exc.Unsupported: __self__ mismatch for bound method`\r\n\r\n\r\n### Versions\r\n\r\ntorch==2.5.0.dev20240909+cpu\n\ncc @ezyang @gchanan @zou3519 @kadeng @msaroufim @chauhang @penguinwu @voznesenskym @EikanWang @jgong5 @Guobing-Chen @XiaobingSuper @zhuhaozhe @blzheng @wenzhe-nrv @jiayisunx @chenyang78 @amjames @r..."
+  },
+  {
+    "id": "J5-1",
+    "journey": "J5: Performance Optimization",
+    "source_issue": 96693,
+    "source_url": "https://github.com/pytorch/pytorch/issues/96693",
+    "user_question": "What does mode='max-autotune' actually do and why does it seem to lower precision? Is there a way to get the speed benefit without accuracy loss?",
+    "difficulty": "intermediate",
+    "expected_doc_topics": [
+      "max-autotune",
+      "CUDA graphs",
+      "autotuning",
+      "precision tradeoffs"
+    ],
+    "issue_context": "### \ud83d\udc1b Describe the bug\r\n\r\nI'm sorry, this is going to be a terrible bug report, but I wasn't able to simplify the problem. \r\n\r\nI'm running a training run with a model that is compiled with `torch.compile`. The blue line below is loss with the `default` mode, the red line below is loss with `max-autotune`, the training runs are otherwise identical:\r\n\r\n![spiky_comparison](https://user-images.githubusercontent.com/22680696/224837823-788ccd48-6fb0-4099-9c87-46926dca134f.png)\r\n\r\n\r\nIt appears as if precision/stability is noticeably lower on the max-autotune training run. This is running on an RTXA600 GPU. The forward pass is wrapped in \r\n `torch.autocast`, there are no graph breaks or warning messages. Max-autotune code is also noticeably a bit faster, so it is definitely doing something that the default mode is not.\r\n \r\n Feel free to close this issue if this is not enough info. I could also test more specific things or try to make a mini version to get to the bottom of this, but I have no idea what to look for, or which part would be relevant.\r\n\r\n### Error logs\r\n\r\n_No response_\r\n\r\n### Minified repro\r\n\r\n_No response_\r\n\r\n### Versions\r\n\r\n```\r\nPyTorch version: 2.1.0.dev20230307\r\nIs debug build: False\r\nCUDA used to build PyTorch: 11.8\r\nROCM used to build PyTorch: N/A\r\n\r\nOS: Pop!_OS 22.04 LTS (x86_64)\r\nGCC version: (Ubuntu 11.3.0-1ubuntu1~22.04) 11.3.0\r\nClang version: Could not collect\r\nCMake version: Could not collect\r\nLibc version: glibc-2.35\r\n\r\nPython version: 3.10.9 (main, Mar  1 20..."
+  },
+  {
+    "id": "J5-2",
+    "journey": "J5: Performance Optimization",
+    "source_issue": 174575,
+    "source_url": "https://github.com/pytorch/pytorch/issues/174575",
+    "user_question": "After upgrading from PyTorch 2.9 to 2.10, torch.compile with reduce-overhead mode is 7x slower. How do I diagnose this regression?",
+    "difficulty": "advanced",
+    "expected_doc_topics": [
+      "reduce-overhead",
+      "CUDA graphs",
+      "cudagraph_trees",
+      "performance regression"
+    ],
+    "issue_context": "## \ud83d\udc1b Describe the bug\n\n`torch.compile(mode=\"reduce-overhead\")` has a **40-55% throughput regression** in PyTorch 2.10 vs 2.9 on an H100 GPU running a 6B parameter production GPT inference engine. The root cause is **7x slower `cudaGraphLaunch`** calls and **new Python-level overhead** in `cudagraph_trees.py` that does not exist in 2.9.\n\nWe performed a controlled isolation experiment with three configurations to separate the PyTorch code regression from the CUDA toolkit change, and found **both PyTorch 2.10's inductor code and the CUDA 13.x toolkit contribute**, with PyTorch 2.10's code changes being the primary factor.\n\n## Environment\n\n- **GPU**: NVIDIA H100 80GB HBM3 (Modal cloud)\n- **PyTorch versions tested**: 2.9.0+cu128, 2.10.0+cu128, 2.10.0+cu130\n- **CUDA toolkits tested**: 12.8, 13.0/13.1\n- **OS**: Ubuntu 24.04 (container)\n- **Python**: 3.10\n- **Workload**: 6B parameter GPT model, `torch.compile(fullgraph=True, mode=\"reduce-overhead\")`, 160 concurrent requests, batched inference\n\n## Throughput Regression\n\n### Three-way isolation experiment (4 rounds x 500 steps, round 0 discarded, 3 scored)\n\n| Configuration | Med Tok/s | StdDev | CV | Regression |\n|---|---|---|---|---|\n| **torch 2.9.0+cu128** (CUDA 12.8) | **8,016** | 160 | 2.0% | baseline |\n| **torch 2.10.0+cu128** (CUDA 12.8) | **6,639** | 474 | 7.1% | **-17.2%** |\n| **torch 2.10.0+cu130** (CUDA 13.0) | **4,792** | 233 | 4.9% | **-40.2%** |\n\nThe isolation experiment (same CUDA 12.8, different PyTorch) confirms PyTorch..."
+  },
+  {
+    "id": "J5-3",
+    "journey": "J5: Performance Optimization",
+    "source_issue": 171672,
+    "source_url": "https://github.com/pytorch/pytorch/issues/171672",
+    "user_question": "Using max-autotune with reduce-overhead is much slower than default mode because of repeated CUDA graph instantiation. What's the right combination of modes?",
+    "difficulty": "advanced",
+    "expected_doc_topics": [
+      "max-autotune",
+      "reduce-overhead",
+      "CUDA graphs",
+      "mode combinations"
+    ],
+    "issue_context": "Suggested labels: module: inductor, module: cudagraph, perf  \n\n### \ud83d\udc1b Describe the bug\n\n**Description:**\n\nWhen compiling my model with `torch.compile`:\n\n- `default` mode gives very good speed (~27 data/s).\n- `max-autotune` and `reduce-overhead` modes are **much slower** (2~2.3 data/s).\n- `max-autotune-no-cudagraphs` mode restores the speed back to normal (~27 data/s).\n\nMy model is mostly composed of Conv layers and does not have any special operations.\n\n---\n\n**Profiler observations:**\n\nUsing `torch.profiler`, I noticed that **in every iteration** the following CUDA Graph-related calls are executed:\n\n```\ncudaStreamEndCapture\ncudaGraphInstantiateWithFlags\ncudaGraphGetNodes\ncudaGraphDestroy\ncudaGraphLaunch\n```\n\nIt looks like the CUDA graph is being **recreated every iteration** instead of reusing a captured graph.\n\nMoreover, after `cudaGraphLaunch`, the execution switches to different streams each iteration,  \ne.g., iteration 10 uses streams 590~599,  iteration 11 uses streams 600-609, etc.\n\n---\n\n**Expected behavior:**\nCUDA graph capture should happen once and be reused across iterations.  \nHaving to reinstantiate and destroy the graph every iteration seems to cause major slowdown.\n\n\n## \ud83d\udcac Additional Notes\n\n- `default` mode and `max-autotune-no-cudagraphs` do **not** suffer this slowdown.\n- `max-autotune` and `reduce-overhead` **rebuild the CUDA Graph every iteration**.\n\n\nSincerely appreciate for your attention\n\n### Error logs\n\n_No response_\n\n### Versions\n\nPyTorch version: 2.5.1+c..."
+  },
+  {
+    "id": "J6-1",
+    "journey": "J6: Dynamic Shapes",
+    "source_issue": 172822,
+    "source_url": "https://github.com/pytorch/pytorch/issues/172822",
+    "user_question": "torch.compile(dynamic=True) keeps specializing on the batch dimension during LayerNorm backward, causing recompiles. How do I prevent this?",
+    "difficulty": "advanced",
+    "expected_doc_topics": [
+      "dynamic shapes",
+      "specialization",
+      "mark_dynamic",
+      "recompilation"
+    ],
+    "issue_context": "### \ud83d\udc1b Describe the bug\n\n**Summary:**\n\nWhen using `make_fx` with `tracing_mode='symbolic'` to trace a module containing `nn.LayerNorm` and `torch.autograd.grad(create_graph=True)`, and then compiling the resulting FX graph with `torch.compile(dynamic=True, fullgraph=True)`, the batch dimension (`dim 0`) gets specialized. This causes a new recompilation for every new batch size, triggered by a \"guard size mismatch at index 0\".\n\nThis behavior is specific to the presence of the `native_layer_norm_backward` operator in the graph. A forward-only `LayerNorm` graph compiles with a truly dynamic batch dimension as expected.\n\n**Background:**\nI am working on a machine learning force field project and aim to accelerate my model's training process using torch.compile. Briefly, the machine learning force field model reads distance vectors between atoms and outputs energy and forces, where the latter are derived by computing the gradient of energy with respect to the distance vectors. In other words, the forward() function of my model contains manually invoked autograd operations. Additionally, the loss function of my model consists of two components (energy and forces), which means that higher-order gradients need to be computed during the backward pass of training.\n\nMeanwhile, the \"batch_size\" varies for each batch (since the number of atoms in each molecule is different), which requires that the code generated by compilation does not statically fix the dimensions of the input tensors.\n\nT..."
+  },
+  {
+    "id": "J6-2",
+    "journey": "J6: Dynamic Shapes",
+    "source_issue": 178530,
+    "source_url": "https://github.com/pytorch/pytorch/issues/178530",
+    "user_question": "I'm getting a division by zero error when using torch.compile with dynamic=True on an empty tensor. This worked in the previous PyTorch version.",
+    "difficulty": "intermediate",
+    "expected_doc_topics": [
+      "dynamic shapes",
+      "empty tensors",
+      "regression",
+      "guard specialization"
+    ],
+    "issue_context": "### \ud83d\udc1b Describe the bug\n\nThe following code works with torch 2.9.1.\n\nSummary:\n\n`torch.compile(dynamic=True)` crashes with `ZeroDivisionError: integer division or modulo by zero` when a compiled function is called with a tensor whose y-dimension is 0 (empty tensor) and the compiled kernel uses\n`Grid2DWithYZOverflow` grid type. The crash occurs inside the dynamically-generated launcher function at the line:    `grid_1 = -((y_grid_raw_) // -(y_grid_div_))`\n\n\nCode to reproduce:\n```\nimport torch\n\ndef compute(dates, query_date, initial_dfs, target_dfs, half_life):\n\n    \"\"\"\n    Returns a tensor of shape (t, B) where t = number of dates\n\n    that precede the maturity date.  When the trade is already matured,\n\n    t = 0 and the output is an empty (0, B) tensor.\n\n    \"\"\"\n\n    # t is a data-dependent size -> unbacked symint inside torch.compile\n\n    t = torch.searchsorted(dates, query_date).item()\n\n    torch._check(t >= 0)\n\n    torch._check(t <= dates.shape[0])\n\n \n\n    sim_yfs = torch.arange(t, device=dates.device, dtype=initial_dfs.dtype)\n\n    decay   = torch.exp(\n\n        -torch.log(torch.tensor(2.0, device=dates.device, dtype=initial_dfs.dtype))\n\n        / half_life * sim_yfs\n\n    )\n\n    # outer-product broadcast: (1, B) ** (t, 1)  ->  (t, B)\n\n    return (\n\n        (initial_dfs.unsqueeze(0) ** decay.unsqueeze(1))\n\n        * (target_dfs.unsqueeze(0) ** (1.0 - decay.unsqueeze(1)))\n\n    )\n\n \n\n \n\n# ---------------------------------------------------------------------------\n\n# Setup\n\n# ---..."
+  },
+  {
+    "id": "J6-3",
+    "journey": "J6: Dynamic Shapes",
+    "source_issue": 111198,
+    "source_url": "https://github.com/pytorch/pytorch/issues/111198",
+    "user_question": "torch.sum fails with a dynamo error when dynamic=True. How do I use dynamic shapes correctly with reduction operations?",
+    "difficulty": "intermediate",
+    "expected_doc_topics": [
+      "dynamic shapes",
+      "reduction ops",
+      "symbolic shapes",
+      "dynamo errors"
+    ],
+    "issue_context": "### \ud83d\udc1b Describe the bug\n\nBelow code was working in PT2.0, with PT2.1 upgrade, we see that it fails with received an invalid combination of arguments\r\n\r\n```\r\nimport torch\r\n\r\ndef fn(inputs, dim):\r\n    res = torch.sum(inputs, dim)\r\n    return res\r\n\r\nif __name__ == \"__main__\":\r\n    inputs = torch.randn(128, 5, 24, 24)\r\n    dim = tuple([-1, 1, 0, 2])\r\n    compl_fn = torch.compile(fn, dynamic=True)\r\n    res = compl_fn(inputs, dim)\r\n    print(res)\r\n\r\n```\n\n### Error logs\n\n```\r\ntorch._dynamo.exc.TorchRuntimeError: Failed running call_function <built-in method sum of type object at 0x7f61e0ce2220>(*(FakeTensor(..., size=(s0, s1, s2, s2)), (s3, 1, 0, s4)), **{}):\r\nsum() received an invalid combination of arguments - got (FakeTensor, tuple), but expected one of:\r\n * (Tensor input, *, torch.dtype dtype)\r\n * (Tensor input, tuple of ints dim, bool keepdim, *, torch.dtype dtype, Tensor out)\r\n * (Tensor input, tuple of names dim, bool keepdim, *, torch.dtype dtype, Tensor out)\r\n\r\n\r\nfrom user code:\r\n   File \"debug_abs.py\", line 5, in fn\r\n    res = torch.sum(inputs, dim)\r\n\r\nSet TORCH_LOGS=\"+dynamo\" and TORCHDYNAMO_VERBOSE=1 for more information\r\n\r\n\r\nYou can suppress this exception and fall back to eager by setting:\r\n    import torch._dynamo\r\n    torch._dynamo.config.suppress_errors = True\r\n```\n\n### Minified repro\n\n_No response_\n\n### Versions\n\n[pip3] numpy==1.24.4\r\n[pip3] torch==2.1.0\r\n[pip3] torchaudio==2.0.1\r\n[pip3] torchdata==0.6.1\r\n[pip3] torchmetrics==1.2.0\r\n[pip3] torchtext==0.15.2\r\n[pip3] ..."
+  },
+  {
+    "id": "J7-1",
+    "journey": "J7: Compile-Time Performance",
+    "source_issue": 114206,
+    "source_url": "https://github.com/pytorch/pytorch/issues/114206",
+    "user_question": "I enabled TORCHINDUCTOR_FX_GRAPH_CACHE=1 but compilation is still slow on cold start. What else can I do to reduce compile time?",
+    "difficulty": "intermediate",
+    "expected_doc_topics": [
+      "compile cache",
+      "cold start",
+      "AOTAutograd",
+      "compilation time"
+    ],
+    "issue_context": "### \ud83d\ude80 The feature, motivation and pitch\r\n\r\n`TORCHINDUCTOR_FX_GRAPH_CACHE=1` seems to work wonderfully in reducing inductor overhead.\r\n\r\nHowever, we have yet to account for AOTAutograd and Dynamo tracing overhead.\r\n\r\nIt was found in https://github.com/pytorch/pytorch/issues/113287#issuecomment-1820256862 that Dynamo and AOTAutograd overhead are comparable for inference.\r\n\r\nOn training workloads, as seen in https://github.com/pytorch/pytorch/issues/113287#issuecomment-1821462237, AOTAutograd overhead is about 1.5x more than Dynamo overhead.\r\n\r\nIn particular, Dynamo and AOTAutograd tracing overhead have been found to empirically dominate when `TORCHINDUCTOR_FX_GRAPH_CACHE=1`, and to contribute significantly to compile overhead (~70%) in the default `TORCHINDUCTOR_FX_GRAPH_CACHE=0` setting.\r\n\r\n\r\nThis leads to the following insight: https://github.com/pytorch/pytorch/issues/113287#issuecomment-1820151888\r\n> If we can separate out:\r\n> 1. the backend cacheing with `TORCHINDUCTOR_FX_GRAPH_CACHE`\r\n> 2. the frontend cacheing with `TORCHDYNAMO_TRACING_CACHE`, which takes in some code object and serializable guards, and spits out an FX graph\r\n>     - There is already an idea to carry this out on a smaller scale - cacheing the FX graph for inlined function calls / loop bodies https://github.com/pytorch/pytorch/issues/112303\r\n> 3. if AOTAutograd is identified as a bottleneck, an `AOT_AUTOGRAD_CACHE`, which takes in some fx graph and returns a cached runtime wrapper, around a lazily compile..."
+  },
+  {
+    "id": "J7-2",
+    "journey": "J7: Compile-Time Performance",
+    "source_issue": 121989,
+    "source_url": "https://github.com/pytorch/pytorch/issues/121989",
+    "user_question": "torch.compile takes so long on T5 inference that it times out. How do I reduce compilation time for large models?",
+    "difficulty": "advanced",
+    "expected_doc_topics": [
+      "compilation time",
+      "large models",
+      "inline_inbuilt_nn_modules",
+      "guards"
+    ],
+    "issue_context": "### \ud83d\udc1b Describe the bug\n\nThe pass status for hf_T5_generate inference has been flaky in a few settings for the past month [link](https://hud.pytorch.org/benchmark/torchbench/inductor_with_cudagraphs?startTime=Wed%2C%2014%20Feb%202024%2021%3A15%3A20%20GMT&stopTime=Fri%2C%2015%20Mar%202024%2020%3A15%3A20%20GMT&granularity=day&mode=inference&dtype=bfloat16&lBranch=main&lCommit=38d9bb5abcc31ba97927a5399b88afe2cf60bf64&rBranch=main&rCommit=ca55468416ec96d31564304efe7a63bd92892e0b&model=hf_T5_generate)\r\n\r\nThe root cause is hf_T5_generate takes too long to compile. Here summarizes it's compilation time in different settings (dashboard [link](https://hud.pytorch.org/benchmark/compilers?startTime=Fri%2C%2008%20Mar%202024%2019%3A10%3A58%20GMT&stopTime=Fri%2C%2015%20Mar%202024%2018%3A10%3A58%20GMT&granularity=hour&suite=torchbench&mode=inference&dtype=bfloat16&lBranch=main&lCommit=660ec3d38d9d1c8567471ae7fe5b40ae7c6d7438&rBranch=main&rCommit=96ed37ac13366cc9a7e6645b8955061d0a14f80b) ):\r\n- default: 223s\r\n- cudagraphs: 1669s\r\n- inductor_max_autotune: 1845s\r\n- cudagraphs_freezing: 549s\r\n- inductor_with_cudagraphs_freezing_autotune: 770s\r\n\r\nI've seen timeout in both cudagraphs and inductor_max_autotune settings. Max autotune do increase compilation time but I think the main issue is not max autotune here.\r\n\r\n\n\n### Error logs\n\n..\n\n### Minified repro\n\n..\n\n### Versions\n\n..\n\ncc @ezyang @gchanan @zou3519 @kadeng @msaroufim @anijain2305 @chauhang @voznesenskym @penguinwu @EikanWang @jgong5 @Guobin..."
+  },
+  {
+    "id": "J7-3",
+    "journey": "J7: Compile-Time Performance",
+    "source_issue": 146663,
+    "source_url": "https://github.com/pytorch/pytorch/issues/146663",
+    "user_question": "Compile time grows exponentially when I chain multiple logsumexp operations with gradients enabled. Is this expected?",
+    "difficulty": "advanced",
+    "expected_doc_topics": [
+      "compile time",
+      "gradient tracing",
+      "graph complexity",
+      "AOTAutograd"
+    ],
+    "issue_context": "### \ud83d\udc1b Describe the bug\n\nI am trying to compile a simplified Sinkhorn algorithm. The core function is\n\n```python\n@torch.compile\ndef sinkhorn(Mr, u, v):\n    for _ in range(num_iters):\n        v = torch.logsumexp(Mr + u.unsqueeze(1), 0)\n        u = torch.logsumexp(Mr + v.unsqueeze(0), 1)\n    return u, v\n```\n\nWith a **static** `num_iters`, the time it takes to compile gets exponentially longer with `num_iters`. \n\nMinimal reproducer:\n```python\nimport time\nimport torch\n\n@torch.compile\ndef sinkhorn_2(Mr, u, v):\n    for _ in range(2):\n        v = torch.logsumexp(Mr + u.unsqueeze(1), 0)\n        u = torch.logsumexp(Mr + v.unsqueeze(0), 1)\n    return u, v\n\n@torch.compile\ndef sinkhorn_3(Mr, u, v):\n    for _ in range(3):\n        v = torch.logsumexp(Mr + u.unsqueeze(1), 0)\n        u = torch.logsumexp(Mr + v.unsqueeze(0), 1)\n    return u, v\n\n@torch.compile\ndef sinkhorn_4(Mr, u, v):\n    for _ in range(4):\n        v = torch.logsumexp(Mr + u.unsqueeze(1), 0)\n        u = torch.logsumexp(Mr + v.unsqueeze(0), 1)\n    return u, v\n\n@torch.compile\ndef sinkhorn_5(Mr, u, v):\n    for _ in range(5):\n        v = torch.logsumexp(Mr + u.unsqueeze(1), 0)\n        u = torch.logsumexp(Mr + v.unsqueeze(0), 1)\n    return u, v\n\n@torch.compile\ndef sinkhorn_6(Mr, u, v):\n    for _ in range(6):\n        v = torch.logsumexp(Mr + u.unsqueeze(1), 0)\n        u = torch.logsumexp(Mr + v.unsqueeze(0), 1)\n    return u, v\n\nM = torch.randn(256, 256, device='cuda', requires_grad=True)\nu = torch.zeros(256, device=M.device, dtype=M..."
+  },
+  {
+    "id": "J8-1",
+    "journey": "J8: Custom & Higher-Order Ops",
+    "source_issue": 131313,
+    "source_url": "https://github.com/pytorch/pytorch/issues/131313",
+    "user_question": "How do I create a custom op that works with torch.compile / dynamo / inductor? The docs are unclear.",
+    "difficulty": "intermediate",
+    "expected_doc_topics": [
+      "custom ops",
+      "torch.library",
+      "dynamo custom op",
+      "inductor lowering"
+    ],
+    "issue_context": "### \ud83d\udcda The doc issue\n\nhttps://pytorch.org/tutorials/advanced/cpp_extension.html\n\n### Suggest a potential alternative/fix\n\nA descriptive explanation and a simple example are required.\n\ncc @svekars @brycebortree @ezyang @anijain2305 @chauhang @penguinwu"
+  },
+  {
+    "id": "J8-2",
+    "journey": "J8: Custom & Higher-Order Ops",
+    "source_issue": 134625,
+    "source_url": "https://github.com/pytorch/pytorch/issues/134625",
+    "user_question": "Compiled flex_attention segfaults during the backward pass. How do I debug this?",
+    "difficulty": "advanced",
+    "expected_doc_topics": [
+      "flex_attention",
+      "backward pass",
+      "segfault debugging",
+      "higher-order ops"
+    ],
+    "issue_context": "### \ud83d\udc1b Describe the bug\n\nWhen compiling flex_attention, any backwards operation crashes with the error `BypassFxGraphCache: Can't cache HigherOrderOperators.`.\r\n\r\nWithout compile its fine, but slow. I made a new conda env and installed the latest nightly.\n\n### Error logs\n\n```\r\n---------------------------------------------------------------------------\r\nBypassFxGraphCache                        Traceback (most recent call last)\r\nFile ~/anaconda3/envs/flex/lib/python3.10/site-packages/torch/_inductor/codecache.py:1292, in FxGraphCache.load(compile_fx_fn, gm, example_inputs, fx_kwargs, inputs_to_check, local, remote)\r\n   1291 try:\r\n-> 1292     FxGraphCache._check_can_cache(gm)\r\n   1293     key, debug_lines = compiled_fx_graph_hash(\r\n   1294         gm, example_inputs, fx_kwargs, inputs_to_check\r\n   1295     )\r\n\r\nFile ~/anaconda3/envs/flex/lib/python3.10/site-packages/torch/_inductor/codecache.py:1266, in FxGraphCache._check_can_cache(gm)\r\n   1265 if isinstance(node.target, torch._ops.HigherOrderOperator):\r\n-> 1266     raise BypassFxGraphCache(\"Can't cache HigherOrderOperators.\")\r\n   1267 if node.op == \"getattr\" and isinstance(\r\n   1268     getattr(gm, node.target), torch._C.ScriptObject\r\n   1269 ):\r\n\r\nBypassFxGraphCache: Can't cache HigherOrderOperators.\r\n\r\nDuring handling of the above exception, another exception occurred:\r\n\r\nBrokenProcessPool                         Traceback (most recent call last)\r\nCell In[1], line 20\r\n     18 # Compute loss and backward\r\n     19 loss = outpu..."
+  },
+  {
+    "id": "J8-3",
+    "journey": "J8: Custom & Higher-Order Ops",
+    "source_issue": 127320,
+    "source_url": "https://github.com/pytorch/pytorch/issues/127320",
+    "user_question": "How do I use torch.nn.BatchNorm2d inside a while_loop higher-order op with torch.compile?",
+    "difficulty": "advanced",
+    "expected_doc_topics": [
+      "while_loop",
+      "higher-order ops",
+      "stateful modules",
+      "control flow"
+    ],
+    "issue_context": "### \ud83d\udc1b Describe the bug\r\n\r\nHi, I'm trying to support `while_loop` with `DispatchKey.XLA`;\r\n\r\nwhen I try linear and MNIST with torch, code would be dispatched to `DispatchKey.CompositeExplicitAutograd` to use pure python while, and finish;\r\n\r\nmy local example code for MNIST:\r\n```python\r\nimport torch\r\nfrom torch._higher_order_ops.while_loop import while_loop\r\nimport torch.nn as nn\r\nimport torch.nn.functional as F\r\nimport torch.optim as optim\r\n\r\ndef test_while_loop_tpu_MNIST_inside_loop(self):\r\n\r\n    torch.set_grad_enabled(False)\r\n\r\n    n_epochs = 3\r\n    batch_size_train = 8\r\n    batch_size_test = 10\r\n    learning_rate = 0.01\r\n    momentum = 0.5\r\n    log_interval = 10\r\n    random_seed = 1\r\n    torch.backends.cudnn.enabled = False\r\n    torch.manual_seed(random_seed)\r\n\r\n    class MNIST(torch.nn.Module):\r\n      def __init__(self):\r\n        super().__init__()\r\n        self.conv1 = torch.nn.Conv2d(1, 10, kernel_size=5, stride=1, padding=2)\r\n        self.bn1 = torch.nn.BatchNorm2d(10)\r\n        self.conv2 = torch.nn.Conv2d(10, 20, kernel_size=5)\r\n        self.bn2 = torch.nn.BatchNorm2d(20)\r\n        self.fc1 = torch.nn.Linear(500, 50)\r\n        self.fc2 = torch.nn.Linear(50, 10)\r\n\r\n      def forward(self, iteri, x, y):\r\n        def cond_fn(iteri, x, y):\r\n          return iteri > 0\r\n\r\n        def body_fn(iteri, x, y):\r\n          y = F.relu(F.max_pool2d(self.conv1(x), 2))\r\n          y = self.bn1(y) # torch.while_loop's body_fn might be modifying the input!\r\n          y = F.relu(F.max_pool2d..."
+  },
+  {
+    "id": "J1-4",
+    "journey": "J1: First Compile",
+    "source_issue": 111794,
+    "source_url": "https://github.com/pytorch/pytorch/issues/111794",
+    "user_question": "I'm trying to use torch.compile with DDP and AMP together but I'm getting a NotImplementedError about autocast. Is there a specific order I need to wrap my model?",
+    "difficulty": "intermediate",
+    "expected_doc_topics": [
+      "DDP integration",
+      "AMP compatibility",
+      "torch.compile ordering",
+      "mixed precision"
+    ],
+    "issue_context": "### \ud83d\udc1b Describe the bug\n\nWhen I try to compile the ddp + amp model using torch.compile, I get the following error\uff1a\r\n\r\n```\r\nNotImplementedError: argument of type: <class 'torch.amp.autocast_mode.autocast'>\r\n```\r\n\r\nCan you help me with this error?\r\n\n\n### Error logs\n\n```\r\neager train time 0: 2.062772216796875 loss: 12.34566593170166\r\neager train time 29: 0.12792012786865234 loss: 12.378190040588379\r\n~~~~~~~~~~\r\n\r\n[rank0]:[2023-10-20 15:17:41,173] [1/0] torch._dynamo.variables.torch: [WARNING] Profiler function <class 'torch.autograd.profiler.record_function'> will be ignored\r\nTraceback (most recent call last):\r\n  File \"elastic_ddp.py\", line 347, in <module>\r\n    demo_basic()\r\n  File \"elastic_ddp.py\", line 330, in demo_basic\r\n    loss, compile_time = timed(\r\n  File \"elastic_ddp.py\", line 288, in timed\r\n    result = fn()\r\n  File \"elastic_ddp.py\", line 331, in <lambda>\r\n    lambda: train_opt(ddp_model, inp, opt, grad_scaler))\r\n  File \"/opt/conda/lib/python3.8/site-packages/torch/_dynamo/eval_frame.py\", line 328, in _fn\r\n    return fn(*args, **kwargs)\r\n  File \"elastic_ddp.py\", line 267, in train\r\n    opt.zero_grad(True)\r\n  File \"elastic_ddp.py\", line 269, in <resume in train>\r\n    predict = model(data[0])\r\n  File \"/opt/conda/lib/python3.8/site-packages/torch/nn/modules/module.py\", line 1518, in _wrapped_call_impl\r\n    return self._call_impl(*args, **kwargs)\r\n  File \"/opt/conda/lib/python3.8/site-packages/torch/nn/modules/module.py\", line 1527, in _call_impl\r\n    return forward_call(*..."
+  },
+  {
+    "id": "J1-5",
+    "journey": "J1: First Compile",
+    "source_issue": 92745,
+    "source_url": "https://github.com/pytorch/pytorch/issues/92745",
+    "user_question": "torch.compile fails on both CPU and CUDA with my ResNet50 model. I'm using the nightly Docker image. Is there something wrong with my setup?",
+    "difficulty": "beginner",
+    "expected_doc_topics": [
+      "installation",
+      "torch.compile setup",
+      "backend compatibility",
+      "troubleshooting"
+    ],
+    "issue_context": "### \ud83d\udc1b Describe the bug\n\ni am using the pytorch nightly docker image to test out the very exciting `torch.compile` feature. i am on a shared computational system, so i am using `singularity` instead of `docker`.\r\n\r\ni am attempting to `torch.compile` and run a resnet50 on example inputs. this fails on cpu and on cuda gpu. on cpu, the error is that a suitable C++ compiler cannot be found. indeed `g++` does not appear to be installed in the container. on gpu, the error is that `-lcuda` is not found.\r\n\r\n## How to reproduce\r\n\r\npull the docker image.\r\n\r\n```bash\r\nsingularity pull docker://ghcr.io/pytorch/pytorch-nightly  # as of january 20, 2023\r\n```\r\n\r\n### CPU\r\n\r\nthe error appears to be that a suitable c++ compiler is not found.\r\n\r\n```bash\r\nsingularity run --containall pytorch-nightly_latest.sif python -c \\\r\n  'import torch; import torchvision; x=torch.ones(1,3,224,224); model=torchvision.models.resnet50(); compiled=torch.compile(model); compiled(x)'\r\n```\r\n\r\n```python\r\nNo CUDA runtime is found, using CUDA_HOME='/opt/conda'\r\nTraceback (most recent call last):\r\n  File \"/opt/conda/lib/python3.10/site-packages/torch/_dynamo/output_graph.py\", line 676, in call_user_compiler\r\n    compiled_fn = compiler_fn(gm, self.fake_example_inputs())\r\n  File \"/opt/conda/lib/python3.10/site-packages/torch/_dynamo/debug_utils.py\", line 945, in debug_wrapper\r\n    compiled_gm = compiler_fn(gm, example_inputs, **kwargs)\r\n  File \"/opt/conda/lib/python3.10/site-packages/torch/__init__.py\", line 1153, in __cal..."
+  },
+  {
+    "id": "J1-6",
+    "journey": "J1: First Compile",
+    "source_issue": 91794,
+    "source_url": "https://github.com/pytorch/pytorch/issues/91794",
+    "user_question": "I tried torch.compile() on resnet18 but the model actually runs slower. Am I using it wrong? What should I expect on first call?",
+    "difficulty": "beginner",
+    "expected_doc_topics": [
+      "warmup",
+      "compilation overhead",
+      "first call latency",
+      "when to use compile"
+    ],
+    "issue_context": "\r\nHello, when I use torch.compile() to optimize resnet18 model, I tried to count execution time of the model, but the time seems longer than not using torch.compile(), could you explain the reason?\r\n\r\nthe result on cpu using google colab:\r\n[test1-cpu](https://github.com/Hippopotamus0308/torch2-test/blob/feat-basic-test/torch2_test.ipynb)\r\n[test2-cpu](https://github.com/Hippopotamus0308/torch2-test/blob/feat-basic-test/torch2_test_compile_mode.ipynb)\r\n\r\nsome code on GPU machine:\r\n[test3-gpu](https://github.com/Hippopotamus0308/torch2-test/blob/feat-basic-test/test_speedup_torch_compile.py)\r\n[gpu-test-result](https://github.com/Hippopotamus0308/torch2-test/blob/feat-basic-test/README.md)\n\ncc @ezyang @soumith @msaroufim @wconstab @ngimel @bdhirsh"
+  },
+  {
+    "id": "J1-7",
+    "journey": "J1: First Compile",
+    "source_issue": 108840,
+    "source_url": "https://github.com/pytorch/pytorch/issues/108840",
+    "user_question": "How do I use torch.compile together with Tensor Parallel? It crashes when I try to compile a tensor-parallelized model.",
+    "difficulty": "advanced",
+    "expected_doc_topics": [
+      "tensor parallel",
+      "distributed",
+      "torch.compile + TP",
+      "DTensor"
+    ],
+    "issue_context": "### \ud83d\udc1b Describe the bug\r\n\r\ntorch 2.0.1 column parallel output is not sharded (not sure why the documentation is wrong), which seems to be fixed/matching with documentation in 2.1.0 and 2.2.0 (nightly versions). But in those nightly versions torch.compile fails for the provided toy example: https://github.com/pytorch/examples/blob/cead596caa90600188e1055cd9166ab4e7dfd303/distributed/tensor_parallelism/tensor_parallel_example.py. \r\n\r\nIs there a simple working example with tensor parallel and torch.compile()?\r\n\r\n### Error logs\r\n\r\nRunning basic Megatron style TP example on rank 0.\r\nRunning basic Megatron style TP example on rank 1.\r\nTraceback (most recent call last):\r\n  File \"/home/srikanth.m/pt2_llama/tp_toy.py\", line 90, in <module>\r\n    mp.spawn(demo_tp, args=(args,), nprocs=args.world_size, join=True)\r\n  File \"/home/srikanth.m/anaconda3/envs/dl_env/lib/python3.10/site-packages/torch/multiprocessing/spawn.py\", line 246, in spawn\r\n    return start_processes(fn, args, nprocs, join, daemon, start_method=\"spawn\")\r\n  File \"/home/srikanth.m/anaconda3/envs/dl_env/lib/python3.10/site-packages/torch/multiprocessing/spawn.py\", line 202, in start_processes\r\n    while not context.join():\r\n  File \"/home/srikanth.m/anaconda3/envs/dl_env/lib/python3.10/site-packages/torch/multiprocessing/spawn.py\", line 163, in join\r\n    raise ProcessRaisedException(msg, error_index, failed_process.pid)\r\ntorch.multiprocessing.spawn.ProcessRaisedException: \r\n\r\n-- Process 1 terminated with the following error:\r..."
+  },
+  {
+    "id": "J1-8",
+    "journey": "J1: First Compile",
+    "source_issue": 97280,
+    "source_url": "https://github.com/pytorch/pytorch/issues/97280",
+    "user_question": "torch.compile doesn't seem to respect torch.cuda.set_device(). My compiled function puts tensors on the wrong GPU. Is this a known issue?",
+    "difficulty": "intermediate",
+    "expected_doc_topics": [
+      "multi-GPU",
+      "device placement",
+      "torch.compile limitations",
+      "CUDA device"
+    ],
+    "issue_context": "repro:\r\n```\r\n@torch.compile\r\ndef f():\r\n    a = torch.ones(2, device='cuda')\r\n    torch.cuda.set_device(1)\r\n    return a\r\n\r\nprint(f())\r\n```\r\n\r\nIn eager that returns a tensor on the `cuda:0` device, while the above repro returns a tensor on `cuda:1`.\r\n\r\n@ngimel pointed out that inductor uses the device stored on the node metadata to figure out how to set device guards in the codegen (`node.meta['val'].device)\r\n\r\nWhat's probably happening is `set_device()` is not part of ATen. So when AOTAutograd traces the dynamo graph into an ATen graph, it directly calls `set_device(1)` instead of putting it into the graph. Ideally, we'd want some way of plumbing the info about the `set_device()` call into inductor\n\ncc @ezyang @soumith @msaroufim @wconstab @ngimel"
+  },
+  {
+    "id": "J1-9",
+    "journey": "J1: First Compile",
+    "source_issue": 119054,
+    "source_url": "https://github.com/pytorch/pytorch/issues/119054",
+    "user_question": "I'm getting BackendCompilerFailed with 'device kernel image is invalid' when using torch.compile with inductor. How do I fix this Triton/CUDA error?",
+    "difficulty": "intermediate",
+    "expected_doc_topics": [
+      "inductor backend",
+      "Triton errors",
+      "CUDA compatibility",
+      "backend debugging"
+    ],
+    "issue_context": "### \ud83d\udc1b Describe the bug\r\n\r\nI am unable to use torch compile with pytorch using the inductor backend.\r\n\r\nI am not sure how to interpret this error `BackendCompilerFailed: backend='inductor' raised: RuntimeError: Triton Error [CUDA]: device kernel image is invalid`\r\n\r\nCode to reproduce the bug:\r\n\r\n```python\r\n# file: torch_compile_error.py\r\nimport torch\r\n\r\ndef add_tensors(a, b):\r\n    c = a + b\r\n    return c\r\n\r\na = torch.tensor([1, 2, 3]).to(\"cuda\")\r\nb = torch.tensor([1, 2, 3]).to(\"cuda\")\r\nc = add_tensors(a, b)\r\n\r\nprint(f\"{a=}, {b=}, {c=}\")\r\n\r\n# Compile\r\nadd_tensors_compiled = torch.compile(add_tensors)\r\n\r\nc_compiled = add_tensors_compiled(a, b)\r\nprint(\"{c_compiled=}\")\r\n```\r\n\r\nFull output when running `python torch_compile_error.py`:\r\n\r\n### Error logs\r\n```\r\na=tensor([1, 2, 3], device='cuda:0'), b=tensor([1, 2, 3], device='cuda:0'), c=tensor([2, 4, 6], device='cuda:0')\r\n/home/ray/anaconda3/envs/pytorch-temp/lib/python3.11/site-packages/onnxruntime/capi/onnxruntime_validation.py:114: UserWarning: WARNING: failed to get cudart_version from onnxruntime build info.\r\n  warnings.warn(\"WARNING: failed to get cudart_version from onnxruntime build info.\")\r\nTraceback (most recent call last):\r\n  File \"/mnt/pv/notebooks/smishra/torch_compile_error.py\", line 17, in <module>\r\n    c_compiled = add_tensors_compiled(a, b)\r\n                 ^^^^^^^^^^^^^^^^^^^^^^^^^^\r\n  File \"/home/ray/anaconda3/envs/pytorch-temp/lib/python3.11/site-packages/torch/_dynamo/eval_frame.py\", line 489, in _fn\r\n    return..."
+  },
+  {
+    "id": "J1-10",
+    "journey": "J1: First Compile",
+    "source_issue": 113933,
+    "source_url": "https://github.com/pytorch/pytorch/issues/113933",
+    "user_question": "How can I save and reuse torch.compile results across different Python processes? I don't want to recompile every time I start a new process.",
+    "difficulty": "intermediate",
+    "expected_doc_topics": [
+      "compile cache",
+      "cross-process caching",
+      "persistent cache",
+      "torch._inductor.config"
+    ],
+    "issue_context": "### \ud83d\ude80 The feature, motivation and pitch\n\nI'm trying to compile my custom vision transformer-based model. The compiled version is indeed faster than the traditional one.\r\n\r\nHowever, as scaled_dot_product_attention does not support dynamic shapes, the program compiles the transformer block for every input size. Thus, the TEST program takes ~15-20 minutes to compile the model and then processes hundreds to thousends pictures, which is ~10 times slower than the eager mode.\r\n\r\nI wonder if there's some api to save the intermediate states, so that when I run the same code again, I can reuse the compilation results in /tmp/torchinductor_$user and skip the boring compilation stage? \n\n### Alternatives\n\n_No response_\n\n### Additional context\n\n_No response_\n\ncc @ezyang @gchanan @zou3519 @kadeng @msaroufim @bdhirsh @anijain2305 @chauhang @voznesenskym @penguinwu @EikanWang @jgong5 @Guobing-Chen @XiaobingSuper @zhuhaozhe @blzheng @wenzhe-nrv @jiayisunx @chenyang78 @wconstab @aakhundov"
+  },
+  {
+    "id": "J2-4",
+    "journey": "J2: Performance Diagnosis",
+    "source_issue": 138386,
+    "source_url": "https://github.com/pytorch/pytorch/issues/138386",
+    "user_question": "After upgrading from torch 2.4 to 2.5, my Llama2 inference with torch.compile(reduce-overhead) is noticeably slower. What changed and how do I diagnose the regression?",
+    "difficulty": "intermediate",
+    "expected_doc_topics": [
+      "version regression",
+      "reduce-overhead",
+      "profiling",
+      "performance comparison"
+    ],
+    "issue_context": "### \ud83d\udc1b Describe the bug\r\n\r\nI noticed that the latest stable release 2.5.0 is slower than 2.4.1 when using torch.compile (reduce-overhead), I tried on  different machines with a 4090 RTX and it's pretty much the same behavior: \r\n\r\nLlama2-7B decoding speed (int4 tinygemm + static cache + compile):\r\ntorch 2.4.1: 171-175 tokens/sec\r\ntorch 2.5.0: 153-161 tokens/sec\r\n\r\nOther kernels than tinygemm are slower too with 2.5.0, so the issue might be mainly coming from `torch.compile`.\r\nHere's the script I used:  https://gist.github.com/mobicham/aa1e77689d9cf866cbea2cb75a53a9e4\r\n\r\n\r\n\r\n### Versions\r\n\r\nPyTorch version: 2.4.1+cu121\r\nIs debug build: False\r\nCUDA used to build PyTorch: 12.1\r\nROCM used to build PyTorch: N/A\r\n\r\nOS: Ubuntu 22.04.3 LTS (x86_64)\r\nGCC version: (Ubuntu 11.4.0-1ubuntu1~22.04) 11.4.0\r\nClang version: Could not collect\r\nCMake version: version 3.26.4\r\nLibc version: glibc-2.35\r\n\r\nPython version: 3.10.14 (main, May  6 2024, 19:42:50) [GCC 11.2.0] (64-bit runtime)\r\nPython platform: Linux-6.5.0-41-generic-x86_64-with-glibc2.35\r\nIs CUDA available: True\r\nCUDA runtime version: 12.1.105\r\nCUDA_MODULE_LOADING set to: LAZY\r\nGPU models and configuration: GPU 0: NVIDIA GeForce RTX 4090\r\nNvidia driver version: 550.90.07\r\ncuDNN version: Probably one of the following:\r\n/usr/lib/x86_64-linux-gnu/libcudnn.so.8.9.0\r\n/usr/lib/x86_64-linux-gnu/libcudnn_adv_infer.so.8.9.0\r\n/usr/lib/x86_64-linux-gnu/libcudnn_adv_train.so.8.9.0\r\n/usr/lib/x86_64-linux-gnu/libcudnn_cnn_infer.so.8.9.0\r\n/usr/lib/x86_..."
+  },
+  {
+    "id": "J2-5",
+    "journey": "J2: Performance Diagnosis",
+    "source_issue": 156103,
+    "source_url": "https://github.com/pytorch/pytorch/issues/156103",
+    "user_question": "My fully compiled Qwen3 model with torchtune is 4x slower than eager mode. Why would a full model compile be slower than no compile at all?",
+    "difficulty": "advanced",
+    "expected_doc_topics": [
+      "full model compile",
+      "inductor overhead",
+      "large model compilation",
+      "profiling"
+    ],
+    "issue_context": "### \ud83d\udc1b Describe the bug\n\nAll the instructions are at https://github.com/pytorch/torchtune/pull/2831\n\n### Error logs\n\n_No response_\n\n### Versions\n\nnightly\n\ncc @chauhang @penguinwu @voznesenskym @EikanWang @jgong5 @Guobing-Chen @XiaobingSuper @zhuhaozhe @blzheng @wenzhe-nrv @jiayisunx @ipiszy @chenyang78 @kadeng @muchulee8 @amjames @aakhundov"
+  },
+  {
+    "id": "J2-6",
+    "journey": "J2: Performance Diagnosis",
+    "source_issue": 96047,
+    "source_url": "https://github.com/pytorch/pytorch/issues/96047",
+    "user_question": "torch.compile doesn't give me any speedup and after training I get 'free(): invalid pointer' crash. What's going wrong?",
+    "difficulty": "beginner",
+    "expected_doc_topics": [
+      "no speedup",
+      "memory errors",
+      "compile debugging",
+      "expected speedup"
+    ],
+    "issue_context": "### \ud83d\udc1b Describe the bug\n\nWhen I use torch.compile, I don't see any speedup effect, and an error appears after training: \"free(): invalid pointer\r\nAborted (core dumped)\u201c\n\n### Error logs\n\nThe running result of torch.compile is not used.\r\n![image](https://user-images.githubusercontent.com/27321035/222939561-c2232e3f-aa2c-47b6-a689-acb05cc14102.png)\r\n\r\nRunning results after using torch.compile\r\n![image](https://user-images.githubusercontent.com/27321035/222939569-83d6e495-f728-4c88-908f-5b9737494279.png)\r\n\n\n### Minified repro\n\nThis is the python file I run and I put the code in a text file\r\n[example_mnist.txt](https://github.com/pytorch/pytorch/files/10890684/example_mnist.txt)\r\n[TorchSeq2PC.txt](https://github.com/pytorch/pytorch/files/10890685/TorchSeq2PC.txt)\r\n\n\n### Versions\n\nCollecting environment information...\r\nPyTorch version: 2.0.0.dev20230202+cu116\r\nIs debug build: False\r\nCUDA used to build PyTorch: 11.6\r\nROCM used to build PyTorch: N/A\r\n\r\nOS: Ubuntu 20.04.3 LTS (x86_64)\r\nGCC version: (Ubuntu 9.4.0-1ubuntu1~20.04.1) 9.4.0\r\nClang version: Could not collect\r\nCMake version: version 3.25.0\r\nLibc version: glibc-2.31\r\n\r\nPython version: 3.9.5 (default, Nov 23 2021, 15:27:38)  [GCC 9.3.0] (64-bit runtime)\r\nPython platform: Linux-5.4.0-81-generic-x86_64-with-glibc2.31\r\nIs CUDA available: True\r\nCUDA runtime version: 11.6.124\r\nCUDA_MODULE_LOADING set to: LAZY\r\nGPU models and configuration: \r\nGPU 0: Quadro GV100\r\nGPU 1: Quadro GV100\r\n\r\nNvidia driver version: 510.73.05\r\ncuDNN version:..."
+  },
+  {
+    "id": "J2-7",
+    "journey": "J2: Performance Diagnosis",
+    "source_issue": 93611,
+    "source_url": "https://github.com/pytorch/pytorch/issues/93611",
+    "user_question": "I wrote a simple multi-head attention model and torch.compile with the inductor backend shows zero speedup. Is there something I'm doing wrong?",
+    "difficulty": "beginner",
+    "expected_doc_topics": [
+      "no speedup",
+      "inductor backend",
+      "model complexity",
+      "compilation warmup"
+    ],
+    "issue_context": "### \ud83d\udc1b Describe the bug\n\nWith a simplified example like the following, no performance gain is observed when using dynamo:\r\n\r\n```\r\nimport time\r\nimport torch\r\nimport torch._dynamo as dynamo\r\n\r\n\r\nBATCHES, NUM_OF_HEADS, HEAD_SIZE, MAX_SEQ_LEN = 1, 12, 64, 1024\r\nD_MODEL = NUM_OF_HEADS * HEAD_SIZE\r\n\r\n\r\n@dynamo.optimize(\"inductor\")\r\ndef torch_impl(hidden_states, attn_qkvw, attn_qkvb):\r\n    qkv = torch.matmul(hidden_states, attn_qkvw) + attn_qkvb\r\n    \r\n    assert qkv.is_contiguous()\r\n    return qkv\r\n    \r\n    \r\ndef validate():\r\n    hidden_states = torch.normal(0, 1, size=(BATCHES, MAX_SEQ_LEN, D_MODEL), device='cuda', dtype=torch.float16)\r\n    attn_qkvw = torch.normal(0, 1, size=(D_MODEL, D_MODEL * 3), device='cuda', dtype=torch.float16)\r\n    attn_qkvb = torch.normal(0, 1, size=(D_MODEL * 3,), device='cuda', dtype=torch.float16)\r\n    \r\n    torch_impl(hidden_states, attn_qkvw, attn_qkvb)\r\n    t = time.time()\r\n    \r\n    for _ in range(100000):\r\n        output_torch = torch_impl(hidden_states, attn_qkvw, attn_qkvb)\r\n    \r\n    print(time.time() - t)\r\n    print(output_torch)\r\n    print(output_torch.shape)\r\n    \r\n    \r\ntorch.manual_seed(0)\r\nvalidate()\r\n```\r\n\r\nI have Triton installed on my V100 machine, and validated Triton is working as expected. However, with torch dynamo, it seems to me that Triton isn't used to accelerate that MatMul operation.\r\n\r\nWith dynamo optimization, the running time increased from 7 seconds to 13 seconds.\r\n\r\n\n\n### Error logs\n\nNo errors encountered but performance..."
+  },
+  {
+    "id": "J2-8",
+    "journey": "J2: Performance Diagnosis",
+    "source_issue": 163061,
+    "source_url": "https://github.com/pytorch/pytorch/issues/163061",
+    "user_question": "The GIL isn't released when calling torch.compile kernels, which blocks my multithreaded inference pipeline. Is this expected behavior?",
+    "difficulty": "advanced",
+    "expected_doc_topics": [
+      "GIL",
+      "multithreading",
+      "compiled kernels",
+      "inference pipeline"
+    ],
+    "issue_context": "### \ud83d\udc1b Describe the bug\n\nIn most cases, PyTorch releases GIL when calling CUDA APIs, but I found the GIL is held when calling torch.compile kernels, is this expected? Is it possible to release GIL when calling torch.compile kernels?\n\nTo reproduce, script `torch_compile.py`:\n```python\nimport torch\nimport triton\nimport triton.language as tl\n\ndef torch_add(x: torch.Tensor, y: torch.Tensor):\n    return x + y\n\n@torch.compile\ndef torch_compile_add(x: torch.Tensor, y: torch.Tensor):\n    return x + y\n\n@triton.jit\ndef add_kernel(x_ptr,\n               y_ptr,\n               output_ptr,\n               n_elements,\n               BLOCK_SIZE: tl.constexpr):\n    pid = tl.program_id(axis=0)\n    block_start = pid * BLOCK_SIZE\n    offsets = block_start + tl.arange(0, BLOCK_SIZE)\n    mask = offsets < n_elements\n    x = tl.load(x_ptr + offsets, mask=mask)\n    y = tl.load(y_ptr + offsets, mask=mask)\n    output = x + y\n    tl.store(output_ptr + offsets, output, mask=mask)\n\n\ndef triton_add(x: torch.Tensor, y: torch.Tensor):\n    output = torch.empty_like(x)\n    n_elements = output.numel()\n    grid = lambda meta: (triton.cdiv(n_elements, meta['BLOCK_SIZE']), )\n    add_kernel[grid](x, y, output, n_elements, BLOCK_SIZE=1024)\n    return output\n\n\ndef main():\n    x = torch.randn(4096, 4096, device='cuda')\n    y = torch.randn(4096, 4096, device='cuda')\n    for _ in range(10):\n        torch_add(x, y)\n        torch_compile_add(x, y)\n        triton_add(x, y)\n        \n\nif __name__ == \"__main__\":\n    main()\n```\n\n..."
+  },
+  {
+    "id": "J2-9",
+    "journey": "J2: Performance Diagnosis",
+    "source_issue": 142817,
+    "source_url": "https://github.com/pytorch/pytorch/issues/142817",
+    "user_question": "FlexAttention backward pass is 12x slower than the forward pass at 32K sequence length. Is there a way to profile and fix the backward scaling?",
+    "difficulty": "advanced",
+    "expected_doc_topics": [
+      "flex_attention",
+      "backward pass performance",
+      "scaling",
+      "profiling"
+    ],
+    "issue_context": "### \ud83d\udc1b Describe the bug\r\n\r\nA plot really say it all here:\r\n\r\n![Screenshot 2024-12-10 at 3 23 18\u202fPM](https://github.com/user-attachments/assets/6f1fddaa-2414-478b-970e-f28be555d19b)\r\n\r\nYou can find a script to repro below:\r\n\r\n```python\r\nimport functools\r\nimport torch\r\nimport torch.nn.attention.flex_attention\r\nimport time\r\nimport matplotlib.pyplot as plt\r\nimport numpy as np\r\n\r\ntorch.set_default_device(\"cuda\")\r\ntorch.set_float32_matmul_precision(\"medium\")\r\n\r\n\r\n@torch.compile\r\ndef attn(query, key, value, global_causal_mask):\r\n    n_batch, n_ctx, d_model = query.shape\r\n    n_head = 16\r\n    query = query.reshape(n_batch, n_ctx, n_head, -1).transpose(1, 2)\r\n    key = key.reshape(n_batch, n_ctx, n_head, -1).transpose(1, 2)\r\n    value = value.reshape(n_batch, n_ctx, n_head, -1).transpose(1, 2)\r\n    attn = functools.partial(\r\n        torch.nn.attention.flex_attention.flex_attention,\r\n        block_mask=global_causal_mask,\r\n        return_lse=True,\r\n    )\r\n    x, _ = attn(query, key, value)\r\n    x = x.transpose(1, 2).contiguous().reshape(n_batch, n_ctx, d_model)\r\n    return x\r\n\r\n\r\ndef measure_time(seq_len):\r\n    n_local_band = 128\r\n    query = torch.randn(1, seq_len, 512, requires_grad=True)\r\n    key = torch.randn(1, seq_len, 512, requires_grad=True)\r\n    value = torch.randn(1, seq_len, 512, requires_grad=True)\r\n\r\n    def global_causal(b, h, q_idx, kv_idx):\r\n        return (q_idx >= kv_idx) & (q_idx - kv_idx > n_local_band)\r\n\r\n    global_causal_mask = torch.nn.attention.flex_attention.cr..."
+  },
+  {
+    "id": "J2-10",
+    "journey": "J2: Performance Diagnosis",
+    "source_issue": 134913,
+    "source_url": "https://github.com/pytorch/pytorch/issues/134913",
+    "user_question": "I've been trying hard but torch.compile consistently makes my decoder model slower, not faster. What should I check to understand why compile isn't helping?",
+    "difficulty": "intermediate",
+    "expected_doc_topics": [
+      "compile slowdown",
+      "profiling",
+      "model architecture",
+      "when compile helps"
+    ],
+    "issue_context": "### \ud83d\udc1b Describe the bug\r\n\r\nNOTE: we are only interested in compiling the decoder, the encoder is also shown in the time traces but should be ignored.\r\n\r\nI've been trying for a long time to get `torch.compile` to work as advertised, but I've been struggling to get anything close to what others claim. In fact, `torch.compile` makes my model slower.\r\n\r\nYou can see the model source code and find instructions on how to reproduce my environment at https://github.com/alita-moore/img-to-text and you can see the torch trace logs [here](https://gist.github.com/alita-moore/b55bac79c5b1fdacbdf01e6b21f5a4f5).\r\n\r\nSee a snippet of the timing graph here (of the decoder):\r\n<img width=\"974\" alt=\"Screenshot 2024-08-31 at 10 51 24\u202fPM\" src=\"https://github.com/user-attachments/assets/e2ab688a-c00e-4f29-aa80-5b2cf88591ea\">\r\nYou'll have to generate the timing graph yourself because the file is too large to upload.\r\n\r\nThen here are the relevant log outputs detailing the timing between the compile and uncompiled runs:\r\n\r\n## Decoder timing\r\n\r\nThe following are the rough timings from the forward pass of the decoder:\r\n\r\n### Uncompiled timing (~7ms / forward pass)\r\n```\r\nDEBUG:root:---- Prepared inputs for generation: 0.00019s\r\nDEBUG:root:---- Generated token: 0.00694s\r\nDEBUG:root:---- Selected token: 0.00067s\r\nDEBUG:root:---- Prepared inputs for generation: 0.00019s (2.11% of Next token)\r\nDEBUG:root:---- Generated token: 0.00694s (78.24% of Next token)\r\nDEBUG:root:---- Selected token: 0.00067s (7.55% of Ne..."
+  },
+  {
+    "id": "J3-4",
+    "journey": "J3: Correctness & Debugging",
+    "source_issue": 150859,
+    "source_url": "https://github.com/pytorch/pytorch/issues/150859",
+    "user_question": "My RMS norm layer produces NaNs when I use torch.compile with float8 and rowwise scales. The same code works fine in eager mode. How do I debug this?",
+    "difficulty": "advanced",
+    "expected_doc_topics": [
+      "NaN debugging",
+      "float8",
+      "RMS norm",
+      "precision",
+      "compile correctness"
+    ],
+    "issue_context": "### \ud83d\udc1b Describe the bug\n\nThis PR (https://github.com/pytorch/pytorch/pull/147203) causes NaNs in torchtitan training when RMS norm is used with torch.compile and float8 training with rowwise scalese.\n\n- Sometime between 2.6.0 and present, a change in pytorch core was introduced that caused loss to not go down and then eventually become NaN after 40 or so steps. \n- I binary searched the commits in this time range and confirmed this commit is what caused the regression ([link](https://github.com/pytorch/torchtitan/issues/1056#issuecomment-2785050324))\n- I also confirmed the issue reproduces using `rmsnorm` with the latest nightly build,  and does not reproduce using `layernorm` ([link](https://github.com/pytorch/torchtitan/issues/1056#issuecomment-2787101126))\n\nAs a next step I plan to diff the triton kernels generated by inductor with vs without the change, but in the meantime if PR author @riccardofelluga (or anyone else) has thoughts to share on this please let me know.\n\ncc @ezyang @gchanan @kadeng @msaroufim @chauhang @penguinwu @voznesenskym @EikanWang @jgong5 @Guobing-Chen @XiaobingSuper @zhuhaozhe @blzheng @wenzhe-nrv @jiayisunx @ipiszy @muchulee8 @amjames @aakhundov @coconutruben @jataylo @zou3519 @chenyang78 @yanbing-j @vkuzo @albanD @jerryzh168 @riccardofelluga @lessw2020 @drisspg \n\n### Versions\n\npytorch: nightly build\ntorchao: 0.9.0\ntorchtitan: main branch@ HEAD"
+  },
+  {
+    "id": "J3-5",
+    "journey": "J3: Correctness & Debugging",
+    "source_issue": 159855,
+    "source_url": "https://github.com/pytorch/pytorch/issues/159855",
+    "user_question": "torch.compile gives different results every time I run it, even with the same input and seed. The eager version is deterministic. How do I fix this reproducibility issue?",
+    "difficulty": "intermediate",
+    "expected_doc_topics": [
+      "reproducibility",
+      "deterministic",
+      "compile correctness",
+      "random seed"
+    ],
+    "issue_context": "### \ud83d\udc1b Describe the bug\n\nHey! When working on the Cache in Transformers, I stumbled upon a very worrying reproducibility (and correctness??) issue when using `torch.compile`. Full setup is slightly complicated but consider the following test:\n\n```python\n@parameterized.expand([(\"flash_attention_2\",), (\"sdpa\",), (\"flex_attention\",), (\"eager\",)])\n@require_read_token\ndef test_generation_beyond_sliding_window(self, attn_implementation: str):\n    \"\"\"Test that we can correctly generate beyond the sliding window. This is non trivial as\n    we need to correctly slice the attention mask in all cases (because we use a HybridCache).\n    Outputs for every attention functions should be coherent and identical.\n    \"\"\"\n    model_id = \"google/gemma-2-2b\"\n    EXPECTED_COMPLETIONS = [\n        \" the people, the food, the culture, the history, the music, the art, the architecture\",\n        \", green, yellow, orange, purple, pink, brown, black, white, gray, silver\",\n    ]\n\n    input_text = [\n        \"This is a nice place. \" * 800 + \"I really enjoy the scenery,\",  # This is larger than 4096 tokens\n        \"A list of colors: red, blue\",  # This will almost all be padding tokens\n    ]\n    tokenizer = AutoTokenizer.from_pretrained(model_id, padding=\"left\")\n    inputs = tokenizer(input_text, padding=True, return_tensors=\"pt\").to(torch_device)\n\n    model = AutoModelForCausalLM.from_pretrained(\n        model_id, attn_implementation=attn_implementation, torch_dtype=torch.bfloat16\n    ).to(torch_device)\n\n   ..."
+  },
+  {
+    "id": "J3-6",
+    "journey": "J3: Correctness & Debugging",
+    "source_issue": 136662,
+    "source_url": "https://github.com/pytorch/pytorch/issues/136662",
+    "user_question": "When I compose torch.compile with torch.func.grad, I silently get a wrong result. No error is raised. How do I detect and debug silent correctness issues?",
+    "difficulty": "advanced",
+    "expected_doc_topics": [
+      "silent correctness",
+      "torch.func.grad",
+      "composition bugs",
+      "debugging"
+    ],
+    "issue_context": "### \ud83d\udc1b Describe the bug\n\nThe following code sample shows the case when the composition of ```torch.compile``` and ```torch.func.grad``` of a function silently produces a wrong result. \r\n\r\nThe output of the JIT-compiled version of the function itself is the same as the output of the uncompiled version of the function.\r\n\r\nCuriously, if one comments out the last line before the return statement in the test function ```test_func```, namely ```processed_vars = (processed_vars.unsqueeze(-2) @ dependency_matrix).squeeze(dim=-2)```, the results of the compiled and uncompiled gradients are the same. \r\n\r\n```python\r\nimport torch\r\n\r\nfixed_values = torch.tensor([[    0.0000,     0.0000,     0.0000,     0.0000,     0.0000,     0.0000],\r\n                             [    0.0000,     0.0000,     0.0000,     0.0000,     0.0000,     0.0000],\r\n                             [    0.0000,     0.0000,     0.0000,     0.0000,     0.0000,     0.0000],\r\n                             [-1068.6385,     0.0000,    65.0000,     0.0000, -torch.inf,     0.0000]],\r\n                            dtype=torch.float64)\r\n\r\nfree_vars_mask = torch.tensor([[ True,  True, False,  True,  True,  True],\r\n                               [ True, False,  True,  True,  True,  True],\r\n                               [ True,  True,  True,  True,  True,  True],\r\n                               [False, False, False, False, False,  True]])\r\n\r\ndependency_matrix = torch.tensor([[[1.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000],\r\n          ..."
+  },
+  {
+    "id": "J3-7",
+    "journey": "J3: Correctness & Debugging",
+    "source_issue": 93078,
+    "source_url": "https://github.com/pytorch/pytorch/issues/93078",
+    "user_question": "dstack followed by reciprocal gives wrong results under torch.compile but correct results in eager. Is this a known inductor bug?",
+    "difficulty": "intermediate",
+    "expected_doc_topics": [
+      "wrong results",
+      "operator correctness",
+      "inductor bugs",
+      "minifier"
+    ],
+    "issue_context": "### \ud83d\udc1b Describe the bug\r\n\r\nThe following program prints different results in eager mode and compile mode:\r\n```python\r\nimport torch\r\n\r\ndef fn(input):\r\n    v1 = torch.dstack([input, input, input])   # works fine with [input, input]\r\n                                               # works fine if directly passing tensor to reciprocal\r\n    return torch.reciprocal(v1)\r\n\r\nx = torch.tensor(True)\r\n\r\nret_eager = fn(x)\r\n\r\ncompiled = torch.compile(fn)\r\nret_compiled = compiled(x)\r\n\r\nfor r1, r2 in zip(ret_eager, ret_compiled):\r\n    assert torch.allclose(r1, r2), (r1, r2)\r\nprint('==== Check OK! ====')\r\n\r\n\"\"\"\r\nTraceback (most recent call last):\r\n  File \"repro.py\", line 15, in <module>\r\n    assert torch.allclose(r1, r2), (r1, r2)\r\nAssertionError: (tensor([[1., 1., 1.]]), tensor([[1.0000, 1.0000, 0.0115]]))\r\n\"\"\"\r\n```\r\nAccording to the doc, `tensor([[1, 1, 1]])` should be the correct result. In compile mode, the third value is nondeterministic and always not equal to 1.\r\nIt's worth noting that if we directly pass a tensor with shape `[1, 1, 3]` to `torch.reciprocal`, the result is correct. Also, if we only pass `input` twice in `dstack`, i.e., `v1 = torch.dstack([input, input])`, the program also works fine.\r\n\r\n### Versions\r\n\r\n<details><summary><b>Environment</b> <i>[Click to expand]</i></summary>\r\n\r\n```\r\nPyTorch version: 2.0.0.dev20230121+cu117\r\nIs debug build: False\r\nCUDA used to build PyTorch: 11.7\r\nROCM used to build PyTorch: N/A\r\n\r\nOS: Ubuntu 22.04.1 LTS (x86_64)\r\nGCC version: (Ubuntu 11.3...."
+  },
+  {
+    "id": "J3-8",
+    "journey": "J3: Correctness & Debugging",
+    "source_issue": 159469,
+    "source_url": "https://github.com/pytorch/pytorch/issues/159469",
+    "user_question": "torch.compile produces NaN gradients in the backward pass when using GQA with SDPA. Eager mode works fine. The bug seems related to tensor shape/stride.",
+    "difficulty": "advanced",
+    "expected_doc_topics": [
+      "NaN gradients",
+      "GQA",
+      "SDPA",
+      "stride correctness",
+      "backward pass"
+    ],
+    "issue_context": "### \ud83d\udc1b Describe the bug\n\nTorch compiler can create tensors with a wrong shape / stride when using GQA SDPA.\nI get nans in the gradients in the backward pass for all parameters and the inputs\n\nThis bug was very difficult to pin down to a minimal code example that reproduces it - turns out that a lot of conditions have to be met to trigger this rare error:\n- odd sequence lengths (S % 2 == 1)\n- GQA (I used 32 heads for Q, 8 for K and V)\n- math backend (will automatically be used when GQA is enabled and attn_mask is used\n- ~~this import before the compilation happens `from __future__ import annotations`~~ - looks like this is not necessary? maybe it just triggered a recompile. But now I get nans even without this.\n\n\nMaybe some of them are not needed or just misleading, but it already took me multiple days to reduce our code to this minimal reproducable example. I hope you can reproduce the error with it :)\n\n## example:\n```python\nfrom __future__ import annotations\nimport torch\n\n\nclass MaskedMHA(torch.nn.Module):\n    def __init__(self, H_q, H_kv, D):\n        super().__init__()\n        self.H_kv = H_kv\n        num_heads_total = H_q + 2 * H_kv\n        self.qkv_proj_vid = torch.nn.Linear(H_q*D, num_heads_total*D)\n        self.qkv_proj_txt = torch.nn.Linear(H_q*D, num_heads_total*D)\n        self.out_proj = torch.nn.Linear(H_q*D, H_q*D)\n        self.H_q = H_q\n        self.D = D\n\n        \n    def forward(self, x_vid, x_txt, attn_mask):\n        qkv_vid = self.qkv_proj_vid(x_vid)\n        qk..."
+  },
+  {
+    "id": "J3-9",
+    "journey": "J3: Correctness & Debugging",
+    "source_issue": 173921,
+    "source_url": "https://github.com/pytorch/pytorch/issues/173921",
+    "user_question": "I'm seeing a 4.7% relative error in Conv2d output on CPU when using torch.compile vs eager mode. Is this level of numerical divergence expected?",
+    "difficulty": "intermediate",
+    "expected_doc_topics": [
+      "numerical divergence",
+      "CPU correctness",
+      "Conv2d",
+      "tolerance thresholds"
+    ],
+    "issue_context": "### \ud83d\udc1b Describe the bug\n\nDescription\nWhen using `torch.compile` on CPU, a single `nn.Conv2d` layer produces significant numerical divergence compared to the CUDA Eager implementation. In a specific case with large input values (around 1e13), the relative error reaches **4.7%**, which far exceeds the expected precision for float32.\n\nRepro Data\nI have isolated the issue to a single layer with specific weights and inputs.\n- **Max Absolute Error**: 1.0486e+06\n- **Max Relative Error**: 4.7062e-02 (Threshold: 1e-4)\n- **Layer**: nn.Conv2d(3, 32, kernel_size=3, stride=2, padding=1, bias=False)\n\n```python\nimport torch\nimport torch.nn as nn\nimport os\n\ndef run():\n    x, sd = torch.load(\"input.pt\"), torch.load(\"sd.pt\")\n    layer = nn.Conv2d(3, 32, 3, stride=2, padding=1, bias=False)\n    layer.load_state_dict(sd)\n    layer.eval()\n\n    # Mode A: CUDA Eager\n    with torch.no_grad():\n        out_a = layer.cuda()(x.cuda())\n\n    # Mode B: CPU Compile\n    os.environ[\"INDUCTOR_DYNAMIC\"] = \"1\"\n    with torch.no_grad():\n        out_b = torch.compile(layer.cpu())(x.cpu())\n\n    # Comparison\n    a, b = out_a.cpu().float(), out_b.cpu().float()\n    diff = (a - b).abs()\n    max_abs = diff.max().item()\n    max_rel = (diff / a.abs().clamp(min=1e-12)).max().item()\n\n    print(f\"Max Absolute Error: {max_abs:.4e}\")\n    print(f\"Max Relative Error: {max_rel:.4e}\")\n    if max_rel > 1e-4:\n        print(\"Conclusion: Relative Error Exceeds 1e-4\")\n    else:\n        print(\"Conclusion: Relative Error Within 1e-4\")\n    ..."
+  },
+  {
+    "id": "J3-10",
+    "journey": "J3: Correctness & Debugging",
+    "source_issue": 145213,
+    "source_url": "https://github.com/pytorch/pytorch/issues/145213",
+    "user_question": "torch.compile introduces significant precision errors in my model's output compared to eager. How do I figure out which operation is causing the precision loss?",
+    "difficulty": "intermediate",
+    "expected_doc_topics": [
+      "precision errors",
+      "accuracy debugging",
+      "operator isolation",
+      "minifier"
+    ],
+    "issue_context": "### \ud83d\udc1b Describe the bug\n\nWhen wrapping torch.compile around a forward region of a model (both `reduce-overhead` and `max-autotune-no-cudagraphs`), the speed-up is accompanied by significant precision error. This happens even when wrapping around the smallest op as shown below. After enabling `CUDA_LAUNCH_BLOCKING=1`, the precision error is gone.\nIt would be troublesome to provide a minimun reproducier as this is an ongoing project involving large model block dependencies, but can also try if needed. \n![Image](https://github.com/user-attachments/assets/f77d240e-b734-4770-80a5-1201cbbb8a8a)\n\n![Image](https://github.com/user-attachments/assets/efcd0557-300d-4d29-b662-cf8c3f506e23)\n### Profile trace of pure cuda graph showing perf. benefits but also incurring error\nEven though `reduce-overhead` is used, Triton kernel fusion(the purple region) still cuts in, which might be causing the error. \n![Image](https://github.com/user-attachments/assets/c030d48e-d69b-4e62-8fa1-960c248bf72c)\n\n### Versions\n\nCollecting environment information...\nPyTorch version: 2.7.0.dev20250109+cu124\nIs debug build: False\nCUDA used to build PyTorch: 12.4\nROCM used to build PyTorch: N/A\n\nOS: Ubuntu 22.04.4 LTS (x86_64)\nGCC version: (Ubuntu 11.4.0-1ubuntu1~22.04) 11.4.0\nClang version: Could not collect\nCMake version: version 3.30.0\nLibc version: glibc-2.35\n\nPython version: 3.10.12 (main, Nov 20 2023, 15:14:05) [GCC 11.4.0] (64-bit runtime)\nPython platform: Linux-6.8.0-1017-aws-x86_64-with-glibc2.35\nIs CUDA avai..."
+  },
+  {
+    "id": "J4-4",
+    "journey": "J4: Graph Breaks",
+    "source_issue": 133571,
+    "source_url": "https://github.com/pytorch/pytorch/issues/133571",
+    "user_question": "After upgrading to PyTorch 2.4, my torch.compile code that worked before now throws errors. How do I migrate my code and fix the new graph breaks?",
+    "difficulty": "intermediate",
+    "expected_doc_topics": [
+      "migration",
+      "version upgrade",
+      "graph breaks",
+      "breaking changes"
+    ],
+    "issue_context": "### \ud83d\udc1b Describe the bug\r\n\r\nHello. After upgrading from torch 2.3.0 to torch 2.4.0 torch.compile produces much less graph breaks without \"optimized\" code, it supports zip(), accessing modules of nn.Sequential and other stuff.\r\nHowever, it also produces lots of errors, and debugging them is awful. Futhermore, I am not able to reproduce those errors on \"toy\" models, and, unfortunately, I can't provide code for repro (but arch of the model is UNet with convs, self and cross attentions).\r\nThere are two issues:\r\n1) Compiled model starts training when debugging without FSDP wrapping (but with fp16 amp), but after wrapping it produces NaN loss in 100 % cases. I instantiate model, then wrap it with FSDP, and then do model = model.compile(). Both fp16 and bf16 produces NaNs (which is really weird).\r\n2) Using different lengths in CrossAttention with torch.compile throws any of \"Triton Error [CUDA]: unspecified launch failure\", \"CUDA error: an illegal memory access was encountered\" and \"CUDA error: unspecified launch failure\". Furthermore, sometimes even with sequence padding it also produces such issue.\r\n\r\n### Error logs\r\n\r\nI will list two issues.\r\n1) Compiled model starts training when debugging without FSDP wrapping (but with fp16 amp), but after wrapping it produces NaN loss in 100 % cases. I instantiate model, then wrap it with FSDP, and then do model = model.compile(). Both fp16 and bf16 produces NaNs (which is really weird). Here is small output of training script with TORCH_LOGS=\"..."
+  },
+  {
+    "id": "J4-5",
+    "journey": "J4: Graph Breaks",
+    "source_issue": 123771,
+    "source_url": "https://github.com/pytorch/pytorch/issues/123771",
+    "user_question": "I used torch.compiler.disable on a function but dynamo still traces into nested functions called from it. How do I properly disable compilation for a section of my code?",
+    "difficulty": "intermediate",
+    "expected_doc_topics": [
+      "torch.compiler.disable",
+      "graph breaks",
+      "skip tracing",
+      "nested functions"
+    ],
+    "issue_context": "### \ud83d\udc1b Describe the bug\n\n```\r\nimport torch\r\ntorch.set_default_device('cuda')\r\n\r\n@torch.compile(fullgraph=True)\r\ndef f(x):\r\n    x = x.cos().cos()\r\n    print(x)\r\n    return x.cos()\r\n\r\ndef g(x):\r\n    return f(x)\r\n\r\ntorch.compiler.disable(g)(torch.randn(5))\r\n```\r\nThis still compiles (and throws the error).\r\n\r\nAlso, the docstring also claims it can be used as a context manager, but this error is thrown when you try to use it that way.\r\n\r\n```\r\nRuntimeError: torch._dynamo.optimize(...) is used with a context manager. Please refer to https://pytorch.org/tutorials/intermediate/torch_compile_tutorial.html to use torch._dynamo.optimize(...) as an annotation/decorator. \r\n```\r\ncc: @anijain2305 \n\n### Versions\n\nN/A\n\ncc @ezyang @chauhang @penguinwu @voznesenskym @EikanWang @jgong5 @Guobing-Chen @XiaobingSuper @zhuhaozhe @blzheng @wenzhe-nrv @jiayisunx @chenyang78 @kadeng @amjames @msaroufim @bdhirsh @anijain2305"
+  },
+  {
+    "id": "J4-6",
+    "journey": "J4: Graph Breaks",
+    "source_issue": 116264,
+    "source_url": "https://github.com/pytorch/pytorch/issues/116264",
+    "user_question": "Dynamo fails when my model uses Python dataclasses. I get graph breaks because it can't track the dataclass fields. What's the workaround?",
+    "difficulty": "intermediate",
+    "expected_doc_topics": [
+      "dataclass",
+      "graph breaks",
+      "Python constructs",
+      "dynamo limitations"
+    ],
+    "issue_context": "### \ud83d\udc1b Describe the bug\n\nShort reproducer:\r\n\r\n```python\r\nimport torch\r\nfrom dataclasses import dataclass\r\n\r\n@dataclass\r\nclass C:\r\n    x: int\r\n\r\n\r\n@torch.compile(backend=\"aot_eager\", fullgraph=True)\r\ndef f():\r\n    l = C(3)\r\n    r = C(4)\r\n    return l == r\r\n\r\nf()\r\n```\r\n\r\nReproducer does not represent any real program, but the error happens with any program that reaches the `__init__` call on `UserDefinedVariable::call_function`:\r\n\r\nhttps://github.com/pytorch/pytorch/blob/f170d6665ca7dea844d20b06bd4dcb82d28f2879/torch/_dynamo/variables/user_defined.py#L227-L229\r\n\r\n`var` is first instantiated with `object.__new__` and the subsequent code fails to invoke the `__init__` method. As a result, `var` does not get populated with any of the dataclass fields.\n\n### Versions\n\nHappens on PyTorch main branch\n\ncc @ezyang @anijain2305 @chauhang @voznesenskym @penguinwu @EikanWang @jgong5 @Guobing-Chen @XiaobingSuper @zhuhaozhe @blzheng @wenzhe-nrv @jiayisunx @chenyang78 @kadeng @msaroufim @wconstab @bdhirsh @zou3519 @aakhundov"
+  },
+  {
+    "id": "J4-7",
+    "journey": "J4: Graph Breaks",
+    "source_issue": 110682,
+    "source_url": "https://github.com/pytorch/pytorch/issues/110682",
+    "user_question": "Dynamo recompiles every time because it's guarding on a global config variable that I change between calls. How do I prevent guards on global state?",
+    "difficulty": "advanced",
+    "expected_doc_topics": [
+      "guards",
+      "global variables",
+      "recompilation",
+      "dynamo config"
+    ],
+    "issue_context": "### \ud83d\udc1b Describe the bug\r\n\r\nCo-proposal with @voznesenskym and @Chillee\r\n\r\n## Problem statement\r\n\r\nToday, it is difficult to force a PT2 compilation with locally modified Dynamo/Inductor configuration, without having that configuration leak to other parts of the program. First, we have no convenient argument to torch.compile to locally change configuration options. This can be simulated by using torch._dynamo.config.patch. But there are still problems.\r\n\r\nProblem 1: configuration is not guarded, so compile products of stale configs will still \"hit\" even if the config has changed.\r\n\r\n```\r\nwith torch._dynamo.config.patch(CONFIG1):\r\n    torch.compile(f)(args)  # compilation is stored on f's code object\r\n\r\nwith torch._dynamo.config.patch(CONFIG2):\r\n    torch.compile(f)(args)  # will not recompile, CONFIG1's compile product is used\r\n```\r\n\r\nProblem 2: due to graph breaks, compile products may be unpredictably associated with arbitrary downstream function code objects, not just the function that was torch.compile'd\r\n\r\n```\r\ndef g1(args): ...\r\ndef g2(args): ...\r\ndef f(args):\r\n    g1(args)\r\n    print(\"graph break\")\r\n    g2(args)\r\n\r\nwith torch._dynamo.config.patch(CONFIG1):\r\n    torch.compile(f)(args)  # graph break means we store compile products on g1, g2\r\n\r\nwith torch._dynamo.config.patch(CONFIG2):\r\n    torch.compile(g2)(args)  # will not recompile, CONFIG1 compile of g2 is used\r\n```\r\n\r\n## Constraints\r\n\r\nIn evaluating various proposals to solve the problem, we set the following goals:\r..."
+  },
+  {
+    "id": "J4-8",
+    "journey": "J4: Graph Breaks",
+    "source_issue": 161889,
+    "source_url": "https://github.com/pytorch/pytorch/issues/161889",
+    "user_question": "torch.compile doesn't work properly with selective activation checkpointing (SAC). How do I combine compile with gradient checkpointing?",
+    "difficulty": "advanced",
+    "expected_doc_topics": [
+      "activation checkpointing",
+      "SAC",
+      "graph breaks",
+      "memory optimization"
+    ],
+    "issue_context": "### \ud83d\udc1b Describe the bug\n\ntorch compile not work when use selective activation checkpoint. Profile results indicate that selective activation checkpoint causes torch compile to not take effect and will not generate triton kernels. The bug is related to https://github.com/pytorch/pytorch/issues/144787#issuecomment-3222407495.\n\n```python\nimport functools\n\nimport torch\nfrom torch.utils.checkpoint import checkpoint, CheckpointPolicy, create_selective_checkpoint_contexts\n\n\nops_to_save = [\n   torch.ops.aten.mm.default,\n]\n\ndef policy_fn(ctx, op, *args, **kwargs):\n    if op in ops_to_save:\n       return CheckpointPolicy.MUST_SAVE\n    else:\n       return CheckpointPolicy.PREFER_RECOMPUTE\n\ncontext_fn = functools.partial(create_selective_checkpoint_contexts, policy_fn)\n\ndef checkpoint_fn_with_context(fn, *args, **kwargs):\n    return checkpoint(fn, *args, **kwargs, use_reentrant=False, context_fn=context_fn)\n\ndef checkpoint_fn_without_context(fn, *args, **kwargs):\n    return checkpoint(fn, *args, **kwargs, use_reentrant=False)\n\ndef f(x, y):\n    x = 3 * x + 1\n    y = 2 * y + 1\n    return x @ y\n\nx = torch.ones(10, 12, device=\"cuda\", requires_grad=True)\ny = torch.ones(12, 10, device=\"cuda\", requires_grad=True)\n\nf_compiled = torch.compile(f, fullgraph=True, dynamic=True)\n\ntorch.cuda.cudart().cudaProfilerStart()\nfor i in range(50):\n    torch.cuda.nvtx.range_push(f\"f_compiled_without_context {i}\")\n    checkpoint_fn_without_context(f_compiled, x, y)\n    torch.cuda.nvtx.range_pop()\n\nfor i in range..."
+  },
+  {
+    "id": "J4-9",
+    "journey": "J4: Graph Breaks",
+    "source_issue": 164349,
+    "source_url": "https://github.com/pytorch/pytorch/issues/164349",
+    "user_question": "I'm getting a graph break when calling create_block_mask for flex_attention inside a compiled function. How do I avoid this?",
+    "difficulty": "intermediate",
+    "expected_doc_topics": [
+      "flex_attention",
+      "create_block_mask",
+      "graph breaks",
+      "higher-order ops"
+    ],
+    "issue_context": "The root cause was that inspect.signature was not traceable\r\n\r\nThe issue with tracing id() (mentioned in https://github.com/pytorch/pytorch/issues/164247) was also a problem, but not the main one. I specialized `call_id` in BuiltinVariable to handle it for NestedUserFunctionVariable, but when I tried to patch other places in the similar way, it turned out to be an endless pit of more and more places in the code that need to be patched, related to NestedUserFunctionVariable and inspect.signature\r\n\r\nUltimately, with some back and forth, it led me to building a signature by hand (_signature_from_code). It's computed in NestedUserFunctionVariable.var_getattr. In SourcelessBuilder inspect Signature and Parameter are now tracked with UserDefinedObjectVariable. types.MappingProxyType is tracked too, because I kept getting \"Unexpected type in sourceless builder\" without it\r\n\r\nI think this is by far the most Dynamo heavy PR I worked on and I had to experiment a lot to land the fix. I tried to limit the scope of the changes and keep to conventions in code, but probably things could be improved by someone who knows Dynamo better and I'd be very grateful for a guidance\r\n\r\nFixes #164247\r\n\r\n\r\ncc @voznesenskym @penguinwu @EikanWang @jgong5 @Guobing-Chen @XiaobingSuper @zhuhaozhe @blzheng @wenzhe-nrv @jiayisunx @chenyang78 @kadeng @chauhang @amjames @Lucaskabela @mlazos @Chillee @drisspg @yanboliang @BoyuanFeng"
+  },
+  {
+    "id": "J4-10",
+    "journey": "J4: Graph Breaks",
+    "source_issue": 107076,
+    "source_url": "https://github.com/pytorch/pytorch/issues/107076",
+    "user_question": "Dynamo can't trace through AdamW when I use a learning rate scheduler. It fails with graph breaks. How do I compile my optimizer step with an LR scheduler?",
+    "difficulty": "advanced",
+    "expected_doc_topics": [
+      "optimizer compilation",
+      "LR scheduler",
+      "graph breaks",
+      "dynamo tracing"
+    ],
+    "issue_context": "### \ud83d\udc1b Describe the bug\r\n\r\n## What is Broken\r\n- the lr in AdamW Optimizer is a float so causes a recompile everytime LRScheduler changes the lr\r\n\r\n## Suggested fix\r\n- fix the graph break in `_multi_tensor AdamW Optimizer` and/or normal `AdamW Optimizer`\r\n- change that LRScheduler base class outputs Scalar Tensor and AdamW Optimizer accepts Scalar Tensor for lr\r\n   - this is similar to what @janeyx99 is doing in Fused AdamW Optimizer https://github.com/pytorch/pytorch/pull/106916\r\n\r\n## Why this should be fixed\r\n- a lot of the community uses AdamW Optimizer in combination with LR Scheduler and wants to torch compile it.\r\n\r\n## Reprod Script\r\n```python\r\nimport torch\r\nimport torch.nn as nn\r\nimport torch.optim as optim\r\nimport torch._dynamo.utils\r\nimport torch._dynamo\r\nimport logging\r\ntorch._dynamo.config.log_level = logging.INFO\r\n\r\nclass SimpleModel(nn.Module):\r\n    def __init__(self, input_size, hidden_size,  num_classes):\r\n        super(SimpleModel, self).__init__()\r\n        self.fc1 = nn.Linear(input_size, hidden_size)\r\n        self.fc2 = nn.Linear(hidden_size, num_classes)\r\n\r\n\r\n    def forward(self, x):\r\n        x = torch.relu(self.fc1(x))\r\n        x = self.fc2(x)\r\n        return x\r\n    \r\n\r\ninput_size = 784\r\nhidden_size = 500\r\nnum_classes = 10\r\n\r\nmodel = SimpleModel(input_size, hidden_size, num_classes)\r\n\r\n\r\ncriterion = nn.CrossEntropyLoss()\r\noptimizer = torch.optim._multi_tensor.AdamW(model.parameters(), lr=0.001)\r\nscheduler = optim.lr_scheduler.StepLR(optimizer,step_size=1, g..."
+  },
+  {
+    "id": "J5-4",
+    "journey": "J5: Performance Optimization",
+    "source_issue": 124369,
+    "source_url": "https://github.com/pytorch/pytorch/issues/124369",
+    "user_question": "FlexAttention (templated attention) performance is really bad when I combine a causal mask with an upper square mask. Each mask alone is fast. Why does the combination kill performance?",
+    "difficulty": "advanced",
+    "expected_doc_topics": [
+      "flex_attention",
+      "mask composition",
+      "performance tuning",
+      "attention optimization"
+    ],
+    "issue_context": "### \ud83d\ude80 The feature, motivation and pitch\r\n\r\n```\r\nimport torch\r\nfrom torch import nn\r\nimport torch.nn.functional as F\r\nimport torch._inductor.config as config\r\n# torch.set_default_device('cuda')\r\n\r\nimport torch\r\nfrom torch.nn.attention._templated_attention import _templated_attention as templated_attention\r\nfrom triton.testing import do_bench\r\n\r\ntorch.manual_seed(0)\r\n\r\nB= 16\r\nH = 16\r\nS = 4096\r\nD = 64\r\nquery = torch.randn(B, H, S, D, device=\"cuda\", dtype=torch.float16)\r\nkey = torch.randn(B, H, S, D, device=\"cuda\", dtype=torch.float16)\r\nvalue = torch.randn(B, H, S, D, device=\"cuda\", dtype=torch.float16)\r\n\r\nVIDEO_PATCHES = 1024\r\ndef partial_causal_bidirectional(score, batch, head, token_q, token_kv):\r\n    causal_mask = token_q >= token_kv\r\n    patch_bidirectional = (token_q <= VIDEO_PATCHES) & (token_kv <= VIDEO_PATCHES)\r\n    # causal_mask = True\r\n    # patch_bidirectional=True # If I uncomment either one of them perf gets a lot better\r\n    return torch.where(patch_bidirectional | causal_mask, score, -float(\"inf\"))\r\n\r\n\r\ndef attention(query, key, value):\r\n    return templated_attention(query, key, value, score_mod=partial_causal_bidirectional)\r\n\r\n# Fake mask to test this path\r\nreal_mask = torch.zeros(S, S, device='cuda', dtype=torch.bool)\r\n\r\ncompiled_templated_attention = torch.compile(attention)\r\nout_compiled = compiled_templated_attention(query, key, value)\r\n\r\nprint(\"FA2: \", do_bench(lambda: F.scaled_dot_product_attention(query, key, value)))\r\nprint(\"templated attention: \", do_be..."
+  },
+  {
+    "id": "J5-5",
+    "journey": "J5: Performance Optimization",
+    "source_issue": 122380,
+    "source_url": "https://github.com/pytorch/pytorch/issues/122380",
+    "user_question": "I'm getting a KeyError: 'dim' from UnbindCatRemover when torch.compile tries to optimize my model. Is this an inductor optimization pass bug?",
+    "difficulty": "intermediate",
+    "expected_doc_topics": [
+      "inductor passes",
+      "optimization errors",
+      "split_cat optimization",
+      "debugging"
+    ],
+    "issue_context": "### \ud83d\udc1b Describe the bug\n\nThe following model triggers  `KeyError: 'dim'` in `get_transform_params`, which is under `UnbindCatRemover`. Here is the link: https://github.com/pytorch/pytorch/blob/3e6fdea3900ce33d973893d00619b9bbe6bf8168/torch/_inductor/fx_passes/split_cat.py#L932\r\n\r\n```\r\nimport torch\r\n\r\ntorch.manual_seed(0)\r\n\r\nclass Model(torch.nn.Module):\r\n\r\n    def __init__(self):\r\n        super(Model, self).__init__()\r\n\r\n    def forward(self, x):\r\n        t1 = torch.unbind(x)\r\n        t2 = torch.stack(t1, dim=1)\r\n        t3 = torch.tanh(t2)\r\n        return t3\r\n\r\nfunc = Model().to('cpu')\r\n\r\nx = torch.randn(2, 3, 4)\r\n\r\nwith torch.no_grad():\r\n    func1 = torch.compile(func)\r\n    print(func1(x.clone()).shape)\r\n    \"\"\"\r\n    File \"torch/_inductor/fx_passes/split_cat.py\", line 1085, in merge_unbind_stack\r\n    UnbindCatRemover().remove_unbind(match.graph, unbind_node)\r\n    File \"torch/_inductor/fx_passes/split_cat.py\", line 890, in remove_unbind\r\n        super().simplify(graph, unbind_node, split_sections)\r\n    File \"torch/_inductor/fx_passes/split_cat.py\", line 500, in simplify\r\n        transform_params_list = self.get_transform_params(\r\n    File \"torch/_inductor/fx_passes/split_cat.py\", line 932, in get_transform_params\r\n        split_dim = unbind_node.kwargs[\"dim\"]\r\n    torch._dynamo.exc.BackendCompilerFailed: backend='inductor' raised:\r\n    KeyError: 'dim'\r\n    \"\"\"\r\n```\r\n\r\nRun the model with `TORCHINDUCTOR_FREEZING=1 TORCHINDUCTOR_PERMUTE_FUSION=1 python test.py`\n\n### Versions\n\n``..."
+  },
+  {
+    "id": "J5-6",
+    "journey": "J5: Performance Optimization",
+    "source_issue": 147463,
+    "source_url": "https://github.com/pytorch/pytorch/issues/147463",
+    "user_question": "I noticed a significant performance regression on nanogpt speedrun between two consecutive nightly builds. How do I bisect and report a compile performance regression?",
+    "difficulty": "advanced",
+    "expected_doc_topics": [
+      "performance regression",
+      "bisection",
+      "nightly builds",
+      "regression reporting"
+    ],
+    "issue_context": "### \ud83d\udc1b Describe the bug\n\nOn 3.28 track: torch-2.7.0.dev20250209 is 2 seconds slower than torch-2.7.0.dev20250208 .\nOn 2.92 track:\n02/08: ~1470s\n02/09: ~1483s\n\n### Versions\n\nCollecting environment information...\nPyTorch version: 2.7.0.dev20250209+cu126\nIs debug build: False\nCUDA used to build PyTorch: 12.6\nROCM used to build PyTorch: N/A\n\nOS: Ubuntu 24.04.1 LTS (x86_64)\nGCC version: (Ubuntu 13.3.0-6ubuntu2~24.04) 13.3.0\nClang version: Could not collect\nCMake version: Could not collect\nLibc version: glibc-2.39\n\nPython version: 3.12.9 (main, Feb  5 2025, 19:10:45) [Clang 19.1.6 ] (64-bit runtime)\nPython platform: Linux-5.4.250-2-velinux1u1-amd64-x86_64-with-glibc2.39\nIs CUDA available: True\nCUDA runtime version: 12.8.61\nCUDA_MODULE_LOADING set to: LAZY\nGPU models and configuration: \nGPU 0: NVIDIA H100 80GB HBM3\nGPU 1: NVIDIA H100 80GB HBM3\nGPU 2: NVIDIA H100 80GB HBM3\nGPU 3: NVIDIA H100 80GB HBM3\nGPU 4: NVIDIA H100 80GB HBM3\nGPU 5: NVIDIA H100 80GB HBM3\nGPU 6: NVIDIA H100 80GB HBM3\nGPU 7: NVIDIA H100 80GB HBM3\n\nNvidia driver version: 535.129.03\ncuDNN version: Probably one of the following:\n/usr/lib/x86_64-linux-gnu/libcudnn.so.9.7.0\n/usr/lib/x86_64-linux-gnu/libcudnn_adv.so.9.7.0\n/usr/lib/x86_64-linux-gnu/libcudnn_cnn.so.9.7.0\n/usr/lib/x86_64-linux-gnu/libcudnn_engines_precompiled.so.9.7.0\n/usr/lib/x86_64-linux-gnu/libcudnn_engines_runtime_compiled.so.9.7.0\n/usr/lib/x86_64-linux-gnu/libcudnn_graph.so.9.7.0\n/usr/lib/x86_64-linux-gnu/libcudnn_heuristic.so.9.7.0\n/usr/lib/x86_64-linu..."
+  },
+  {
+    "id": "J5-7",
+    "journey": "J5: Performance Optimization",
+    "source_issue": 133254,
+    "source_url": "https://github.com/pytorch/pytorch/issues/133254",
+    "user_question": "I'm getting 'shared memory out of resource' error when using compiled flex_attention on my RTX 4090. How do I work around GPU shared memory limits with torch.compile?",
+    "difficulty": "intermediate",
+    "expected_doc_topics": [
+      "shared memory",
+      "GPU resources",
+      "flex_attention",
+      "resource limits"
+    ],
+    "issue_context": "### \ud83d\udc1b Describe the bug\r\n\r\nWhen I use flex attention on one RTX 4090, I got some error.\r\nA minimal repro:\r\n```python\r\nimport torch\r\nfrom torch.nn.attention.flex_attention import flex_attention\r\nflex_attention = torch.compile(flex_attention, dynamic=False)\r\n\r\nB = 1\r\nH = 16\r\nS = 2048\r\nD = 128\r\n\r\nquery = torch.randn(B, H, S, D, device=\"cuda\", dtype=torch.bfloat16, requires_grad=True)\r\nkey = torch.randn(B, H, S, D, device=\"cuda\", dtype=torch.bfloat16, requires_grad=True)\r\nvalue = torch.randn(B, H, S, D, device=\"cuda\", dtype=torch.bfloat16, requires_grad=True)\r\ngradOut = torch.randn(B, H, S, D, device=\"cuda\", dtype=torch.bfloat16)\r\n\r\nflex_out = flex_attention(query, key, value)\r\nflex_out.backward(gradOut, retain_graph=True)\r\n```\r\nIt works with D=64 or without compile.\r\n(I see https://github.com/pytorch/pytorch/issues/132075, while this happens during backward)\r\n\r\n### Error logs\r\n\r\n```\r\ntriton.runtime.errors.OutOfResources: out of resource: shared memory, Required: 131074, Hardware limit: 101376. Reducing block sizes or `num_stages` may help.\r\n```\r\n\r\n### Versions\r\n\r\ntorch==2.5.0.dev20240810+cu121\r\n\r\ncc @ezyang @chauhang @penguinwu @voznesenskym @EikanWang @jgong5 @Guobing-Chen @XiaobingSuper @zhuhaozhe @blzheng @wenzhe-nrv @jiayisunx @ipiszy @yf225 @chenyang78 @kadeng @muchulee8 @ColinPeppler @amjames @desertfire @drisspg \n```[tasklist]\n### Tasks\n```\n"
+  },
+  {
+    "id": "J5-8",
+    "journey": "J5: Performance Optimization",
+    "source_issue": 177655,
+    "source_url": "https://github.com/pytorch/pytorch/issues/177655",
+    "user_question": "standalone_compile adds significant runtime overhead compared to regular torch.compile. Is there a way to reduce this overhead for production inference?",
+    "difficulty": "advanced",
+    "expected_doc_topics": [
+      "standalone_compile",
+      "runtime overhead",
+      "production inference",
+      "vLLM"
+    ],
+    "issue_context": "to repro:\n```\nMODEL=\"meta-llama/meta-llama-3-8b\"\nvllm serve $MODEL \\\n  -cc.cudagraph_mode=none \\\n  --profiler-config.profiler=torch \\\n  --profiler-config.torch_profiler_dir=./trace \\\n  --profiler-config.torch_profiler_with_stack=false \\\n  --port 2345\n  \nvllm bench serve \\\n  --dataset-name random \\\n  --ignore-eos \\\n  --input-len 512 \\\n  --output-len 4 \\\n  --profile \\\n  --model $MODEL \\\n  --max-concurrency 8 \\\n  --num-prompts 8 \\\n  --port 2345\n```\n\nWe have turned off cudagraphs to demonstrate the overhead. Empirically we have seen the overhead sometimes in models with cudagraphs on (but we are beyond the max cudagraph size), which has been surprising to me.\n\nZooming into the decode sections, this gives a trace that looks like the following (on my 8xH100 machine):\n\n<img width=\"303\" height=\"388\" alt=\"Image\" src=\"https://github.com/user-attachments/assets/78847b46-afa2-47f9-9dd8-8ee85bc183b3\" />\n\nThe space between the blue bars is entirely cpu-side work. We're looking at 89us.\n\nSetting torch_profiler_with_stack=true gives us some more visibility into what is going on. The region looks a bit larger due to profiler overhead (138us):\n\n<img width=\"772\" height=\"470\" alt=\"Image\" src=\"https://github.com/user-attachments/assets/2c7fb93a-87b5-47e0-b24a-a3e658e3e479\" />\n\nbut getting from the invoking the compiled artifact returned by standalone_compile to the first kernel call in the inductor output code takes a significant part of that time, 83us:\n\n<img width=\"615\" height=\"388\" alt=\"Image\"..."
+  },
+  {
+    "id": "J5-9",
+    "journey": "J5: Performance Optimization",
+    "source_issue": 120667,
+    "source_url": "https://github.com/pytorch/pytorch/issues/120667",
+    "user_question": "My Triton kernel gets 1.35x slower when I add more specialization to it. Shouldn't more specialization make it faster? What's going on?",
+    "difficulty": "advanced",
+    "expected_doc_topics": [
+      "Triton kernels",
+      "specialization",
+      "performance paradox",
+      "kernel optimization"
+    ],
+    "issue_context": "This triton kernel https://gist.github.com/shunting314/9bcd806bdcda7f58ab4bae57ab6f80ad (call it v1) uses ks0 as stride. If we replace ks0 with the only possible value in this test, the new kernel https://gist.github.com/shunting314/063eb3c6bf16c1b947d7608eae87381c (call it v2) get 1.35x slower.\r\n\r\nI can verify that the slower kernel uses vectorized load/store while the faster does not. This is very counter-intuitive since vectorized load/store should help perf in general.\r\n\r\nActually there is an alternative change to make v2 kernel as faster as v1: we can remove in_ptr0 and out_ptr1 from the divisible_by_16 list. This by effect disables vectorized load/store as well. Here is the kernel (v3): https://gist.github.com/shunting314/827b482a0407425565051538633aa095\r\n\r\nOverall the numbers I get seems to suggest that vectorized load/store here is bad for perf.\r\n\r\n@bertmaher  @htyu  let me know if I should cut the issue in the triton repo instead.\r\n\r\nUPDATE TO AVOID CONFUSION: the root cause of the slowness is not vectorization. Vectorization still help in general. The root cause is the slow kernel uses an sub-optimal layout that harm memory coalescing. \r\n\r\ncc @ezyang @msaroufim @bdhirsh @anijain2305 @zou3519 @chauhang @jansel @Chillee @eellison \r\n\r\n"
+  },
+  {
+    "id": "J5-10",
+    "journey": "J5: Performance Optimization",
+    "source_issue": 125437,
+    "source_url": "https://github.com/pytorch/pytorch/issues/125437",
+    "user_question": "I'm getting misaligned address errors when using max-autotune with torch.compile. The autotuner picks a template that causes illegal memory access.",
+    "difficulty": "advanced",
+    "expected_doc_topics": [
+      "max-autotune",
+      "memory alignment",
+      "template selection",
+      "autotuner bugs"
+    ],
+    "issue_context": "### \ud83d\udc1b Describe the bug\n\n```\r\nimport torch\r\n\r\n@torch.compile(mode=\"max-autotune\")\r\ndef foo(x, y):\r\n    return x @ y\r\n\r\n\r\nx = torch.empty_strided((50257, 32768), ((1, 50304)), dtype=torch.bfloat16, device='cuda')\r\ny = torch.empty_strided((32768, 768), (768, 1), dtype=torch.bfloat16, device='cuda')\r\n\r\nfoo(x, y)\r\n```\r\n\r\nGives\r\n\r\n```\r\ntorch._dynamo.exc.InternalTorchDynamoError: CUDA error: misaligned address\r\nCUDA kernel errors might be asynchronously reported at some other API call, so the stacktrace below might be incorrect.\r\nFor debugging consider passing CUDA_LAUNCH_BLOCKING=1\r\nCompile with `TORCH_USE_CUDA_DSA` to enable device-side assertions.\r\n```\r\n\r\nThis repro comes from llm.c with mode='max-autotune' so would be good to fix.\n\n### Versions\n\nmaster\n\ncc @ezyang @gchanan @zou3519 @kadeng @msaroufim @bdhirsh @anijain2305 @chauhang @voznesenskym @penguinwu @EikanWang @jgong5 @Guobing-Chen @XiaobingSuper @zhuhaozhe @blzheng @wenzhe-nrv @jiayisunx @peterbell10 @ipiszy @yf225 @chenyang78 @muchulee8 @ColinPeppler @amjames @desertfire"
+  },
+  {
+    "id": "J6-4",
+    "journey": "J6: Dynamic Shapes",
+    "source_issue": 94640,
+    "source_url": "https://github.com/pytorch/pytorch/issues/94640",
+    "user_question": "torch.compile fails on my GNN model trained with neighbor sampling because the input sizes change every batch. How do I use torch.compile with variable-size graph data?",
+    "difficulty": "intermediate",
+    "expected_doc_topics": [
+      "dynamic shapes",
+      "GNN",
+      "variable batch size",
+      "neighbor sampling"
+    ],
+    "issue_context": "### \ud83d\udc1b Describe the bug\r\n\r\n[test_compile](https://github.com/pyg-team/pytorch_geometric/blob/master/test/nn/test_compile.py) passes for dynamic and static shapes on simple gather scatter ops. Using my [GCN NeighborSampling (dynamic shapes) Benchmark](https://github.com/puririshi98/pyg_nvfuser_work/blob/main/gcn_neighborloader_example.py) I found that eager mode is faster than `torch.compile`. (GCN is a simple/basic GNN)\r\nFull logs:\r\n[23.02_gcn_bench_torch_compile.txt](https://github.com/pytorch/pytorch/files/10712059/nvfuser_23.02_gcn_bench.txt)\r\n\r\nFrom the logs it seems that the issue is from torch dynamo. \r\nNote: \r\n### Versions\r\n\r\n```\r\nroot@666911f0dda7:/opt/pyg/pytorch_geometric# python collect_env.py\r\nCollecting environment information...\r\nPyTorch version: 1.14.0a0+44dac51\r\nIs debug build: False\r\nCUDA used to build PyTorch: 12.0\r\nROCM used to build PyTorch: N/A\r\n\r\nOS: Ubuntu 20.04.5 LTS (x86_64)\r\nGCC version: (Ubuntu 9.4.0-1ubuntu1~20.04.1) 9.4.0\r\nClang version: Could not collect\r\nCMake version: version 3.24.1\r\nLibc version: glibc-2.31\r\n\r\nPython version: 3.8.10 (default, Nov 14 2022, 12:59:47)  [GCC 9.4.0] (64-bit runtime)\r\nPython platform: Linux-5.4.0-89-generic-x86_64-with-glibc2.29\r\nIs CUDA available: True\r\nCUDA runtime version: 12.0.140\r\nCUDA_MODULE_LOADING set to: LAZY\r\nGPU models and configuration: \r\nGPU 0: NVIDIA A100-SXM4-40GB\r\nGPU 1: NVIDIA A100-SXM4-40GB\r\nGPU 2: NVIDIA A100-SXM4-40GB\r\nGPU 3: NVIDIA A100-SXM4-40GB\r\nGPU 4: NVIDIA A100-SXM4-40GB\r\nGPU 5: NVIDIA A100-..."
+  },
+  {
+    "id": "J6-5",
+    "journey": "J6: Dynamic Shapes",
+    "source_issue": 121504,
+    "source_url": "https://github.com/pytorch/pytorch/issues/121504",
+    "user_question": "My custom attention implementation recompiles on every forward pass because the sequence length keeps changing. How do I avoid constant recompilation with variable sequence lengths?",
+    "difficulty": "intermediate",
+    "expected_doc_topics": [
+      "recompilation",
+      "sequence length",
+      "dynamic shapes",
+      "mark_dynamic"
+    ],
+    "issue_context": "### \ud83d\udc1b Describe the bug\n\nI have a compiler cache exhaustion with:\r\n```python\r\n  @torch.compile\r\n    def forward(self, q, k, v):\r\n        n, c, h, w = v.size()\r\n\r\n        if self.use_linear:\r\n            q = self.linear_Q(q)\r\n            k = self.linear_K(k)\r\n            v = self.linear_V(v)\r\n\r\n        hidden_dim = self.hidden_dim\r\n\r\n        if self.qk_mask is not None and (h, w) == self.last_size_2d:\r\n            qk_mask = self.qk_mask\r\n        else:\r\n            memory_mask = torch.ones((1, 1, h, w), device=v.device).float()\r\n            unfolded_k_mask = self.pad_and_unfold(memory_mask).view(\r\n                1, 1, self.window_size * self.window_size, h * w)\r\n            qk_mask = 1 - unfolded_k_mask\r\n            self.qk_mask = qk_mask\r\n\r\n        relative_emb = self.relative_emb_k(q)\r\n\r\n        # Scale\r\n        q = q / self.T\r\n\r\n        q = q.view(-1, self.d_att, h, w)\r\n        k = k.view(-1, self.d_att, h, w)\r\n        v = v.view(-1, self.num_head, hidden_dim, h * w)\r\n\r\n        relative_emb = relative_emb.view(n, self.num_head,\r\n                                        self.window_size * self.window_size,\r\n                                        h * w)\r\n\r\n        if self.enable_corr:\r\n            qk = self.correlation_sampler(q, k).view(\r\n                n, self.num_head, self.window_size * self.window_size, h * w)\r\n        else:\r\n            unfolded_k = self.pad_and_unfold(k).view(\r\n                n * self.num_head, hidden_dim,\r\n                self.window_size * self.wind..."
+  },
+  {
+    "id": "J6-6",
+    "journey": "J6: Dynamic Shapes",
+    "source_issue": 139474,
+    "source_url": "https://github.com/pytorch/pytorch/issues/139474",
+    "user_question": "torch.compile hits 'Recompilation exhausted' with 'size mismatch at index 2'. I'm already using dynamic=True. Why does it still fail on changing input sizes?",
+    "difficulty": "intermediate",
+    "expected_doc_topics": [
+      "recompilation limit",
+      "size mismatch",
+      "dynamic shapes",
+      "guard failures"
+    ],
+    "issue_context": "### \ud83d\udc1b Describe the bug\n\nI am going to exhaust recompilation also with extended `torch._dynamo hit config.cache_size_limit (64)` on this module\r\n\r\nJust enabling the compilation on this module\r\nhttps://github.com/hustvl/ViTMatte/blob/main/modeling/decoder/detail_capture.py#L132-L140\n\n### Error logs\n\n```python\r\n function: 'forward' (/workspace/modeling/decoder/detail_capture.py:131)\r\n[rank6]:W1101 02:43:39.336000 143 site-packages/torch/_dynamo/convert_frame.py:896] [1/64]    last reason: 1/0: tensor 'L['images']' size mismatch at index 2. expected 1696, actual 1248\r\n[rank6]:W1101 02:43:39.336000 143 site-packages/torch/_dynamo/convert_frame.py:896] [1/64] To log all recompilation reasons, use TORCH_LOGS=\"recompiles\".\r\n[rank6]:W1101 02:43:39.336000 143 site-packages/torch/_dynamo/convert_frame.py:896] [1/64] To diagnose recompilation issues, see https://pytorch.org/docs/main/torch.compiler_troubleshooting.html.\r\n[rank3]:W1101 02:43:40.706000 140 site-packages/torch/_dynamo/convert_frame.py:896] [1/64] torch._dynamo hit config.cache_size_limit (64)\r\n[rank3]:W1101 02:43:40.706000 140 site-packages/torch/_dynamo/convert_frame.py:896] [1/64]    function: 'forward' (/workspace/modeling/decoder/detail_capture.py:131)\r\n[rank3]:W1101 02:43:40.706000 140 site-packages/torch/_dynamo/convert_frame.py:896] [1/64]    last reason: 1/0: tensor 'L['images']' size mismatch at index 2. expected 1248, actual 1376\r\n````\n\n### Minified repro\n\n_No response_\n\n### Versions\n\nnightly\n\ncc @H-Huang @awgu @k..."
+  },
+  {
+    "id": "J6-7",
+    "journey": "J6: Dynamic Shapes",
+    "source_issue": 105279,
+    "source_url": "https://github.com/pytorch/pytorch/issues/105279",
+    "user_question": "I set dynamic=True in torch.compile but it still doesn't work with my varying input shapes. I get errors about symbolic shapes. What am I doing wrong?",
+    "difficulty": "beginner",
+    "expected_doc_topics": [
+      "dynamic shapes",
+      "symbolic shapes",
+      "torch.compile dynamic",
+      "basic usage"
+    ],
+    "issue_context": "### \ud83d\udc1b Describe the bug\n\nMy networks rely on varying shapes during training as well as during inference. Thus, I tried to use `torch.compile(... dynamic=True)` as well as the `torch._dynamo.optimize(..., dynamic=True)` feature. However, unfortunately I can't get it to work properly and the function gets recompiled always as soon as the input shape changes. I tried it with the latest nightly build verison `2.1.0.dev20230712` as well as with the current main branch from `Friday Jul 14th 2023`. I printed the guards that trigger the recompilation and the culprit guard is precisely what the dynamic feature targets:\r\n`GuardFail(reason=\"tensor 'L['input']' size mismatch at index 0. expected 146, actual 149\", orig_code=<code object RNNScript at 0x2758840 ...)`\r\n\r\nI also tried to add a `warm-up phase`, where the input length is varied, but whenever the shape of the input changes, the function gets recompiled.\r\n\r\n@ezyang could you maybe please advice here?\n\n### Error logs\n\nGuardFail(reason=\"tensor 'L['input']' size mismatch at index 0. expected 146, actual 149\", orig_code=<code object RNNScript at 0x2758840 ...)\n\n### Minified repro\n\n```\r\nfrom typing import List, Tuple, Optional, overload, Union, cast\r\nimport torch\r\nimport numpy as np\r\nimport time\r\nimport torch.optim as optim\r\nfrom torch.nn.parameter import Parameter\r\n\r\ndef RNNScript(\r\n    input,\r\n    param1,\r\n    param2,\r\n    ):\r\n\r\n    state1 = torch.zeros(32, 340, dtype=input.dtype, device=input.device)\r\n    \r\n    outs = []\r\n\r\n    Wx =..."
+  },
+  {
+    "id": "J6-8",
+    "journey": "J6: Dynamic Shapes",
+    "source_issue": 123592,
+    "source_url": "https://github.com/pytorch/pytorch/issues/123592",
+    "user_question": "I'm getting 'Dynamic slicing on data-dependent value is not supported' from dynamo. How do I handle data-dependent indexing with torch.compile?",
+    "difficulty": "advanced",
+    "expected_doc_topics": [
+      "data-dependent shapes",
+      "dynamic slicing",
+      "unsupported operations",
+      "workarounds"
+    ],
+    "issue_context": "### \ud83d\udc1b Describe the bug\n\nA simplified repro is as follows. \r\n\r\n```python\r\nimport torch\r\n\r\n\r\ndef func(x, img_size):\r\n    x = x[:img_size]\r\n    return x\r\n\r\nx = torch.randn(10, 3, 224, 224)\r\nimg_size = torch.tensor(5)\r\ntorch._dynamo.export(func)(x, img_size)\r\n```\r\n\r\n```\r\n  File \"/pytorch/torch/_dynamo/symbolic_convert.py\", line 1391, in BUILD_SLICE\r\n    self.push(SliceVariable(items))\r\n  File \"/pytorch/torch/_dynamo/variables/lists.py\", line 597, in __init__\r\n    unimplemented(\"Dynamic slicing on data-dependent value is not supported\")\r\n  File \"/pytorch/torch/_dynamo/exc.py\", line 204, in unimplemented\r\n    raise Unsupported(msg)\r\ntorch._dynamo.exc.Unsupported: Dynamic slicing on data-dependent value is not supported\r\n\r\nfrom user code:\r\n   File \"/repro_datadependent_slice.py\", line 13, in func\r\n    x = x[:img_size]\r\n\r\nSet TORCH_LOGS=\"+dynamo\" and TORCHDYNAMO_VERBOSE=1 for more information\r\n```\n\n### Versions\n\ntorch                     2.4.0a0+git4946558\n\ncc @ezyang @gchanan @zou3519 @kadeng @msaroufim @chauhang @penguinwu @bobrenjc93 @bdhirsh @anijain2305 @voznesenskym @EikanWang @jgong5 @Guobing-Chen @XiaobingSuper @zhuhaozhe @blzheng @wenzhe-nrv @jiayisunx @chenyang78 @avikchaudhuri @gmagogsfm @zhxchen17 @tugsbayasgalan @angelayi @suo @ydwu4"
+  },
+  {
+    "id": "J6-9",
+    "journey": "J6: Dynamic Shapes",
+    "source_issue": 128134,
+    "source_url": "https://github.com/pytorch/pytorch/issues/128134",
+    "user_question": "AMP autocast causes recompilation with 'dtype mismatch: expected Half, actual Float'. Why does torch.compile recompile when I use automatic mixed precision?",
+    "difficulty": "intermediate",
+    "expected_doc_topics": [
+      "AMP",
+      "dtype guards",
+      "recompilation",
+      "mixed precision"
+    ],
+    "issue_context": "### \ud83d\udc1b Describe the bug\r\n\r\nWe had many dynamic recompilation related to AMP (float vs half}. It happens when we use `TORCHDYNAMO_INLINE_INBUILT_NN_MODULES=1` /cc @chauhang @penguinwu @ezyang @bobrenjc93 @voznesenskym @EikanWang @jgong5 @Guobing-Chen @XiaobingSuper @zhuhaozhe @blzheng @wenzhe-nrv @jiayisunx @chenyang78 @kadeng @amjames @msaroufim @bdhirsh @anijain2305\r\n\r\n```python\r\n    @torch.compile(dynamic=True)\r\n    def forward(self,\r\n                tgt,\r\n                long_term_memory=None,\r\n                short_term_memory=None,\r\n                curr_id_emb=None,\r\n                self_pos=None,\r\n                size_2d=(30, 30)):\r\n\r\n        # Self-attention\r\n        _tgt = self.norm1(tgt)\r\n        if not self.use_self_pos:\r\n            self_pos = None\r\n        q = k = self.with_pos_embed(_tgt, self_pos)\r\n        v = _tgt\r\n        if self.global_dilation > 1:\r\n            k = k[::self.global_dilation,:,:]\r\n            v = v[::self.global_dilation,:,:]\r\n        tgt2 = self.self_attn(q, k, v)[0]\r\n\r\n        tgt = tgt + self.droppath(tgt2)\r\n\r\n        # Long Short-Term Attention\r\n        _tgt = self.norm2(tgt)\r\n\r\n        curr_QV = self.linear_QV(_tgt)\r\n        curr_QV = torch.split(curr_QV, self.d_model, dim=2)\r\n        curr_Q = curr_K = curr_QV[0]\r\n        curr_V = curr_QV[1]\r\n\r\n        if self.d_att is not None:\r\n            curr_Q = self.linear_Qd(curr_Q)\r\n        local_Q = seq_to_2d(curr_Q, size_2d)\r\n\r\n        if curr_id_emb is not None:\r\n            global_K, global_V =..."
+  },
+  {
+    "id": "J6-10",
+    "journey": "J6: Dynamic Shapes",
+    "source_issue": 91719,
+    "source_url": "https://github.com/pytorch/pytorch/issues/91719",
+    "user_question": "torch.compile crashes on my wav2vec2 speech model because the audio input length varies. How do I make torch.compile work with variable-length audio inputs?",
+    "difficulty": "beginner",
+    "expected_doc_topics": [
+      "dynamic shapes",
+      "audio models",
+      "variable length",
+      "wav2vec2"
+    ],
+    "issue_context": "### \ud83d\udc1b Describe the bug\r\n\r\nI've been experimenting with enabling torch.compile() for the wav2vec2 model in torchaudio, and ran into a few issues with it. My code can be found [here](https://github.com/pytorch/audio/pull/2941). Here's a summary of the issues I found, with reproduction instructions for each:\r\n\r\n### 1) Errors with `inference_mode()`\r\nTo reproduce this, change the `no_grad()` to `inference_mode()` in `examples/asr/librispeech_ctc_decoder/inference.py`, and run it:\r\n```\r\npython examples/asr/librispeech_ctc_decoder/inference.py --librispeech_path /PATH/TO/LIBRISPEECH --batch_size 2 --compile\r\n```\r\nIt produces the error \"RuntimeError: Inference tensors do not track version counter.\", but continues to run. Full stack trace is [here](https://gist.githubusercontent.com/kalakris/5764ba0d412c8e2d250f9c14ada3d4f9/raw/3b7ee3151fab49dc300dcdc631f88c65a6bbed0f/inference_mode.txt).\r\n\r\n### 2) Errors with `dynamic=True`\r\nIdeally, we'd want to run wav2vec2 with dynamic tensor sizes per call. But I wasn't able to do that. To reproduce, uncomment line 47 of `examples/asr/librispeech_ctc_decoder/inference.py`, comment out line 48, and run it:\r\n```\r\npython examples/asr/librispeech_ctc_decoder/inference.py --librispeech_path /PATH/TO/LIBRISPEECH --batch_size 2 --compile\r\n```\r\nStack trace is [here](https://gist.githubusercontent.com/kalakris/5764ba0d412c8e2d250f9c14ada3d4f9/raw/3b7ee3151fab49dc300dcdc631f88c65a6bbed0f/dynamic_equals_true.txt).\r\n\r\n### 3) Errors when passing the `lengths..."
+  },
+  {
+    "id": "J7-4",
+    "journey": "J7: Compile-Time Performance",
+    "source_issue": 108971,
+    "source_url": "https://github.com/pytorch/pytorch/issues/108971",
+    "user_question": "torch.compile takes 17-30 minutes to compile my model even with a warm cache, and it causes NCCL timeouts in distributed training. How do I speed up compilation?",
+    "difficulty": "advanced",
+    "expected_doc_topics": [
+      "slow compilation",
+      "distributed training",
+      "NCCL timeout",
+      "compile time reduction"
+    ],
+    "issue_context": "### \ud83d\udc1b Describe the bug\n\nWe are seeing issues where `torch.compile` takes a very long time (17mins - 30 mins) to compile models despite a warm cache and results in distributed training errors like NCCL timeouts since the jobs don't make progress. A couple of examples of slow compilation are follows: https://gist.github.com/pritamdamania87/a40cbad2ec15961beb16639ddb29af9c and https://gist.github.com/pritamdamania87/c5c9031347cfb57098360ce9f93b479e.\r\n\r\nAlso, this is not the first compile where we see such slow times. `TORCHINDUCTOR_CACHE_DIR` and `TRITON_CACHE_DIR` is set and the cache was populated during the first run of the training job. The second run of job still sees slow compilation times despite also setting `torch._inductor.config.compile_threads = 16`.\r\n\r\nWould be great to know how to debug why the compilation times are so slow and how to speed this up.\n\n### Error logs\n\n_No response_\n\n### Minified repro\n\n_No response_\n\n### Versions\n\nPyTorch 2.0.1\n\ncc @ezyang @gchanan @zou3519 @kadeng @msaroufim @mrshenli @zhaojuanmao @satgera @gqchen @aazzolini @osalpekar @jiayisuse @H-Huang @kwen2501 @awgu @fegin @XilunWu @wanchaol @fduwjj @wz337 @tianyu-l @wconstab @chauhang @d4l3k @anijain2305 @penguinwu @oulgen @jamesjwu @aorenste @laithsakka @rohan-varma @yf225 @bdhirsh @kiukchung @lucasllc"
+  },
+  {
+    "id": "J7-5",
+    "journey": "J7: Compile-Time Performance",
+    "source_issue": 111441,
+    "source_url": "https://github.com/pytorch/pytorch/issues/111441",
+    "user_question": "torch.compile takes 34 seconds to compile a simple for loop. Is there a way to make dynamo handle loops faster?",
+    "difficulty": "intermediate",
+    "expected_doc_topics": [
+      "loop compilation",
+      "dynamo tracing",
+      "compile time",
+      "loop unrolling"
+    ],
+    "issue_context": "### \ud83d\udc1b Describe the bug\r\n\r\nI'm converting some numpy code, basically it's this for loop. It takes 30 seconds to compile.\r\n\r\nIs it too much to ask to make it faster? :)\r\n\r\nWorks great otherwise!\r\n\r\n```\r\n    for step_idx in range(num_steps):\r\n        X = hsqrt * np.random.randn(B, d)\r\n        losses = np.einsum(\"BD,BD->B\", E, X)\r\n        E -= alpha * np.einsum(\"BD,B->BD\", X, losses)\r\n        traj[step_idx] = E\r\n\r\n    return np.sum(traj * traj, axis=2)\r\n```\r\n\r\n### Error logs\r\n\r\n_No response_\r\n\r\n### Minified repro\r\n\r\n```\r\nimport time\r\nimport torch\r\n\r\nimport numpy as np\r\n\r\nclass timeit:\r\n    def __init__(self, tag=\"\"):\r\n        self.tag = tag\r\n\r\n    def __enter__(self):\r\n        if torch.cuda.is_available():\r\n            torch.cuda.synchronize()\r\n        self.start = time.perf_counter()\r\n        return self\r\n\r\n    def __exit__(self, *args):\r\n        if torch.cuda.is_available():\r\n            torch.cuda.synchronize()\r\n        self.end = time.perf_counter()\r\n        interval_ms = 1000 * (self.end - self.start)\r\n        print(f\"{interval_ms:8.2f}   {self.tag}\")\r\n\r\n@torch.compile\r\ndef getNormsSq0(errors):\r\n    return (errors*errors).sum(axis=1)\r\n\r\n\r\n@torch.compile\r\ndef trajH0(h, B, alpha, num_steps):\r\n    \"\"\"(normalize for total(h)=1)\r\n    \r\n    Simulate trajectories of fixed point equation\r\n     e=e-alpha x <e, x>\r\n\r\n    where x is a Gaussian RV with diagonal covariance entries h\r\n\r\n    p: power-law decay constant of covariance eigenvalues\r\n    d: number of dimensions\r\n    B: batch si..."
+  },
+  {
+    "id": "J7-6",
+    "journey": "J7: Compile-Time Performance",
+    "source_issue": 110506,
+    "source_url": "https://github.com/pytorch/pytorch/issues/110506",
+    "user_question": "Compiling my optimizer (Adam with 200+ parameters) takes 70 seconds because dynamo traces through every iteration of the for loop. How do I speed this up?",
+    "difficulty": "advanced",
+    "expected_doc_topics": [
+      "optimizer compilation",
+      "for loop tracing",
+      "compile time",
+      "parameter count"
+    ],
+    "issue_context": "### \ud83d\udc1b Describe the bug\r\n\r\nDynamo tracing time is:\r\n- 70 seconds on 200 param Adam\r\n- 162 seconds on 1000 param SGD\r\n\r\nAs identified in https://github.com/pytorch/pytorch/pull/110353#issuecomment-1746729070, this is due to dynamo needing to trace an expensive for loop.\r\n\r\nIf instead this for loop can be written in a way that can be easily traced (e.g. by tracing a `map` over a single lambda/similar to foreach over the optimizer main loop) then we are likely to speedup compilation times across all optimizers by a significant factor.\r\n\r\nExample here: https://github.com/pytorch/pytorch/blob/31d635803b8d72433ea275d3c36bf829b158d5ec/torch/optim/sgd.py#L39\r\nExample dynamo logs (which trace the same computation ad infinitum):\r\n```\r\n[2023-10-04 08:14:53,891] [0/0] torch._dynamo.symbolic_convert: [DEBUG] TRACE LOAD_FAST grad [ListIteratorVariable()]\r\n[2023-10-04 08:14:53,891] [0/0] torch._dynamo.symbolic_convert: [DEBUG] TRACE LOAD_ATTR is_sparse [ListIteratorVariable(), TensorVariable()]\r\n[2023-10-04 08:14:53,892] [0/0] torch._dynamo.symbolic_convert: [DEBUG] TRACE YIELD_VALUE None [ListIteratorVariable(), ConstantVariable(bool)]\r\n[2023-10-04 08:14:53,892] [0/0] torch._dynamo.symbolic_convert: [DEBUG] TRACE POP_TOP None [ListIteratorVariable(), ConstantVariable(NoneType)]\r\n[2023-10-04 08:14:53,892] [0/0] torch._dynamo.symbolic_convert: [DEBUG] TRACE JUMP_ABSOLUTE 4 [ListIteratorVariable()]\r\n[2023-10-04 08:14:53,892] [0/0] torch._dynamo.symbolic_convert: [DEBUG] TRACE FOR_ITER 18 [List..."
+  },
+  {
+    "id": "J7-7",
+    "journey": "J7: Compile-Time Performance",
+    "source_issue": 133898,
+    "source_url": "https://github.com/pytorch/pytorch/issues/133898",
+    "user_question": "My compiled AdamW optimizer recompiles every step when I use OneCycleLR scheduler. The learning rate change triggers a new compilation. How do I prevent this?",
+    "difficulty": "intermediate",
+    "expected_doc_topics": [
+      "recompilation",
+      "LR scheduler",
+      "optimizer guards",
+      "tensor wrapping"
+    ],
+    "issue_context": "### \ud83d\udc1b Describe the bug\r\n\r\ni'd like to compile my optimizer but am hitting recompilation issues. i wrap my LR in a tensor, but it seems like beta1/beta2 may need similar treatment (based on type annotations, beta is (Tuple[float, float], optional)); however, wrapping the default beta values in tensors similar to the LR breaks.\r\n\r\na repro:\r\n```python\r\nimport torch\r\n\r\ntorch._logging.set_logs(recompiles_verbose=True)\r\n\r\nparam = torch.rand(2, 3, dtype=torch.float, device=\"cuda\", requires_grad=True)\r\nparam.grad = torch.rand_like(param)\r\n\r\nlr = torch.tensor(0.001, device=\"cuda\")\r\ntotal_steps = 10000\r\noptimizer = torch.optim.AdamW([param], lr=lr)\r\nscheduler = torch.optim.lr_scheduler.OneCycleLR(\r\n    optimizer, max_lr=lr, total_steps=total_steps\r\n)\r\n\r\n@torch.compile()\r\ndef step():\r\n    optimizer.step()\r\n    scheduler.step()\r\n\r\n\r\nfor _ in range(total_steps):\r\n    step()\r\n```\r\n\r\nrecompilation\r\n```\r\nV0819 21:07:52.605000 139637715699520 torch/_dynamo/guards.py:1423] [__recompiles_verbose]     guard 0 failures:\r\nV0819 21:07:52.605000 139637715699520 torch/_dynamo/guards.py:1423] [__recompiles_verbose]     - L['self'].param_groups[0]['betas'][0] == 0.9499993141552187 \r\nV0819 21:07:52.605000 139637715699520 torch/_dynamo/guards.py:1423] [__recompiles_verbose] \r\nV0819 21:07:52.605000 139637715699520 torch/_dynamo/guards.py:1423] [__recompiles_verbose]     guard 1 failures:\r\nV0819 21:07:52.605000 139637715699520 torch/_dynamo/guards.py:1423] [__recompiles_verbose]     - L['self'].param_group..."
+  },
+  {
+    "id": "J7-8",
+    "journey": "J7: Compile-Time Performance",
+    "source_issue": 140970,
+    "source_url": "https://github.com/pytorch/pytorch/issues/140970",
+    "user_question": "On CPU, torch._inductor.cpu_vec_isa.pick_vec_isa takes 9 seconds just to detect the vector ISA. Why is this so slow and can I skip it?",
+    "difficulty": "intermediate",
+    "expected_doc_topics": [
+      "CPU compilation",
+      "vector ISA detection",
+      "compile overhead",
+      "inductor config"
+    ],
+    "issue_context": "I noticed that when compiling a small microbenchmark (with inductor warm caching), E2E compile times were ~4s with cuda tensors and ~15s with cpu tensors. It looks like the majority of the extra time for cpu is spent when inductor runs `pick_vec_isa`:\r\n```\r\nimport torch\r\nfrom torch._inductor.cpu_vec_isa import pick_vec_isa\r\nimport time\r\n\r\nstart = time.time()\r\nout = pick_vec_isa()\r\nend = time.time()\r\n# 9.106s on my machine\r\nprint(end - start)\r\n```\n\ncc @jgong5 @mingfeima @XiaobingSuper @sanchitintel @ashokei @jingxu10 @chauhang @penguinwu @voznesenskym @EikanWang @Guobing-Chen @zhuhaozhe @blzheng @wenzhe-nrv @jiayisunx @ipiszy @yf225 @chenyang78 @kadeng @muchulee8 @ColinPeppler @amjames @desertfire @aakhundov @ezyang @gchanan @zou3519 @msaroufim"
+  },
+  {
+    "id": "J7-9",
+    "journey": "J7: Compile-Time Performance",
+    "source_issue": 174704,
+    "source_url": "https://github.com/pytorch/pytorch/issues/174704",
+    "user_question": "After upgrading to PyTorch 2.10, recompilation times with FSDP and dynamic shapes went from 30 minutes to several hours. What changed in 2.10 that made recompilation so much slower?",
+    "difficulty": "advanced",
+    "expected_doc_topics": [
+      "recompilation time",
+      "FSDP",
+      "dynamic shapes",
+      "version regression"
+    ],
+    "issue_context": "Hi. After upgrading to torch 2.10 I witness heavy issues with recompilations time.\nThose recompilations occur due to:\n1) FSDP wrapping of model.\n2) Dynamic shapes (I have 8 shapes in total).\n\nBefore upgrade warmup for all 8 shapes took 30 minutes, but after upgrade it rockets to several hours + inadequate GPU RAM overhead.\n\nCompile regime: just usual model.compile(mode=default)\n\n\ncc @awgu @wanchaol @fegin @fduwjj @wz337 @wconstab @d4l3k @pragupta @msaroufim @dcci @aditvenk @xmfan @zhaojuanmao @mrshenli @rohan-varma @chauhang @mori360 @ppwwyyxx @penguinwu @ezyang @bobrenjc93 @laithsakka @oulgen @jamesjwu @aorenste @anijain2305 @masnesral @coconutruben @bdhirsh"
+  },
+  {
+    "id": "J7-10",
+    "journey": "J7: Compile-Time Performance",
+    "source_issue": 135430,
+    "source_url": "https://github.com/pytorch/pytorch/issues/135430",
+    "user_question": "Compilation is 2x faster when my input size is 1 versus any other size. The forward pass time stays the same. Why does input size affect compile time so much?",
+    "difficulty": "intermediate",
+    "expected_doc_topics": [
+      "compile time variance",
+      "input size",
+      "specialization",
+      "graph complexity"
+    ],
+    "issue_context": "### \ud83d\udc1b Describe the bug\n\nIn the model available at https://github.com/alita-moore/img-to-text, increasing the length of the input IDs beyond 1 causes the process to slow down by approximately 2x compared to when the length is 1. However, for input sizes of 2, 3, and higher, the processing speed remains constant regardless of further increases in input size. If the forward pass is not compiled, the speed remains consistent across all input sizes.\r\n\r\nThis behavior is identified in the following code which you can find in dev.py\r\n\r\n```python\r\nimport torch._dynamo\r\nimport time\r\nfrom torch.nn.attention import SDPBackend\r\n\r\ntorch._dynamo.reset()\r\ncompiled_model = get_model(config, \"cuda\")\r\n\r\ncompiled_model.decoder.model.setup_cache(\r\n    1,\r\n    config.decoder_args.max_seq_len,\r\n    config.encoder_args.max_output_patches,\r\n    device=\"cuda\",\r\n)\r\ncompiled_model.decoder.model = torch.compile(compiled_model.decoder.model, mode=\"max-autotune\", fullgraph=True)  # type: ignore\r\n\r\nencoder_outputs = (\r\n    torch.randn(\r\n        1, config.encoder_args.max_output_patches, config.encoder_args.output_dimensions\r\n    )\r\n    .to(\"cuda\")\r\n    .to(torch.bfloat16)\r\n)\r\nencoder_cache_pos = torch.arange(0, config.encoder_args.max_output_patches).to(\"cuda\")\r\n\r\n\r\ndef run_test(n: int):\r\n    print(f\"===={n}====\")\r\n    for i in range(10):\r\n        with torch.inference_mode():\r\n            with torch.autocast(\"cuda\", dtype=torch.bfloat16):\r\n                with torch.nn.attention.sdpa_kernel([SDPBackend.MATH..."
+  },
+  {
+    "id": "J8-4",
+    "journey": "J8: Custom & Higher-Order Ops",
+    "source_issue": 139628,
+    "source_url": "https://github.com/pytorch/pytorch/issues/139628",
+    "user_question": "My custom op defined with torch.library causes an illegal memory access when used with torch.compile. The same op works in eager. How do I debug this?",
+    "difficulty": "advanced",
+    "expected_doc_topics": [
+      "custom ops",
+      "torch.library",
+      "illegal memory access",
+      "compile debugging"
+    ],
+    "issue_context": "### \ud83d\udc1b Describe the bug\n\nWe encountered an illegal memory access issue with `torch.compile` and customized torch library operator.\r\n\r\nHere's one minimal example to reproduce:\r\n\r\n```python\r\nimport torch\r\n\r\n@torch.library.custom_op(\"bug_report::foo\", mutates_args=(\"a\", \"b\"))\r\ndef foo(a: torch.Tensor, b: torch.Tensor) -> torch.Tensor:\r\n    a.add_(1.)\r\n    b.add_(1.)\r\n    return a + b\r\n\r\n@foo.register_fake\r\ndef _(a, b):\r\n    return a.new_empty(a.shape)\r\n\r\n@torch.compile\r\ndef bar(a, b):\r\n    return foo(a, b)\r\n\r\nif __name__ == \"__main__\":\r\n    buf = torch.ones(2, 128 * 1024 * 1024, device=\"cuda\")\r\n    a = buf[1]\r\n    b = buf[0]\r\n    output = bar(a, b)\r\n    print(buf)\r\n    print(output)\r\n    print(\"finish\")\r\n```\r\n\r\nWe tested with docker image `pytorch/pytorch:2.5.1-cuda12.4-cudnn9-devel` on H100, the error message:\r\n\r\n```console\r\n$ python bug.py\r\nTraceback (most recent call last):\r\n  File \"/workspace/bug.py\", line 21, in <module>\r\n    output = bar(a, b)\r\n             ^^^^^^^^^\r\n  File \"/opt/conda/lib/python3.11/site-packages/torch/_dynamo/eval_frame.py\", line 465, in _fn\r\n    return fn(*args, **kwargs)\r\n           ^^^^^^^^^^^^^^^^^^^\r\n  File \"/workspace/bug.py\", line 13, in bar\r\n    @torch.compile\r\n  File \"/opt/conda/lib/python3.11/site-packages/torch/_dynamo/eval_frame.py\", line 632, in _fn\r\n    return fn(*args, **kwargs)\r\n           ^^^^^^^^^^^^^^^^^^^\r\n  File \"/opt/conda/lib/python3.11/site-packages/torch/_functorch/aot_autograd.py\", line 1100, in forward\r\n    return compiled_fn(f..."
+  },
+  {
+    "id": "J8-5",
+    "journey": "J8: Custom & Higher-Order Ops",
+    "source_issue": 143773,
+    "source_url": "https://github.com/pytorch/pytorch/issues/143773",
+    "user_question": "I saved a TorchScript module that uses @custom_op, but loading it with jit.load() gives 'Unknown builtin op'. How do I make custom ops work with TorchScript serialization?",
+    "difficulty": "intermediate",
+    "expected_doc_topics": [
+      "custom ops",
+      "TorchScript",
+      "serialization",
+      "jit.load"
+    ],
+    "issue_context": "### \ud83d\udc1b Describe the bug\n\nHere is a simple repro: \r\n1.  Run the file below to produce  \"custom_module.pt\"\r\n2. Run: python -c 'import torch; torch.jit.load(\"custom_module.pt\")' \r\n\r\n```\r\nimport torch\r\n\r\n@torch.library.custom_op(\"mylib::custom_add\", mutates_args=())\r\ndef custom_add(a: torch.Tensor, b: torch.Tensor) -> torch.Tensor:\r\n    return a + b\r\n\r\ndef custom_add_direct(a: torch.Tensor, b: torch.Tensor) -> torch.Tensor:\r\n    return a + b\r\n\r\nfoo_lib = torch.library.Library(\"foo\", \"FRAGMENT\")\r\n\r\ndef direct_register_custom_op(\r\n    op_name,\r\n    op_func,\r\n    mutates_args\r\n):\r\n    schema_str = torch.library.infer_schema(op_func, mutates_args=mutates_args)\r\n    foo_lib.define(op_name + schema_str)\r\n    foo_lib.impl(op_name, op_func, \"CUDA\")\r\n\r\ndirect_register_custom_op(\"foo::custom_add\", custom_add_direct, mutates_args=())\r\n\r\n# Create a module that uses the custom operator                                                                       \r\nclass CustomModule(torch.nn.Module):\r\n    def forward(self, x, y):\r\n        # Same result with decorator and direct registration, when jit.loaded standalone:                             \r\n        # Unknown builtin op: foo::custom_add.                                                                        \r\n        return torch.ops.mylib.custom_add(x, y)\r\n        # return torch.ops.foo.custom_add(x, y)                                                                       \r\n\r\n# Create an instance and save it                                    ..."
+  },
+  {
+    "id": "J8-6",
+    "journey": "J8: Custom & Higher-Order Ops",
+    "source_issue": 147551,
+    "source_url": "https://github.com/pytorch/pytorch/issues/147551",
+    "user_question": "Compiled FlexAttention gives illegal memory access or device-side assert errors even though all my tensors are contiguous and on the right device. What's causing this?",
+    "difficulty": "advanced",
+    "expected_doc_topics": [
+      "flex_attention",
+      "illegal memory access",
+      "device-side assert",
+      "debugging"
+    ],
+    "issue_context": "### \ud83d\udc1b Describe the bug\n\n```python\nimport torch\nimport torch.nn.attention.flex_attention\nflex_compiled = torch.compile(torch.nn.attention.flex_attention.flex_attention)\ntorch.set_default_device(\"cuda\")\nprint(torch.__version__)\n\nif False:\n    # these params trigger device-side assert:\n    BATCH = 64\n    HEADS = 64\n    SEQ_LEN = 64\n    D_HEAD = 64\n    BAND = 64\nelse:\n    # these params trigger illegal memory access:\n    BATCH = 64\n    HEADS = 64\n    SEQ_LEN = 256\n    D_HEAD = 64\n    BAND = 64\n\nQ = torch.randn((BATCH, HEADS, SEQ_LEN, D_HEAD), requires_grad=True)\nK = torch.randn((BATCH, HEADS, SEQ_LEN, D_HEAD), requires_grad=True)\nV = torch.randn((BATCH, HEADS, SEQ_LEN, D_HEAD), requires_grad=True)\nrel_bias = torch.randn((BATCH, HEADS, SEQ_LEN, BAND), requires_grad=True)\n\ndef score_mod(score, b, h, q_idx, kv_idx):\n    return score + rel_bias[b, h, q_idx, q_idx - kv_idx]\n\ndef local_mask(b, h, q_idx, kv_idx):\n    causal_mask = q_idx >= kv_idx\n    window_mask = q_idx - kv_idx < BAND\n    return causal_mask & window_mask\n\nflex_compiled(Q, K, V, score_mod=score_mod,\n    block_mask=torch.nn.attention.flex_attention.create_block_mask(\n        local_mask, B=BATCH, H=HEADS, Q_LEN=SEQ_LEN, KV_LEN=SEQ_LEN\n    ),\n)\n```\n\nRun with `CUDA_LAUNCH_BLOCKING=1`\n\n```\n2.7.0.dev20250220+cu124\nTraceback (most recent call last):\n  File \"/home/ubuntu/repro2.py\", line 35, in <module>\n    flex_compiled(Q, K, V, score_mod=score_mod,\n  File \"/home/ubuntu/.local/lib/python3.10/site-packages/torch/_dynamo/eval_fr..."
+  },
+  {
+    "id": "J8-7",
+    "journey": "J8: Custom & Higher-Order Ops",
+    "source_issue": 136196,
+    "source_url": "https://github.com/pytorch/pytorch/issues/136196",
+    "user_question": "I can't compile flex_attention with dynamic shapes when my BlockMask depends on the batch dimension. How do I use dynamic shapes with batch-dependent block masks?",
+    "difficulty": "advanced",
+    "expected_doc_topics": [
+      "flex_attention",
+      "dynamic shapes",
+      "BlockMask",
+      "batch-dependent masks"
+    ],
+    "issue_context": "### \ud83d\udc1b Describe the bug\n\nCompilation of flex attention with dynamic shapes enabled doesn't work when  the BlockMask depends on the batch dimension. My usecase is document packing so both batch size will change and the per batch mask will differ. This is a follow up from #134560.\r\nIn the code below it works fine for block_mask_type = \"causal\", constantly recompiles for block_mask_type = \"batch_flip_causal\" and errors out before first iteration with \"dense\". This was ran on pytorch/pytorch-nightly:2.6.0.dev20240913-cuda12.4-cudnn9-devel.\r\n\r\nAlso if you have any tips for making the BlockMask from the dense mask more efficiently would also be useful.\r\n\r\n\r\n\r\n```python\r\nimport torch\r\nfrom tqdm import tqdm\r\nfrom torch.nn.attention.flex_attention import (\r\n    BlockMask,\r\n    _score_mod_signature,\r\n    flex_attention,\r\n    create_block_mask,\r\n)\r\nfrom torch import nn\r\nimport logging\r\n\r\n\r\ntorch._logging.set_logs(dynamo=logging.DEBUG)\r\ntorch._dynamo.config.verbose = True\r\ntorch.autograd.set_detect_anomaly(True)\r\ntorch._inductor.config.debug = True\r\n\r\ndef causal(b, h, q_idx, kv_idx):\r\n    return q_idx >= kv_idx\r\n\r\n\r\ndef batch_flip_causal(b, h, q_idx, kv_idx):\r\n    return (q_idx >= kv_idx) & b % 2 == 0\r\n\r\n\r\nclass SelfAttentionLayer(nn.Module):\r\n    def __init__(\r\n        self,\r\n        dim: int,\r\n        n_head: int,\r\n        dropout: float = 0.0,\r\n        bias=False,\r\n    ):\r\n        super().__init__()\r\n        assert (\r\n            dim % n_head == 0\r\n        ), f\"dim must be divisible by..."
+  },
+  {
+    "id": "J8-8",
+    "journey": "J8: Custom & Higher-Order Ops",
+    "source_issue": 138556,
+    "source_url": "https://github.com/pytorch/pytorch/issues/138556",
+    "user_question": "FlexAttention output deviates significantly from SDPA when I use torch.compile() with torch.set_float32_matmul_precision('high'). Is this a precision bug?",
+    "difficulty": "intermediate",
+    "expected_doc_topics": [
+      "flex_attention",
+      "precision",
+      "float32_matmul_precision",
+      "numerical accuracy"
+    ],
+    "issue_context": "### \ud83d\udc1b Describe the bug\n\nHi, I was testing FlexAttention by comparing its output with that of `nn.MultiheadAttention` and `torch.nn.functional.scaled_dot_product_attention`. In the end, I tracked down the discrepancy to the minimum test below:\r\n\r\n```python\r\nimport argparse\r\nimport itertools\r\n\r\nimport torch\r\nimport torch.nn as nn\r\nimport torch.nn.functional as F\r\nfrom torch.nn.attention import flex_attention\r\n\r\n\r\nparser = argparse.ArgumentParser(description='Minimum MHA / SDPA / Flex Attention mask test')\r\nparser.add_argument('--test-flex-attention', action='store_true',\r\n                    help='assert_close for the flex attention output to the rest.')\r\nparser.add_argument('--mask', action='store_true',\r\n                    help='Test with a simple attention mask.')\r\nparser.add_argument('--compile', action='store_true',\r\n                    help='Compile the model.')\r\nparser.add_argument('--high-precision', action='store_true',\r\n                    help='Set float32 matmul precision to \"high\" (instead of \"highest\").')\r\n\r\n\r\ndef apply_attn_in(input, in_w, in_b, num_heads, head_dim):\r\n    b, s, d = input.shape\r\n    qkv = F.linear(input, in_w, in_b)\r\n    qkv = qkv.reshape((b, s, 3, num_heads, head_dim))\r\n    # (b, s, 3, nh, hd) -> (3, b, nh, s, hd)\r\n    return qkv.permute(2, 0, 3, 1, 4)\r\n\r\n\r\ndef apply_attn_out(out, out_w, out_b):\r\n    # (b, nh, s, hd) -> (b, s, nh, hd)\r\n    out = out.transpose(1, 2)\r\n    b, s, nh, hd = out.shape\r\n    out = out.reshape((b, s, nh * hd))\r\n    return..."
+  },
+  {
+    "id": "J8-9",
+    "journey": "J8: Custom & Higher-Order Ops",
+    "source_issue": 95791,
+    "source_url": "https://github.com/pytorch/pytorch/issues/95791",
+    "user_question": "torch._dynamo.optimize fails on my code that uses pytorch_cluster's radius function with 'tensor has non-zero number of elements but data is not allocated'. How do I use third-party custom ops with dynamo?",
+    "difficulty": "intermediate",
+    "expected_doc_topics": [
+      "third-party ops",
+      "dynamo compatibility",
+      "custom ops",
+      "pytorch_cluster"
+    ],
+    "issue_context": "### \ud83d\udc1b Describe the bug\n\nI am trying to optimize a code that calls the radius function from pytorch_cluster:\r\n```python\r\nimport torch\r\nfrom torch_cluster import radius\r\nimport torch._dynamo as dynamo\r\n\r\ndef myradius(x: torch.Tensor, y: torch.Tensor, r: float,\r\n             batch_x: Optional[torch.Tensor] = None,\r\n             batch_y: Optional[torch.Tensor] = None,\r\n             max_num_neighbors: int = 32,\r\n             num_workers: int = 1) -> torch.Tensor:\r\n    return radius(x,y,r,batch_x, batch_y, max_num_neighbors, num_workers)\r\ndevice = torch.device('cuda:0')\r\nx2 = torch.tensor([0.0], device=device)\r\ny2 = torch.tensor([1.0], device=device)\r\ndynamo.explain(myradius, x2, y2, 2)\r\n```\r\nExecuting this code results in the following error:\r\n```\r\nTraceback (most recent call last):                                                                                                                                           \r\n  File \"/home/raul/mambaforge/envs/torch2-test/lib/python3.10/site-packages/torch/_dynamo/utils.py\", line 1194, in run_node                                                \r\n    return node.target(*args, **kwargs)                                                                                                                                      \r\n  File \"/home/raul/mambaforge/envs/torch2-test/lib/python3.10/site-packages/torch/_ops.py\", line 499, in __call__                                                          \r\n    return self._op(*args, **kwargs or {})        ..."
+  },
+  {
+    "id": "J8-10",
+    "journey": "J8: Custom & Higher-Order Ops",
+    "source_issue": 98844,
+    "source_url": "https://github.com/pytorch/pytorch/issues/98844",
+    "user_question": "I'm trying to use torch.cond (control flow) with torch.compile but I'm getting various errors. What are the limitations of cond with compile?",
+    "difficulty": "intermediate",
+    "expected_doc_topics": [
+      "cond",
+      "control flow",
+      "higher-order ops",
+      "compile limitations"
+    ],
+    "issue_context": "I am not sure if these are intended to be supported use cases, but as a part of https://github.com/pytorch/pytorch/pull/98775, I experimented with `cond()`. This is not blocking any use case.\r\n\r\n```\r\nimport torch\r\nfrom functorch.experimental.control_flow import cond\r\n\r\n\r\nclass Module(torch.nn.Module):\r\n    def __init__(self):\r\n        super().__init__()\r\n        self.linear = torch.nn.Linear(3, 3)\r\n\r\n    def forward(self, pred, x):\r\n        def true_fn(val):\r\n            return self.linear(val) * torch.tensor(2)\r\n\r\n        def false_fn(val):\r\n            return self.linear(val) * torch.tensor(-1)\r\n\r\n        return cond(pred, true_fn, false_fn, [x])\r\n\r\nmod = Module()\r\nmod = torch.compile(mod)\r\nx = torch.randn([3, 3])\r\npred = torch.tensor(x[0][0].item() < 0)\r\nreal_result = mod.forward(pred, x)\r\n```\r\nraises\r\n```\r\nFile \"/fsx/users/andgu/work/pytorch/torch/_ops.py\", line 236, in dispatch\r\n    assert final_key in self.py_kernels, f\"{dispatch_key} -> {final_key}\"\r\ntorch._dynamo.exc.BackendCompilerFailed: backend='debug_wrapper' raised:\r\nAssertionError: DispatchKey.Functionalize -> DispatchKey.Functionalize\r\n```\r\n\r\n<details>\r\n<summary> Full traceback </summary>\r\n\r\n```\r\nTraceback (most recent call last):\r\n  File \"dynamo/test_cond.py\", line 23, in <module>\r\n    real_result = mod.forward(pred, x)\r\n  File \"/fsx/users/andgu/work/pytorch/torch/_dynamo/eval_frame.py\", line 118, in forward\r\n    return self.dynamo_ctx(self._orig_mod.forward)(*args, **kwargs)\r\n  File \"/fsx/users/andgu/work/pyt..."
+  }
+]
