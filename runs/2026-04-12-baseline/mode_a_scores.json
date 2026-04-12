@@ -1,0 +1,1132 @@
+{
+  "metadata": {
+    "evaluator": "rocky",
+    "date": "2026-04-12",
+    "doc_inventory": "pytorch_org_doc_inventory.md",
+    "search_artifacts": "search_artifacts/",
+    "rubric_version": "Mode A v1.1",
+    "notes": "Coverage scored against doc inventory; discoverability scored from pinned search artifacts"
+  },
+  "scores": [
+    {
+      "id": "J1-1",
+      "coverage": "Full",
+      "discoverability": 3,
+      "best_url": "https://docs.pytorch.org/tutorials/recipes/torch_compile_caching_tutorial.html",
+      "rationale": "Caching Tutorial directly answers compile cache usage; official pytorch.org page is top search result"
+    },
+    {
+      "id": "J1-2",
+      "coverage": "Full",
+      "discoverability": 3,
+      "best_url": "https://docs.pytorch.org/docs/2.5/torch.compiler_custom_backends.html",
+      "rationale": "Custom Backends page explains how to change backends; official pytorch.org doc appears in results"
+    },
+    {
+      "id": "J1-3",
+      "coverage": "Partial",
+      "discoverability": 1,
+      "best_url": null,
+      "rationale": "Getting Started/FAQ mention DDP+compile ordering but not AMP autocast specifics; search returns only forums and GitHub issues, no official docs"
+    },
+    {
+      "id": "J1-4",
+      "coverage": "Partial",
+      "discoverability": 1,
+      "best_url": null,
+      "rationale": "Troubleshooting page exists but doesn't cover container/linker setup issues; search returns no official pytorch.org compile docs"
+    },
+    {
+      "id": "J1-5",
+      "coverage": "Full",
+      "discoverability": 1,
+      "best_url": null,
+      "rationale": "Getting Started tutorial explains warmup/first-call overhead; but search returns no official pytorch.org page about compile warmup"
+    },
+    {
+      "id": "J1-6",
+      "coverage": "Partial",
+      "discoverability": 2,
+      "best_url": "https://docs.pytorch.org/docs/stable/distributed.tensor.parallel.html",
+      "rationale": "Tensor Parallel docs exist on pytorch.org but don't discuss compile integration; official TP page appears in results"
+    },
+    {
+      "id": "J1-7",
+      "coverage": "Partial",
+      "discoverability": 1,
+      "best_url": null,
+      "rationale": "Troubleshooting/FAQ pages exist but don't cover set_device behavior under compile; no official docs in search results"
+    },
+    {
+      "id": "J1-8",
+      "coverage": "Partial",
+      "discoverability": 1,
+      "best_url": null,
+      "rationale": "Troubleshooting page covers some inductor errors but not Triton kernel image invalid; only forum/GitHub results appear"
+    },
+    {
+      "id": "J1-9",
+      "coverage": "Full",
+      "discoverability": 3,
+      "best_url": "https://docs.pytorch.org/tutorials/recipes/regional_compilation.html",
+      "rationale": "Caching Tutorial covers cross-process persistent cache; official pytorch.org regional compilation page appears (caching tutorial also exists)"
+    },
+    {
+      "id": "J1-10",
+      "coverage": "Partial",
+      "discoverability": 2,
+      "best_url": "https://docs.pytorch.org/docs/stable/checkpoint.html",
+      "rationale": "torch.utils.checkpoint docs exist on pytorch.org but don't discuss compile compatibility; official checkpoint page appears in results"
+    },
+    {
+      "id": "J1-11",
+      "coverage": "Full",
+      "discoverability": 3,
+      "best_url": "https://docs.pytorch.org/docs/stable/user_guide/torch_compiler/compile/programming_model.recompilation.html",
+      "rationale": "Recompilation page directly addresses diagnosing recompilation; official pytorch.org page is top result"
+    },
+    {
+      "id": "J1-12",
+      "coverage": "Partial",
+      "discoverability": 2,
+      "best_url": "https://docs.pytorch.org/docs/2.3/torch.compiler_fine_grain_apis.html",
+      "rationale": "Fine-grained tracing APIs page discusses skip/disable but not autograd.grad tracing limitation; official docs appear tangentially"
+    },
+    {
+      "id": "J1-13",
+      "coverage": "None",
+      "discoverability": 1,
+      "best_url": null,
+      "rationale": "No compile-specific docs about GRU/RNN support or workarounds; search returns only blogs and generic compile articles"
+    },
+    {
+      "id": "J1-14",
+      "coverage": "Partial",
+      "discoverability": 2,
+      "best_url": "https://docs.pytorch.org/docs/2.7/torch.compiler_troubleshooting.html",
+      "rationale": "Troubleshooting page exists but doesn't cover multiprocessing/daemonic process errors; official troubleshooting page appears in results"
+    },
+    {
+      "id": "J1-15",
+      "coverage": "None",
+      "discoverability": 1,
+      "best_url": null,
+      "rationale": "No compile docs about MXFP8/quantization support; search returns only GitHub issues and generic compile blogs"
+    },
+    {
+      "id": "J1-16",
+      "coverage": "None",
+      "discoverability": 1,
+      "best_url": null,
+      "rationale": "No compile docs about complex tensor support in inductor; only the GitHub issue itself appears in results"
+    },
+    {
+      "id": "J1-17",
+      "coverage": "None",
+      "discoverability": 1,
+      "best_url": null,
+      "rationale": "No compile/inductor docs about Windows C++ compiler setup; search returns only torchaudio build docs, not compile-specific"
+    },
+    {
+      "id": "J1-18",
+      "coverage": "None",
+      "discoverability": 1,
+      "best_url": null,
+      "rationale": "No docs about inductor pattern matcher reshape/view semantics; search returns only generic PyTorch reshape forums"
+    },
+    {
+      "id": "J1-19",
+      "coverage": "Partial",
+      "discoverability": 1,
+      "best_url": null,
+      "rationale": "Troubleshooting page exists but doesn't cover lcuda linker errors; search returns only NVIDIA forums, no official pytorch.org docs"
+    },
+    {
+      "id": "J1-20",
+      "coverage": "Partial",
+      "discoverability": 2,
+      "best_url": "https://docs.pytorch.org/docs/2.6/torch.compiler_troubleshooting.html",
+      "rationale": "Caching Tutorial exists but doesn't cover race conditions with Ray; troubleshooting page appears tangentially in results"
+    },
+    {
+      "id": "J2-1",
+      "coverage": "Full",
+      "discoverability": 2,
+      "best_url": "https://pytorch.org/blog/pytorch-compile-to-speed-up-inference/",
+      "rationale": "Profiling and Troubleshooting pages cover diagnosing compile slowdowns; pytorch.org blog about compile inference appears but not the profiling doc page directly"
+    },
+    {
+      "id": "J2-2",
+      "coverage": "Partial",
+      "discoverability": 2,
+      "best_url": "https://docs.pytorch.org/docs/2.7/torch.compiler_troubleshooting.html",
+      "rationale": "Profiling docs exist but don't cover specific op-level backward pass regression diagnosis; troubleshooting page appears in results"
+    },
+    {
+      "id": "J2-3",
+      "coverage": "Full",
+      "discoverability": 2,
+      "best_url": "https://pytorch.org/blog/Accelerating-Hugging-Face-and-TIMM-models/",
+      "rationale": "Getting Started/FAQ discuss when compile helps and compilation overhead; pytorch.org blog appears but not the specific FAQ page"
+    },
+    {
+      "id": "J2-4",
+      "coverage": "Partial",
+      "discoverability": 3,
+      "best_url": "https://docs.pytorch.org/docs/stable/user_guide/torch_compiler/compile/programming_model.recompilation.html",
+      "rationale": "Recompilation and profiling docs exist but don't cover cross-version regression diagnosis; official recompilation page appears in results"
+    },
+    {
+      "id": "J2-5",
+      "coverage": "Partial",
+      "discoverability": 3,
+      "best_url": "https://docs.pytorch.org/docs/2.6/torch.compiler_troubleshooting.html",
+      "rationale": "Troubleshooting page covers common compile issues but not memory corruption/no-speedup diagnosis; official troubleshooting page appears in results"
+    },
+    {
+      "id": "J2-6",
+      "coverage": "Partial",
+      "discoverability": 1,
+      "best_url": null,
+      "rationale": "Profiling and Getting Started docs discuss when compile helps but don't address zero-speedup for simple matmul models; no official docs in search results"
+    },
+    {
+      "id": "J2-7",
+      "coverage": "None",
+      "discoverability": 0,
+      "best_url": null,
+      "rationale": "No compile docs about GIL behavior with compiled kernels; search results are all generic Python GIL articles, completely off-topic"
+    },
+    {
+      "id": "J2-8",
+      "coverage": "Partial",
+      "discoverability": 1,
+      "best_url": null,
+      "rationale": "FlexAttention API/blog exist but don't cover backward pass performance scaling; search returns only generic forums, no official docs"
+    },
+    {
+      "id": "J2-9",
+      "coverage": "Full",
+      "discoverability": 3,
+      "best_url": "https://docs.pytorch.org/docs/2.6/torch.compiler_troubleshooting.html",
+      "rationale": "Troubleshooting and Profiling pages directly address diagnosing compile slowdowns; official troubleshooting page appears in results"
+    },
+    {
+      "id": "J2-10",
+      "coverage": "Partial",
+      "discoverability": 0,
+      "best_url": null,
+      "rationale": "Inductor docs exist but no comprehensive supported ops list; search results are about physical inductors (electronics), completely off-topic"
+    },
+    {
+      "id": "J2-11",
+      "coverage": "Partial",
+      "discoverability": 1,
+      "best_url": null,
+      "rationale": "Profiling and Troubleshooting pages exist but don't address full-model compile overhead diagnosis; only blogs in search results"
+    },
+    {
+      "id": "J2-12",
+      "coverage": "None",
+      "discoverability": 1,
+      "best_url": null,
+      "rationale": "No compile docs about complex number performance optimization in inductor; only blogs and generic articles in results"
+    },
+    {
+      "id": "J2-13",
+      "coverage": "Partial",
+      "discoverability": 2,
+      "best_url": "https://docs.pytorch.org/tutorials/intermediate/inductor_debug_cpu.html",
+      "rationale": "Inductor profiling docs exist but don't cover float8 codegen performance; official inductor debug tutorial appears in results"
+    },
+    {
+      "id": "J2-14",
+      "coverage": "None",
+      "discoverability": 0,
+      "best_url": null,
+      "rationale": "No docs about inductor native matmul codegen via tl.dot; search results are all about physical inductors, completely off-topic"
+    },
+    {
+      "id": "J2-15",
+      "coverage": "Partial",
+      "discoverability": 2,
+      "best_url": "https://pytorch.org/blog/generalized-dot-product-attention-tackling-real-world-challenges-in-gpu-training-kernels/",
+      "rationale": "SDPA/FlexAttention docs exist but don't discuss tf32 decomposition performance comparison; pytorch.org blog about attention appears tangentially"
+    },
+    {
+      "id": "J2-16",
+      "coverage": "Full",
+      "discoverability": 3,
+      "best_url": "https://docs.pytorch.org/docs/2.1/torch.compiler_inductor_profiling.html",
+      "rationale": "Inductor GPU Profiling page directly addresses profiling inductor kernel performance; official page is top search result"
+    },
+    {
+      "id": "J2-17",
+      "coverage": "None",
+      "discoverability": 1,
+      "best_url": null,
+      "rationale": "No compile docs about foreach_copy_ performance or CUDAGraph tree copy internals; search returns only generic CUDA copy forums"
+    },
+    {
+      "id": "J2-18",
+      "coverage": "Full",
+      "discoverability": 3,
+      "best_url": "https://docs.pytorch.org/docs/2.5/torch.compiler_profiling_torch_compile.html",
+      "rationale": "Profiling torch.compile page directly addresses diagnosing compile performance; official profiling page appears in results"
+    },
+    {
+      "id": "J2-19",
+      "coverage": "None",
+      "discoverability": 0,
+      "best_url": null,
+      "rationale": "No compile docs with CPU inductor benchmarks or baselines; search results are about CPU benchmark tools (hardware), completely off-topic"
+    },
+    {
+      "id": "J2-20",
+      "coverage": "Partial",
+      "discoverability": 3,
+      "best_url": "https://docs.pytorch.org/docs/main/notes/get_start_xpu.html",
+      "rationale": "Getting Started XPU page exists on pytorch.org but covers eager mode primarily; official XPU docs and dev-discuss appear in results"
+    },
+    {
+      "id": "J3-1",
+      "coverage": "Partial",
+      "discoverability": 2,
+      "best_url": "https://docs.pytorch.org/docs/2.6/torch.compiler_troubleshooting.html",
+      "rationale": "Troubleshooting page covers compile debugging generally but no dedicated accuracy debugging guide exists"
+    },
+    {
+      "id": "J3-2",
+      "coverage": "None",
+      "discoverability": 1,
+      "best_url": "https://discuss.pytorch.org/t/torch-compile-emits-double-backward-error-even-when-the-corresponding-function-is-disabled/218952",
+      "rationale": "No official docs on backward correctness debugging under compile; only forum posts appear"
+    },
+    {
+      "id": "J3-3",
+      "coverage": "Partial",
+      "discoverability": 2,
+      "best_url": "https://pytorch.org/blog/flexattention-for-inference/",
+      "rationale": "FlexAttention blog/API docs exist but do not cover numerical accuracy differences vs eager"
+    },
+    {
+      "id": "J3-4",
+      "coverage": "None",
+      "discoverability": 1,
+      "best_url": "https://discuss.pytorch.org/t/how-to-debug-nan-gradients-in-custom-cosine-normalization-implementation/3591",
+      "rationale": "No compile-specific NaN debugging or float8 precision docs; only generic forum posts about NaN gradients"
+    },
+    {
+      "id": "J3-5",
+      "coverage": "None",
+      "discoverability": 1,
+      "best_url": "https://discuss.pytorch.org/t/reproduciblity-unable-to-be-guaranteed-after-torch-compile/176845",
+      "rationale": "No official docs on compile reproducibility; only GitHub issues and forum posts"
+    },
+    {
+      "id": "J3-6",
+      "coverage": "Partial",
+      "discoverability": 2,
+      "best_url": "https://docs.pytorch.org/docs/2.7/torch.compiler_troubleshooting.html",
+      "rationale": "Troubleshooting page appears but doesn't cover silent correctness issues with torch.func.grad composition"
+    },
+    {
+      "id": "J3-7",
+      "coverage": "Partial",
+      "discoverability": 2,
+      "best_url": "https://docs.pytorch.org/docs/2.7/torch.compiler_troubleshooting.html",
+      "rationale": "Troubleshooting page appears in results but lacks specific guidance on inductor wrong-results bugs"
+    },
+    {
+      "id": "J3-8",
+      "coverage": "Partial",
+      "discoverability": 2,
+      "best_url": "https://docs.pytorch.org/tutorials/intermediate/compiled_autograd_tutorial.html",
+      "rationale": "Compiled Autograd tutorial appears but doesn't address NaN gradients or stride correctness with SDPA"
+    },
+    {
+      "id": "J3-9",
+      "coverage": "Partial",
+      "discoverability": 2,
+      "best_url": "https://pytorch.org/blog/torch-compile-and-diffusers-a-hands-on-guide-to-peak-performance/",
+      "rationale": "PyTorch blog on compile+diffusers perf appears but no systematic benchmarking/accuracy guide exists"
+    },
+    {
+      "id": "J3-10",
+      "coverage": "Partial",
+      "discoverability": 2,
+      "best_url": "https://docs.pytorch.org/docs/2.5/torch.compiler_troubleshooting.html",
+      "rationale": "Troubleshooting page appears but doesn't cover AOT eager regression checking or version-specific accuracy issues"
+    },
+    {
+      "id": "J3-11",
+      "coverage": "None",
+      "discoverability": 1,
+      "best_url": "https://discuss.pytorch.org/t/inconsistent-results-with-torch-compile-on-identical-environments-and-gpus/212706/3",
+      "rationale": "No official docs on expected numerical tolerance thresholds for compile; only forum posts"
+    },
+    {
+      "id": "J3-12",
+      "coverage": "Partial",
+      "discoverability": 2,
+      "best_url": "https://docs.pytorch.org/docs/2.7/torch.compiler_troubleshooting.html",
+      "rationale": "Troubleshooting page appears but no dedicated accuracy debugging guide with operator isolation steps"
+    },
+    {
+      "id": "J3-13",
+      "coverage": "None",
+      "discoverability": 1,
+      "best_url": "https://docs.pytorch.org/docs/1.11/notes/randomness.html",
+      "rationale": "Old reproducibility doc exists but predates compile; no compile-specific reproducibility guidance"
+    },
+    {
+      "id": "J3-14",
+      "coverage": "None",
+      "discoverability": 1,
+      "best_url": "https://github.com/pytorch/pytorch/issues/95708",
+      "rationale": "No official docs on macOS OpenMP issues with compile; only GitHub issues"
+    },
+    {
+      "id": "J3-15",
+      "coverage": "Partial",
+      "discoverability": 2,
+      "best_url": "https://docs.pytorch.org/tutorials/intermediate/inductor_debug_cpu.html",
+      "rationale": "Inductor CPU debugging tutorial appears but doesn't cover epilogue fusion correctness or mutation bugs"
+    },
+    {
+      "id": "J3-16",
+      "coverage": "Partial",
+      "discoverability": 1,
+      "best_url": null,
+      "rationale": "Dynamo overview/FAQ discuss data-dependent control flow but no results link to them; only generic early-stopping articles appear"
+    },
+    {
+      "id": "J3-17",
+      "coverage": "Partial",
+      "discoverability": 2,
+      "best_url": "https://docs.pytorch.org/docs/2.7/torch.compiler_troubleshooting.html",
+      "rationale": "Troubleshooting page appears but doesn't specifically cover silent mutation dropping on class-level list attributes"
+    },
+    {
+      "id": "J3-18",
+      "coverage": "None",
+      "discoverability": 1,
+      "best_url": "https://discuss.pytorch.org/t/autograd-problem-with-tensors-generated-by-torch-arange/200297",
+      "rationale": "No official docs on AOT autograd stride dependency bugs; only generic autograd forum posts"
+    },
+    {
+      "id": "J3-19",
+      "coverage": "None",
+      "discoverability": 0,
+      "best_url": null,
+      "rationale": "No pytorch.org results at all; only ROCm/AMD-specific docs unrelated to compile correctness"
+    },
+    {
+      "id": "J3-20",
+      "coverage": "Partial",
+      "discoverability": 1,
+      "best_url": "https://github.com/pytorch/pytorch/issues/40497",
+      "rationale": "FAQ mentions reduce-overhead/max-autotune modes but no results link to official docs; only generic NaN articles"
+    },
+    {
+      "id": "J4-1",
+      "coverage": "Partial",
+      "discoverability": 1,
+      "best_url": "https://discuss.pytorch.org/t/best-way-to-detect-and-fix-graphs-breaks/218127",
+      "rationale": "FlexAttention API docs exist but no graph breaks reference page; search returns only forums and papers, no official docs"
+    },
+    {
+      "id": "J4-2",
+      "coverage": "Partial",
+      "discoverability": 2,
+      "best_url": "https://docs.pytorch.org/docs/2.6/torch.compiler_troubleshooting.html",
+      "rationale": "Troubleshooting page appears but DDP+compile integration guidance is not well covered in official docs"
+    },
+    {
+      "id": "J4-3",
+      "coverage": "Partial",
+      "discoverability": 2,
+      "best_url": "https://docs.pytorch.org/docs/2.6/torch.compiler_troubleshooting.html",
+      "rationale": "Troubleshooting page appears but doesn't cover specific bound method graph break or migration between versions"
+    },
+    {
+      "id": "J4-4",
+      "coverage": "Partial",
+      "discoverability": 2,
+      "best_url": "https://docs.pytorch.org/docs/2.6/torch.compiler_troubleshooting.html",
+      "rationale": "Troubleshooting page appears but no migration/upgrade guide for compile breaking changes between versions"
+    },
+    {
+      "id": "J4-5",
+      "coverage": "Full",
+      "discoverability": 3,
+      "best_url": "https://docs.pytorch.org/docs/main/generated/torch.compiler.disable.html",
+      "rationale": "torch.compiler.disable API doc and Dynamo Overview appear directly; recompilation guide also found"
+    },
+    {
+      "id": "J4-6",
+      "coverage": "Partial",
+      "discoverability": 2,
+      "best_url": "https://docs.pytorch.org/docs/2.0/dynamo/faq.html",
+      "rationale": "Dynamo FAQ appears but doesn't specifically address dataclass graph break workarounds"
+    },
+    {
+      "id": "J4-7",
+      "coverage": "Partial",
+      "discoverability": 0,
+      "best_url": null,
+      "rationale": "Guards Overview doc exists but search returns zero relevant results (all DynamoDB); no pytorch.org hits"
+    },
+    {
+      "id": "J4-8",
+      "coverage": "Partial",
+      "discoverability": 2,
+      "best_url": "https://pytorch.org/blog/activation-checkpointing-techniques/",
+      "rationale": "PyTorch blog on activation checkpointing appears; covers SAC but compile interaction may be partial"
+    },
+    {
+      "id": "J4-9",
+      "coverage": "Full",
+      "discoverability": 3,
+      "best_url": "https://docs.pytorch.org/docs/stable/nn.attention.flex_attention.html",
+      "rationale": "FlexAttention API docs appear directly and cover create_block_mask usage with compile"
+    },
+    {
+      "id": "J4-10",
+      "coverage": "None",
+      "discoverability": 1,
+      "best_url": "https://discuss.pytorch.org/t/optimizer-step-before-lr-scheduler-step-error-using-gradscaler/92930",
+      "rationale": "No official docs on compiling optimizer+LR scheduler; only generic LR scheduler docs and forums"
+    },
+    {
+      "id": "J4-11",
+      "coverage": "None",
+      "discoverability": 1,
+      "best_url": null,
+      "rationale": "No official pytorch.org docs in results; only third-party blog posts about graph breaks"
+    },
+    {
+      "id": "J4-12",
+      "coverage": "Partial",
+      "discoverability": 2,
+      "best_url": "https://docs.pytorch.org/docs/2.0/dynamo/faq.html",
+      "rationale": "Dynamo FAQ covers DDP+Dynamo integration and dev-discuss post appears; but AllReduce compile-through is not fully documented"
+    },
+    {
+      "id": "J4-13",
+      "coverage": "Partial",
+      "discoverability": 0,
+      "best_url": null,
+      "rationale": "Guards Overview doc exists covering guard behavior but search returns zero relevant results (all AWS DynamoDB)"
+    },
+    {
+      "id": "J4-14",
+      "coverage": "Partial",
+      "discoverability": 3,
+      "best_url": "https://pytorch.org/docs/2.6/generated/torch.compiler.allow_in_graph.html",
+      "rationale": "allow_in_graph API doc and Graph Transformations doc appear directly; but call_module node behavior not fully covered"
+    },
+    {
+      "id": "J4-15",
+      "coverage": "Partial",
+      "discoverability": 2,
+      "best_url": "https://docs.pytorch.org/docs/2.0/dynamo/faq.html",
+      "rationale": "Dynamo FAQ appears covering graph capture concepts but single-step graph capture is not specifically documented"
+    },
+    {
+      "id": "J4-16",
+      "coverage": "Partial",
+      "discoverability": 1,
+      "best_url": "https://github.com/pytorch/pytorch/issues/93463",
+      "rationale": "Caching Tutorial exists but search returns no relevant official docs about AOTAutograd cache misses; only GitHub issues"
+    },
+    {
+      "id": "J4-17",
+      "coverage": "None",
+      "discoverability": 0,
+      "best_url": null,
+      "rationale": "No pytorch.org results at all; only Wikipedia and generic quantization blog unrelated to PT2E on ARM"
+    },
+    {
+      "id": "J4-18",
+      "coverage": "Partial",
+      "discoverability": 2,
+      "best_url": "https://docs.pytorch.org/tutorials/intermediate/compiled_autograd_tutorial.html",
+      "rationale": "Compiled Autograd tutorial appears and is relevant; but double backward limitation not explicitly documented"
+    },
+    {
+      "id": "J4-19",
+      "coverage": "None",
+      "discoverability": 0,
+      "best_url": null,
+      "rationale": "No pytorch.org results; search returns only generic guardrails/GraphQL articles completely unrelated"
+    },
+    {
+      "id": "J4-20",
+      "coverage": "Partial",
+      "discoverability": 2,
+      "best_url": "https://docs.pytorch.org/docs/2.0/dynamo/faq.html",
+      "rationale": "Dynamo FAQ appears covering unsupported features; but Parameter subclass support not specifically documented"
+    },
+    {
+      "id": "J5-1",
+      "coverage": "Partial",
+      "discoverability": 0,
+      "best_url": null,
+      "rationale": "torch.compile API docs mention mode='max-autotune' but don't explain precision tradeoffs; search returned only music auto-tune results, zero pytorch.org hits"
+    },
+    {
+      "id": "J5-2",
+      "coverage": "Partial",
+      "discoverability": 2,
+      "best_url": "https://docs.pytorch.org/docs/2.6/torch.compiler_troubleshooting.html",
+      "rationale": "Troubleshooting page covers compile issues generally but not diagnosing cross-version performance regressions; Troubleshooting doc appears tangentially"
+    },
+    {
+      "id": "J5-3",
+      "coverage": "Partial",
+      "discoverability": 0,
+      "best_url": null,
+      "rationale": "FlexAttention API/blog exists on pytorch.org but no content on mask composition performance; search returned zero pytorch.org results"
+    },
+    {
+      "id": "J5-4",
+      "coverage": "None",
+      "discoverability": 1,
+      "best_url": null,
+      "rationale": "No docs cover inductor optimization pass internals like UnbindCatRemover; only GitHub issues appeared"
+    },
+    {
+      "id": "J5-5",
+      "coverage": "None",
+      "discoverability": 1,
+      "best_url": null,
+      "rationale": "No pytorch.org docs on bisecting compile performance regressions; only GitHub issues and unrelated blogs"
+    },
+    {
+      "id": "J5-6",
+      "coverage": "Partial",
+      "discoverability": 1,
+      "best_url": null,
+      "rationale": "torch.compile API mentions max-autotune mode but no docs on alignment errors or autotuner template bugs; only generic CUDA error forum posts"
+    },
+    {
+      "id": "J5-7",
+      "coverage": "None",
+      "discoverability": 0,
+      "best_url": null,
+      "rationale": "No pytorch.org compile docs about fused linear+cross-entropy; search returned only general ML cross-entropy explainers"
+    },
+    {
+      "id": "J5-8",
+      "coverage": "Partial",
+      "discoverability": 2,
+      "best_url": "https://docs.pytorch.org/docs/2.7/torch.compiler_troubleshooting.html",
+      "rationale": "Troubleshooting page covers general compile errors but not vLLM-specific integration; Troubleshooting doc appears in results"
+    },
+    {
+      "id": "J5-9",
+      "coverage": "Partial",
+      "discoverability": 2,
+      "best_url": "https://docs.pytorch.org/docs/2.6/torch.compiler_troubleshooting.html",
+      "rationale": "Troubleshooting page exists but doesn't specifically address Windows/inductor linker errors; Troubleshooting doc appears"
+    },
+    {
+      "id": "J5-10",
+      "coverage": "Full",
+      "discoverability": 3,
+      "best_url": "https://docs.pytorch.org/tutorials/recipes/compiling_optimizer.html?ref=alexdremov.me",
+      "rationale": "Official tutorial on compiling optimizers with torch.compile directly addresses this; tutorial appears in search results"
+    },
+    {
+      "id": "J5-11",
+      "coverage": "Partial",
+      "discoverability": 0,
+      "best_url": null,
+      "rationale": "CUDAGraph Trees doc and torch.compile API mention mode options but don't discuss mode combination pitfalls; no pytorch.org results in search"
+    },
+    {
+      "id": "J5-12",
+      "coverage": "Partial",
+      "discoverability": 1,
+      "best_url": null,
+      "rationale": "FlexAttention docs exist but don't cover shared memory resource limits; only a GitHub issue appeared"
+    },
+    {
+      "id": "J5-13",
+      "coverage": "None",
+      "discoverability": 1,
+      "best_url": null,
+      "rationale": "No inductor docs explaining which ops it optimizes well vs poorly; only forum posts about embedding perf"
+    },
+    {
+      "id": "J5-14",
+      "coverage": "None",
+      "discoverability": 0,
+      "best_url": null,
+      "rationale": "No pytorch.org docs on Triton kernel specialization performance; search returned only generic Triton/CUDA blogs"
+    },
+    {
+      "id": "J5-15",
+      "coverage": "Full",
+      "discoverability": 3,
+      "best_url": "https://docs.pytorch.org/tutorials/recipes/torch_compile_user_defined_triton_kernel_tutorial.html",
+      "rationale": "Official Triton kernels tutorial covers registering custom Triton kernels with torch.compile; tutorial appears in search"
+    },
+    {
+      "id": "J5-16",
+      "coverage": "Full",
+      "discoverability": 3,
+      "best_url": "https://docs.pytorch.org/docs/2.0/dynamo/custom-backends.html",
+      "rationale": "Custom Backends doc directly covers integrating custom backends into compilation pipeline; appears in search results"
+    },
+    {
+      "id": "J5-17",
+      "coverage": "None",
+      "discoverability": 1,
+      "best_url": null,
+      "rationale": "No docs on inductor algorithm selection internals or test infrastructure; only GitHub issues appeared"
+    },
+    {
+      "id": "J5-18",
+      "coverage": "None",
+      "discoverability": 0,
+      "best_url": null,
+      "rationale": "No docs on inductor codegen performance for specific ops like log_softmax with padding; no pytorch.org compile results"
+    },
+    {
+      "id": "J5-19",
+      "coverage": "None",
+      "discoverability": 1,
+      "best_url": null,
+      "rationale": "No docs on inductor's welford reduction codegen or overriding it; only a forum question appeared"
+    },
+    {
+      "id": "J5-20",
+      "coverage": "Partial",
+      "discoverability": 1,
+      "best_url": null,
+      "rationale": "CUDAGraph Trees doc and torch.compile modes are documented but no guidance on when to use CUDA graphs; only forums/blogs in search"
+    },
+    {
+      "id": "J6-1",
+      "coverage": "Full",
+      "discoverability": 3,
+      "best_url": "https://docs.pytorch.org/docs/stable/user_guide/torch_compiler/compile/programming_model.recompilation.html",
+      "rationale": "Recompilation doc directly addresses dynamic shape recompilation and prevention; official page appears first in results"
+    },
+    {
+      "id": "J6-2",
+      "coverage": "Partial",
+      "discoverability": 2,
+      "best_url": "https://docs.pytorch.org/docs/2.6/torch.compiler_troubleshooting.html",
+      "rationale": "Troubleshooting page covers general compile errors but not empty tensor edge cases with dynamic shapes; Troubleshooting doc appears"
+    },
+    {
+      "id": "J6-3",
+      "coverage": "Full",
+      "discoverability": 3,
+      "best_url": "https://docs.pytorch.org/docs/stable/user_guide/torch_compiler/torch.compiler_dynamic_shapes.html",
+      "rationale": "Dynamic Shapes doc covers using dynamic shapes with various ops; official page appears in search results"
+    },
+    {
+      "id": "J6-4",
+      "coverage": "Partial",
+      "discoverability": 2,
+      "best_url": "https://docs.pytorch.org/docs/2.6/torch.compiler_troubleshooting.html",
+      "rationale": "Dynamic Shapes and Troubleshooting pages exist but don't cover GNN/neighbor-sampling variable batch sizes; Troubleshooting appears"
+    },
+    {
+      "id": "J6-5",
+      "coverage": "Partial",
+      "discoverability": 2,
+      "best_url": "https://docs.pytorch.org/tutorials/intermediate/variable_length_attention_tutorial.html",
+      "rationale": "Variable Length Attention tutorial is related but focused on attention, not general recompilation avoidance for varying seq lengths; tutorial appears"
+    },
+    {
+      "id": "J6-6",
+      "coverage": "Partial",
+      "discoverability": 2,
+      "best_url": "https://docs.pytorch.org/docs/2.7/torch.compiler_troubleshooting.html",
+      "rationale": "Troubleshooting page covers recompilation but not 'recompilation exhausted' with dynamic=True specifically; Troubleshooting appears"
+    },
+    {
+      "id": "J6-7",
+      "coverage": "Full",
+      "discoverability": 3,
+      "best_url": "https://docs.pytorch.org/docs/stable/user_guide/torch_compiler/torch.compiler_dynamic_shapes.html",
+      "rationale": "Dynamic Shapes doc directly covers basic usage of dynamic=True and symbolic shapes; both Dynamic Shapes and Troubleshooting pages appear"
+    },
+    {
+      "id": "J6-8",
+      "coverage": "Partial",
+      "discoverability": 1,
+      "best_url": null,
+      "rationale": "Dynamic Shapes docs exist but don't specifically cover data-dependent slicing workarounds; only GitHub issues and forum posts appeared"
+    },
+    {
+      "id": "J6-9",
+      "coverage": "None",
+      "discoverability": 2,
+      "best_url": "https://docs.pytorch.org/docs/stable/amp.html",
+      "rationale": "AMP docs exist on pytorch.org but don't discuss compile-specific recompilation from dtype guards; AMP page appears but is eager-mode content"
+    },
+    {
+      "id": "J6-10",
+      "coverage": "Partial",
+      "discoverability": 1,
+      "best_url": null,
+      "rationale": "Dynamic Shapes docs cover variable inputs but not audio-model-specific patterns; only HuggingFace/torchaudio results appeared, no compile docs"
+    },
+    {
+      "id": "J6-11",
+      "coverage": "None",
+      "discoverability": 1,
+      "best_url": null,
+      "rationale": "No compile docs covering DTensor placement propagation with compile; only GitHub issues and blogs appeared"
+    },
+    {
+      "id": "J6-12",
+      "coverage": "Partial",
+      "discoverability": 2,
+      "best_url": "https://docs.pytorch.org/docs/2.7/torch.compiler_dynamic_shapes.html",
+      "rationale": "Dynamic Shapes doc covers mark_dynamic but not the specific edge case of small shapes and nn.Parameter; Dynamic Shapes page appears"
+    },
+    {
+      "id": "J6-13",
+      "coverage": "Partial",
+      "discoverability": 0,
+      "best_url": null,
+      "rationale": "Guards Overview and Dynamic Shapes docs mention guards but don't explain how to trace why a symbol was created; no pytorch.org results at all"
+    },
+    {
+      "id": "J6-14",
+      "coverage": "None",
+      "discoverability": 1,
+      "best_url": null,
+      "rationale": "No docs on diagnosing silent numerical differences from compile; only generic tips blogs and forum posts"
+    },
+    {
+      "id": "J6-15",
+      "coverage": "Partial",
+      "discoverability": 2,
+      "best_url": "https://docs.pytorch.org/docs/2.7/torch.compiler_dynamic_shapes.html",
+      "rationale": "Dynamic Shapes doc discusses guards concept but not limiting guard accumulation; Dynamic Shapes page appears in results"
+    },
+    {
+      "id": "J6-16",
+      "coverage": "Partial",
+      "discoverability": 0,
+      "best_url": null,
+      "rationale": "Troubleshooting and Dynamic Shapes docs exist but don't cover this specific error type; search returned only unrelated TypeScript/Julia results"
+    },
+    {
+      "id": "J6-17",
+      "coverage": "Partial",
+      "discoverability": 2,
+      "best_url": "https://docs.pytorch.org/docs/stable/user_guide/torch_compiler/torch.compiler_dynamo_overview.html",
+      "rationale": "Dynamo Overview exists but doesn't cover DeepSpeed compatibility; Dynamo Overview page appears in results"
+    },
+    {
+      "id": "J6-18",
+      "coverage": "Full",
+      "discoverability": 3,
+      "best_url": "https://docs.pytorch.org/docs/stable/user_guide/torch_compiler/compile/dynamic_shapes_troubleshooting_guardon_errors.html",
+      "rationale": "GuardOnDataDependentSymNode troubleshooting page directly addresses diagnosing guard failures; official page appears in results"
+    },
+    {
+      "id": "J6-19",
+      "coverage": "Partial",
+      "discoverability": 2,
+      "best_url": "https://docs.pytorch.org/docs/2.7/torch.compiler_troubleshooting.html",
+      "rationale": "Troubleshooting and Custom Operators docs exist but don't cover data-dependent output shape ops with autograd; Troubleshooting page appears"
+    },
+    {
+      "id": "J6-20",
+      "coverage": "Partial",
+      "discoverability": 1,
+      "best_url": null,
+      "rationale": "Dynamic Shapes docs exist but don't list which ops are unsupported in dynamic mode; only GitHub issues and a PyTorch blog appeared"
+    },
+    {
+      "id": "J7-1",
+      "coverage": "Partial",
+      "discoverability": 3,
+      "best_url": "https://docs.pytorch.org/tutorials/recipes/regional_compilation.html",
+      "rationale": "Regional compilation tutorial addresses cold start compile time reduction but doesn't cover T5-specific or large model compilation timeout issues specifically"
+    },
+    {
+      "id": "J7-2",
+      "coverage": "None",
+      "discoverability": 0,
+      "best_url": null,
+      "rationale": "No pytorch.org results found; all results are generic gradient/ML content unrelated to compile time growth with chained ops"
+    },
+    {
+      "id": "J7-3",
+      "coverage": "Partial",
+      "discoverability": 2,
+      "best_url": "https://docs.pytorch.org/docs/2.7/torch.compiler_dynamo_overview.html",
+      "rationale": "Dynamo Overview discusses tracing concepts but doesn't specifically address optimizer for-loop compilation time or how to speed up dynamo tracing of parameter loops"
+    },
+    {
+      "id": "J7-4",
+      "coverage": "Partial",
+      "discoverability": 1,
+      "best_url": "https://dev-discuss.pytorch.org/t/compiled-optimizer-w-lr-scheduler-now-supported/2107",
+      "rationale": "Dev-discuss blog (not pytorch.org docs) covers compiled optimizer+LR scheduler; no official doc page specifically addresses recompilation from LR changes"
+    },
+    {
+      "id": "J7-5",
+      "coverage": "None",
+      "discoverability": 0,
+      "best_url": null,
+      "rationale": "No relevant results at all; no pytorch.org content about input size affecting compile time or specialization behavior"
+    },
+    {
+      "id": "J7-6",
+      "coverage": "Partial",
+      "discoverability": 0,
+      "best_url": null,
+      "rationale": "Caching Tutorial exists on pytorch.org but no search results found it; all results are generic Windows caching unrelated to inductor"
+    },
+    {
+      "id": "J7-7",
+      "coverage": "Partial",
+      "discoverability": 3,
+      "best_url": "https://docs.pytorch.org/docs/2.7/torch.compiler_troubleshooting.html",
+      "rationale": "Troubleshooting page covers performance debugging but not specifically how to bisect performance regressions across PyTorch versions"
+    },
+    {
+      "id": "J7-8",
+      "coverage": "Partial",
+      "discoverability": 2,
+      "best_url": "https://docs.pytorch.org/docs/stable/user_guide/torch_compiler/torch.compiler_aot_inductor_debugging_guide.html",
+      "rationale": "AOTInductor debugging guide is tangentially related (inductor debugging) but doesn't cover autotuning crashes with None inputs specifically"
+    },
+    {
+      "id": "J7-9",
+      "coverage": "Partial",
+      "discoverability": 0,
+      "best_url": null,
+      "rationale": "Regional compilation tutorial exists on pytorch.org for breaking compilation into pieces but search didn't surface it; no results are pytorch.org pages"
+    },
+    {
+      "id": "J7-10",
+      "coverage": "Partial",
+      "discoverability": 2,
+      "best_url": "https://docs.pytorch.org/docs/2.6/torch.compiler_troubleshooting.html",
+      "rationale": "Compiled Autograd tutorial exists on pytorch.org but search found Troubleshooting page instead; neither directly addresses compiled autograd + LayerNorm failures"
+    },
+    {
+      "id": "J7-11",
+      "coverage": "Full",
+      "discoverability": 3,
+      "best_url": "https://docs.pytorch.org/tutorials/recipes/regional_compilation.html",
+      "rationale": "Regional compilation tutorial directly addresses cold start compile time; caching tutorial also exists; both are relevant to reducing compile time beyond FX graph cache"
+    },
+    {
+      "id": "J7-12",
+      "coverage": "Partial",
+      "discoverability": 3,
+      "best_url": "https://docs.pytorch.org/tutorials/recipes/torch_compile_caching_tutorial.html",
+      "rationale": "Caching tutorial and regional compilation tutorial surface in results and address compile time reduction, but don't specifically cover warm-cache slowness or NCCL timeout interaction"
+    },
+    {
+      "id": "J7-13",
+      "coverage": "None",
+      "discoverability": 0,
+      "best_url": null,
+      "rationale": "No pytorch.org results found; no docs specifically address dynamo loop unrolling compilation speed or how to make dynamo handle for loops faster"
+    },
+    {
+      "id": "J7-14",
+      "coverage": "None",
+      "discoverability": 1,
+      "best_url": "https://githubissues.com/pytorch/pytorch/140970",
+      "rationale": "Only a GitHub issues mirror found; no pytorch.org docs cover CPU vector ISA detection overhead or inductor CPU-specific compile time issues"
+    },
+    {
+      "id": "J7-15",
+      "coverage": "None",
+      "discoverability": 1,
+      "best_url": "https://pytorch.org/blog/experience-in-reducing-pt2-compilation-time-for-meta-internal-workloads/",
+      "rationale": "PyTorch blog about compilation time reduction is tangentially related but it's a blog not docs; no docs page addresses FSDP + dynamic shapes recompilation time regression"
+    },
+    {
+      "id": "J7-16",
+      "coverage": "Partial",
+      "discoverability": 1,
+      "best_url": "https://discuss.pytorch.org/t/how-to-serialize-models-with-torch-compile-properly/175626",
+      "rationale": "Save/Load tutorial exists on pytorch.org but doesn't cover compiled model serialization; only forum posts address this; torch.export docs exist but weren't surfaced"
+    },
+    {
+      "id": "J7-17",
+      "coverage": "Partial",
+      "discoverability": 0,
+      "best_url": null,
+      "rationale": "Caching Tutorial exists on pytorch.org covering inductor cache, but search returned only generic DynamoDB/caching results; no docs cover dynamo frontend caching specifically"
+    },
+    {
+      "id": "J7-18",
+      "coverage": "Partial",
+      "discoverability": 1,
+      "best_url": "https://github.com/pytorch/pytorch/issues/108971",
+      "rationale": "Profiling and Logging docs exist on pytorch.org for diagnosing compile time breakdown, but search only surfaced GitHub issues and Intel docs"
+    },
+    {
+      "id": "J7-19",
+      "coverage": "Partial",
+      "discoverability": 1,
+      "best_url": "https://github.com/pytorch/pytorch/issues/111317",
+      "rationale": "FAQ/Troubleshooting docs exist on pytorch.org but search only found the original GitHub issue; no official doc specifically covers FSDP mixed precision + compile compatibility"
+    },
+    {
+      "id": "J7-20",
+      "coverage": "Partial",
+      "discoverability": 2,
+      "best_url": "https://docs.pytorch.org/tutorials/recipes/torch_compile_user_defined_triton_kernel_tutorial.html",
+      "rationale": "Triton kernel tutorial on pytorch.org appeared but doesn't address GIL blocking during compilation; no docs cover background/async compilation"
+    },
+    {
+      "id": "J8-1",
+      "coverage": "Full",
+      "discoverability": 1,
+      "best_url": "https://discuss.pytorch.org/t/how-to-define-an-in-place-custom-op-in-dynamo/188814",
+      "rationale": "pytorch.org has Custom Python Operators and torch.library API docs that directly answer this, but search didn't surface them; only forums and TensorRT docs appeared"
+    },
+    {
+      "id": "J8-2",
+      "coverage": "Partial",
+      "discoverability": 0,
+      "best_url": null,
+      "rationale": "FlexAttention blog/API exists on pytorch.org but search returned only generic segfault debugging pages; no compile-specific FlexAttention debugging docs"
+    },
+    {
+      "id": "J8-3",
+      "coverage": "None",
+      "discoverability": 1,
+      "best_url": "https://github.com/pytorch/pytorch/blob/main/torch/_higher_order_ops/while_loop.py",
+      "rationale": "No pytorch.org docs cover while_loop higher-order op usage with stateful modules; only GitHub source code appeared"
+    },
+    {
+      "id": "J8-4",
+      "coverage": "Full",
+      "discoverability": 1,
+      "best_url": "https://discuss.pytorch.org/t/trouble-using-custom-c-operator-with-torch-compile/211677",
+      "rationale": "pytorch.org has Custom Python Operators tutorial and torch.library docs that directly cover registering custom ops for compile, but search only found forums and GitHub issues"
+    },
+    {
+      "id": "J8-5",
+      "coverage": "Partial",
+      "discoverability": 1,
+      "best_url": "https://github.com/pytorch/pytorch/issues/148527",
+      "rationale": "FlexAttention API docs exist on pytorch.org but don't cover dynamic shapes with batch-dependent BlockMask; search returned no official docs"
+    },
+    {
+      "id": "J8-6",
+      "coverage": "Partial",
+      "discoverability": 2,
+      "best_url": "https://pytorch.org/blog/flexattention/",
+      "rationale": "FlexAttention blog on pytorch.org discusses the API but not precision behavior with float32_matmul_precision; torch.set_float32_matmul_precision doc appeared but is not compile-specific"
+    },
+    {
+      "id": "J8-7",
+      "coverage": "Full",
+      "discoverability": 1,
+      "best_url": "https://discuss.pytorch.org/t/torch-dynamo-optimize-the-tensor-has-a-non-zero-number-of-elements-but-its-data-is-not-allocated-y/189206",
+      "rationale": "Custom Python Operators tutorial on pytorch.org covers wrapping third-party ops for dynamo, but search only surfaced forums and source code"
+    },
+    {
+      "id": "J8-8",
+      "coverage": "Full",
+      "discoverability": 3,
+      "best_url": "https://docs.pytorch.org/docs/2.6/cond.html",
+      "rationale": "Official pytorch.org cond doc directly addresses torch.cond usage and limitations with compile"
+    },
+    {
+      "id": "J8-9",
+      "coverage": "Partial",
+      "discoverability": 1,
+      "best_url": "https://github.com/pytorch/pytorch/issues/147109",
+      "rationale": "FAQ/Troubleshooting docs exist but don't specifically list complex tensor support status; search only found GitHub issues and blogs"
+    },
+    {
+      "id": "J8-10",
+      "coverage": "Partial",
+      "discoverability": 1,
+      "best_url": "https://discuss.pytorch.org/t/torch-compile-regularly-fails-with-triton-error-cuda-device-kernel-image-is-invalid/185288",
+      "rationale": "Troubleshooting and Inductor GPU Profiling docs exist on pytorch.org but don't specifically cover Triton autotuning failures; only forums and NVIDIA docs appeared"
+    },
+    {
+      "id": "J8-11",
+      "coverage": "Partial",
+      "discoverability": 2,
+      "best_url": "https://docs.pytorch.org/docs/2.3/_modules/torch/library.html",
+      "rationale": "torch.library API source appeared; Custom Python Operators tutorial exists but doesn't specifically cover debugging illegal memory access with mutates_args custom ops"
+    },
+    {
+      "id": "J8-12",
+      "coverage": "Partial",
+      "discoverability": 0,
+      "best_url": null,
+      "rationale": "FlexAttention API/blog exists on pytorch.org but search returned only generic CUDA error debugging pages; no compile-specific FlexAttention debugging content"
+    },
+    {
+      "id": "J8-13",
+      "coverage": "Full",
+      "discoverability": 1,
+      "best_url": "https://github.com/pytorch/pytorch/issues/123177",
+      "rationale": "CUDAGraph Trees doc on pytorch.org covers CUDA graphs with compile; but search only found the original GitHub issue, not official docs"
+    },
+    {
+      "id": "J8-14",
+      "coverage": "None",
+      "discoverability": 1,
+      "best_url": "https://discuss.pytorch.org/t/is-there-an-equivalent-of-jax-lax-scan-eg-in-torch-func/177088",
+      "rationale": "No torch.scan page exists on pytorch.org (confirmed gap); only forum discussions and JAX docs found"
+    },
+    {
+      "id": "J8-15",
+      "coverage": "None",
+      "discoverability": 1,
+      "best_url": "https://github.com/pytorch/pytorch/issues/95408",
+      "rationale": "No torch.scan page exists on pytorch.org (confirmed gap); only the original GitHub feature request found"
+    },
+    {
+      "id": "J8-16",
+      "coverage": "None",
+      "discoverability": 1,
+      "best_url": "https://dev-discuss.pytorch.org/t/pytorch-symmetricmemory-harnessing-nvlink-programmability-with-ease/2798",
+      "rationale": "No pytorch.org docs cover symmetric memory + compile integration; only dev-discuss blog post found"
+    },
+    {
+      "id": "J8-17",
+      "coverage": "Partial",
+      "discoverability": 3,
+      "best_url": "https://docs.pytorch.org/docs/stable/library.html",
+      "rationale": "torch.library API doc on pytorch.org covers both registration methods but doesn't explain the performance difference between decorator vs define+impl approaches"
+    },
+    {
+      "id": "J8-18",
+      "coverage": "Partial",
+      "discoverability": 2,
+      "best_url": "https://pytorch.org/blog/accelerated-cpu-inference/",
+      "rationale": "PyTorch blog on accelerated CPU inference with inductor appeared; docs exist for inductor but don't cover custom reduction op performance on CPU backend specifically"
+    },
+    {
+      "id": "J8-19",
+      "coverage": "None",
+      "discoverability": 1,
+      "best_url": "https://github.com/pytorch/pytorch/issues/147373",
+      "rationale": "No pytorch.org docs cover Triton pin compatibility issues with FlexAttention; only GitHub issues about Triton/inductor failures found"
+    },
+    {
+      "id": "J8-20",
+      "coverage": "Partial",
+      "discoverability": 0,
+      "best_url": null,
+      "rationale": "FlexAttention API/blog exists on pytorch.org but search returned zero relevant results; no docs cover compiled FlexAttention gradient correctness issues"
+    }
+  ]
+}
