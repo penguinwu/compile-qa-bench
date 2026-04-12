@@ -89,4 +89,51 @@ This aligns with the coverage vs. discoverability experiment: the 2×2 matrix is
 
 ---
 
-*Agreement analysis run 2026-04-11. 18 comparable cases. Systematic disagreement traced to methodological difference (search-only vs. search+verify).*
+## Round 2: Two-Score Protocol Validation
+
+**Sample:** 20 fresh cases (unpolluted — neither annotator had seen them before)
+**Protocol:** Each annotator independently scores TWO dimensions:
+1. Discoverability (0-3): what does web search return?
+2. Coverage (Full/Partial/None): does pytorch.org have content on this topic?
+
+### Round 2 Results
+
+**Discoverability:**
+
+| Metric | Round 1 | Round 2 |
+|--------|---------|---------|
+| Exact match | 22% | **45%** |
+| Within ±1 | 67% | **100%** |
+| Off by 2+ | 33% | **0%** |
+
+**Coverage:**
+
+| Metric | Round 2 |
+|--------|---------|
+| Exact match | **85%** |
+
+### Round 2 Disagreement Pattern
+
+All 3 coverage disagreements follow one pattern: Rocky=Partial, Raven=None.
+
+| Case | Rocky | Raven | Issue |
+|------|-------|-------|-------|
+| J6-11 | Partial | None | DTensor docs exist but don't mention as_strided under compile |
+| J7-14 | Partial | None | CPU inference blog exists but doesn't discuss pick_vec_isa |
+| J8-16 | Partial | None | Symmetric memory page exists but never mentions compile |
+
+The calibration question: if a page exists for the *general topic* (e.g., symmetric memory) but says nothing about the *specific question* (compile compatibility), is that Partial or None?
+
+**Proposed resolution:** Adopt Raven's stricter standard — Coverage=Partial requires the page to have content that a user reading it would recognize as relevant to their question. A page about symmetric memory that never mentions torch.compile → None, because a user with a compile question wouldn't find it useful even if they landed on it.
+
+### Conclusion
+
+The two-score protocol eliminates the systematic disagreement from Round 1. Agreement is now at levels suitable for reliable annotation:
+- 100% discoverability agreement within ±1 (publishable)
+- 85% coverage agreement (strong, with clear path to 95%+ via calibration)
+
+**The methodology is validated. Ready to scale to all 160 cases.**
+
+---
+
+*Round 1: 2026-04-11, 18 cases, single-score protocol. Round 2: 2026-04-11, 20 fresh cases, two-score protocol. Annotators: Rocky (web search) + Raven (web search + fbsource doc tree verification).*
