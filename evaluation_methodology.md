@@ -38,13 +38,15 @@ Each test case has:
 
 ### Dimension 1: Coverage (manual annotation, one-time)
 
-Does pytorch.org have content that addresses this question — regardless of whether search finds it?
+Does pytorch.org have content that addresses the **compile-specific** aspect of this question — regardless of whether search finds it?
 
 | Label | Criteria |
 |-------|----------|
-| **Full** | pytorch.org has a page that directly addresses this question |
-| **Partial** | pytorch.org mentions the topic but doesn't resolve the specific question |
-| **None** | No relevant pytorch.org content exists |
+| **Full** | pytorch.org has a page that directly addresses the compile-specific question |
+| **Partial** | pytorch.org has compile-related content in the same area but doesn't address the specific question |
+| **None** | No relevant compile-specific pytorch.org content exists |
+
+**Key calibration rule:** Eager-mode docs for a general feature (e.g., symmetric memory, DTensor, GRU) do NOT count as coverage for a compile question about that feature. torch.compile is an add-on layer — if the page doesn't mention compile behavior, it doesn't answer a compile question. Example: symmetric_memory.html exists but never mentions torch.compile compatibility → Coverage = None, not Partial.
 
 **Validated baseline (15-case sample, April 2026):**
 
