@@ -160,6 +160,42 @@ This is the simpler, cheaper evaluation. Run web searches, classify results. Alr
 
 This is the harder evaluation. Requires judging agent output quality, not just retrieval.
 
+#### Two-Track Design (validated 2026-04-12)
+
+Mode B runs in two tracks to isolate doc impact:
+
+**Track 1: Unrestricted** — agent searches freely (GitHub, forums, blogs, official docs). Measures overall agent resolution quality.
+
+**Track 2: Doc-restricted** — agent can ONLY reference official pytorch.org documentation. Measures doc sufficiency — can official docs alone resolve the problem?
+
+**Key metrics:**
+- **Doc sufficiency rate**: % of cases where official docs are sufficient (Track 2 score ≥ 2)
+- **Community dependency gap**: Track 1 mean − Track 2 mean (how much agents depend on non-doc sources)
+- **Per-case delta**: cases where Track 1 >> Track 2 identify where community sources are filling doc gaps
+
+**Baseline (2026-04-12):**
+
+| Metric | Unrestricted | Doc-Restricted |
+|--------|-------------|----------------|
+| Overall mean | 1.89 | 1.73 |
+| Resolved mean | 1.86 | 1.24 |
+| Unresolved mean | 1.91 | 2.21 |
+| Doc sufficient | — | 13.8% |
+
+The resolved/unresolved split tells the story: docs lack specific fixes (resolved drops 0.62) but doc-restricted agents are MORE honest about gaps (unresolved rises 0.30 — less fabrication).
+
+**Coverage → Doc-Restricted cross-reference:**
+
+| Coverage | Unrestricted | Doc-Restricted | Gap |
+|----------|-------------|----------------|-----|
+| Full | 1.96 | 2.00 | -0.04 (none) |
+| Partial | 1.95 | 1.64 | +0.30 (big) |
+| None | 1.72 | 1.74 | -0.02 (none) |
+
+Full coverage cases survive doc restriction — validating that Full coverage docs are genuinely good. Partial cases show the biggest gap — docs exist but aren't deep enough, so agents compensate with community sources.
+
+**After doc improvements:** Track 2 should improve directly (better docs → better doc-only answers). The gap between tracks should narrow as docs become sufficient.
+
 #### Scoring for resolved issues (J{n}-1 through J{n}-10):
 
 The ground truth is the actual resolution from the GitHub issue thread. Score the agent's response against it:
