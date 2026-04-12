@@ -1,0 +1,151 @@
+{
+  "metadata": {
+    "evaluator": "Rocky (Claude agent simulation)",
+    "date": "2026-04-12",
+    "search_tool": "Three Pai external web search",
+    "rubric_version": "Mode B v1.0",
+    "description": "Mode B pilot: end-to-end agent evaluation on 20 cases"
+  },
+  "results": [
+    {
+      "id": "J1-5",
+      "resolution_status": "resolved",
+      "agent_guidance": "The slowdown you're seeing is expected behavior. The first call to a torch.compiled model triggers compilation (tracing, graph lowering, code generation), which can take seconds to minutes. To benchmark correctly, run the compiled model once to trigger compilation, then time subsequent calls. Additionally, torch.compile's benefits are most pronounced on GPU; on CPU in Colab, the compilation overhead dominates and the generated code may offer little to no speedup over eager mode.",
+      "rocky_score": 3,
+      "justification": "Correctly identifies both warmup/compilation overhead on first call and CPU-vs-GPU consideration, which are the two root causes."
+    },
+    {
+      "id": "J1-17",
+      "resolution_status": "unresolved",
+      "agent_guidance": "Windows support for Inductor's C++ backend is a known limitation -- the CPP builder is hardcoded for Linux/GCC toolchains. Workarounds: try Intel's oneAPI DPC++/C++ Compiler (ICX), set torch._inductor.config.cpp.cxx to point to MSVC cl.exe, or fall back to the Triton/GPU backend. Full Windows CPP builder support is not yet guaranteed.",
+      "rocky_score": 3,
+      "justification": "Correctly identifies as known limitation, provides multiple valid workarounds, sets appropriate expectations."
+    },
+    {
+      "id": "J2-2",
+      "resolution_status": "resolved",
+      "agent_guidance": "This is a known regression where torch.compile's decomposition of cumprod backward generates inefficient code that scales poorly with dimension size. Use torch.profiler to compare eager vs compiled. Workaround: wrap the cumprod call in torch.compiler.disable to force eager for that op's backward pass.",
+      "rocky_score": 3,
+      "justification": "Correctly diagnoses root cause (decomposition of cumprod backward into inefficient subops), recommends profiling, suggests correct workaround."
+    },
+    {
+      "id": "J2-18",
+      "resolution_status": "unresolved",
+      "agent_guidance": "No built-in performance canary mode exists today -- this is a recognized gap. Closest tools: TORCH_COMPILE_DEBUG=1 for intermediate graphs, torch.profiler for per-op timings, torch._logging.set_logs(output_code=True) for generated kernels. For isolating which op is slow, binary search with torch.compiler.disable on suspect ops.",
+      "rocky_score": 3,
+      "justification": "Correctly identifies as missing feature, provides best available workarounds."
+    },
+    {
+      "id": "J3-1",
+      "resolution_status": "resolved",
+      "agent_guidance": "Completely wrong values (not just precision differences) are compiler bugs. Debug with TORCH_COMPILE_DEBUG=1 to dump the FX graph, check storage_offset/data_ptr handling on view operations. Use torch._dynamo.config.repro_after='aot' for minimal reproducer, and torch.testing.assert_close() for tensor-by-tensor comparison. This is a known class of bugs in the Inductor backend.",
+      "rocky_score": 3,
+      "justification": "Correctly identifies as compiler bug, specifically calls out storage_offset/view issues matching ground truth, provides right debugging tools."
+    },
+    {
+      "id": "J3-13",
+      "resolution_status": "unresolved",
+      "agent_guidance": "This is a known issue -- torch.compile can break reproducibility even with all standard seeding because compiled graphs may select non-deterministic CUDA kernels or reorder operations. Beyond standard seeding + CUBLAS_WORKSPACE_CONFIG, Inductor's autotuning/kernel selection is not fully deterministic. Try mode='reduce-overhead' or pin specific kernel choices by disabling autotuning.",
+      "rocky_score": 2,
+      "justification": "Correctly identifies as known open issue with reasonable workarounds, but no definitive fix exists."
+    },
+    {
+      "id": "J4-6",
+      "resolution_status": "resolved",
+      "agent_guidance": "Dynamo historically couldn't trace dataclass __init__. Workarounds: replace @dataclass with plain class or NamedTuple, or refactor so dataclass construction happens outside the compiled region. In PyTorch 2.1+, Dynamo has improved dataclass support -- upgrading may resolve this directly.",
+      "rocky_score": 2,
+      "justification": "Right diagnosis and practical workarounds, but the actual fix was specific Dynamo patches for dataclass tracing support."
+    },
+    {
+      "id": "J4-16",
+      "resolution_status": "unresolved",
+      "agent_guidance": "AOTAutograd cache has known issues with perpetual misses in certain configurations. Ensure TORCHINDUCTOR_FX_GRAPH_CACHE=1 is also set. Cache keys may be overly sensitive (including timestamps or Python object IDs). Upgrading to stable 2.2+ release where caching was significantly reworked is the most reliable fix.",
+      "rocky_score": 2,
+      "justification": "Correctly identifies as known limitation with plausible root cause, but can't pinpoint the exact bug."
+    },
+    {
+      "id": "J5-1",
+      "resolution_status": "resolved",
+      "agent_guidance": "max-autotune benchmarks multiple kernel implementations (cuBLAS, Triton, cuDNN) and fastest may use different numerical algorithms (different tiling, reduction orders, TF32 math) causing precision differences that compound during training. Use mode='reduce-overhead' for speed without kernel changes, or use max-autotune with torch.backends.cuda.matmul.allow_tf32=False to force higher precision.",
+      "rocky_score": 3,
+      "justification": "Correctly identifies root cause (autotuning selects numerically different kernels) and provides actionable workarounds."
+    },
+    {
+      "id": "J5-15",
+      "resolution_status": "unresolved",
+      "agent_guidance": "Two integration paths for Triton kernels: direct triton_kernel[grid]() syntax (natively understood by compile) or torch.library.custom_op (needs proper register_fake). Error likely from missing/incorrect fake tensor implementation for backward pass. Ensure both forward and backward custom_ops have @register_fake and link via torch.library.register_autograd.",
+      "rocky_score": 2,
+      "justification": "Correctly identifies likely issue (missing fake tensor impl) and the two integration paths, but without the exact error can't be certain."
+    },
+    {
+      "id": "J6-6",
+      "resolution_status": "resolved",
+      "agent_guidance": "dynamic=True only marks the first dimension (batch) as dynamic by default. For varying image H/W (index 2,3), explicitly use torch._dynamo.mark_dynamic(tensor, 2) and mark_dynamic(tensor, 3), or use the dynamic_shapes argument to torch.compile. This prevents size-specific guards and eliminates recompilation.",
+      "rocky_score": 2,
+      "justification": "Correct diagnosis and recommendation, but the actual resolution may have involved additional model-specific fixes."
+    },
+    {
+      "id": "J6-18",
+      "resolution_status": "unresolved",
+      "agent_guidance": "Set TORCH_LOGS='+guards,+recompiles' to see which guard triggers recompilation. Dispatch key guard failures are a known limitation with overly conservative guards. Workarounds: increase cache_size_limit, use torch._dynamo.config.suppress_errors=True for eager fallback, or isolate offending submodule with torch._dynamo.disable().",
+      "rocky_score": 2,
+      "justification": "Valid diagnostic steps and workarounds, but dispatch key guard over-triggering is a specific internal issue without a clean fix."
+    },
+    {
+      "id": "J7-1",
+      "resolution_status": "resolved",
+      "agent_guidance": "Use regional compilation -- apply torch.compile to individual submodules/transformer layers rather than the entire model. This dramatically reduces graph size. Avoid mode='max-autotune' and cudagraphs if compile time is the bottleneck. Enable compile cache (TORCHINDUCTOR_FX_GRAPH_CACHE=1) for subsequent runs.",
+      "rocky_score": 3,
+      "justification": "Regional compilation is the canonical solution for reducing compile time on large models."
+    },
+    {
+      "id": "J7-11",
+      "resolution_status": "unresolved",
+      "agent_guidance": "FX graph cache only covers Inductor backend. Dynamo/AOTAutograd frontend caching is a known gap and active feature request. Best options: regional compilation for smaller graphs, newer PyTorch compile time caching features, and tracking upstream development. No production-ready frontend cache exists yet.",
+      "rocky_score": 2,
+      "justification": "Correctly identifies as open limitation with best available workarounds but no complete solution."
+    },
+    {
+      "id": "J8-1",
+      "resolution_status": "resolved",
+      "agent_guidance": "Use torch.library.custom_op to define your operator and register a FakeTensor kernel via @my_op.register_fake. The official tutorial is at pytorch.org/tutorials/advanced/python_custom_ops.html. The old cpp_extension.html approach predates torch.compile and lacks the FakeTensor registration the compiler requires.",
+      "rocky_score": 3,
+      "justification": "Points directly to the correct, canonical documentation (torch.library.custom_op with register_fake)."
+    },
+    {
+      "id": "J8-14",
+      "resolution_status": "unresolved",
+      "agent_guidance": "No direct torch.scan equivalent to JAX's lax.scan exists in core PyTorch. PyTorch/XLA has a scan primitive but it's XLA-specific. Closest options: torch._higher_order_ops.while_loop, torch._higher_order_ops.associative_scan (for associative ops), or manual unrolling. Track pytorch/pytorch#95408 for progress.",
+      "rocky_score": 3,
+      "justification": "Correctly identifies as missing feature, points to closest available workarounds and tracking issue."
+    },
+    {
+      "id": "J3-8",
+      "resolution_status": "resolved",
+      "agent_guidance": "Known compiler bug: torch.compile generates tensors with wrong shape/stride during SDPA backward with GQA conditions (odd sequence lengths, asymmetric head counts, math backend). Workaround: force flash/mem-efficient backend via sdp_kernel context manager, or pad sequences to even lengths. Upgrading PyTorch may include the fix.",
+      "rocky_score": 2,
+      "justification": "Right diagnosis and reasonable workarounds, but couldn't confirm exact fix PR."
+    },
+    {
+      "id": "J4-11",
+      "resolution_status": "unresolved",
+      "agent_guidance": "Known issue: AOT Autograd misclassifies optimizer step as training graph because parameters have requires_grad=True. Compile optimizer step separately with torch.no_grad() wrapping to force inference classification. Or use torch.compile(optimizer.step) per the official optimizer compilation tutorial.",
+      "rocky_score": 2,
+      "justification": "Correctly identifies the misclassification problem with relevant workarounds, but lacks precise upstream fix."
+    },
+    {
+      "id": "J6-4",
+      "resolution_status": "resolved",
+      "agent_guidance": "Use torch.compile(model, dynamic=True) for varying tensor sizes. PyG docs at pytorch-geometric.readthedocs.io address compiled GNNs. Pad mini-batches to fixed max size to reduce shape variation. Increase cache_size_limit for remaining variations. Even with dynamic shapes, GNN workloads with neighbor sampling may see limited speedups.",
+      "rocky_score": 3,
+      "justification": "Correctly prescribes dynamic=True, references PyG compile docs, suggests padding as key practical workaround."
+    },
+    {
+      "id": "J8-11",
+      "resolution_status": "unresolved",
+      "agent_guidance": "Likely a bug in how torch.compile handles custom ops with mutates_args at large tensor sizes -- buffer aliasing or incorrect memory offsets. Verify register_fake exactly mirrors mutation semantics. Debug with TORCH_COMPILE_DEBUG=1 and CUDA_LAUNCH_BLOCKING=1. Workaround: convert to non-mutating ops (return new tensors instead of in-place mutation).",
+      "rocky_score": 2,
+      "justification": "Identifies likely root cause area and actionable workaround, but can't pinpoint exact bug."
+    }
+  ]
+}

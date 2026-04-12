@@ -1,0 +1,27 @@
+{
+  "annotator": "Raven",
+  "date": "2026-04-12",
+  "note": "Verified key claims against PyTorch codebase",
+  "scores": [
+    {"id": "J1-5", "score": 2, "justification": "Right diagnosis (warmup + CPU) but assumes Colab context; misses small-model inherent limitation"},
+    {"id": "J1-17", "score": 2, "justification": "Correctly IDs Windows CPP builder limitation; workaround validity (config.cpp.cxx to MSVC) unverified"},
+    {"id": "J2-2", "score": 2, "justification": "Plausible cumprod decomposition diagnosis, valid torch.compiler.disable workaround"},
+    {"id": "J2-18", "score": 3, "justification": "Correctly IDs no canary mode; lists valid tools (TORCH_COMPILE_DEBUG, profiler, binary search)"},
+    {"id": "J3-1", "score": 2, "justification": "Valid debugging workflow but gives methodology, not actual fix"},
+    {"id": "J3-13", "score": 2, "justification": "Right area (non-deterministic kernels) but reduce-overhead for determinism is questionable"},
+    {"id": "J4-6", "score": 3, "justification": "Correct: dataclass limitation, valid workarounds, accurate 2.1+ version guidance"},
+    {"id": "J4-16", "score": 1, "justification": "FABRICATED: claims cache keys include timestamps or object IDs. Codebase confirms FxGraphCachePickler explicitly avoids this"},
+    {"id": "J5-1", "score": 3, "justification": "Correct: max-autotune selects kernels with different numerical properties; allow_tf32=False valid fix"},
+    {"id": "J5-15", "score": 3, "justification": "Correctly IDs two integration paths and missing register_fake as root cause"},
+    {"id": "J6-6", "score": 1, "justification": "WRONG: claims dynamic=True only marks batch dim. Codebase confirms it makes ALL dims dynamic"},
+    {"id": "J6-18", "score": 2, "justification": "Valid debugging steps but recommends suppress_errors=True — dangerous, masks real bugs"},
+    {"id": "J7-1", "score": 3, "justification": "Correct: regional compilation, avoid max-autotune, enable FX graph cache"},
+    {"id": "J7-11", "score": 2, "justification": "Right area (FX cache = Inductor only) but no frontend cache exists may be outdated"},
+    {"id": "J8-1", "score": 3, "justification": "Correct: torch.library.custom_op + register_fake, valid tutorial ref"},
+    {"id": "J8-14", "score": 2, "justification": "WRONG claim no torch.scan equivalent — torch._higher_order_ops.scan exists (prototype). Listed alternatives real but missed direct answer"},
+    {"id": "J3-8", "score": 2, "justification": "Plausible SDPA/GQA diagnosis, valid workarounds, but specific trigger conditions read as fabricated"},
+    {"id": "J4-11", "score": 2, "justification": "Practical advice works but diagnosis wrong — PyTorch handles this by design via graph breaks, not misclassification"},
+    {"id": "J6-4", "score": 2, "justification": "Solid practical advice (dynamic=True, padding) but shallow on GNN-specific challenges"},
+    {"id": "J8-11", "score": 2, "justification": "Right area (buffer aliasing + mutates_args); non-mutating ops workaround is practical"}
+  ]
+}

@@ -1,0 +1,28 @@
+{
+  "round": 4,
+  "annotator": "Rocky",
+  "date": "2026-04-11",
+  "protocol": "Two-score with v1.1 annotation guide (tightened Full/Partial boundary)",
+  "scores": {
+    "J1-1":  {"disc": 3, "coverage": "Full",    "url": "docs.pytorch.org/tutorials/recipes/torch_compile_caching_tutorial.html", "rationale": "Dedicated caching tutorial directly addresses compile cache persistence and configuration. Appears in search."},
+    "J1-3":  {"disc": 1, "coverage": "Partial",  "url": null, "rationale": "DDP page has DDPOptimizer section covering compile+DDP, but DDP+AMP+compile three-way interaction not addressed. Only GH issues and forum posts in search."},
+    "J1-15": {"disc": 1, "coverage": "Partial",  "url": null, "rationale": "Export docs exist with limitations sections, but torch.autograd.grad support/limitation not specifically documented. Only eager autograd.html pages in search."},
+    "J2-8":  {"disc": 1, "coverage": "Partial",  "url": null, "rationale": "FlexAttention page exists (compile-native concept) but backward pass performance at long sequences not discussed. No official docs in search."},
+    "J2-9":  {"disc": 1, "coverage": "Partial",  "url": null, "rationale": "FAQ has 'Why am I not seeing speedups?' section but focuses on graph breaks, doesn't address 'consistently slower' diagnosis for decoder models. Only community in search."},
+    "J2-20": {"disc": 2, "coverage": "Partial",  "url": "pytorch.org/blog/intel-gpu-support-pytorch-2-5/", "rationale": "pytorch.org blog about Intel GPU support appeared. XPU is an eager concept; blog may mention compile briefly but no dedicated compile+XPU doc page."},
+    "J3-4":  {"disc": 1, "coverage": "None",     "url": null, "rationale": "No pytorch.org doc covers float8 + compile NaN debugging. Blog about float8 training performance is about eager-mode scaling, not compile correctness."},
+    "J3-6":  {"disc": 1, "coverage": "Partial",  "url": null, "rationale": "FAQ covers correctness debugging (accuracy debugger, REPRO_LEVEL) but not torch.func.grad interaction specifically. Only GH issues in search."},
+    "J4-2":  {"disc": 1, "coverage": "Full",     "url": "docs.pytorch.org/docs/stable/notes/ddp.html#torchdynamo-ddpoptimizer", "rationale": "DDP docs have dedicated DDPOptimizer section directly about using compile with DDP — covers communication graph breaks and optimization. Not surfaced by search."},
+    "J4-20": {"disc": 1, "coverage": "Partial",  "url": null, "rationale": "Troubleshooting covers graph breaks generally. Tensor subclass limitations may be mentioned but Parameter subclasses specifically are not documented."},
+    "J5-13": {"disc": 1, "coverage": "None",     "url": null, "rationale": "standalone_compile is undocumented on pytorch.org. No official content in search."},
+    "J5-16": {"disc": 1, "coverage": "Partial",  "url": null, "rationale": "Custom backends page covers backend registration API but not extending inductor's internal pipeline. Only external (AMD/zentorch) docs in search."},
+    "J5-17": {"disc": 1, "coverage": "None",     "url": null, "rationale": "Inductor algorithm selection internals undocumented. Only GH test failure issues in search."},
+    "J6-2":  {"disc": 1, "coverage": "Partial",  "url": null, "rationale": "Dynamic shapes docs exist but empty tensor edge cases with dynamic=True not covered. No official docs in search."},
+    "J6-12": {"disc": 2, "coverage": "Partial",  "url": "docs.pytorch.org/docs/stable/user_guide/torch_compiler/torch.compiler_aot_inductor.html", "rationale": "AOTInductor page appeared but covers workflow, not FP16 autocast performance or small batch regression."},
+    "J6-17": {"disc": 2, "coverage": "None",     "url": "docs.pytorch.org/docs/stable/user_guide/torch_compiler/torch.compiler_troubleshooting.html", "rationale": "Troubleshooting page appeared (tangential to dynamo errors). DeepSpeed is eager/third-party — compile docs never mention it."},
+    "J7-2":  {"disc": 1, "coverage": "Partial",  "url": null, "rationale": "FAQ covers 'Why is compilation slow?' but not exponential growth from chained math ops with gradients. Only community content in search."},
+    "J7-20": {"disc": 2, "coverage": "None",     "url": "pytorch.org/blog/triton-kernel-compilation-stages/", "rationale": "Blog about Triton compilation stages appeared (tangential). No docs discuss GIL behavior during compilation or background compilation."},
+    "J8-5":  {"disc": 0, "coverage": "Partial",  "url": null, "rationale": "FlexAttention page covers BlockMask API but not dynamic shapes interaction with batch-dependent masks. No relevant search results."},
+    "J8-8":  {"disc": 3, "coverage": "Full",     "url": "docs.pytorch.org/docs/stable/cond.html", "rationale": "Dedicated torch.cond page directly about control flow under compile with examples and limitations. Appeared in search."}
+  }
+}

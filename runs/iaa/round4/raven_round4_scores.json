@@ -1,0 +1,28 @@
+{
+  "round": 4,
+  "annotator": "Raven",
+  "date": "2026-04-11",
+  "protocol": "Two-score with v1.1 annotation guide (tightened Full/Partial boundary)",
+  "scores": {
+    "J1-1":  {"disc": 2, "coverage": "Partial",  "url": "torch.compiler_faq.html", "rationale": "Config options for caching exist but no step-by-step guide for persistent compile cache across restarts"},
+    "J1-3":  {"disc": 1, "coverage": "None",      "url": null, "rationale": "No doc addresses DDP+AMP+compile three-way interaction. Eager concepts without compile-specific page"},
+    "J1-15": {"disc": 2, "coverage": "Partial",  "url": "export.html", "rationale": "Export docs cover limitations generally but don't address torch.autograd.grad compatibility specifically"},
+    "J2-8":  {"disc": 2, "coverage": "None",      "url": "nn.attention.flex_attention.html", "rationale": "FlexAttention API page exists but is pure API reference — zero content on backward pass performance"},
+    "J2-9":  {"disc": 2, "coverage": "Partial",  "url": "torch.compiler_faq.html", "rationale": "FAQ covers general debugging but never addresses decoder/autoregressive model pattern specifically"},
+    "J2-20": {"disc": 3, "coverage": "Full",      "url": "notes/get_start_xpu.html", "rationale": "Direct answer: complete torch.compile examples for both inference and training on Intel XPU"},
+    "J3-4":  {"disc": 1, "coverage": "None",      "url": null, "rationale": "No docs on float8 quantization + compile interaction or RMS norm NaN issues"},
+    "J3-6":  {"disc": 2, "coverage": "Partial",  "url": "torch.compiler_faq.html", "rationale": "FAQ has torch.func+compile section showing happy-path but does NOT warn about silent wrong results"},
+    "J4-2":  {"disc": 3, "coverage": "Partial",  "url": "torch.compiler_faq.html + torch.compiler_troubleshooting.html", "rationale": "FAQ has DDP strategy section, troubleshooting shows compile-inner-module. Neither addresses _broadcast_coalesced specifically"},
+    "J4-20": {"disc": 1, "coverage": "None",      "url": null, "rationale": "No docs on Parameter subclasses with Dynamo"},
+    "J5-13": {"disc": 2, "coverage": "Partial",  "url": "torch.compiler_aot_inductor.html", "rationale": "AOTInductor page covers compilation path but doesn't discuss runtime overhead vs JIT torch.compile"},
+    "J5-16": {"disc": 3, "coverage": "Partial",  "url": "torch.compiler_custom_backends.html", "rationale": "Custom backend page shows Dynamo-level replacement. Doesn't cover plugging into Inductor's internal pipeline"},
+    "J5-17": {"disc": 1, "coverage": "None",      "url": null, "rationale": "No docs on Inductor algorithm selection internals"},
+    "J6-2":  {"disc": 2, "coverage": "Partial",  "url": "compile/dynamic_shapes_zero_one_specialization.html", "rationale": "Zero-one specialization page explains size-0 handling but not division-by-zero failure mode"},
+    "J6-12": {"disc": 2, "coverage": "Partial",  "url": "torch.compiler_aot_inductor.html", "rationale": "AOTInductor + dynamic shapes documented separately but no content on FP16 autocast perf regression"},
+    "J6-17": {"disc": 1, "coverage": "None",      "url": null, "rationale": "Zero mentions of DeepSpeed in any compile doc"},
+    "J7-2":  {"disc": 2, "coverage": "Partial",  "url": "torch.compiler_troubleshooting.html", "rationale": "Covers general slow compilation debugging. Doesn't address exponential growth from specific op chains"},
+    "J7-20": {"disc": 1, "coverage": "None",      "url": null, "rationale": "Zero mentions of GIL in any compile doc. No content on threading during compilation"},
+    "J8-5":  {"disc": 2, "coverage": "Partial",  "url": "nn.attention.flex_attention.html", "rationale": "API page documents flex_attention and BlockMask. No discussion of dynamic shapes limitations"},
+    "J8-8":  {"disc": 3, "coverage": "Partial",  "url": "higher_order_ops/cond.html + torch.compiler_troubleshooting.html", "rationale": "torch.cond page lists invariants. Neither catalogs specific error messages or compile limitations"}
+  }
+}
