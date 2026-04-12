@@ -1,0 +1,32 @@
+{
+  "case_id": "J1-6",
+  "search_query": "How do I use torch.compile together with Tensor Parallel? It crashes when I try to compile a tensor-parallelized model.",
+  "search_tool": "three_pai_external_web_search",
+  "search_timestamp": "2026-04-12T16:07:18.593489+00:00",
+  "results": [
+    {
+      "url": "https://developers.redhat.com/articles/2025/09/03/vllm-torchcompile-efficient-llm-inference-pytorch",
+      "title": "vLLM with torch.compile: Efficient LLM inference on PyTorch | Red Hat Developer"
+    },
+    {
+      "url": "https://docs.pytorch.org/docs/stable/distributed.tensor.parallel.html",
+      "title": "Tensor Parallelism - torch.distributed.tensor.parallel \u2014 PyTorch 2.11 documentation"
+    },
+    {
+      "url": "https://discuss.pytorch.org/t/question-about-tensor-parallel-dtensor-parallelize-module/181739",
+      "title": "Question about tensor parallel (DTensor, parallelize_module)"
+    },
+    {
+      "url": "https://interviewbite.in/torch-distributed-tensor-parallel/",
+      "title": "Getting Started With Torch.distributed.tensor.parallel: A Complete Guide To Tensor Parallelism In Py"
+    },
+    {
+      "url": "https://docs.pytorch.org/TensorRT/dynamo/torch_compile.html",
+      "title": "TensorRT Backend for torch.compile \u2014 Torch-TensorRT v2.12.0.dev0+c0dfd5d documentation"
+    },
+    {
+      "url": "https://apxml.com/courses/advanced-pytorch/chapter-5-distributed-training-parallelism/tensor-model-parallelism",
+      "title": "Tensor Model Parallelism in PyTorch"
+    }
+  ]
+}

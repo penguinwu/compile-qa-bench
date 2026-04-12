@@ -1,0 +1,32 @@
+{
+  "case_id": "J7-6",
+  "search_query": "tmp_path.rename in the inductor code cache fails on Windows. How does caching work on Windows?",
+  "search_tool": "three_pai_external_web_search",
+  "search_timestamp": "2026-04-12T16:07:23.257773+00:00",
+  "results": [
+    {
+      "url": "https://windowsforum.com/threads/speed-up-windows-11-clear-cache-temporary-files-safely-built-in-tools.407000/",
+      "title": "Speed Up Windows 11: Clear Cache & Temporary Files Safely (Built-in Tools) | Windows Forum"
+    },
+    {
+      "url": "https://medium.com/@raghavattri13/caching-in-system-design-from-fundamentals-to-real-world-backend-scenarios-aef48e177281",
+      "title": "Caching in System Design: From Fundamentals to Real-World Backend Scenarios | by Raghavattri | Feb, "
+    },
+    {
+      "url": "https://neuronvm.com/docs/clear-cache-in-windows-10-and-11/",
+      "title": "How to Clear Cache in Windows 10 and 11 (Boost Speed)"
+    },
+    {
+      "url": "https://medium.com/@chettouhmoh80/cpu-level-caching-write-code-the-way-your-processor-thinks-217b7843f127",
+      "title": "CPU-Level Caching: Write Code the Way Your Processor Thinks | by Chettouh Mohamed | Nov, 2025 | Medi"
+    },
+    {
+      "url": "https://www.geeksforgeeks.org/operating-systems/what-is-the-caching-mechanism/",
+      "title": "What is the Caching Mechanism ? - GeeksforGeeks"
+    },
+    {
+      "url": "https://www.geeksforgeeks.org/techtips/how-to-clear-cache-in-windows-11/",
+      "title": "How to Clear Cache in Windows 11 - GeeksforGeeks"
+    }
+  ]
+}

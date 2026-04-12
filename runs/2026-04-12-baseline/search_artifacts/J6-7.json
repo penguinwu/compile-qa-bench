@@ -1,0 +1,28 @@
+{
+  "case_id": "J6-7",
+  "search_query": "I set dynamic=True in torch.compile but it still doesn't work with my varying input shapes. I get errors about symbolic shapes. What am I doing wrong?",
+  "search_tool": "three_pai_external_web_search",
+  "search_timestamp": "2026-04-12T16:10:05.317264+00:00",
+  "results": [
+    {
+      "url": "https://docs.pytorch.org/docs/2.6/torch.compiler_troubleshooting.html",
+      "title": "torch.compile Troubleshooting \u2014 PyTorch 2.6 documentation"
+    },
+    {
+      "url": "https://github.com/pytorch/pytorch/issues/168307",
+      "title": "torch.compile error when creating nested tensors dynamically in forward pass"
+    },
+    {
+      "url": "https://discuss.pytorch.org/t/dynamic-slicing/218156",
+      "title": "Dynamic slicing - torch.compile - PyTorch Forums"
+    },
+    {
+      "url": "https://docs.pytorch.org/docs/2.7/torch.compiler_troubleshooting.html",
+      "title": "torch.compile Troubleshooting \u2014 PyTorch 2.7 documentation"
+    },
+    {
+      "url": "https://docs.pytorch.org/docs/stable/user_guide/torch_compiler/torch.compiler_dynamic_shapes.html",
+      "title": "Dynamic Shapes \u2014 PyTorch 2.11 documentation"
+    }
+  ]
+}

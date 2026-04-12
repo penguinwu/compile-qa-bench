@@ -1,0 +1,24 @@
+{
+  "case_id": "J6-10",
+  "search_query": "torch.compile crashes on my wav2vec2 speech model because the audio input length varies. How do I make torch.compile work with variable-length audio inputs?",
+  "search_tool": "three_pai_external_web_search",
+  "search_timestamp": "2026-04-12T16:10:05.317264+00:00",
+  "results": [
+    {
+      "url": "https://huggingface.co/blog/fine-tune-wav2vec2-english",
+      "title": "Fine-Tune Wav2Vec2 for English ASR in Hugging Face with Transformers"
+    },
+    {
+      "url": "https://huggingface.co/docs/transformers/model_doc/wav2vec2",
+      "title": "Wav2Vec2 - Hugging Face"
+    },
+    {
+      "url": "https://pytorch.org/audio/2.5.0/_modules/torchaudio/models/wavernn.html",
+      "title": "torchaudio.models.wavernn \u2014 Torchaudio 2.5.0 documentation"
+    },
+    {
+      "url": "https://huggingface.co/docs/transformers/v4.17.0/en/model_doc/wav2vec2",
+      "title": "Wav2Vec2 - Hugging Face"
+    }
+  ]
+}

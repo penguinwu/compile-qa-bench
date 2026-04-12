@@ -1,0 +1,20 @@
+{
+  "case_id": "J6-12",
+  "search_query": "Dynamo recompiles when input shape is (1,1), and mark_dynamic on nn.Parameter has no effect. How do I prevent recompilation with small shapes?",
+  "search_tool": "three_pai_external_web_search",
+  "search_timestamp": "2026-04-12T16:11:29.958772+00:00",
+  "results": [
+    {
+      "url": "https://onnxruntime.ai/docs/tutorials/mobile/helpers/make-dynamic-shape-fixed.html",
+      "title": "Make dynamic input shape fixed"
+    },
+    {
+      "url": "https://docs.pytorch.org/docs/2.7/torch.compiler_dynamic_shapes.html",
+      "title": "Dynamic shapes \u2014 PyTorch 2.7 documentation"
+    },
+    {
+      "url": "https://medium.com/@sgurwinderr/pytorch-dynamo-and-aot-autograd-enhancing-performance-and-flexibility-fa18feda5f3a",
+      "title": "The Simple Path to PyTorch Graphs: Dynamo and AOT Autograd Explained"
+    }
+  ]
+}

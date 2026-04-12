@@ -1,0 +1,32 @@
+{
+  "case_id": "J3-1",
+  "search_query": "torch.compile produces different numerical output compared to eager mode. How do I debug this?",
+  "results": [
+    {
+      "url": "https://github.com/pytorch/pytorch/issues/161764",
+      "title": "The \"max-autotune\" mode in torch.compile can lead to longer execution times relative to eager execut"
+    },
+    {
+      "url": "https://docs.pytorch.org/docs/2.6/torch.compiler_troubleshooting.html",
+      "title": "torch.compile Troubleshooting \u2014 PyTorch 2.6 documentation"
+    },
+    {
+      "url": "https://github.com/pytorch/pytorch/issues/108971",
+      "title": "Really slow compilation times for torch.compile causing distributed training errors \u00b7 Issue #108971"
+    },
+    {
+      "url": "https://discuss.pytorch.org/t/torch-compile-mode-max-autotune-produces-different-inference-result-from-eager-mode-is-this-expect",
+      "title": "Torch.compile(mode=\"max-autotune\") produces different inference result from eager mode \u2014 is this e"
+    },
+    {
+      "url": "https://docs.pytorch.org/executorch/stable/model-debugging.html",
+      "title": "Debugging Models in ExecuTorch \u2014 ExecuTorch 0.7 documentation"
+    },
+    {
+      "url": "https://uwplse.org/2025/04/28/torchdynamo.html",
+      "title": "UW PLSE | How does torch.compile work?"
+    }
+  ],
+  "search_timestamp": "2026-04-12T16:07:30.495396+00:00",
+  "search_tool": "three_pai_external_web_search"
+}

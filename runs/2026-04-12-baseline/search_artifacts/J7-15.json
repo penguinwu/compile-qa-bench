@@ -1,0 +1,32 @@
+{
+  "case_id": "J7-15",
+  "search_query": "After upgrading to PyTorch 2.10, recompilation times with FSDP and dynamic shapes went from 30 minutes to several hours. What changed in 2.10 that made recompilation so much slower?",
+  "search_tool": "three_pai_external_web_search",
+  "search_timestamp": "2026-04-12T16:08:21.032349+00:00",
+  "results": [
+    {
+      "url": "https://medium.com/data-science/pytorch-model-performance-analysis-and-optimization-part-3-1c5876d78fe2",
+      "title": "PyTorch Model Performance Analysis and Optimization \u2014 Part 3 | by Chaim Rand | TDS Archive | Mediu"
+    },
+    {
+      "url": "https://pytorch.org/blog/experience-in-reducing-pt2-compilation-time-for-meta-internal-workloads/",
+      "title": "Experience in Reducing PT2 Compilation Time for Meta Internal Workloads \u2013 PyTorch"
+    },
+    {
+      "url": "https://github.com/pytorch/pytorch/issues/108971",
+      "title": "Really slow compilation times for torch.compile causing distributed training errors \u00b7 Issue #108971"
+    },
+    {
+      "url": "https://www.geeksforgeeks.org/deep-learning/how-to-improve-the-performance-of-pytorch-models/",
+      "title": "How to improve the performance of  PyTorch models? - GeeksforGeeks"
+    },
+    {
+      "url": "https://pytorch.org/blog/maximizing-training/",
+      "title": "Maximizing training throughput using PyTorch FSDP \u2013 PyTorch"
+    },
+    {
+      "url": "https://jinlow.medium.com/10-pytorch-performance-optimization-hacks-double-your-training-speed-in-production-657086afcbd8",
+      "title": "10 PyTorch Performance Optimization Hacks: Double Your Training Speed in Production | by JIN | Feb, "
+    }
+  ]
+}

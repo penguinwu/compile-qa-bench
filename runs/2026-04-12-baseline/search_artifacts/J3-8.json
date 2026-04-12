@@ -1,0 +1,28 @@
+{
+  "case_id": "J3-8",
+  "search_query": "torch.compile produces NaN gradients in the backward pass when using GQA with SDPA. Eager mode works fine. The bug seems related to tensor shape/stride.",
+  "results": [
+    {
+      "url": "https://github.com/pytorch/pytorch/issues/153993",
+      "title": "torch.compile custom autograd.Function + dynamic shapes + torch.tensor constructor in backward can c"
+    },
+    {
+      "url": "https://docs.pytorch.org/tutorials/intermediate/compiled_autograd_tutorial.html",
+      "title": "Compiled Autograd: Capturing a larger backward graph for torch.compile \u2014 PyTorch Tutorials 2.11.0+"
+    },
+    {
+      "url": "https://docs.pytorch.org/docs/2.0/generated/torch.Tensor.backward.html",
+      "title": "torch.Tensor.backward \u2014 PyTorch 2.0 documentation"
+    },
+    {
+      "url": "https://discuss.pytorch.org/t/backward-doesnt-provide-gradients/57638",
+      "title": "Backward doesnt provide gradients!"
+    },
+    {
+      "url": "https://github.com/pytorch/pytorch/issues/125674",
+      "title": "[BUG]Nan in gradients of scaled_dot_product_attention operation with mem_efficient backend \u00b7 Issue "
+    }
+  ],
+  "search_timestamp": "2026-04-12T16:07:45.275625+00:00",
+  "search_tool": "three_pai_external_web_search"
+}

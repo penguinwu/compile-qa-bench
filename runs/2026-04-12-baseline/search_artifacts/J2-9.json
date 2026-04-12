@@ -1,0 +1,32 @@
+{
+  "case_id": "J2-9",
+  "search_query": "I've been trying hard but torch.compile consistently makes my decoder model slower, not faster. What should I check to understand why compile isn't helping?",
+  "search_tool": "three_pai_external_web_search",
+  "search_timestamp": "2026-04-12T16:09:58.951022+00:00",
+  "results": [
+    {
+      "url": "https://medium.com/@ngocson2vn/torch-compile-and-with-triton-combo-kernel-1-causes-a-serious-accuracy-issue-634e62c39f25",
+      "title": "torch.compile() with TRITON_COMBO_KERNEL=1 causes a serious accuracy issue | by Son Nguyen | Nov, 20"
+    },
+    {
+      "url": "https://github.com/pytorch/pytorch/issues/168307",
+      "title": "torch.compile error when creating nested tensors dynamically in forward pass \u00b7 Issue #168307 \u00b7 pyt"
+    },
+    {
+      "url": "https://docs.pytorch.org/docs/2.6/torch.compiler_troubleshooting.html",
+      "title": "torch.compile Troubleshooting \u2014 PyTorch 2.6 documentation"
+    },
+    {
+      "url": "https://github.com/pytorch/pytorch/issues/108971",
+      "title": "Really slow compilation times for torch.compile causing distributed training errors \u00b7 Issue #108971"
+    },
+    {
+      "url": "https://docs.pytorch.org/docs/2.7/torch.compiler_troubleshooting.html",
+      "title": "torch.compile Troubleshooting \u2014 PyTorch 2.7 documentation"
+    },
+    {
+      "url": "https://discuss.pytorch.org/t/torch-compile-fails-when-indexing-tensor/193655",
+      "title": "Torch.compile fails when indexing tensor"
+    }
+  ]
+}

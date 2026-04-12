@@ -1,0 +1,36 @@
+{
+  "case_id": "J2-3",
+  "search_query": "My simple MLP is slower with torch.compile than without. Is torch.compile not suitable for small models?",
+  "search_tool": "three_pai_external_web_search",
+  "search_timestamp": "2026-04-12T16:09:58.951022+00:00",
+  "results": [
+    {
+      "url": "https://pytorch.org/blog/Accelerating-Hugging-Face-and-TIMM-models/",
+      "title": "Accelerating Hugging Face and TIMM models with PyTorch 2.0 \u2013 PyTorch"
+    },
+    {
+      "url": "https://discuss.pytorch.org/t/why-my-torch-compiled-model-run-so-slow/196368/1",
+      "title": "Why my torch.compiled model run so slow"
+    },
+    {
+      "url": "https://towardsdatascience.com/maximizing-ai-ml-model-performance-with-pytorch-compilation/",
+      "title": "Maximizing AI/ML Model Performance with PyTorch Compilation | Towards Data Science"
+    },
+    {
+      "url": "https://medium.com/@Nexumo_/10-pytorch-compile-tips-that-halve-epoch-time-291e744a9418",
+      "title": "10 PyTorch Compile Tips That Halve Epoch Time | by Nexumo | Dec, 2025 | Medium"
+    },
+    {
+      "url": "https://medium.com/@zdj0712/introducing-triton-and-how-it-challenges-cuda-and-torch-compile-5249788879aa",
+      "title": "Introducing Triton \u2014 and How It Challenges CUDA and torch.compile | by Wenyi Li | Medium"
+    },
+    {
+      "url": "https://discuss.pytorch.org/t/discrepancies-between-compiled-and-non-compiled-models-with-convolutional-layers-in-pytorch/211470",
+      "title": "Discrepancies Between Compiled and Non-Compiled Models with Convolutional Layers in PyTorch"
+    },
+    {
+      "url": "https://discuss.pytorch.org/t/torch-2-0-a-bit-slower-without-compile/169611/1",
+      "title": "Torch 2.0 a bit slower without compile?"
+    }
+  ]
+}

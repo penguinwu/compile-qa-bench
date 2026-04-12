@@ -1,0 +1,24 @@
+{
+  "case_id": "J1-2",
+  "search_query": "How do I change the backend compiler used by torch.compile? The docs mention 'inductor' but I want to use a different one.",
+  "search_tool": "three_pai_external_web_search",
+  "search_timestamp": "2026-04-12T16:07:18.593489+00:00",
+  "results": [
+    {
+      "url": "https://medium.com/@Nexumo_/10-pytorch-compile-tips-that-halve-epoch-time-291e744a9418",
+      "title": "10 PyTorch Compile Tips That Halve Epoch Time | by Nexumo | Dec, 2025 | Medium"
+    },
+    {
+      "url": "https://pytorch.org/blog/Accelerating-Hugging-Face-and-TIMM-models/",
+      "title": "Accelerating Hugging Face and TIMM models with PyTorch 2.0 \u2013 PyTorch"
+    },
+    {
+      "url": "https://docs.pytorch.org/docs/2.5/torch.compiler_custom_backends.html",
+      "title": "Custom Backends \u2014 PyTorch 2.5 documentation"
+    },
+    {
+      "url": "https://pytorch-tutorials-preview.netlify.app/intermediate/inductor_debug_cpu",
+      "title": "Inductor CPU backend debugging and profiling \u2014 PyTorch Tutorials 2.0.1+cu117 documentation"
+    }
+  ]
+}

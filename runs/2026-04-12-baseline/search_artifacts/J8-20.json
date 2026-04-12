@@ -1,0 +1,28 @@
+{
+  "case_id": "J8-20",
+  "search_query": "Compiled flex_attention gives wrong gradients. The forward pass is correct but backward produces different values than eager.",
+  "search_tool": "three_pai_external_web_search",
+  "search_timestamp": "2026-04-12T16:12:10.861487+00:00",
+  "results": [
+    {
+      "url": "https://Hackernoon.Com/lite/getting-started-with-gradients-and-automatic-differentiation-in-tensorflow?ref=hackernoon",
+      "title": "Getting Started with Gradients and Automatic Differentiation in TensorFlow | HackerNoon"
+    },
+    {
+      "url": "https://www.geeksforgeeks.org/computing-gradients-with-backpropagation-for-arbitrary-loss-and-activation-functions/?ref=asr29",
+      "title": "Computing Gradients with Backpropagation for Arbitrary Loss and Activation Functions | GeeksforGeeks"
+    },
+    {
+      "url": "https://www.geeksforgeeks.org/deep-learning/computing-gradients-with-backpropagation-for-arbitrary-loss-and-activation-functions",
+      "title": "Computing Gradients with Backpropagation for Arbitrary Loss and Activation Functions - GeeksforGeeks"
+    },
+    {
+      "url": "https://www.tensorflow.org/guide/autodiff",
+      "title": "Introduction to gradients and automatic differentiation  | TensorFlow Core"
+    },
+    {
+      "url": "https://jenmuel.ca/include/valueerror-attempting-to-unscale-fp16-gradients",
+      "title": "valueerror: attempting to unscale fp16 gradients."
+    }
+  ]
+}

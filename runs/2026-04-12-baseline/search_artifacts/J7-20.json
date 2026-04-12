@@ -1,0 +1,28 @@
+{
+  "case_id": "J7-20",
+  "search_query": "torch.compile/Triton holds the GIL during compilation, blocking all other threads. Can compilation run in the background?",
+  "search_tool": "three_pai_external_web_search",
+  "search_timestamp": "2026-04-12T16:09:10.229296+00:00",
+  "results": [
+    {
+      "url": "https://pyTorch.org/blog/triton-kernel-compilation-stages/",
+      "title": "Triton Kernel Compilation Stages \u2013 PyTorch"
+    },
+    {
+      "url": "https://towardsdatascience.com/python-concurrency-threading-and-the-gil-db940596e325/",
+      "title": "Python Concurrency - Threading and the GIL | Towards Data Science"
+    },
+    {
+      "url": "https://docs.pytorch.org/tutorials/recipes/torch_compile_user_defined_triton_kernel_tutorial.html",
+      "title": "Using User-Defined Triton Kernels with torch.compile \u2014 PyTorch Tutorials 2.11.0+cu130 documentatio"
+    },
+    {
+      "url": "https://www.alphaxiv.org/ru/overview/2503.14985v2",
+      "title": "ML-Triton, A Multi-Level Compilation and Language Extension to Triton  GPU Programming | alphaXiv"
+    },
+    {
+      "url": "https://medium.com/@sridinu03/understanding-pythons-gil-global-interpreter-lock-and-its-impact-on-multithreading-40bc87810a17",
+      "title": "Understanding Python's GIL (Global Interpreter Lock) and Its Impact on Multithreading | by Dinusha"
+    }
+  ]
+}

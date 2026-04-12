@@ -1,0 +1,36 @@
+{
+  "case_id": "J3-6",
+  "search_query": "When I compose torch.compile with torch.func.grad, I silently get a wrong result. No error is raised. How do I detect and debug silent correctness issues?",
+  "results": [
+    {
+      "url": "https://apxml.com/courses/getting-started-with-pytorch/chapter-8-monitoring-debugging-models/common-pytorch-pitfalls",
+      "title": "Common PyTorch Errors and Mistakes"
+    },
+    {
+      "url": "https://github.com/pytorch/pytorch/issues/168307",
+      "title": "torch.compile error when creating nested tensors dynamically in forward pass \u00b7 Issue #168307 \u00b7 pyt"
+    },
+    {
+      "url": "https://discuss.pytorch.org/t/torch-compile-error/208352",
+      "title": "Torch compile error"
+    },
+    {
+      "url": "https://docs.pytorch.org/docs/2.7/torch.compiler_troubleshooting.html",
+      "title": "torch.compile Troubleshooting \u2014 PyTorch 2.7 documentation"
+    },
+    {
+      "url": "https://discuss.pytorch.org/t/torch-compile-error-with-detach-and-with-torch-no-grad/177918",
+      "title": "Torch.compile() error with detach() and with torch.no_grad()"
+    },
+    {
+      "url": "https://github.com/pytorch/pytorch/issues/144188",
+      "title": "BackendCompilerFailed error is raised when applying torch.compile on torch.fill \u00b7 Issue #144188 \u00b7 "
+    },
+    {
+      "url": "https://docs.pytorch.org/docs/2.6/torch.compiler_troubleshooting.html",
+      "title": "torch.compile Troubleshooting \u2014 PyTorch 2.6 documentation"
+    }
+  ],
+  "search_timestamp": "2026-04-12T16:07:41.200207+00:00",
+  "search_tool": "three_pai_external_web_search"
+}

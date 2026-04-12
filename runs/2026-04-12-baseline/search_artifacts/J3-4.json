@@ -1,0 +1,24 @@
+{
+  "case_id": "J3-4",
+  "search_query": "My RMS norm layer produces NaNs when I use torch.compile with float8 and rowwise scales. The same code works fine in eager mode. How do I debug this?",
+  "results": [
+    {
+      "url": "https://raw.githubusercontent.com/pytorch/torchtitan/main/docs/float8.md",
+      "title": ""
+    },
+    {
+      "url": "https://discuss.pytorch.org/t/how-to-debug-nan-gradients-in-custom-cosine-normalization-implementation/3591",
+      "title": "How to debug NaN gradients in custom Cosine Normalization implementation?"
+    },
+    {
+      "url": "https://www.educba.com/pytorch-norm/",
+      "title": "PyTorch norm | How to use PyTorch norm? | What is PyTorch norm?"
+    },
+    {
+      "url": "https://github.com/pytorch/pytorch/issues/61954",
+      "title": "Normalization with mixed precision \u00b7 Issue #61954 \u00b7 pytorch/pytorch \u00b7 GitHub"
+    }
+  ],
+  "search_timestamp": "2026-04-12T16:07:36.767209+00:00",
+  "search_tool": "three_pai_external_web_search"
+}

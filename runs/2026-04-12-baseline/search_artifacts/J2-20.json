@@ -1,0 +1,40 @@
+{
+  "case_id": "J2-20",
+  "search_query": "How do I use torch.compile with an Intel GPU? Is XPU backend supported upstream?",
+  "search_tool": "three_pai_external_web_search",
+  "search_timestamp": "2026-04-12T16:11:19.900832+00:00",
+  "results": [
+    {
+      "url": "https://dev-discuss.pytorch.org/t/intel-gpu-enabling-status-and-feature-plan/2389",
+      "title": "PyTorch Developer Mailing List"
+    },
+    {
+      "url": "https://github.com/pytorch/torchcodec/issues/559",
+      "title": "[RFC] Enable Intel GPU support in torchcodec (pytorch xpu backend device) \u00b7 Issue #559 \u00b7 pytorch/t"
+    },
+    {
+      "url": "https://docs.pytorch.org/docs/2.5/xpu.html",
+      "title": "torch.xpu \u2014 PyTorch 2.5 documentation"
+    },
+    {
+      "url": "https://docs.pytorch.org/docs/2.3/xpu.html",
+      "title": "torch.xpu \u2014 PyTorch 2.3 documentation"
+    },
+    {
+      "url": "https://medium.com/@seokwoo.chung130/running-pytorch-on-intel-gpu-on-linux-49b753b73392",
+      "title": "Running PyTorch on Intel GPU on Linux | by Ryan Chung | Medium"
+    },
+    {
+      "url": "https://github.com/pytorch/pytorch/issues/114856",
+      "title": "[RFC] Intel GPU Inductor backend upstreaming \u00b7 Issue #114856 \u00b7 pytorch/pytorch \u00b7 GitHub"
+    },
+    {
+      "url": "https://docs.pytorch.org/docs/main/notes/get_start_xpu.html",
+      "title": "Getting Started on Intel GPU \u2014 PyTorch main documentation"
+    },
+    {
+      "url": "https://intel.github.io/intel-extension-for-pytorch/xpu/latest/tutorials/features/torch_compile_gpu.html",
+      "title": "torch.compile for GPU (Beta) \u2014 Intel Extension for PyTorch* 2.8.10+xpu documentation"
+    }
+  ]
+}

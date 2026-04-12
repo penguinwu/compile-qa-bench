@@ -1,0 +1,36 @@
+{
+  "case_id": "J5-5",
+  "search_query": "I noticed a significant performance regression on nanogpt speedrun between two consecutive nightly builds. How do I bisect and report a compile performance regression?",
+  "search_tool": "three_pai_external_web_search",
+  "search_timestamp": "2026-04-12T16:07:19.356107+00:00",
+  "results": [
+    {
+      "url": "https://github.com/pytorch/pytorch/issues/152761",
+      "title": "Performance Regression nightly 02/14 to 02/15, on nanogpt speedrun"
+    },
+    {
+      "url": "https://chromium.googlesource.com/chromium/src/+/master/docs/speed/addressing_performance_regressions.md",
+      "title": "Chrome Speed - Addressing Performance Regressions"
+    },
+    {
+      "url": "https://github.com/rust-lang/rust/issues/102952",
+      "title": "Massive performance regression between nightly builds"
+    },
+    {
+      "url": "https://www.tylerromero.com/posts/nanogpt-speedrun-worklog/",
+      "title": "NanoGPT Speedrun Living Worklog"
+    },
+    {
+      "url": "https://arxiv.org/html/2603.06551",
+      "title": "Understanding and Finding JIT Compiler Performance Bugs"
+    },
+    {
+      "url": "https://chatpaper.com/zh-CN/chatpaper/paper/156060",
+      "title": "The Automated LLM Speedrunning Benchmark"
+    },
+    {
+      "url": "https://chatpaper.com/paper/156060",
+      "title": "The Automated LLM Speedrunning Benchmark"
+    }
+  ]
+}

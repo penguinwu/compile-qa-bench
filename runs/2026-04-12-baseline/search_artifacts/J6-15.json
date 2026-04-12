@@ -1,0 +1,28 @@
+{
+  "case_id": "J6-15",
+  "search_query": "Automatic dynamic shapes generates hundreds of guards on a single symbolic variable. Is there a way to limit guard accumulation before it causes recompilation storms?",
+  "search_tool": "three_pai_external_web_search",
+  "search_timestamp": "2026-04-12T16:11:29.958772+00:00",
+  "results": [
+    {
+      "url": "https://arxiv.org/abs/1712.05492",
+      "title": "Constant Approximation Algorithms for Guarding Simple Polygons using Vertex Guards"
+    },
+    {
+      "url": "https://docs.pytorch.org/docs/2.7/torch.compiler_dynamic_shapes.html",
+      "title": "Dynamic shapes \u2014 PyTorch 2.7 documentation"
+    },
+    {
+      "url": "https://dev-discuss.pytorch.org/t/understanding-dynamic-shapes-and-guards-and-when-it-does-does-not-cause-graph-breaks/2429",
+      "title": "Understanding dynamic shapes and guards"
+    },
+    {
+      "url": "https://docs.habana.ai/en/latest/PyTorch/Model_Optimization_PyTorch/Dynamic_Shapes.html?highlight=dynamic%20shapes",
+      "title": "Handling Dynamic Shapes \u2014 Gaudi Documentation"
+    },
+    {
+      "url": "https://www.researchgate.net/publication/2646388_Pattern_Guards_and_Transformational_Patterns",
+      "title": "Pattern Guards and Transformational Patterns"
+    }
+  ]
+}

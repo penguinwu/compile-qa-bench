@@ -1,0 +1,24 @@
+{
+  "case_id": "J3-15",
+  "search_query": "Inductor's epilogue fusion produces wrong results when mutations are involved. How do I debug silent correctness issues in fused kernels?",
+  "results": [
+    {
+      "url": "https://arxiv.org/abs/2404.16947",
+      "title": "[2404.16947] Fuzzing MLIR Compilers with Custom Mutation Synthesis"
+    },
+    {
+      "url": "https://arxiv.org/abs/2007.01277",
+      "title": "[2007.01277] Automatic Horizontal Fusion for GPU Kernels"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/pytorch/tutorials/main/intermediate_source/inductor_debug_cpu.py",
+      "title": ""
+    },
+    {
+      "url": "https://docs.pytorch.org/tutorials/intermediate/inductor_debug_cpu.html",
+      "title": "Inductor CPU backend debugging and profiling \u2014 PyTorch Tutorials 2.11.0+cu130 documentation"
+    }
+  ],
+  "search_timestamp": "2026-04-12T16:09:38.719546+00:00",
+  "search_tool": "three_pai_external_web_search"
+}

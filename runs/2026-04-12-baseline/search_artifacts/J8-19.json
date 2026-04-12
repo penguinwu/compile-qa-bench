@@ -1,0 +1,32 @@
+{
+  "case_id": "J8-19",
+  "search_query": "Flex Attention crashes with an LLVM error after the recent Triton pin update. Is this a known Triton compatibility issue?",
+  "search_tool": "three_pai_external_web_search",
+  "search_timestamp": "2026-04-12T16:12:10.861487+00:00",
+  "results": [
+    {
+      "url": "https://forums.developer.nvidia.com/t/nim-llm-containers-fail-on-dgx-spark-gb10-triton-vllm-crash-on-sm-121-and-ngc-permission-e",
+      "title": "NIM LLM Containers Fail on DGX Spark (GB10): Triton/vLLM Crash on sm_121 and NGC Permission Errors"
+    },
+    {
+      "url": "https://github.com/pytorch/pytorch/issues/147373",
+      "title": "[Triton upstream] [Inductor] Flex attention failures `IndexError('list index out of range')` in Trit"
+    },
+    {
+      "url": "https://docs.nvidia.com/deeplearning/triton-inference-server/archives/triton-inference-server-2470/user-guide/docs/user_guide/de",
+      "title": "Debugging Guide \u2014 NVIDIA Triton Inference Server"
+    },
+    {
+      "url": "https://github.com/intel/intel-xpu-backend-for-triton/issues/4580",
+      "title": "Updating to a new version of PyTorch revealed a new problem in Triton for Flex Attention benchmark"
+    },
+    {
+      "url": "https://securityonline.info/critical-triton-flaws-cvss-9-8-expose-ai-servers-to-remote-takeover-patch-now/",
+      "title": "Critical Triton Flaws (CVSS 9.8) Expose AI Servers to Remote Takeover \u2013 Patch Now!"
+    },
+    {
+      "url": "https://forums.developer.nvidia.com/t/triton-crashes-with-signal-11/262002",
+      "title": "Triton crashes with Signal (11)"
+    }
+  ]
+}

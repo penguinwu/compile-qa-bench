@@ -1,0 +1,24 @@
+{
+  "case_id": "J7-2",
+  "search_query": "Compile time grows exponentially when I chain multiple logsumexp operations with gradients enabled. Is this expected?",
+  "search_tool": "three_pai_external_web_search",
+  "search_timestamp": "2026-04-12T16:06:39.226389+00:00",
+  "results": [
+    {
+      "url": "https://www.lunartech.ai/blog/mastering-exploding-gradients-advanced-strategies-for-optimizing-neural-networks",
+      "title": "Mastering Exploding Gradients: Advanced Strategies for Optimizing Neural Networks - LUNARTECH"
+    },
+    {
+      "url": "https://deepgram.com/ai-glossary/gradient-scaling",
+      "title": "Gradient Scaling"
+    },
+    {
+      "url": "https://lightning.ai/pages/blog/gradient-accumulation/",
+      "title": "Finetuning LLMs on a Single GPU Using Gradient Accumulation"
+    },
+    {
+      "url": "https://m.php.cn/zh-tw/faq/546675.html",
+      "title": "How to fine-tune LLM with a single GPU to bypass computing power limitations? This is a tutorial on"
+    }
+  ]
+}

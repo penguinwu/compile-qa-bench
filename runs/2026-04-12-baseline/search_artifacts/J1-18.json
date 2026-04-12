@@ -1,0 +1,32 @@
+{
+  "case_id": "J1-18",
+  "search_query": "Inductor's pattern matcher silently replaces reshape with view, which changes semantics when my tensor isn't contiguous. Is this a bug?",
+  "search_tool": "three_pai_external_web_search",
+  "search_timestamp": "2026-04-12T16:08:33.401023+00:00",
+  "results": [
+    {
+      "url": "https://discuss.pytorch.org/t/for-beginners-do-not-use-view-or-reshape-to-swap-dimensions-of-tensors/75524",
+      "title": "For beginners: Do not use view() or reshape() to swap dimensions of tensors!"
+    },
+    {
+      "url": "https://pythonguides.com/pytorch-reshape-tensor/",
+      "title": "How To Reshape A Tensor In PyTorch?"
+    },
+    {
+      "url": "https://discuss.pytorch.org/t/runtimeerror-input-is-not-contiguous/930",
+      "title": "RuntimeError: input is not contiguous"
+    },
+    {
+      "url": "https://apxml.com/courses/getting-started-with-pytorch/chapter-2-advanced-tensor-manipulations/reshaping-rearranging-tensors",
+      "title": "Reshape PyTorch Tensors | View, Permute"
+    },
+    {
+      "url": "https://medium.com/@kaushiktd/contiguous-memory-and-pytorch-the-view-vs-reshape-distinction-f0255f4cb0dc",
+      "title": "Contiguous Memory and PyTorch: The view() vs reshape() Distinction | by Kaushiktd | Feb, 2026 | Medi"
+    },
+    {
+      "url": "https://github.com/pytorch/TensorRT/issues/1115",
+      "title": "tensor.view() not working anymore when using dynamic inputs with v1.1.0 \u00b7 Issue #1115 \u00b7"
+    }
+  ]
+}

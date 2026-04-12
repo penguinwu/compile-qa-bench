@@ -1,0 +1,28 @@
+{
+  "case_id": "J5-1",
+  "search_query": "What does mode='max-autotune' actually do and why does it seem to lower precision? Is there a way to get the speed benefit without accuracy loss?",
+  "search_tool": "three_pai_external_web_search",
+  "search_timestamp": "2026-04-12T16:07:19.356107+00:00",
+  "results": [
+    {
+      "url": "https://acestudio.ai/blog/how-does-auto-tune-work/",
+      "title": "Auto-Tune Explained: Creative Uses & Tips - ACE Studio"
+    },
+    {
+      "url": "https://majormixing.com/how-to-use-auto-tune-as-a-pro/",
+      "title": "How to use AutoTune as a Pro? | Major Mixing"
+    },
+    {
+      "url": "https://ledgernote.com/columns/mixing-mastering/how-to-use-autotune/",
+      "title": "How to Use Autotune for Natural or Extreme Vocal Tuning | LedgerNote"
+    },
+    {
+      "url": "https://soundoracle.net/blogs/soundoracle-net-blog/how-auto-tune-works-1",
+      "title": "How Auto-Tune Works!"
+    },
+    {
+      "url": "https://lukemounthillbeats.com/music-production/how-to-use-auto-tune/",
+      "title": "How To Use Auto-Tune: A Guide To Sounding Natural (2026)"
+    }
+  ]
+}

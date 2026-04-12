@@ -1,0 +1,28 @@
+{
+  "case_id": "J2-14",
+  "search_query": "Can inductor generate native tl.dot matmuls instead of going through aten? I think the extra indirection is hurting performance.",
+  "search_tool": "three_pai_external_web_search",
+  "search_timestamp": "2026-04-12T16:11:19.900832+00:00",
+  "results": [
+    {
+      "url": "https://www.powersystemsdesign.com/articles/inductors-match-todays-data-driven-application-performance-demands/145/21603",
+      "title": "Inductors Match Today's Data-Driven Application Performance Demands"
+    },
+    {
+      "url": "https://www.mdpi.com/1996-1073/15/22/8481",
+      "title": "The Application of Tuned Inductors in Electric Power Systems | MDPI"
+    },
+    {
+      "url": "https://medium.com/@tonghx6/how-common-mode-inductors-reduce-emi-and-improve-circuit-performance-07e9dc07bd55",
+      "title": "How Common-Mode Inductors Reduce EMI and Improve Circuit Performance - Tonghx - Medium"
+    },
+    {
+      "url": "https://www.mathworks.com/help/sps/ref/inductor.html",
+      "title": "Inductor - Inductor including optional tolerance, operational limits and fault behavior - MATL"
+    },
+    {
+      "url": "https://hackaday.com/2026/02/05/a-deep-dive-into-inductors/",
+      "title": "A Deep Dive Into Inductors"
+    }
+  ]
+}

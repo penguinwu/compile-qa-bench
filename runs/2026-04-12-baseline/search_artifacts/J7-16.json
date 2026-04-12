@@ -1,0 +1,32 @@
+{
+  "case_id": "J7-16",
+  "search_query": "Is there a way to serialize a torch.compile'd model so I can load it without recompiling?",
+  "search_tool": "three_pai_external_web_search",
+  "search_timestamp": "2026-04-12T16:09:10.229296+00:00",
+  "results": [
+    {
+      "url": "https://docs.pytorch.org/tutorials/beginner/basics/saveloadrun_tutorial.html",
+      "title": "Save and Load the Model \u2014 PyTorch Tutorials 2.11.0+cu130 documentation"
+    },
+    {
+      "url": "https://discuss.pytorch.org/t/how-to-serialize-models-with-torch-compile-properly/175626",
+      "title": "How to serialize models with torch.compile properly"
+    },
+    {
+      "url": "https://apxml.com/courses/pytorch-for-tensorflow-developers/chapter-5-pytorch-model-persistence-deployment/torchscript-serializa",
+      "title": "PyTorch TorchScript for Model Serialization"
+    },
+    {
+      "url": "https://medium.com/@lambdafluxofficial/everything-you-need-to-know-about-pytorch-compile-3d7fd94ce701",
+      "title": "Everything You Need to Know About PyTorch Compile | by LambdaFlux | Medium"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/NVIDIA/Torch-TensorRT/master/docs/tutorials/_rendered_examples/dynamo/torch_compile_advanced_u",
+      "title": "Torch Compile Advanced Usage \u2014 Torch-TensorRT"
+    },
+    {
+      "url": "https://discuss.pytorch.org/t/how-to-save-load-a-model-with-torch-compile/179739",
+      "title": "How to save/load a model with torch.compile"
+    }
+  ]
+}

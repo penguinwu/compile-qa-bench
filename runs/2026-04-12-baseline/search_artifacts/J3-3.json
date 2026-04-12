@@ -1,0 +1,28 @@
+{
+  "case_id": "J3-3",
+  "search_query": "Compiled flex_attention gives significantly different accuracy compared to eager. Is this expected and how do I fix it?",
+  "results": [
+    {
+      "url": "https://www.meegle.com/en_us/topics/attention-mechanism/attention-mechanism-in-tensorflow",
+      "title": "Attention Mechanism In TensorFlow"
+    },
+    {
+      "url": "https://github.com/pytorch/pytorch/issues/147336",
+      "title": "Investigate FlexAttention performance degradation on low precision inputs \u00b7 Issue #147336 \u00b7 pytorc"
+    },
+    {
+      "url": "https://PyTorch.org/blog/flexattention-for-inference/",
+      "title": "FlexAttention Part II: FlexAttention for Inference \u2013 PyTorch"
+    },
+    {
+      "url": "https://moldstud.com/articles/p-explore-the-benefits-of-eager-execution-to-boost-your-tensorflow-skills-and-optimize-performance",
+      "title": "A Deep Dive into Eager Execution: Enhance Your TensorFlow Skills for Better Performance | MoldStud"
+    },
+    {
+      "url": "https://moldstud.com/articles/p-balancing-accuracy-and-interpretability-in-tensorflow-models",
+      "title": "Balancing Accuracy and Interpretability in TensorFlow Models"
+    }
+  ],
+  "search_timestamp": "2026-04-12T16:07:34.687624+00:00",
+  "search_tool": "three_pai_external_web_search"
+}

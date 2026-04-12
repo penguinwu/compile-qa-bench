@@ -1,0 +1,28 @@
+{
+  "case_id": "J1-3",
+  "search_query": "I'm trying to use torch.compile with DDP and AMP together but I'm getting a NotImplementedError about autocast. Is there a specific order I need to wrap my model?",
+  "search_tool": "three_pai_external_web_search",
+  "search_timestamp": "2026-04-12T16:07:18.593489+00:00",
+  "results": [
+    {
+      "url": "https://discuss.pytorch.org/t/torch-compile-what-is-the-best-scope-of-compilation/185442",
+      "title": "Torch.compile - what is the best scope of compilation?"
+    },
+    {
+      "url": "https://discuss.pytorch.org/t/using-torch-compile-with-autocast/168392",
+      "title": "Using torch compile with autocast"
+    },
+    {
+      "url": "https://github.com/pytorch/pytorch/issues/138412",
+      "title": "_amp_foreach_non_finite_check_and_unscale_ can be torch.compiled inside torch.amp, but not in iden"
+    },
+    {
+      "url": "https://docs.pytorch.org/docs/1.12/_modules/torch/amp/autocast_mode.html",
+      "title": "torch.amp.autocast_mode \u2014 PyTorch 1.12 documentation"
+    },
+    {
+      "url": "https://docs.pytorch.org/docs/2.0/_modules/torch/cuda/amp/autocast_mode.html",
+      "title": "torch.cuda.amp.autocast_mode \u2014 PyTorch 2.0 documentation"
+    }
+  ]
+}

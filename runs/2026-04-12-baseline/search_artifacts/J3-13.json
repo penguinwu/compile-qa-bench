@@ -1,0 +1,28 @@
+{
+  "case_id": "J3-13",
+  "search_query": "torch.compile breaks reproducibility even with manual seeds set. The same code gives different results across runs when compiled.",
+  "results": [
+    {
+      "url": "https://github.com/pytorch/pytorch/issues/94855",
+      "title": "torch.compile breaks reproducibility \u00b7 Issue #94855 \u00b7 pytorch/pytorch \u00b7 GitHub"
+    },
+    {
+      "url": "https://cloud.tencent.com/developer/article/2631845",
+      "title": "torch.compile \u52a0\u901f\u539f\u7406\uff1akernel \u878d\u5408\u4e0e\u7f13\u51b2\u533a\u590d\u7528-\u817e\u8baf\u4e91\u5f00\u53d1\u8005\u793e\u533a-\u817e\u8baf\u4e91"
+    },
+    {
+      "url": "https://github.com/huggingface/nanoVLM/pull/88",
+      "title": "Perf: Adding torch.compile + static cache, ~3x speed up by tsdocode \u00b7 Pull Request #88 \u00b7 huggingfa"
+    },
+    {
+      "url": "https://medium.com/@lambdafluxofficial/everything-you-need-to-know-about-pytorch-compile-3d7fd94ce701",
+      "title": "Everything You Need to Know About PyTorch Compile | by LambdaFlux | Medium"
+    },
+    {
+      "url": "https://docs.pytorch.org/docs/1.11/notes/randomness.html",
+      "title": "Reproducibility \u2014 PyTorch 1.11.0 documentation"
+    }
+  ],
+  "search_timestamp": "2026-04-12T16:09:34.421481+00:00",
+  "search_tool": "three_pai_external_web_search"
+}

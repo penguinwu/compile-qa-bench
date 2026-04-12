@@ -1,0 +1,20 @@
+{
+  "case_id": "J1-8",
+  "search_query": "I'm getting BackendCompilerFailed with 'device kernel image is invalid' when using torch.compile with inductor. How do I fix this Triton/CUDA error?",
+  "search_tool": "three_pai_external_web_search",
+  "search_timestamp": "2026-04-12T16:07:18.593489+00:00",
+  "results": [
+    {
+      "url": "https://discuss.pytorch.org/t/backendcompilerfailed-backend-inductor-raised-runtimeerror-triton-error-cuda-device-kernel-image-i/197803",
+      "title": "BackendCompilerFailed: backend=\"inductor\" raised: RuntimeError: Triton Error [CUDA]: device kernel i"
+    },
+    {
+      "url": "https://github.com/pytorch/pytorch/issues/119054",
+      "title": "BackendCompilerFailed: backend=\"inductor\" raised: RuntimeError: Triton Error [CUDA]: device kern"
+    },
+    {
+      "url": "https://medium.com/@ngocson2vn/torch-compile-and-with-triton-combo-kernel-1-causes-a-serious-accuracy-issue-634e62c39f25",
+      "title": "torch.compile() with TRITON_COMBO_KERNEL=1 causes a serious accuracy issue | by Son Nguyen | Nov, 20"
+    }
+  ]
+}

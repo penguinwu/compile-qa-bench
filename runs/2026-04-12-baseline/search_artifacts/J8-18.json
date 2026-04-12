@@ -1,0 +1,32 @@
+{
+  "case_id": "J8-18",
+  "search_query": "My custom min_sum/mul_sum reduction ops are much slower with the C++ inductor backend on CPU than with eager mode.",
+  "search_tool": "three_pai_external_web_search",
+  "search_timestamp": "2026-04-12T16:12:10.861487+00:00",
+  "results": [
+    {
+      "url": "https://discuss.pytorch.org/t/inductor-backend-for-cpu-inference-extremely-slow/183881",
+      "title": "Inductor backend for CPU inference extremely slow"
+    },
+    {
+      "url": "https://www.intel.com/content/www/us/en/developer/articles/technical/accelerated-cpu-inference-with-pytorch-inductor.html",
+      "title": "The Benefits of Accelerating CPU Inference with PyTorch Inductor"
+    },
+    {
+      "url": "https://pytorch.org/blog/accelerated-cpu-inference/",
+      "title": "Accelerated CPU Inference with PyTorch Inductor using torch.compile \u2013 PyTorch"
+    },
+    {
+      "url": "https://www.gresearch.com/news/extending-tensorflow-with-custom-c-operations/",
+      "title": "Extending TensorFlow with Custom C++ Ops | G-Research"
+    },
+    {
+      "url": "https://www.mindspore.cn/docs/programming_guide/en/r1.5/custom_operator_cpu.html",
+      "title": "Custom Operators (CPU) | MindSpore 1.5 documentation | MindSpore"
+    },
+    {
+      "url": "https://www.scaler.com/topics/keras/cpu-based-deployments-in-keras/",
+      "title": "Optimizing Models for CPU-based Deployments in Keras - Scaler Topics"
+    }
+  ]
+}

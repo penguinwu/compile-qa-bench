@@ -1,0 +1,24 @@
+{
+  "case_id": "J6-14",
+  "search_query": "My training loss is higher and eval metrics are worse when using torch.compile. Could shape-related recompilation be silently changing behavior?",
+  "search_tool": "three_pai_external_web_search",
+  "search_timestamp": "2026-04-12T16:11:29.958772+00:00",
+  "results": [
+    {
+      "url": "https://medium.com/@ThinkingLoop/7-pytorch-2-x-compile-tips-that-halve-epoch-time-67d8f6ea3fb9",
+      "title": "7 PyTorch 2.x Compile Tips That Halve Epoch Time"
+    },
+    {
+      "url": "https://medium.com/@niruthiha2000/the-silent-killer-of-your-pytorch-models-why-90-of-ml-engineers-get-training-modes-wrong-d04be",
+      "title": "Common PyTorch Training Mode Mistakes That Silently Break Models"
+    },
+    {
+      "url": "https://discuss.pytorch.org/t/torch-compile-optimizer-step-generates-excessive-warning-messages/216067",
+      "title": "Torch compile: optimizer.step Generates Excessive Warning Messages"
+    },
+    {
+      "url": "https://github.com/pytorch/pytorch/issues/108971",
+      "title": "Really slow compilation times for torch.compile causing distributed training errors"
+    }
+  ]
+}

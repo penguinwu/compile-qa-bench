@@ -1,0 +1,16 @@
+{
+  "case_id": "J4-17",
+  "search_query": "The PT2E quantization flow is completely broken on ARM/Graviton3 CPU with PyTorch 2.9.1. Is this a known issue?",
+  "results": [
+    {
+      "url": "https://en.wikipedia.org/wiki/AWS_Graviton",
+      "title": "AWS Graviton - Wikipedia"
+    },
+    {
+      "url": "https://arikpoz.github.io/posts/2025-04-16-neural-network-quantization-in-pytorch/",
+      "title": "Neural Network Quantization in PyTorch | Practical ML"
+    }
+  ],
+  "search_timestamp": "2026-04-12T16:13:30.033812+00:00",
+  "search_tool": "three_pai_external_web_search"
+}

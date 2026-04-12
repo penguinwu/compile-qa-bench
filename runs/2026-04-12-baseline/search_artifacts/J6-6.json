@@ -1,0 +1,24 @@
+{
+  "case_id": "J6-6",
+  "search_query": "torch.compile hits 'Recompilation exhausted' with 'size mismatch at index 2'. I'm already using dynamic=True. Why does it still fail on changing input sizes?",
+  "search_tool": "three_pai_external_web_search",
+  "search_timestamp": "2026-04-12T16:10:05.317264+00:00",
+  "results": [
+    {
+      "url": "https://drdroid.io/stack-diagnosis/pytorch-runtimeerror--size-mismatch",
+      "title": "PyTorch RuntimeError: size mismatch"
+    },
+    {
+      "url": "https://docs.pytorch.org/docs/2.7/torch.compiler_troubleshooting.html",
+      "title": "torch.compile Troubleshooting \u2014 PyTorch 2.7 documentation"
+    },
+    {
+      "url": "https://docs.pytorch.org/docs/2.6/torch.compiler_troubleshooting.html",
+      "title": "torch.compile Troubleshooting \u2014 PyTorch 2.6 documentation"
+    },
+    {
+      "url": "https://discuss.pytorch.org/t/dynamic-slicing/218156",
+      "title": "Dynamic slicing - torch.compile - PyTorch Forums"
+    }
+  ]
+}

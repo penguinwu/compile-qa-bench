@@ -1,0 +1,20 @@
+{
+  "case_id": "J5-6",
+  "search_query": "I'm getting misaligned address errors when using max-autotune with torch.compile. The autotuner picks a template that causes illegal memory access.",
+  "search_tool": "three_pai_external_web_search",
+  "search_timestamp": "2026-04-12T16:07:19.356107+00:00",
+  "results": [
+    {
+      "url": "https://drdroid.io/stack-diagnosis/pytorch-runtimeerror--cuda-error--misaligned-address",
+      "title": "PyTorch RuntimeError: CUDA error: misaligned address"
+    },
+    {
+      "url": "https://github.com/pytorch/pytorch/issues/21819",
+      "title": "RuntimeError: CUDA error: an illegal memory access was encountered"
+    },
+    {
+      "url": "https://discuss.pytorch.org/t/runtimeerror-cuda-error-an-illegal-memory-access-was-encountered-autograd/85282",
+      "title": "RuntimeError: CUDA error: an illegal memory access was encountered autograd"
+    }
+  ]
+}

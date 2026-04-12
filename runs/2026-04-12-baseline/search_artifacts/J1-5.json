@@ -1,0 +1,32 @@
+{
+  "case_id": "J1-5",
+  "search_query": "I tried torch.compile() on resnet18 but the model actually runs slower. Am I using it wrong? What should I expect on first call?",
+  "search_tool": "three_pai_external_web_search",
+  "search_timestamp": "2026-04-12T16:07:18.593489+00:00",
+  "results": [
+    {
+      "url": "https://github.com/pytorch/pytorch/issues/108971",
+      "title": "Really slow compilation times for torch.compile causing distributed training errors \u00b7 Issue #108971"
+    },
+    {
+      "url": "https://discuss.pytorch.org/t/example-imagenet-resnet-18-is-slow/165500",
+      "title": "Example Imagenet ResNet-18 is slow"
+    },
+    {
+      "url": "https://github.com/pytorch/pytorch/issues/44269",
+      "title": "libtorch model load and inference slow when running first time \u00b7 Issue #44269 \u00b7 pytorch/pytorch \u00b7"
+    },
+    {
+      "url": "https://forums.developer.nvidia.com/t/model-inferenced-with-tensorrt-is-slower-than-regular-pytorch/281770",
+      "title": "Model inferenced with tensorrt is slower than regular pytorch"
+    },
+    {
+      "url": "https://francescopochetti.com/benchmarking-torchvision-resnet18-on-local-gpu-with-tensorrt-and-amazon-sagemaker-neo/",
+      "title": "Benchmarking TorchVision ResNet18 on EC2 NVIDIA GPU with TensorRT and Amazon SageMaker Neo -"
+    },
+    {
+      "url": "https://github.com/pytorch/pytorch/issues/154490",
+      "title": "torch.compile regression: it cause recompile when int value changed \u00b7 Issue #154490 \u00b7 pytorch/pyto"
+    }
+  ]
+}

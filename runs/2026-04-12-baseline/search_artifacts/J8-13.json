@@ -1,0 +1,28 @@
+{
+  "case_id": "J8-13",
+  "search_query": "torch.compile + CUDA graphs fails with an assertion error in multithreaded inference. Is this combination supported for concurrent requests?",
+  "search_tool": "three_pai_external_web_search",
+  "search_timestamp": "2026-04-12T16:11:21.472134+00:00",
+  "results": [
+    {
+      "url": "https://medium.com/@sridevi17j/resolving-assertionerror-torch-not-compiled-with-cuda-enabled-in-pytorch-a-comprehensive-guide-2d",
+      "title": "Resolving \"AssertionError: Torch not compiled with CUDA enabled\" in PyTorch: A Comprehensive Gui"
+    },
+    {
+      "url": "https://discuss.pytorch.org/t/how-to-fix-cuda-error-device-side-assert-triggered-error/137553",
+      "title": "How to fix \"CUDA error: device-side assert triggered\" error?"
+    },
+    {
+      "url": "https://brainly.com/question/43019314",
+      "title": "[FREE] What should you do when the following error arises?\n\nAssertionError: Torch not compiled with"
+    },
+    {
+      "url": "https://github.com/pytorch/pytorch/issues/123177",
+      "title": "torch.compile+cudagraphs asserts in multithreaded context \u00b7 Issue #123177 \u00b7 pytorch/pytorch \u00b7 Git"
+    },
+    {
+      "url": "https://saturncloud.io/blog/what-is-assertionerror-torch-not-compiled-with-cuda-enabled/",
+      "title": "What is Assertion Error: Torch not compiled with CUDA enabled? | Saturn Cloud Blog"
+    }
+  ]
+}

@@ -1,0 +1,24 @@
+{
+  "case_id": "J1-7",
+  "search_query": "torch.compile doesn't seem to respect torch.cuda.set_device(). My compiled function puts tensors on the wrong GPU. Is this a known issue?",
+  "search_tool": "three_pai_external_web_search",
+  "search_timestamp": "2026-04-12T16:07:18.593489+00:00",
+  "results": [
+    {
+      "url": "https://github.com/pytorch/pytorch/issues/168307",
+      "title": "torch.compile error when creating nested tensors dynamically in forward pass \u00b7 Issue #168307 \u00b7 pyt"
+    },
+    {
+      "url": "https://github.com/pytorch/pytorch/issues/119054",
+      "title": "BackendCompilerFailed: backend=\"inductor\" raised: RuntimeError: Triton Error [CUDA]: device kern"
+    },
+    {
+      "url": "https://medium.com/@ngocson2vn/torch-compile-and-with-triton-combo-kernel-1-causes-a-serious-accuracy-issue-634e62c39f25",
+      "title": "torch.compile() with TRITON_COMBO_KERNEL=1 causes a serious accuracy issue | by Son Nguyen | Nov, 20"
+    },
+    {
+      "url": "https://www.educative.io/answers/how-to-resolve-torch-not-compiled-with-cuda-enabled",
+      "title": "How to resolve Torch not compiled with CUDA enabled"
+    }
+  ]
+}

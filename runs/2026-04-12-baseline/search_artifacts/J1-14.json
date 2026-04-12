@@ -1,0 +1,32 @@
+{
+  "case_id": "J1-14",
+  "search_query": "torch.compile doesn't work inside a multiprocessing pool. I get 'daemonic processes are not allowed to have children'. How do I use compile with multiprocessing?",
+  "search_tool": "three_pai_external_web_search",
+  "search_timestamp": "2026-04-12T16:08:33.401023+00:00",
+  "results": [
+    {
+      "url": "https://github.com/pytorch/pytorch/issues/115366",
+      "title": "Using a torch.compile d function in a multiprocessing subprocess causes process hang on exit \u00b7 Is"
+    },
+    {
+      "url": "https://docs.pytorch.org/docs/stable/notes/multiprocessing.html",
+      "title": "Multiprocessing best practices \u2014 PyTorch 2.11 documentation"
+    },
+    {
+      "url": "https://medium.com/@soydotrun/how-torch-compile-solves-the-eager-execution-problem-in-pytorch-4d45ef7e7777",
+      "title": "How Computation Graphs Solve the Eager Execution Problem in PyTorch | by Aryan Keluskar | Feb, 2026 "
+    },
+    {
+      "url": "https://docs.pytorch.org/docs/2.0/notes/multiprocessing.html",
+      "title": "Multiprocessing best practices \u2014 PyTorch 2.0 documentation"
+    },
+    {
+      "url": "https://docs.pytorch.org/docs/2.7/torch.compiler_troubleshooting.html",
+      "title": "torch.compile Troubleshooting \u2014 PyTorch 2.7 documentation"
+    },
+    {
+      "url": "https://community.intel.com/t5/Intel-Gaudi-AI-Accelerator/torch-compile-failure-for-torch-concat-on-Gaudi-2-when-using/td-p/1722",
+      "title": "torch.compile failure for torch.concat on Gaudi-2 when using htcore.hpu_inference_set_env() - Intel "
+    }
+  ]
+}

@@ -1,0 +1,28 @@
+{
+  "case_id": "J7-7",
+  "search_query": "I'm seeing a performance regression in torch.compile after updating PyTorch. How do I bisect which commit caused it?",
+  "search_tool": "three_pai_external_web_search",
+  "search_timestamp": "2026-04-12T16:07:23.257773+00:00",
+  "results": [
+    {
+      "url": "https://towardsdatascience.com/maximizing-ai-ml-model-performance-with-pytorch-compilation/",
+      "title": "Maximizing AI/ML Model Performance with PyTorch Compilation | Towards Data Science"
+    },
+    {
+      "url": "https://docs.pytorch.org/docs/2.6/torch.compiler_troubleshooting.html",
+      "title": "torch.compile Troubleshooting \u2014 PyTorch 2.6 documentation"
+    },
+    {
+      "url": "https://github.com/pytorch/pytorch/issues/112090",
+      "title": "Memory leak in torch.compile after aborting backward \u00b7 Issue #112090 \u00b7 pytorch/pytorch \u00b7 GitHub"
+    },
+    {
+      "url": "https://github.com/pytorch/pytorch/issues/119000",
+      "title": "Performance regression in torch.nn.Linear \u00b7 Issue #119000 \u00b7 pytorch/pytorch \u00b7 GitHub"
+    },
+    {
+      "url": "https://docs.pytorch.org/docs/2.7/torch.compiler_troubleshooting.html",
+      "title": "torch.compile Troubleshooting \u2014 PyTorch 2.7 documentation"
+    }
+  ]
+}

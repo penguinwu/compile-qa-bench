@@ -1,0 +1,32 @@
+{
+  "case_id": "J5-18",
+  "search_query": "The inductor-generated log_softmax kernel gets much worse performance when padding is involved. How do I avoid this?",
+  "search_tool": "three_pai_external_web_search",
+  "search_timestamp": "2026-04-12T16:08:45.380107+00:00",
+  "results": [
+    {
+      "url": "https://medium.com/@psyduck90/beyond-torch-softmax-building-a-custom-memory-efficient-softmax-kernel-from-scratch-004c3c4abbc7",
+      "title": "Beyond torch.softmax: Building a Custom Memory-Efficient Softmax Kernel from Scratch"
+    },
+    {
+      "url": "https://discuss.pytorch.org/t/logsoftmax-vs-softmax/21386",
+      "title": "LogSoftmax vs Softmax"
+    },
+    {
+      "url": "https://medium.com/@iitkarthik/unlocking-the-power-of-keras-log-softmax-the-essential-guide-with-practical-examples-808bd360b56b",
+      "title": "Unlocking the Power of Keras log_softmax"
+    },
+    {
+      "url": "https://towardsdatascience.com/learning-triton-one-kernel-at-a-time-softmax/",
+      "title": "Learning Triton One Kernel at a Time: Softmax"
+    },
+    {
+      "url": "https://discuss.pytorch.org/t/built-in-way-to-calculate-accuracy-over-padded-sequences-of-softmax-logsoftmax-outputs/17143",
+      "title": "Built-in way to calculate accuracy over padded sequences of softmax/logsoftmax outputs?"
+    },
+    {
+      "url": "https://medium.com/@hugo.rosenkranz/gpu-kernel-optimization-softmax-part-1-8ff80766cc95",
+      "title": "GPU kernel optimization: Softmax \u2014 Part 1"
+    }
+  ]
+}

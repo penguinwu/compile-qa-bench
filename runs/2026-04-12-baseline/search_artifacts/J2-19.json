@@ -1,0 +1,24 @@
+{
+  "case_id": "J2-19",
+  "search_query": "Where can I find benchmarks for TorchInductor CPU performance? I want to compare my results against known baselines.",
+  "search_tool": "three_pai_external_web_search",
+  "search_timestamp": "2026-04-12T16:11:19.900832+00:00",
+  "results": [
+    {
+      "url": "https://geekflare.com/dev/cpu-benchmark-tools/",
+      "title": "10 CPU Benchmark Tools to Measure Processor Performance [2026]"
+    },
+    {
+      "url": "https://1gbits.com/blog/cpu-benchmark-tools/",
+      "title": "CPU Benchmark Software: The Best Tools to Test and Compare Your Processor"
+    },
+    {
+      "url": "https://www.propelrc.com/best-cpu-benchmark-software/",
+      "title": "Best CPU Benchmark Software 2026: 8 Tools Tested and Compared - Propel RC"
+    },
+    {
+      "url": "https://www.cpubenchmark.net/desktop.html",
+      "title": "PassMark CPU Benchmarks - New Desktop CPUs Performance"
+    }
+  ]
+}

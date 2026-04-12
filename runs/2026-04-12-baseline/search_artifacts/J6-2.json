@@ -1,0 +1,32 @@
+{
+  "case_id": "J6-2",
+  "search_query": "I'm getting a division by zero error when using torch.compile with dynamic=True on an empty tensor. This worked in the previous PyTorch version.",
+  "search_tool": "three_pai_external_web_search",
+  "search_timestamp": "2026-04-12T16:10:05.317264+00:00",
+  "results": [
+    {
+      "url": "https://github.com/pytorch/pytorch/issues/108054",
+      "title": "torch.reciprocal with Empty Tensor Triggers Error in torch.compile on Stable Release"
+    },
+    {
+      "url": "https://docs.pytorch.org/docs/2.6/torch.compiler_troubleshooting.html",
+      "title": "torch.compile Troubleshooting \u2014 PyTorch 2.6 documentation"
+    },
+    {
+      "url": "https://docs.pytorch.org/docs/2.2/generated/torch.linalg.ldl_factor_ex.html",
+      "title": "torch.linalg.ldl_factor_ex \u2014 PyTorch 2.2 documentation"
+    },
+    {
+      "url": "https://apxml.com/courses/getting-started-with-pytorch/chapter-1-pytorch-fundamentals-setup/basic-tensor-operations",
+      "title": "PyTorch Basic Tensor Operations"
+    },
+    {
+      "url": "https://github.com/pytorch/pytorch/issues/168307",
+      "title": "torch.compile error when creating nested tensors dynamically in forward pass"
+    },
+    {
+      "url": "https://sprintchase.com/torch-empty/",
+      "title": "torch.empty: Creating an Empty Tensor in PyTorch"
+    }
+  ]
+}

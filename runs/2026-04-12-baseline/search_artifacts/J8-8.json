@@ -1,0 +1,36 @@
+{
+  "case_id": "J8-8",
+  "search_query": "I'm trying to use torch.cond (control flow) with torch.compile but I'm getting various errors. What are the limitations of cond with compile?",
+  "search_tool": "three_pai_external_web_search",
+  "search_timestamp": "2026-04-12T16:10:37.905268+00:00",
+  "results": [
+    {
+      "url": "https://medium.com/@lambdafluxofficial/everything-you-need-to-know-about-pytorch-compile-3d7fd94ce701",
+      "title": "Everything You Need to Know About PyTorch Compile | by LambdaFlux | Medium"
+    },
+    {
+      "url": "https://docs.nvidia.com/physicsnemo/latest/user-guide/performance_docs/torch_compile_support.html",
+      "title": "Torch Compile and External Kernels \u2014 NVIDIA PhysicsNeMo Framework"
+    },
+    {
+      "url": "https://github.com/pytorch/pytorch/issues/108971",
+      "title": "Really slow compilation times for torch.compile causing distributed training errors \u00b7 Issue #108971"
+    },
+    {
+      "url": "https://docs.pytorch.org/docs/2.6/cond.html",
+      "title": "Control Flow - Cond \u2014 PyTorch 2.6 documentation"
+    },
+    {
+      "url": "https://discuss.pytorch.org/c/compile/41",
+      "title": "Latest torch.compile topics - PyTorch Forums"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/NVIDIA/Torch-TensorRT/master/docs/tutorials/_rendered_examples/dynamo/torch_compile_advanced_u",
+      "title": "Torch Compile Advanced Usage \u2014 Torch-TensorRT"
+    },
+    {
+      "url": "https://rocm.blogs.amd.com/artificial-intelligence/torch_compile/README.html",
+      "title": "Accelerate PyTorch Models using torch.compile on AMD GPUs with ROCm"
+    }
+  ]
+}

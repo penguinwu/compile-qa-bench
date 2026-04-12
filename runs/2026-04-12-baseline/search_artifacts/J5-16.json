@@ -1,0 +1,20 @@
+{
+  "case_id": "J5-16",
+  "search_query": "How do I integrate a custom backend (like zentorch) into TorchInductor's compilation pipeline?",
+  "search_tool": "three_pai_external_web_search",
+  "search_timestamp": "2026-04-12T16:08:45.380107+00:00",
+  "results": [
+    {
+      "url": "https://docs.amd.com/r/en-US/57300-ZenDNN-user-guide/Using-torch.compile",
+      "title": "Using torch.compile - ZenDNN user guide"
+    },
+    {
+      "url": "https://docs.pytorch.org/docs/2.0/dynamo/custom-backends.html",
+      "title": "Custom Backends \u2014 PyTorch 2.0 documentation"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/NVIDIA/Torch-TensorRT/master/docs/tutorials/_rendered_examples/dynamo/torch_compile_advanced_u",
+      "title": "Torch Compile Advanced Usage \u2014 Torch-TensorRT"
+    }
+  ]
+}

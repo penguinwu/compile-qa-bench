@@ -1,0 +1,32 @@
+{
+  "case_id": "J4-1",
+  "search_query": "I'm getting a graph break in my flex_attention code when using fullgraph=True. How do I fix it?",
+  "results": [
+    {
+      "url": "https://chatpaper.com/zh-CN/paper/190867",
+      "title": "GraphMend: Code Transformations for Fixing Graph Breaks in PyTorch 2"
+    },
+    {
+      "url": "https://chatpaper.com/ja/paper/190867",
+      "title": "GraphMend: Code Transformations for Fixing Graph Breaks in PyTorch 2"
+    },
+    {
+      "url": "https://docs.cloud.google.com/spanner/docs/graph/troubleshoot",
+      "title": "Troubleshoot Spanner Graph | Google Cloud Documentation"
+    },
+    {
+      "url": "https://testfully.io/blog/graphql-error-handling/",
+      "title": "Mastering GraphQL Error Handling: Strategies, Best Practices, and Future Trends"
+    },
+    {
+      "url": "https://chatpaper.com/chatpaper/paper/190867",
+      "title": "GraphMend: Code Transformations for Fixing Graph Breaks in PyTorch 2"
+    },
+    {
+      "url": "https://discuss.pytorch.org/t/best-way-to-detect-and-fix-graphs-breaks/218127",
+      "title": "Best way to detect and fix graphs breaks"
+    }
+  ],
+  "search_timestamp": "2026-04-12T16:11:25.671603+00:00",
+  "search_tool": "three_pai_external_web_search"
+}

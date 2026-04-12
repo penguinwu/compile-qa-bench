@@ -1,0 +1,28 @@
+{
+  "case_id": "J1-10",
+  "search_query": "torch.compile stops working when I enable gradient checkpointing. Are they compatible?",
+  "search_tool": "three_pai_external_web_search",
+  "search_timestamp": "2026-04-12T16:07:18.593489+00:00",
+  "results": [
+    {
+      "url": "https://github.com/pytorch/pytorch/issues/102223",
+      "title": "torch.utils.checkpoint fails with torch.autograd.grad even when use_reentrant=False \u00b7 Issue #102223"
+    },
+    {
+      "url": "https://docs.pytorch.org/docs/stable/checkpoint.html",
+      "title": "torch.utils.checkpoint \u2014 PyTorch 2.11 documentation"
+    },
+    {
+      "url": "https://discuss.pytorch.org/t/how-to-use-torch-compile-with-cuda-graphs-when-using-gradient-activation-checkpointing/179466",
+      "title": "How to use torch.compile with CUDA graphs when using gradient activation checkpointing"
+    },
+    {
+      "url": "https://discuss.pytorch.org/t/gradient-checkpointing/205416",
+      "title": "Gradient checkpointing - autograd - PyTorch Forums"
+    },
+    {
+      "url": "https://community.intel.com/t5/Intel-Gaudi-AI-Accelerator/torch-compile-failure-for-torch-concat-on-Gaudi-2-when-using/td-p/1722",
+      "title": "torch.compile failure for torch.concat on Gaudi-2 when using htcore.hpu_inference_set_env() - Intel "
+    }
+  ]
+}

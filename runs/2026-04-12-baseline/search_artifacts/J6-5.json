@@ -1,0 +1,32 @@
+{
+  "case_id": "J6-5",
+  "search_query": "My custom attention implementation recompiles on every forward pass because the sequence length keeps changing. How do I avoid constant recompilation with variable sequence lengths?",
+  "search_tool": "three_pai_external_web_search",
+  "search_timestamp": "2026-04-12T16:10:05.317264+00:00",
+  "results": [
+    {
+      "url": "https://docs.pytorch.org/tutorials/intermediate/variable_length_attention_tutorial.html",
+      "title": "Using Variable Length Attention in PyTorch \u2014 PyTorch Tutorials"
+    },
+    {
+      "url": "https://towardsdatascience.com/optimizing-transformer-models-for-variable-length-input-sequences-19fb88fddf71/",
+      "title": "Optimizing Transformer Models for Variable-Length Input Sequences"
+    },
+    {
+      "url": "https://towardsdatascience.com/understanding-flash-attention-writing-the-algorithm-from-scratch-in-triton-5609f0b143ea/",
+      "title": "Understanding Flash Attention: Writing the Algorithm from Scratch in Triton"
+    },
+    {
+      "url": "https://apxml.com/courses/how-to-build-a-large-language-model/chapter-4-transformer-architecture/overcoming-recurrence-with-atte",
+      "title": "Moving Beyond RNNs with Attention"
+    },
+    {
+      "url": "https://arxiv.org/html/2405.17381v1",
+      "title": "Various Lengths, Constant Speed: Efficient Language Modeling with Lightning Attention"
+    },
+    {
+      "url": "https://arxiv.org/html/2405.17381v2",
+      "title": "Various Lengths, Constant Speed: Efficient Language Modeling with Lightning Attention"
+    }
+  ]
+}

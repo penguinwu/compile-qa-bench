@@ -1,0 +1,28 @@
+{
+  "case_id": "J6-19",
+  "search_query": "Operators returning dynamic-shape outputs that require grad cause issues. How does torch.compile handle ops with data-dependent output shapes?",
+  "search_tool": "three_pai_external_web_search",
+  "search_timestamp": "2026-04-12T16:11:29.958772+00:00",
+  "results": [
+    {
+      "url": "https://dev-discuss.pytorch.org/t/higher-order-operators-2023-10/1565",
+      "title": "Higher Order Operators, 2023/10"
+    },
+    {
+      "url": "https://github.com/pytorch/pytorch/issues/153993",
+      "title": "torch.compile custom autograd.Function + dynamic shapes + torch.tensor constructor in backward"
+    },
+    {
+      "url": "https://docs.pytorch.org/TensorRT/tutorials/_rendered_examples/dynamo/torch_compile_resnet_example.html",
+      "title": "Compiling ResNet with dynamic shapes using the torch.compile backend"
+    },
+    {
+      "url": "https://github.com/pytorch/pytorch/issues/120482",
+      "title": "[compile]outer operator with out= causes graph break in dynamic shape compilation"
+    },
+    {
+      "url": "https://docs.pytorch.org/docs/2.7/torch.compiler_troubleshooting.html",
+      "title": "torch.compile Troubleshooting \u2014 PyTorch 2.7 documentation"
+    }
+  ]
+}

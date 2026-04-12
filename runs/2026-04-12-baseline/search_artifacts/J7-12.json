@@ -1,0 +1,40 @@
+{
+  "case_id": "J7-12",
+  "search_query": "torch.compile takes 17-30 minutes to compile my model even with a warm cache, and it causes NCCL timeouts in distributed training. How do I speed up compilation?",
+  "search_tool": "three_pai_external_web_search",
+  "search_timestamp": "2026-04-12T16:08:21.032349+00:00",
+  "results": [
+    {
+      "url": "https://github.com/pytorch/pytorch/issues/108971",
+      "title": "Really slow compilation times for torch.compile causing distributed training errors \u00b7 Issue #108971"
+    },
+    {
+      "url": "https://docs.pytorch.org/tutorials/recipes/regional_compilation.html",
+      "title": "Reducing torch.compile cold start compilation time with regional compilation \u2014 PyTorch Tutorials 2"
+    },
+    {
+      "url": "https://docs.pytorch.org/tutorials/recipes/torch_compile_caching_tutorial.html",
+      "title": "Compile Time Caching in torch.compile \u2014 PyTorch Tutorials 2.11.0+cu130 documentation"
+    },
+    {
+      "url": "https://huggingface.co/blog/PrunaAI/torch-compile-zero-warmup",
+      "title": "Slashing torch.compile Warmup & LoRA Swapping Times with Pruna"
+    },
+    {
+      "url": "https://medium.com/@Nexumo_/10-pytorch-compile-tips-that-halve-epoch-time-291e744a9418",
+      "title": "10 PyTorch Compile Tips That Halve Epoch Time | by Nexumo | Dec, 2025 | Medium"
+    },
+    {
+      "url": "https://github.com/huggingface/nanoVLM/pull/88",
+      "title": "Perf: Adding torch.compile + static cache, ~3x speed up by tsdocode \u00b7 Pull Request #88 \u00b7 huggingfa"
+    },
+    {
+      "url": "https://docs.nvidia.com/physicsnemo/latest/user-guide/performance_docs/torch_compile_support.html",
+      "title": "Torch Compile and External Kernels \u2014 NVIDIA PhysicsNeMo Framework"
+    },
+    {
+      "url": "https://medium.com/@girishajmera/improve-your-pytorch-model-training-time-with-torch-compile-99db541389ac",
+      "title": "Improve Your PyTorch Model Training Time with torch.compile | by Girish Ajmera | Medium"
+    }
+  ]
+}

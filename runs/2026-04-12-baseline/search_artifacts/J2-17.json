@@ -1,0 +1,32 @@
+{
+  "case_id": "J2-17",
+  "search_query": "torch._foreach_copy_ on CUDA tensors is much slower than a simple for-loop of tensor.copy_(). Why isn't the foreach variant faster?",
+  "search_tool": "three_pai_external_web_search",
+  "search_timestamp": "2026-04-12T16:11:19.900832+00:00",
+  "results": [
+    {
+      "url": "https://discuss.pytorch.org/t/copy-tensor-from-cuda-to-cpu-is-too-slow/13056",
+      "title": "Copy tensor from cuda to cpu is too slow"
+    },
+    {
+      "url": "https://docs.pytorch.org/blog/optimizing-cuda-rnn-with-torchscript/",
+      "title": "Optimizing CUDA Recurrent Neural Networks with TorchScript"
+    },
+    {
+      "url": "https://pytorch.org/blog/optimizing-cuda-rnn-with-torchscript/",
+      "title": "Optimizing CUDA Recurrent Neural Networks with TorchScript \u2013 PyTorch"
+    },
+    {
+      "url": "https://github.com/pytorch/pytorch/issues/44025",
+      "title": "torch.cat is over 300x slower than torch.index_copy / numpy.concatenate on CPU \u00b7 Issue #44025 \u00b7 py"
+    },
+    {
+      "url": "https://github.com/pytorch/pytorch/issues/92142",
+      "title": "torch.cat is 40x slower than numpy.concatenate \u00b7 Issue #92142 \u00b7 pytorch/pytorch \u00b7 GitHub"
+    },
+    {
+      "url": "https://forums.developer.nvidia.com/t/torch-tensor-cuda-very-slow/125857",
+      "title": "Torch Tensor.cuda() very slow"
+    }
+  ]
+}

@@ -1,0 +1,28 @@
+{
+  "case_id": "J5-13",
+  "search_query": "Inductor-generated code for nn.Embedding forward is slower than eager. Why doesn't inductor optimize embedding lookups?",
+  "search_tool": "three_pai_external_web_search",
+  "search_timestamp": "2026-04-12T16:08:45.380107+00:00",
+  "results": [
+    {
+      "url": "https://zilliz.com/ai-faq/how-do-i-optimize-embedding-models-for-inference-speed",
+      "title": "How do I optimize embedding models for inference speed?"
+    },
+    {
+      "url": "https://discuss.huggingface.co/t/how-can-i-reduce-latency-when-running-a-large-transformer-model-for-sentence-embeddings-in-prod",
+      "title": "How can I reduce latency when running a large transformer model for sentence embeddings in production"
+    },
+    {
+      "url": "https://discuss.pytorch.org/t/embedding-with-sparse-true-is-slower/9025",
+      "title": "Embedding with sparse=True is slower?"
+    },
+    {
+      "url": "https://discuss.pytorch.org/t/low-performance-when-iterating-over-moduledict-in-forward/109686",
+      "title": "Low performance when iterating over ModuleDict in forward()"
+    },
+    {
+      "url": "https://medium.com/@abdulazees329/technology-1506f2d1c74e",
+      "title": "Optimizing Large Language Models for Fast & Efficient Code Generation in Low-Latency Systems"
+    }
+  ]
+}

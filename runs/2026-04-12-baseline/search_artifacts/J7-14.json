@@ -1,0 +1,32 @@
+{
+  "case_id": "J7-14",
+  "search_query": "On CPU, torch._inductor.cpu_vec_isa.pick_vec_isa takes 9 seconds just to detect the vector ISA. Why is this so slow and can I skip it?",
+  "search_tool": "three_pai_external_web_search",
+  "search_timestamp": "2026-04-12T16:08:21.032349+00:00",
+  "results": [
+    {
+      "url": "https://discuss.pytorch.org/t/copy-tensor-from-cuda-to-cpu-is-too-slow/13056",
+      "title": "Copy tensor from cuda to cpu is too slow"
+    },
+    {
+      "url": "https://gist.github.com/mingfeima/f040ede25b4797740634ab778b2f5888",
+      "title": "PyTorch CPU Performance Optimization Tutorial - Section I \u00b7 GitHub"
+    },
+    {
+      "url": "https://apxml.com/courses/advanced-pytorch/chapter-4-deployment-performance-optimization/pytorch-profiler",
+      "title": "Using the PyTorch Profiler for Bottleneck Analysis"
+    },
+    {
+      "url": "https://discuss.pytorch.org/t/torch-profiler-gpu-substantially-slower-than-cpu/209774",
+      "title": "Torch Profiler: GPU substantially slower than CPU"
+    },
+    {
+      "url": "https://medium.com/@ishita.verma178/pytorch-gpu-optimization-step-by-step-guide-9dead5164ca2",
+      "title": "PyTorch GPU Optimization: Step-by-Step Guide | Ishita Verma | Medium"
+    },
+    {
+      "url": "https://githubissues.com/pytorch/pytorch/140970",
+      "title": " takes ~9 seconds to run"
+    }
+  ]
+}

@@ -1,0 +1,28 @@
+{
+  "case_id": "J8-14",
+  "search_query": "Is there a torch.scan equivalent to JAX's lax.scan? I need a functional scan for my RNN that works with torch.compile.",
+  "search_tool": "three_pai_external_web_search",
+  "search_timestamp": "2026-04-12T16:11:21.472134+00:00",
+  "results": [
+    {
+      "url": "https://apxml.com/courses/advanced-jax/chapter-1-advanced-jax-transformations-control-flow/mastering-lax-scan",
+      "title": "Using lax.scan in JAX"
+    },
+    {
+      "url": "https://discuss.pytorch.org/t/torch-compile-seems-to-hang/177089",
+      "title": "Torch.compile seems to hang"
+    },
+    {
+      "url": "https://discuss.pytorch.org/t/is-there-an-equivalent-of-jax-lax-scan-eg-in-torch-func/177088",
+      "title": "Is there an equivalent of jax.lax.scan (eg in torch.func)?"
+    },
+    {
+      "url": "https://github.com/jax-ml/jax/discussions/32570",
+      "title": "The Jax primitive jax.lax.conv_transpose result does not match the result of torch.nn.functional.con"
+    },
+    {
+      "url": "https://github.com/jax-ml/jax/discussions/16106",
+      "title": "Question regarding performance of jax.lax.scan \u00b7 jax-ml jax \u00b7 Discussion #16106 \u00b7 GitHub"
+    }
+  ]
+}

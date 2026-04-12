@@ -1,0 +1,12 @@
+{
+  "case_id": "J8-15",
+  "search_query": "Does PyTorch support parallel associative scans? I need an efficient prefix-sum that torch.compile can optimize.",
+  "search_tool": "three_pai_external_web_search",
+  "search_timestamp": "2026-04-12T16:11:21.472134+00:00",
+  "results": [
+    {
+      "url": "https://github.com/pytorch/pytorch/issues/95408",
+      "title": "Parallel Associative Scan \u00b7 Issue #95408 \u00b7 pytorch/pytorch \u00b7 GitHub"
+    }
+  ]
+}

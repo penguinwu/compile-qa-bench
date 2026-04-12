@@ -1,0 +1,28 @@
+{
+  "case_id": "J1-12",
+  "search_query": "Dynamo doesn't support tracing through torch.autograd.grad. I use it for computing per-sample gradients. How do I make this work with torch.compile?",
+  "search_tool": "three_pai_external_web_search",
+  "search_timestamp": "2026-04-12T16:08:33.401023+00:00",
+  "results": [
+    {
+      "url": "https://dev-discuss.pytorch.org/t/torchdynamo-update-9-making-ddp-work-with-torchdynamo/860",
+      "title": "PyTorch Developer Mailing List"
+    },
+    {
+      "url": "https://github.com/pytorch/pytorch/issues/156649",
+      "title": "[dynamo] torch.randint_like on DTensor does not work with compile \u00b7 Issue #156649 \u00b7 pytorch/pytorc"
+    },
+    {
+      "url": "https://github.com/pytorch/pytorch/issues/124827",
+      "title": "Compiled autograd does not support reading attribute from autograd context if the attribute is create"
+    },
+    {
+      "url": "https://docs.pytorch.org/docs/2.3/torch.compiler_fine_grain_apis.html",
+      "title": "TorchDynamo APIs for fine-grained tracing \u2014 PyTorch 2.3 documentation"
+    },
+    {
+      "url": "https://docs.pytorch.org/docs/2.6/torch.compiler_fine_grain_apis.html",
+      "title": "TorchDynamo APIs for fine-grained tracing \u2014 PyTorch 2.6 documentation"
+    }
+  ]
+}

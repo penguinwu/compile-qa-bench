@@ -1,0 +1,36 @@
+{
+  "case_id": "J7-1",
+  "search_query": "torch.compile takes so long on T5 inference that it times out. How do I reduce compilation time for large models?",
+  "search_tool": "three_pai_external_web_search",
+  "search_timestamp": "2026-04-12T16:06:39.226389+00:00",
+  "results": [
+    {
+      "url": "https://docs.pytorch.org/tutorials/recipes/regional_compilation.html",
+      "title": "Reducing torch.compile cold start compilation time with regional compilation \u2014 PyTorch Tutorials 2"
+    },
+    {
+      "url": "https://www.aidoczh.com/torchtutorials/recipes/regional_compilation.html",
+      "title": "Reducing torch.compile cold start compilation time with regional compilation \u2014 PyTorch Tutorials 2"
+    },
+    {
+      "url": "https://medium.com/@girishajmera/improve-your-pytorch-model-training-time-with-torch-compile-99db541389ac",
+      "title": "Improve Your PyTorch Model Training Time with torch.compile | by Girish Ajmera | Medium"
+    },
+    {
+      "url": "https://github.com/pytorch/pytorch/issues/108971",
+      "title": "Really slow compilation times for torch.compile causing distributed training errors \u00b7 Issue #108971"
+    },
+    {
+      "url": "https://www.pruna.ai/blog/toongether-torch-compile-sd-xl",
+      "title": "Beating torch.compile: 12\u00d7 faster compilation time at Toongether.ai - Pruna AI"
+    },
+    {
+      "url": "https://docs.pytorch.org/tutorials/recipes/torch_compile_caching_tutorial.html",
+      "title": "Compile Time Caching in torch.compile \u2014 PyTorch Tutorials 2.11.0+cu130 documentation"
+    },
+    {
+      "url": "https://medium.com/@bhagyarana80/7-pytorch-compile-moves-that-slash-training-time-cb664e666d14",
+      "title": "7 PyTorch Compile Moves That Slash Training Time | by Bhagya Rana | Oct, 2025 | Medium"
+    }
+  ]
+}

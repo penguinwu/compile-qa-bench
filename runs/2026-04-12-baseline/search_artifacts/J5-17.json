@@ -1,0 +1,20 @@
+{
+  "case_id": "J5-17",
+  "search_query": "test_select_algorithm fails for convolution in inductor. Is there a bug in the algorithm selection for conv ops?",
+  "search_tool": "three_pai_external_web_search",
+  "search_timestamp": "2026-04-12T16:08:45.380107+00:00",
+  "results": [
+    {
+      "url": "https://github.com/pytorch/pytorch/issues/143412",
+      "title": "[Inductor test failure] torch:inductor/test_select_algorithm"
+    },
+    {
+      "url": "https://github.com/pytorch/pytorch/issues/173068",
+      "title": "[Inductor] Triton convolution template produces incorrect"
+    },
+    {
+      "url": "https://dev.to/aaronlangford31/lessons-learned-from-using-torch-inductor-for-inference-1ma7",
+      "title": "Lessons Learned from Using Torch Inductor For Inference"
+    }
+  ]
+}

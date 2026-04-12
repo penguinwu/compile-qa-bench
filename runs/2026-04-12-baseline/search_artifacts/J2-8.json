@@ -1,0 +1,28 @@
+{
+  "case_id": "J2-8",
+  "search_query": "FlexAttention backward pass is 12x slower than the forward pass at 32K sequence length. Is there a way to profile and fix the backward scaling?",
+  "search_tool": "three_pai_external_web_search",
+  "search_timestamp": "2026-04-12T16:09:58.951022+00:00",
+  "results": [
+    {
+      "url": "https://discuss.pytorch.org/t/how-to-figure-out-why-my-backwards-pass-is-so-slow/214983",
+      "title": "How to figure out why my backwards pass is so slow?"
+    },
+    {
+      "url": "https://discourse.julialang.org/t/not-fast-enough-backward-pass-on-transformer-model/94735",
+      "title": "Not fast enough backward pass on transformer model"
+    },
+    {
+      "url": "https://github.com/pytorch/pytorch/issues/146896",
+      "title": "Assertion error in Flex Attention backward pass when indexing a parameter \u00b7 Issue #146896 \u00b7 pytorc"
+    },
+    {
+      "url": "https://discuss.pytorch.org/t/diagnosing-an-incredibly-slow-backwards-pass/18791",
+      "title": "Diagnosing an incredibly slow backwards pass"
+    },
+    {
+      "url": "https://arxiv.org/html/2510.22467",
+      "title": "Backward-Friendly Optimization: Training Large Language Models with Approximate Gradients under Memo"
+    }
+  ]
+}

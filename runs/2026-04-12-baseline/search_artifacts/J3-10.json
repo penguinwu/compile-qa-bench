@@ -1,0 +1,24 @@
+{
+  "case_id": "J3-10",
+  "search_query": "Segformer accuracy regressed when using AOT eager mode in PyTorch 2.5. How do I check if this is a known regression?",
+  "results": [
+    {
+      "url": "https://visualstudiomagazine.com/articles/2021/03/12/pytorch-model-accuracy.aspx",
+      "title": "Neural Regression Using PyTorch: Model Accuracy -"
+    },
+    {
+      "url": "https://visualstudiomagazine.com/Articles/2021/03/12/pytorch-model-accuracy.aspx?m=1&Page=1",
+      "title": "Neural Regression Using PyTorch: Model Accuracy -"
+    },
+    {
+      "url": "https://medium.com/writeasilearn/regression-analysis-with-pytorch-107941505504",
+      "title": "Regression analysis with PyTorch. This is probably the thousandth article\u2026 | by Dipanwita Mallick "
+    },
+    {
+      "url": "https://docs.pytorch.org/docs/2.5/torch.compiler_troubleshooting.html",
+      "title": "PyTorch 2.0 Troubleshooting \u2014 PyTorch 2.5 documentation"
+    }
+  ],
+  "search_timestamp": "2026-04-12T16:07:49.331571+00:00",
+  "search_tool": "three_pai_external_web_search"
+}

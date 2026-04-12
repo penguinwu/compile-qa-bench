@@ -1,0 +1,28 @@
+{
+  "case_id": "J3-2",
+  "search_query": "My conv2d + interpolate model gives wrong gradients under torch.compile but correct ones in eager. How do I isolate the bug?",
+  "results": [
+    {
+      "url": "https://apxml.com/courses/getting-started-with-pytorch/chapter-8-monitoring-debugging-models/common-pytorch-pitfalls",
+      "title": "Common PyTorch Errors and Mistakes"
+    },
+    {
+      "url": "https://docs.pytorch.org/rl/0.4/reference/generated/knowledge_base/PRO-TIPS.html",
+      "title": "Common PyTorch errors and solutions \u2014 torchrl 0.4 documentation"
+    },
+    {
+      "url": "https://discuss.pytorch.org/t/model-only-converges-when-wrapped-in-torch-compile/187748",
+      "title": "Model only converges when wrapped in `torch.compile`"
+    },
+    {
+      "url": "https://apxml.com/courses/getting-started-with-pytorch/chapter-8-monitoring-debugging-models/inspecting-gradients-issues",
+      "title": "Inspect PyTorch Gradients | Vanishing/Exploding"
+    },
+    {
+      "url": "https://discuss.pytorch.org/t/torch-compile-emits-double-backward-error-even-when-the-corresponding-function-is-disabled/218952",
+      "title": "Torch.compile emits double backward error even when the corresponding function is disabled"
+    }
+  ],
+  "search_timestamp": "2026-04-12T16:07:32.678998+00:00",
+  "search_tool": "three_pai_external_web_search"
+}

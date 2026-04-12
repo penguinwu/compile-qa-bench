@@ -1,0 +1,28 @@
+{
+  "case_id": "J8-7",
+  "search_query": "torch._dynamo.optimize fails on my code that uses pytorch_cluster's radius function with 'tensor has non-zero number of elements but data is not allocated'. How do I use third-party custom ops with dynamo?",
+  "search_tool": "three_pai_external_web_search",
+  "search_timestamp": "2026-04-12T16:10:37.905268+00:00",
+  "results": [
+    {
+      "url": "https://discuss.pytorch.org/t/torch-dynamo-optimize-the-tensor-has-a-non-zero-number-of-elements-but-its-data-is-not-allocated-y/189206",
+      "title": "Torch._dynamo.optimize: The tensor has a non-zero number of elements, but its data is not allocated"
+    },
+    {
+      "url": "https://discuss.pytorch.org/t/how-to-optimise-a-loop-body-with-a-large-number-of-loops/189906",
+      "title": "How to optimise a loop body with a large number of loops\uff1f"
+    },
+    {
+      "url": "https://dev-discuss.pytorch.org/t/torchdynamo-an-experiment-in-dynamic-python-bytecode-transformation/361",
+      "title": "PyTorch Developer Mailing List"
+    },
+    {
+      "url": "https://github.com/pytorch/pytorch/blob/main/torch/_dynamo/config.py",
+      "title": "pytorch/torch/_dynamo/config.py at main \u00b7 pytorch/pytorch \u00b7 GitHub"
+    },
+    {
+      "url": "https://github.com/pytorch/pytorch/blob/main/torch/_dynamo/utils.py",
+      "title": "pytorch/torch/_dynamo/utils.py at main \u00b7 pytorch/pytorch \u00b7 GitHub"
+    }
+  ]
+}

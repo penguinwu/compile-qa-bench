@@ -1,0 +1,28 @@
+{
+  "case_id": "J6-3",
+  "search_query": "torch.sum fails with a dynamo error when dynamic=True. How do I use dynamic shapes correctly with reduction operations?",
+  "search_tool": "three_pai_external_web_search",
+  "search_timestamp": "2026-04-12T16:10:05.317264+00:00",
+  "results": [
+    {
+      "url": "https://github.com/pytorch/pytorch/issues/113142",
+      "title": "[torch.compile] With dynamic_shape=True and torch.randperm operator error while dynamo tracing"
+    },
+    {
+      "url": "https://docs.pytorch.org/docs/stable/user_guide/torch_compiler/torch.compiler_dynamic_shapes.html",
+      "title": "Dynamic Shapes \u2014 PyTorch 2.11 documentation"
+    },
+    {
+      "url": "https://discuss.pytorch.org/t/graph-tracing-false-when-using-torch-dynamo/199504",
+      "title": "Graph tracing false when using torch dynamo"
+    },
+    {
+      "url": "https://github.com/pytorch/pytorch/issues/139868",
+      "title": "[ONNX] Optimizer fails when comparing dynamic shapes"
+    },
+    {
+      "url": "https://discuss.pytorch.org/t/dynamic-slicing/218156",
+      "title": "Dynamic slicing - torch.compile - PyTorch Forums"
+    }
+  ]
+}

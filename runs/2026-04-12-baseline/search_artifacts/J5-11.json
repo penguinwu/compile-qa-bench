@@ -1,0 +1,24 @@
+{
+  "case_id": "J5-11",
+  "search_query": "Using max-autotune with reduce-overhead is much slower than default mode because of repeated CUDA graph instantiation. What's the right combination of modes?",
+  "search_tool": "three_pai_external_web_search",
+  "search_timestamp": "2026-04-12T16:08:45.380107+00:00",
+  "results": [
+    {
+      "url": "https://moldstud.com/articles/p-maximize-gpu-performance-understanding-the-cuda-occupancy-calculator-for-effective-tuning",
+      "title": "Maximize GPU Performance with CUDA Occupancy Calculator Tuning | MoldStud"
+    },
+    {
+      "url": "https://developer.nvidia.com/blog/constant-time-launch-for-straight-line-cuda-graphs-and-other-performance-enhancements/",
+      "title": "Constant Time Launch for Straight-Line CUDA Graphs and Other Performance Enhancements"
+    },
+    {
+      "url": "https://developer.nvidia.com/blog/cuda-graphs/",
+      "title": "Getting Started with CUDA Graphs | NVIDIA Technical Blog"
+    },
+    {
+      "url": "https://medium.com/@yuanzhedong/using-cuda-graph-in-pytorch-80898b395a38?responsesOpen=true&sortBy=REVERSE_CHRON",
+      "title": "Using CUDA Graph in Pytorch"
+    }
+  ]
+}

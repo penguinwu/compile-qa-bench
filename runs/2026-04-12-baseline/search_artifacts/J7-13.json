@@ -1,0 +1,32 @@
+{
+  "case_id": "J7-13",
+  "search_query": "torch.compile takes 34 seconds to compile a simple for loop. Is there a way to make dynamo handle loops faster?",
+  "search_tool": "three_pai_external_web_search",
+  "search_timestamp": "2026-04-12T16:08:21.032349+00:00",
+  "results": [
+    {
+      "url": "https://shreyansh26.github.io/post/2025-03-02_cross-encoder-inference-torch-compile/",
+      "title": "Faster Cross-Encoder Inference: Unleashing torch.compile for speed | Shreyansh Singh"
+    },
+    {
+      "url": "https://medium.com/@ThinkingLoop/7-pytorch-2-x-compile-tips-that-halve-epoch-time-67d8f6ea3fb9",
+      "title": "7 PyTorch 2.x Compile Tips That Halve Epoch Time | by Thinking Loop | Oct, 2025 | Medium"
+    },
+    {
+      "url": "https://medium.com/@Nexumo_/10-pytorch-compile-tips-that-halve-epoch-time-291e744a9418",
+      "title": "10 PyTorch Compile Tips That Halve Epoch Time | by Nexumo | Dec, 2025 | Medium"
+    },
+    {
+      "url": "https://cloud.tencent.com/developer/article/2631845",
+      "title": "torch.compile \u52a0\u901f\u539f\u7406\uff1akernel \u878d\u5408\u4e0e\u7f13\u51b2\u533a\u590d\u7528-\u817e\u8baf\u4e91\u5f00\u53d1\u8005\u793e\u533a-\u817e\u8baf\u4e91"
+    },
+    {
+      "url": "https://replicate.com/docs/guides/build/torch-compile/",
+      "title": "Speed up models with torch.compile - Replicate"
+    },
+    {
+      "url": "https://note.com/198619891990/n/n82ffd27203f9",
+      "title": "How to fix torch.compile on Windows (\u203bfor WaveSpeed)\uff5cGJL"
+    }
+  ]
+}

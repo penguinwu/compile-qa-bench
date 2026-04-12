@@ -1,0 +1,40 @@
+{
+  "case_id": "J3-12",
+  "search_query": "torch.compile introduces significant precision errors in my model's output compared to eager. How do I figure out which operation is causing the precision loss?",
+  "results": [
+    {
+      "url": "https://medium.com/@ngocson2vn/torch-compile-and-with-triton-combo-kernel-1-causes-a-serious-accuracy-issue-634e62c39f25",
+      "title": "torch.compile() with TRITON_COMBO_KERNEL=1 causes a serious accuracy issue | by Son Nguyen | Nov, 20"
+    },
+    {
+      "url": "https://github.com/pytorch/pytorch/issues/161764",
+      "title": "The \"max-autotune\" mode in torch.compile can lead to longer execution times relative to eager execut"
+    },
+    {
+      "url": "https://towardsdatascience.com/maximizing-ai-ml-model-performance-with-pytorch-compilation/",
+      "title": "Maximizing AI/ML Model Performance with PyTorch Compilation | Towards Data Science"
+    },
+    {
+      "url": "https://medium.com/@lambdafluxofficial/everything-you-need-to-know-about-pytorch-compile-3d7fd94ce701",
+      "title": "Everything You Need to Know About PyTorch Compile | by LambdaFlux | Medium"
+    },
+    {
+      "url": "https://docs.pytorch.org/docs/2.7/torch.compiler_troubleshooting.html",
+      "title": "torch.compile Troubleshooting \u2014 PyTorch 2.7 documentation"
+    },
+    {
+      "url": "https://github.com/pytorch/pytorch/issues/96693",
+      "title": "torch.compile mode=\"max-autotune\" precision appears to be lower \u00b7 Issue #96693 \u00b7 pytorch/pytorch"
+    },
+    {
+      "url": "https://community.intel.com/t5/Intel-Gaudi-AI-Accelerator/torch-compile-failure-for-torch-concat-on-Gaudi-2-when-using/td-p/1722",
+      "title": "torch.compile failure for torch.concat on Gaudi-2 when using htcore.hpu_inference_set_env() - Intel"
+    },
+    {
+      "url": "https://medium.com/@soydotrun/how-torch-compile-solves-the-eager-execution-problem-in-pytorch-4d45ef7e7777",
+      "title": "How Computation Graphs Solve the Eager Execution Problem in PyTorch | by Aryan Keluskar | Feb, 2026"
+    }
+  ],
+  "search_timestamp": "2026-04-12T16:09:32.331859+00:00",
+  "search_tool": "three_pai_external_web_search"
+}

@@ -1,0 +1,28 @@
+{
+  "case_id": "J1-9",
+  "search_query": "How can I save and reuse torch.compile results across different Python processes? I don't want to recompile every time I start a new process.",
+  "search_tool": "three_pai_external_web_search",
+  "search_timestamp": "2026-04-12T16:07:18.593489+00:00",
+  "results": [
+    {
+      "url": "https://docs.pytorch.org/tutorials/recipes/regional_compilation.html",
+      "title": "Reducing torch.compile cold start compilation time with regional compilation \u2014 PyTorch Tutorials 2"
+    },
+    {
+      "url": "https://www.scaler.com/topics/pytorch/how-to-save-a-model-in-pytorch/",
+      "title": "How to Save a PyTorch Model (torch.save)? - Scaler Topics"
+    },
+    {
+      "url": "https://www.aidoczh.com/torchtutorials/recipes/regional_compilation.html",
+      "title": "Reducing torch.compile cold start compilation time with regional compilation \u2014 PyTorch Tutorials 2"
+    },
+    {
+      "url": "https://medium.com/@ThinkingLoop/7-pytorch-2-x-compile-tips-that-halve-epoch-time-67d8f6ea3fb9",
+      "title": "7 PyTorch 2.x Compile Tips That Halve Epoch Time | by Thinking Loop | Oct, 2025 | Medium"
+    },
+    {
+      "url": "https://apxml.com/courses/pytorch-for-tensorflow-developers/chapter-5-pytorch-model-persistence-deployment/practical-pytorch-mod",
+      "title": "PyTorch Model Saving & TorchScript Practice"
+    }
+  ]
+}

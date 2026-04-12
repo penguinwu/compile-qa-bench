@@ -1,0 +1,32 @@
+{
+  "case_id": "J6-9",
+  "search_query": "AMP autocast causes recompilation with 'dtype mismatch: expected Half, actual Float'. Why does torch.compile recompile when I use automatic mixed precision?",
+  "search_tool": "three_pai_external_web_search",
+  "search_timestamp": "2026-04-12T16:10:05.317264+00:00",
+  "results": [
+    {
+      "url": "https://docs.pytorch.org/docs/stable/amp.html",
+      "title": "Automatic Mixed Precision package - torch.amp \u2014 PyTorch 2.11 documentation"
+    },
+    {
+      "url": "https://pytorch.org/docs/stable/amp.html?highlight=mixed",
+      "title": "Automatic Mixed Precision package - torch.amp \u2014 PyTorch 2.6 documentation"
+    },
+    {
+      "url": "https://docs.pytorch.org/docs/1.11/notes/amp_examples.html",
+      "title": "Automatic Mixed Precision examples \u2014 PyTorch 1.11.0 documentation"
+    },
+    {
+      "url": "https://apxml.com/courses/how-to-build-a-large-language-model/chapter-20-mixed-precision-training-techniques/framework-support-m",
+      "title": "Automatic Mixed Precision (AMP) Libraries"
+    },
+    {
+      "url": "https://docs.habana.ai/en/latest/PyTorch/PyTorch_Mixed_Precision/index.html",
+      "title": "Mixed Precision Training with PyTorch Autocast"
+    },
+    {
+      "url": "https://discuss.pytorch.org/t/autocast-error-expected-scalar-type-half-but-found-float/90659",
+      "title": "Autocast error: expected scalar type Half but found Float"
+    }
+  ]
+}

@@ -1,0 +1,32 @@
+{
+  "case_id": "J4-18",
+  "search_query": "torch.compile with aotautograd doesn't support double backwards (grad of grad). Is there a workaround?",
+  "results": [
+    {
+      "url": "https://discuss.pytorch.org/t/torch-compile-emits-double-backward-error-even-when-the-corresponding-function-is-disabled/218952",
+      "title": "Torch.compile emits double backward error even when the corresponding function is disabled"
+    },
+    {
+      "url": "https://docs.pytorch.org/tutorials/intermediate/compiled_autograd_tutorial.html",
+      "title": "Compiled Autograd: Capturing a larger backward graph for torch.compile \u2014 PyTorch Tutorials 2.11.0+"
+    },
+    {
+      "url": "https://dev-discuss.pytorch.org/t/how-does-torch-compile-work-with-autograd/1621",
+      "title": "PyTorch Developer Mailing List"
+    },
+    {
+      "url": "https://discuss.pytorch.org/t/basic-explanation-of-torch-gradients-backward-vs-autograd/80056",
+      "title": "Basic Explanation of torch gradients - .backward() vs autograd"
+    },
+    {
+      "url": "https://docs.pytorch.org/docs/2.0/notes/autograd.html",
+      "title": "Autograd mechanics \u2014 PyTorch 2.0 documentation"
+    },
+    {
+      "url": "https://docs.pytorch.org/docs/stable/autograd.html",
+      "title": "Automatic differentiation package - torch.autograd \u2014 PyTorch 2.10 documentation"
+    }
+  ],
+  "search_timestamp": "2026-04-12T16:13:33.415151+00:00",
+  "search_tool": "three_pai_external_web_search"
+}

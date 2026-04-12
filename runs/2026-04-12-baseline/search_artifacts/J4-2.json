@@ -1,0 +1,28 @@
+{
+  "case_id": "J4-2",
+  "search_query": "torch.compile with DDP causes a graph break on _broadcast_coalesced. How do I use torch.compile with distributed training?",
+  "results": [
+    {
+      "url": "https://apxml.com/courses/advanced-pytorch/chapter-5-distributed-training-parallelism/torch-distributed-primitives",
+      "title": "Using torch.distributed Communication Primitives"
+    },
+    {
+      "url": "https://huggingface.co/blog/pytorch-ddp-accelerate-transformers",
+      "title": "From PyTorch DDP to Accelerate to Trainer, mastery of distributed training with ease"
+    },
+    {
+      "url": "https://www.scoding.kr/2026/01/how-to-fix-torchcompile-performance.html",
+      "title": "How to Fix torch.compile Performance Regressions Caused by Graph Breaks"
+    },
+    {
+      "url": "https://medium.com/the-owl/the-complete-guide-to-distributeddataparallel-ddp-training-in-pytorch-14545cd21f9c",
+      "title": "The Practical Guide to Distributed Training using PyTorch \u2014 Part 1: On a single node using torch.m"
+    },
+    {
+      "url": "https://docs.pytorch.org/docs/2.6/torch.compiler_troubleshooting.html",
+      "title": "torch.compile Troubleshooting \u2014 PyTorch 2.6 documentation"
+    }
+  ],
+  "search_timestamp": "2026-04-12T16:11:27.658291+00:00",
+  "search_tool": "three_pai_external_web_search"
+}

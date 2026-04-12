@@ -1,0 +1,24 @@
+{
+  "case_id": "J6-18",
+  "search_query": "My ChatTTS model triggers too many recompilations from dynamic shape guards. How do I diagnose and fix excessive guard failures?",
+  "search_tool": "three_pai_external_web_search",
+  "search_timestamp": "2026-04-12T16:11:29.958772+00:00",
+  "results": [
+    {
+      "url": "https://medium.com/@chandansingh73718/type-guards-in-typescript-how-to-stop-runtime-errors-before-they-happen-6667bd1fb515",
+      "title": "Type Guards in TypeScript"
+    },
+    {
+      "url": "https://docs.pytorch.org/docs/stable/user_guide/torch_compiler/compile/dynamic_shapes_troubleshooting_guardon_errors.html",
+      "title": "Troubleshooting GuardOnDataDependentSymNode Errors \u2014 PyTorch 2.11 documentation"
+    },
+    {
+      "url": "https://github.com/pytorch/pytorch/issues/115225",
+      "title": "Question about TorchDynamo guard code example"
+    },
+    {
+      "url": "https://liquidinstruments.com/blog/using-chatgpt-and-moku-cloud-compile-to-perform-custom-transient-fault-detection/",
+      "title": "Custom Transient Fault Detection with ChatGPT & Moku Cloud Compile"
+    }
+  ]
+}

@@ -1,0 +1,24 @@
+{
+  "case_id": "J5-19",
+  "search_query": "Inductor's welford reduction implementation makes LayerNorm slower than eager in several cases. Is there a way to override the codegen?",
+  "search_tool": "three_pai_external_web_search",
+  "search_timestamp": "2026-04-12T16:08:45.380107+00:00",
+  "results": [
+    {
+      "url": "https://www.lunartech.ai/blog/mastering-layer-normalization-enhancing-neural-networks-for-optimal-performance",
+      "title": "Mastering Layer Normalization"
+    },
+    {
+      "url": "https://mbrenndoerfer.com/writing/layer-normalization-transformers-implementation",
+      "title": "Layer Normalization: Stabilizing Transformer Training"
+    },
+    {
+      "url": "https://discuss.pytorch.org/t/why-does-the-inductor-reduction-triton-codegen-use-the-welford-algorithm-instead-of-the-naive/2131",
+      "title": "Why does the inductor reduction Triton Codegen use the Welford algorithm instead of the Naive?"
+    },
+    {
+      "url": "https://github.com/karpathy/llm.c/blob/master/doc/layernorm/layernorm.md",
+      "title": "llm.c layernorm documentation"
+    }
+  ]
+}

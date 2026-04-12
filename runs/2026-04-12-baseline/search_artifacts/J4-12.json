@@ -1,0 +1,16 @@
+{
+  "case_id": "J4-12",
+  "search_query": "I'm using DDP with Dynamo but AllReduce ops cause graph breaks. Is there a way to compile through DDP communication?",
+  "results": [
+    {
+      "url": "https://dev-discuss.pytorch.org/t/torchdynamo-update-9-making-ddp-work-with-torchdynamo/860",
+      "title": "PyTorch Developer Mailing List"
+    },
+    {
+      "url": "https://docs.pytorch.org/docs/2.0/dynamo/faq.html",
+      "title": "Frequently Asked Questions \u2014 PyTorch 2.0 documentation"
+    }
+  ],
+  "search_timestamp": "2026-04-12T16:13:16.258132+00:00",
+  "search_tool": "three_pai_external_web_search"
+}

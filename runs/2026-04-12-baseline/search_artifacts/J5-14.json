@@ -1,0 +1,28 @@
+{
+  "case_id": "J5-14",
+  "search_query": "My Triton kernel gets 1.35x slower when I add more specialization to it. Shouldn't more specialization make it faster? What's going on?",
+  "search_tool": "three_pai_external_web_search",
+  "search_timestamp": "2026-04-12T16:08:45.380107+00:00",
+  "results": [
+    {
+      "url": "https://medium.com/@jpprabhu2315/triton-kernel-programming-vs-cuda-the-new-way-to-write-deep-learning-kernels-e368c5ac0aa7",
+      "title": "Triton Kernel Programming vs CUDA"
+    },
+    {
+      "url": "https://rocm.blogs.amd.com/software-tools-optimization/triton-kernel-ai/README.html",
+      "title": "GEAK: Introducing Triton Kernel AI Agent & Evaluation Benchmarks"
+    },
+    {
+      "url": "https://docs.nvidia.com/deeplearning/triton-inference-server/user-guide/docs/user_guide/optimization.html",
+      "title": "Optimization \u2014 NVIDIA Triton Inference Server"
+    },
+    {
+      "url": "https://rocm.blogs.amd.com/software-tools-optimization/kernel-development-optimizations-with-triton-on-/README.html",
+      "title": "Unlock Peak Performance on AMD GPUs with Triton Kernel Optimizations"
+    },
+    {
+      "url": "https://subhadipmitra.com/blog/2025/triton-kernels-llm-inference/",
+      "title": "From 11% to 88% Peak Bandwidth: Writing Custom Triton Kernels for LLM Inference"
+    }
+  ]
+}

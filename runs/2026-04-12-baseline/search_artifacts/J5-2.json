@@ -1,0 +1,36 @@
+{
+  "case_id": "J5-2",
+  "search_query": "After upgrading from PyTorch 2.9 to 2.10, torch.compile with reduce-overhead mode is 7x slower. How do I diagnose this regression?",
+  "search_tool": "three_pai_external_web_search",
+  "search_timestamp": "2026-04-12T16:07:19.356107+00:00",
+  "results": [
+    {
+      "url": "https://github.com/pytorch/pytorch/issues/109856",
+      "title": "Severe performance regression on deterministic algorithm in torch 2.0"
+    },
+    {
+      "url": "https://medium.com/@ThinkingLoop/7-pytorch-2-x-compile-tips-that-halve-epoch-time-67d8f6ea3fb9",
+      "title": "7 PyTorch 2.x Compile Tips That Halve Epoch Time"
+    },
+    {
+      "url": "https://discuss.pytorch.org/t/torch-gets-slower-when-upgrading-the-version/186525",
+      "title": "Torch gets slower when upgrading the version"
+    },
+    {
+      "url": "https://www.geeksforgeeks.org/deep-learning/how-to-improve-the-performance-of-pytorch-models/",
+      "title": "How to improve the performance of PyTorch models? - GeeksforGeeks"
+    },
+    {
+      "url": "https://www.geeksforgeeks.org/how-to-improve-the-performance-of-pytorch-models/",
+      "title": "How to improve the performance of PyTorch models? | GeeksforGeeks"
+    },
+    {
+      "url": "https://docs.pytorch.org/docs/2.6/torch.compiler_troubleshooting.html",
+      "title": "torch.compile Troubleshooting \u2014 PyTorch 2.6 documentation"
+    },
+    {
+      "url": "https://discuss.pytorch.org/t/performance-of-torch-compile-is-significantly-slowed-down-under-torch-inference-mode/191939",
+      "title": "Performance of torch.compile is significantly slowed down under torch.inference_mode"
+    }
+  ]
+}

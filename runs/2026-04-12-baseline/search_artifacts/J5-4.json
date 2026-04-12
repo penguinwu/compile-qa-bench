@@ -1,0 +1,20 @@
+{
+  "case_id": "J5-4",
+  "search_query": "I'm getting a KeyError: 'dim' from UnbindCatRemover when torch.compile tries to optimize my model. Is this an inductor optimization pass bug?",
+  "search_tool": "three_pai_external_web_search",
+  "search_timestamp": "2026-04-12T16:07:19.356107+00:00",
+  "results": [
+    {
+      "url": "https://github.com/pytorch/pytorch/issues/151918",
+      "title": "Inductor generates wrong code for torch.embedding"
+    },
+    {
+      "url": "https://docs.nvidia.com/physicsnemo/latest/user-guide/performance_docs/torch_compile_support.html",
+      "title": "Torch Compile and External Kernels \u2014 NVIDIA PhysicsNeMo"
+    },
+    {
+      "url": "https://github.com/pytorch/pytorch/issues/154556",
+      "title": "torch.compiled flex_attention + NJT raises RuntimeError"
+    }
+  ]
+}

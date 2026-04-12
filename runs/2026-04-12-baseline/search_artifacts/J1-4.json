@@ -1,0 +1,24 @@
+{
+  "case_id": "J1-4",
+  "search_query": "torch.compile fails on both CPU and CUDA with my ResNet50 model. I'm using the nightly Docker image. Is there something wrong with my setup?",
+  "search_tool": "three_pai_external_web_search",
+  "search_timestamp": "2026-04-12T16:07:18.593489+00:00",
+  "results": [
+    {
+      "url": "https://medium.com/@_jeremy_/1-torch-not-compiled-with-cuda-enabled-127e55965e96",
+      "title": "Summary of Errors with CUDA/Torch and DistributedDataParallel and NCCP | by Arch | Medium"
+    },
+    {
+      "url": "https://forums.developer.nvidia.com/t/nvidia-tensorrt-pytorch-docker-resnet50-model-running-issues-jupyter/215736",
+      "title": "Nvidia TensorRT PyTorch Docker :: Resnet50 Model running issues :: Jupyter"
+    },
+    {
+      "url": "https://discuss.pytorch.org/t/torch-cuda-installation-issues-and-best-practices-when-torch-is-a-dependency/161992",
+      "title": "Torch cuda installation issues and best practices when torch is a dependency"
+    },
+    {
+      "url": "https://github.com/pytorch/pytorch/issues/108971",
+      "title": "Really slow compilation times for torch.compile causing distributed training errors \u00b7 Issue #108971"
+    }
+  ]
+}

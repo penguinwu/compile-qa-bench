@@ -1,0 +1,24 @@
+{
+  "case_id": "J8-3",
+  "search_query": "How do I use torch.nn.BatchNorm2d inside a while_loop higher-order op with torch.compile?",
+  "search_tool": "three_pai_external_web_search",
+  "search_timestamp": "2026-04-12T16:09:50.299263+00:00",
+  "results": [
+    {
+      "url": "https://discuss.pytorch.org/t/getting-parameters-of-torch-nn-batchnorm2d-during-training/38913",
+      "title": "Getting parameters of `torch.nn.BatchNorm2d` during training"
+    },
+    {
+      "url": "https://discuss.pytorch.org/t/here-is-a-question-about-fuse-torch-nn-batchnorm2d/139598",
+      "title": "Here is a question about fuse torch.nn.BatchNorm2d"
+    },
+    {
+      "url": "https://github.com/pytorch/pytorch/blob/main/torch/_higher_order_ops/while_loop.py",
+      "title": "pytorch/torch/_higher_order_ops/while_loop.py at main \u00b7 pytorch/pytorch \u00b7 GitHub"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/NVIDIA/Torch-TensorRT/master/docs/tutorials/_rendered_examples/dynamo/torch_compile_advanced_u",
+      "title": "Torch Compile Advanced Usage \u2014 Torch-TensorRT"
+    }
+  ]
+}

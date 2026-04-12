@@ -1,0 +1,32 @@
+{
+  "case_id": "J8-10",
+  "search_query": "Triton autotuning fails with 'invalid argument' CUDA error. How do I debug autotuning failures?",
+  "search_tool": "three_pai_external_web_search",
+  "search_timestamp": "2026-04-12T16:10:37.905268+00:00",
+  "results": [
+    {
+      "url": "https://forums.developer.nvidia.com/t/triton-cuda-error-out-of-memory/263222",
+      "title": "Triton CUDA error: out of memory"
+    },
+    {
+      "url": "https://github.com/sgl-project/sglang/issues/1558",
+      "title": "[Bug] Exception: Capture cuda graph failed: Triton Error [CUDA]: device kernel image is invalid \u00b7 I"
+    },
+    {
+      "url": "https://github.com/MAGICS-LAB/DNABERT_2/issues/36",
+      "title": "RuntimeError: Triton Error [CUDA]: invalid argument by run_dnabert2.sh \u00b7 Issue #36 \u00b7 MAGICS-LAB/DN"
+    },
+    {
+      "url": "https://docs.nvidia.com/deeplearning/triton-inference-server/archives/triton-inference-server-2470/user-guide/docs/user_guide/de",
+      "title": "Debugging Guide \u2014 NVIDIA Triton Inference Server"
+    },
+    {
+      "url": "https://drdroid.io/stack-diagnosis/triton-inference-server-cudaerror",
+      "title": "Triton Inference Server CudaError - Stack Diagnosis"
+    },
+    {
+      "url": "https://discuss.pytorch.org/t/torch-compile-regularly-fails-with-triton-error-cuda-device-kernel-image-is-invalid/185288",
+      "title": "Torch.compile regularly fails with Triton Error [CUDA]: device kernel image is invalid"
+    }
+  ]
+}

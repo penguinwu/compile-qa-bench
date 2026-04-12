@@ -1,0 +1,36 @@
+{
+  "case_id": "J2-5",
+  "search_query": "torch.compile doesn't give me any speedup and after training I get 'free(): invalid pointer' crash. What's going wrong?",
+  "search_tool": "three_pai_external_web_search",
+  "search_timestamp": "2026-04-12T16:09:58.951022+00:00",
+  "results": [
+    {
+      "url": "https://runebook.dev/en/docs/pytorch/torch.compiler_nn_module",
+      "title": "Troubleshooting PyTorch 2.0 torch.compile on nn.Module: Common Issues and Fixes"
+    },
+    {
+      "url": "https://runebook.dev/en/docs/pytorch/torch.compiler_troubleshooting",
+      "title": "pytorch - Fixing Common Issues with torch.compile"
+    },
+    {
+      "url": "https://www.scoding.kr/2026/01/how-to-fix-torchcompile-performance.html",
+      "title": "How to Fix torch.compile Performance Regressions Caused by Graph Breaks"
+    },
+    {
+      "url": "https://github.com/pytorch/pytorch/issues/108971",
+      "title": "Really slow compilation times for torch.compile causing distributed training errors \u00b7 Issue #108971"
+    },
+    {
+      "url": "https://docs.nvidia.com/physicsnemo/latest/user-guide/performance_docs/torch_compile_support.html",
+      "title": "Torch Compile and External Kernels \u2014 NVIDIA PhysicsNeMo Framework"
+    },
+    {
+      "url": "https://docs.pytorch.org/docs/2.6/torch.compiler_troubleshooting.html",
+      "title": "torch.compile Troubleshooting \u2014 PyTorch 2.6 documentation"
+    },
+    {
+      "url": "https://github.com/pytorch/pytorch/issues/144188",
+      "title": "BackendCompilerFailed error is raised when applying torch.compile on torch.fill \u00b7 Issue #144188 \u00b7 "
+    }
+  ]
+}

@@ -1,0 +1,32 @@
+{
+  "case_id": "J4-9",
+  "search_query": "I'm getting a graph break when calling create_block_mask for flex_attention inside a compiled function. How do I avoid this?",
+  "results": [
+    {
+      "url": "https://medium.com/@zdj0712/learning-jax-by-building-flexible-transformer-attention-masks-from-causal-to-prefix-lm-de1edafe2868",
+      "title": "Learning JAX by Building Flexible Transformer Attention Masks: From Causal to Block Attention | by W"
+    },
+    {
+      "url": "https://medium.com/@ggmynam27/pytorch-flexattention-ways-to-mask-attention-0ebb99c85f0a",
+      "title": "Pytorch FlexAttention, ways to Mask Attention | by nousnomix | Mar, 2026 | Medium"
+    },
+    {
+      "url": "https://docs.pytorch.org/docs/stable/nn.attention.flex_attention.html",
+      "title": "torch.nn.attention.flex_attention \u2014 PyTorch 2.11 documentation"
+    },
+    {
+      "url": "https://docs.pytorch.org/docs/2.6/nn.attention.flex_attention.html",
+      "title": "torch.nn.attention.flex_attention \u2014 PyTorch 2.6 documentation"
+    },
+    {
+      "url": "https://github.com/pytorch-labs/attention-gym/issues/56",
+      "title": "Optimal ordering with block mask \u00b7 Issue #56 \u00b7 pytorch-labs/attention-gym \u00b7 GitHub"
+    },
+    {
+      "url": "https://github.com/pytorch/pytorch/issues/148527",
+      "title": "[FlexAttention] Error using create_block_mask with mask head number greater than 1 \u00b7 Issue #148527"
+    }
+  ],
+  "search_timestamp": "2026-04-12T16:11:42.051339+00:00",
+  "search_tool": "three_pai_external_web_search"
+}

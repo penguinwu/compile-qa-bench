@@ -1,0 +1,28 @@
+{
+  "case_id": "J3-17",
+  "search_query": "torch.compile silently drops mutations to class-level list attributes. My model's output is wrong because in-place list modifications are ignored.",
+  "results": [
+    {
+      "url": "https://github.com/pytorch/pytorch/issues/108971",
+      "title": "Really slow compilation times for torch.compile causing distributed training errors \u00b7 Issue #108971"
+    },
+    {
+      "url": "https://medium.com/@niruthiha2000/the-silent-killer-of-your-pytorch-models-why-90-of-ml-engineers-get-training-modes-wrong-d04be",
+      "title": "Common PyTorch Training Mode Mistakes That Silently Break Models | by Niruthi Selva | Medium"
+    },
+    {
+      "url": "https://docs.pytorch.org/docs/2.7/torch.compiler_troubleshooting.html",
+      "title": "torch.compile Troubleshooting \u2014 PyTorch 2.7 documentation"
+    },
+    {
+      "url": "https://github.com/huggingface/nanoVLM/pull/88",
+      "title": "Perf: Adding torch.compile + static cache, ~3x speed up by tsdocode \u00b7 Pull Request #88 \u00b7 huggingfa"
+    },
+    {
+      "url": "https://docs.pytorch.org/docs/2.6/torch.compiler_troubleshooting.html",
+      "title": "torch.compile Troubleshooting \u2014 PyTorch 2.6 documentation"
+    }
+  ],
+  "search_timestamp": "2026-04-12T16:09:43.609302+00:00",
+  "search_tool": "three_pai_external_web_search"
+}

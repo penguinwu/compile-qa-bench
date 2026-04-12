@@ -1,0 +1,12 @@
+{
+  "case_id": "J1-16",
+  "search_query": "Does torch.compile/inductor support complex-valued tensors? I'm getting errors with complex dtypes.",
+  "search_tool": "three_pai_external_web_search",
+  "search_timestamp": "2026-04-12T16:08:33.401023+00:00",
+  "results": [
+    {
+      "url": "https://github.com/pytorch/pytorch/issues/125718",
+      "title": "torch.compile and complex numbers #125718 - GitHub"
+    }
+  ]
+}

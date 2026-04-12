@@ -1,0 +1,20 @@
+{
+  "case_id": "J4-11",
+  "search_query": "torch.compile treats my optimizer as a training graph instead of inference, causing unnecessary graph breaks. How do I fix this?",
+  "results": [
+    {
+      "url": "https://www.scoding.kr/2026/01/how-to-fix-torchcompile-performance.html",
+      "title": "How to Fix torch.compile Performance Regressions Caused by Graph Breaks"
+    },
+    {
+      "url": "https://medium.com/@ThinkingLoop/7-pytorch-2-x-compile-tips-that-halve-epoch-time-67d8f6ea3fb9",
+      "title": "7 PyTorch 2.x Compile Tips That Halve Epoch Time | by Thinking Loop | Oct, 2025 | Medium"
+    },
+    {
+      "url": "https://runebook.dev/en/docs/pytorch/torch.compiler_performance_dashboard",
+      "title": "The torch.compile Survival Guide: Fixing Graph Breaks with Pure PyTorch"
+    }
+  ],
+  "search_timestamp": "2026-04-12T16:13:14.088002+00:00",
+  "search_tool": "three_pai_external_web_search"
+}

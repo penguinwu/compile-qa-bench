@@ -1,0 +1,36 @@
+{
+  "case_id": "J4-16",
+  "search_query": "AOTAutograd cache never hits even on a trivially simple program. Why does it always miss?",
+  "results": [
+    {
+      "url": "https://github.com/pytorch/pytorch/issues/93463",
+      "title": "Traceable tensor subclasses cannot actually be used with AOTAutograd \u00b7 Issue #93463 \u00b7 pytorch/pyto"
+    },
+    {
+      "url": "https://discuss.pytorch.org/t/using-autograd-grad-later-causes-lag-in-moving-batch-to-gpu/113918",
+      "title": "Using autograd.grad later causes lag in moving batch to GPU"
+    },
+    {
+      "url": "https://dev-discuss.pytorch.org/t/min-cut-optimal-recomputation-i-e-activation-checkpointing-with-aotautograd/467",
+      "title": "PyTorch Developer Mailing List"
+    },
+    {
+      "url": "https://github.com/pytorch/pytorch/issues/105555",
+      "title": "Avoid calling AOTAutograd from AOTInductor, since Export has already done that \u00b7 Issue #105555 \u00b7 p"
+    },
+    {
+      "url": "https://medium.com/@mayukhbaruah91/what-is-autograd-in-pytorch-explain-with-example-1a981bd3b323",
+      "title": "What is autograd in PyTorch, explain with Example. | by Mayukhbaruah | Medium"
+    },
+    {
+      "url": "https://discuss.ai.google.dev/t/autograd-fails-for-reduce-sum-on-ragged-tensor/31809",
+      "title": "Google AI Developers Forum"
+    },
+    {
+      "url": "https://discuss.pytorch.org/t/when-is-autograd-available-and-is-it-always-accurate/35840",
+      "title": "When is autograd available and is it always accurate?"
+    }
+  ],
+  "search_timestamp": "2026-04-12T16:13:26.945263+00:00",
+  "search_tool": "three_pai_external_web_search"
+}

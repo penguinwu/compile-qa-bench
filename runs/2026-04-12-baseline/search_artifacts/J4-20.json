@@ -1,0 +1,36 @@
+{
+  "case_id": "J4-20",
+  "search_query": "Dynamo doesn't support Parameter subclasses. My custom Parameter type causes a graph break.",
+  "results": [
+    {
+      "url": "https://github.com/DynamoDS/Dynamo/wiki/Known-Issues",
+      "title": "Known Issues \u00b7 DynamoDS/Dynamo Wiki \u00b7 GitHub"
+    },
+    {
+      "url": "https://docs.pytorch.org/docs/2.0/dynamo/faq.html",
+      "title": "Frequently Asked Questions \u2014 PyTorch 2.0 documentation"
+    },
+    {
+      "url": "https://dev-discuss.pytorch.org/t/why-dynamo-fails-to-capture-the-computation-graph-in-this-function/1484",
+      "title": "PyTorch Developer Mailing List"
+    },
+    {
+      "url": "https://forums.autodesk.com/t5/revit-architecture-forum/dynamo-question-regarding-importing-external-file-data-into/td-p/1391983",
+      "title": "Dynamo Question Regarding Importing External File Data into Model"
+    },
+    {
+      "url": "https://discuss.pytorch.org/t/why-does-dynamo-graph-break-on-or-operator-between-two-dicts/206591/1",
+      "title": "Why does dynamo graph break on `or_` (`|`) operator between two dicts"
+    },
+    {
+      "url": "https://forum.dynamobim.com/t/dynamo-2-15-for-civil-3d-2023-issues/82590",
+      "title": "Dynamo 2.15 for Civil 3D 2023 issues"
+    },
+    {
+      "url": "https://discuss.pytorch.org/t/flagging-function-with-torch-dynamo-disallow-in-graph-still-causes-graph-break-error/189364",
+      "title": "Flagging function with torch._dynamo.disallow_in_graph still causes graph break error"
+    }
+  ],
+  "search_timestamp": "2026-04-12T16:13:37.510728+00:00",
+  "search_tool": "three_pai_external_web_search"
+}

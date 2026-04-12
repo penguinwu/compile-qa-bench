@@ -1,0 +1,20 @@
+{
+  "case_id": "J6-13",
+  "search_query": "How do I find out WHY a symbol was created dynamically? The symbolic_shapes logs don't tell me if it was automatic dynamic, mark_dynamic, or assume_static_by_default.",
+  "search_tool": "three_pai_external_web_search",
+  "search_timestamp": "2026-04-12T16:11:29.958772+00:00",
+  "results": [
+    {
+      "url": "https://docs.oracle.com/cd/E36784_01/html/E36857/glmxe.html",
+      "title": "Symbol Lookup - Oracle Solaris 11.2 Linkers and Libraries Guide"
+    },
+    {
+      "url": "https://discourse.llvm.org/t/rfc-symbolic-shape-analysis/62879",
+      "title": "[RFC] Symbolic Shape Analysis"
+    },
+    {
+      "url": "https://www.intel.com/content/www/us/en/developer/articles/training/detecting-dynamic-shapes.html",
+      "title": "Detect Dynamic Shapes"
+    }
+  ]
+}

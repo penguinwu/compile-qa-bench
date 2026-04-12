@@ -1,0 +1,20 @@
+{
+  "case_id": "J2-11",
+  "search_query": "My fully compiled Qwen3 model with torchtune is 4x slower than eager mode. Why would a full model compile be slower than no compile at all?",
+  "search_tool": "three_pai_external_web_search",
+  "search_timestamp": "2026-04-12T16:11:19.900832+00:00",
+  "results": [
+    {
+      "url": "https://pub.towardsai.net/why-my-pytorch-diffusion-model-was-slow-and-how-i-made-it-3-faster-1e3fe8bf0893",
+      "title": "Why My PyTorch Diffusion Model Was Slow \u2014 and How I made it 3x Faster | by Rythm Kumar | Mar, 2026"
+    },
+    {
+      "url": "https://towardsdatascience.com/maximizing-ai-ml-model-performance-with-pytorch-compilation/",
+      "title": "Maximizing AI/ML Model Performance with PyTorch Compilation | Towards Data Science"
+    },
+    {
+      "url": "https://replicate.com/docs/guides/build/torch-compile/",
+      "title": "Speed up models with torch.compile - Replicate"
+    }
+  ]
+}

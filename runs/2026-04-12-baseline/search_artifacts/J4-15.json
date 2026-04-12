@@ -1,0 +1,20 @@
+{
+  "case_id": "J4-15",
+  "search_query": "Is there a way to get Dynamo to capture a single-step graph instead of tracing through the entire forward pass?",
+  "results": [
+    {
+      "url": "https://discuss.pytorch.org/t/dynamo-graph-capture-automatic-transform-from-get-attr-to-placeholder/205966",
+      "title": "Dynamo Graph Capture automatic transform from `get_attr` to `placeholder`?"
+    },
+    {
+      "url": "https://medium.com/@sgurwinderr/pytorch-dynamo-and-aot-autograd-enhancing-performance-and-flexibility-fa18feda5f3a",
+      "title": "The Simple Path to PyTorch Graphs: Dynamo and AOT Autograd Explained | by Gurwinder Singh | Medium"
+    },
+    {
+      "url": "https://docs.pytorch.org/docs/2.0/dynamo/faq.html",
+      "title": "Frequently Asked Questions \u2014 PyTorch 2.0 documentation"
+    }
+  ],
+  "search_timestamp": "2026-04-12T16:13:24.018040+00:00",
+  "search_tool": "three_pai_external_web_search"
+}

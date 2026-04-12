@@ -1,0 +1,40 @@
+{
+  "case_id": "J3-19",
+  "search_query": "test_conv_stride_constraints fails on ROCm with an AssertionError. Is this a known correctness issue with conv on AMD GPUs?",
+  "results": [
+    {
+      "url": "https://gist.github.com/damico/484f7b0a148a0c5f707054cf9c0a0533",
+      "title": "Script for testing PyTorch support with AMD GPUs using ROCM \u00b7 GitHub"
+    },
+    {
+      "url": "https://github.com/ROCm/rccl/issues/1129",
+      "title": "Distributed Data Parallel (DDP) Training on PyTorch with AMD GPUs (ROCm) and RCCL test hangs \u00b7 Issu"
+    },
+    {
+      "url": "https://medium.com/@agentz/how-to-fix-rocm-pytorch-memory-faults-on-amd-gpus-segmentation-fault-page-not-present-544b9f62f627",
+      "title": "How to Fix ROCm / PyTorch Memory Faults on AMD GPUs (Segmentation Fault / Page Not Present) | by Age"
+    },
+    {
+      "url": "https://rocm.docs.amd.com/projects/rccl/en/latest/how-to/troubleshooting-rccl.html",
+      "title": "Troubleshooting RCCL \u2014 RCCL 2.21.5 Documentation"
+    },
+    {
+      "url": "https://rocm.docs.amd.com/projects/rccl/en/develop/how-to/troubleshooting-rccl.html",
+      "title": "Troubleshooting RCCL \u2014 RCCL 2.28.3 Documentation"
+    },
+    {
+      "url": "https://rocm.docs.amd.com/projects/rccl/en/docs-6.3.2/how-to/troubleshooting-rccl.html",
+      "title": "Troubleshooting RCCL \u2014 RCCL 2.21.5 Documentation"
+    },
+    {
+      "url": "https://github.com/ROCm/ROCm/issues/2897",
+      "title": "[Issue]: OpenMP interop incorrectly reports runtime as `cuda` for AMD GPUs \u00b7 Issue #2897 \u00b7 ROCm/RO"
+    },
+    {
+      "url": "https://www.youtube.com/shorts/ak8q47n_TRs",
+      "title": "Fix AMD ROCm AI Errors Fast"
+    }
+  ],
+  "search_timestamp": "2026-04-12T16:09:47.815509+00:00",
+  "search_tool": "three_pai_external_web_search"
+}

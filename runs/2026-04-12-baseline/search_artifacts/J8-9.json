@@ -1,0 +1,24 @@
+{
+  "case_id": "J8-9",
+  "search_query": "Compiling a function with complex-valued tensors fails. Does torch.compile support complex number operations?",
+  "search_tool": "three_pai_external_web_search",
+  "search_timestamp": "2026-04-12T16:10:37.905268+00:00",
+  "results": [
+    {
+      "url": "https://github.com/pytorch/pytorch/issues/147109",
+      "title": "torch.nan_to_num does not support complex64 data type under torch.compile \u00b7 Issue #147109 \u00b7 pytorc"
+    },
+    {
+      "url": "https://docs.nvidia.com/physicsnemo/latest/user-guide/performance_docs/torch_compile_support.html",
+      "title": "Torch Compile and External Kernels \u2014 NVIDIA PhysicsNeMo Framework"
+    },
+    {
+      "url": "https://medium.com/@lambdafluxofficial/everything-you-need-to-know-about-pytorch-compile-3d7fd94ce701",
+      "title": "Everything You Need to Know About PyTorch Compile | by LambdaFlux | Medium"
+    },
+    {
+      "url": "https://medium.com/@Nexumo_/10-pytorch-compile-tips-that-halve-epoch-time-291e744a9418",
+      "title": "10 PyTorch Compile Tips That Halve Epoch Time | by Nexumo | Dec, 2025 | Medium"
+    }
+  ]
+}

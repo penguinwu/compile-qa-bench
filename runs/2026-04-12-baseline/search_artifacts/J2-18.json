@@ -1,0 +1,28 @@
+{
+  "case_id": "J2-18",
+  "search_query": "Is there a way to get torch.compile to report which ops are causing slowdowns? I need some kind of performance canary or diagnostic mode.",
+  "search_tool": "three_pai_external_web_search",
+  "search_timestamp": "2026-04-12T16:11:19.900832+00:00",
+  "results": [
+    {
+      "url": "https://discuss.pytorch.org/t/performance-of-torch-compile-is-significantly-slowed-down-under-torch-inference-mode/191939",
+      "title": "Performance of torch.compile is significantly slowed down under torch.inference_mode"
+    },
+    {
+      "url": "https://discuss.pytorch.org/t/torch-compile-negative-performance/173857",
+      "title": "Torch.compile() negative performance"
+    },
+    {
+      "url": "https://github.com/pytorch/pytorch/issues/108971",
+      "title": "Really slow compilation times for torch.compile causing distributed training errors \u00b7 Issue #108971"
+    },
+    {
+      "url": "https://docs.pytorch.org/docs/2.0/onnx_diagnostics.html",
+      "title": "torch.onnx diagnostics \u2014 PyTorch 2.0 documentation"
+    },
+    {
+      "url": "https://docs.pytorch.org/docs/2.5/torch.compiler_profiling_torch_compile.html",
+      "title": "Profiling to understand torch.compile performance \u2014 PyTorch 2.5 documentation"
+    }
+  ]
+}

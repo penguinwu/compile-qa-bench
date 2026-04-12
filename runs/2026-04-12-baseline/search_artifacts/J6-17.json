@@ -1,0 +1,20 @@
+{
+  "case_id": "J6-17",
+  "search_query": "torch.compile with DeepSpeed throws InternalTorchDynamoError about NestedUserFunction. Is DeepSpeed + Dynamo supported?",
+  "search_tool": "three_pai_external_web_search",
+  "search_timestamp": "2026-04-12T16:11:29.958772+00:00",
+  "results": [
+    {
+      "url": "https://docs.pytorch.org/docs/stable/user_guide/torch_compiler/torch.compiler_dynamo_overview.html",
+      "title": "Dynamo Overview \u2014 PyTorch 2.11 documentation"
+    },
+    {
+      "url": "https://github.com/deepspeedai/DeepSpeed/issues/3375",
+      "title": "How to use torch.compile in DeepSpeed?"
+    },
+    {
+      "url": "https://www.deepspeed.ai/tutorials/advanced-install/",
+      "title": "Installation Details - DeepSpeed"
+    }
+  ]
+}

@@ -1,0 +1,24 @@
+{
+  "case_id": "J7-19",
+  "search_query": "torch.compile with FSDP mixed precision on LLaMA causes errors. Is this combination supported?",
+  "search_tool": "three_pai_external_web_search",
+  "search_timestamp": "2026-04-12T16:09:10.229296+00:00",
+  "results": [
+    {
+      "url": "https://github.com/pytorch/pytorch/issues/111317",
+      "title": "Torch 2.1 compile + FSDP (mixed precision) + LlamaForCausalLM: `RuntimeError: attempting to assign a"
+    },
+    {
+      "url": "https://github.com/meta-llama/llama-cookbook/issues/837",
+      "title": "FSDP not work well with PEFT and some error in mixed precision when use peft in fine-tune \u00b7 Issue #"
+    },
+    {
+      "url": "https://medium.com/@lambdafluxofficial/everything-you-need-to-know-about-pytorch-compile-3d7fd94ce701",
+      "title": "Everything You Need to Know About PyTorch Compile | by LambdaFlux | Medium"
+    },
+    {
+      "url": "https://arxiv.org/html/2410.06511v3",
+      "title": "TorchTitan: One-stop PyTorch native solution for production ready LLM pretraining"
+    }
+  ]
+}

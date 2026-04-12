@@ -1,0 +1,36 @@
+{
+  "case_id": "J6-16",
+  "search_query": "I get an obscure 'Expected a value of type List[int]' error that seems related to dynamic shapes. How do I debug this?",
+  "search_tool": "three_pai_external_web_search",
+  "search_timestamp": "2026-04-12T16:11:29.958772+00:00",
+  "results": [
+    {
+      "url": "https://discourse.julialang.org/t/how-to-debug-an-error-in-type-inference/126122",
+      "title": "How to debug an error in type inference"
+    },
+    {
+      "url": "https://discuss.ai.google.dev/t/getting-a-shape-error-in-the-dense-layer/31395",
+      "title": "Google AI Developers Forum"
+    },
+    {
+      "url": "https://tillitsdone.com/blogs/debug-typescript--fix-common-errors/",
+      "title": "Debug TypeScript: Fix Common Coding Errors"
+    },
+    {
+      "url": "https://medium.com/@StarkesWeb/debugging-python-type-errors-with-mypy-a-step-by-step-tutorial-e2a97b74675f",
+      "title": "Debugging Python Type Errors with Mypy"
+    },
+    {
+      "url": "https://www.zipy.ai/blog/debug-typescript-range-errors",
+      "title": "Solving Typescript Range Errors"
+    },
+    {
+      "url": "https://www.zipy.ai/blog/typescript-errors",
+      "title": "TypeScript Error Handling"
+    },
+    {
+      "url": "https://astconsulting.in/typescript/solving-common-typescript-errors",
+      "title": "Solving Common TypeScript Errors A Practical Troubleshooting Guide"
+    }
+  ]
+}

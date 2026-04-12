@@ -1,0 +1,32 @@
+{
+  "case_id": "J5-10",
+  "search_query": "torch.compile'd optimizer.step() fails with 'too many arguments in call' error. How do I compile optimizers?",
+  "search_tool": "three_pai_external_web_search",
+  "search_timestamp": "2026-04-12T16:07:19.356107+00:00",
+  "results": [
+    {
+      "url": "https://discuss.pytorch.org/t/torch-compile-optimizer-step-generates-excessive-warning-messages/216067",
+      "title": "Torch compile: optimizer.step Generates Excessive Warning Messages"
+    },
+    {
+      "url": "https://medium.com/@whyamit404/what-does-optimizer-step-do-in-pytorch-83f0fb0cbfe5",
+      "title": "What does optimizer.step() do in PyTorch?"
+    },
+    {
+      "url": "https://docs.pytorch.org/docs/2.0/_modules/torch/optim/optimizer.html",
+      "title": "torch.optim.optimizer \u2014 PyTorch 2.0 documentation"
+    },
+    {
+      "url": "https://docs.pytorch.org/tutorials/recipes/compiling_optimizer.html?ref=alexdremov.me",
+      "title": "(beta) Compiling the optimizer with torch.compile \u2014 PyTorch Tutorials"
+    },
+    {
+      "url": "https://dev-discuss.pytorch.org/t/compiling-the-optimizer-with-pt2/1669",
+      "title": "PyTorch Developer Mailing List"
+    },
+    {
+      "url": "https://www.aidoczh.com/torchtutorials/recipes/compiling_optimizer.html",
+      "title": "(beta) Compiling the optimizer with torch.compile"
+    }
+  ]
+}

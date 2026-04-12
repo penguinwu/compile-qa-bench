@@ -1,0 +1,32 @@
+{
+  "case_id": "J5-20",
+  "search_query": "Should torch.compile use CUDA graphs by default? I enabled them manually and got a big speedup.",
+  "search_tool": "three_pai_external_web_search",
+  "search_timestamp": "2026-04-12T16:08:45.380107+00:00",
+  "results": [
+    {
+      "url": "https://medium.com/@Nexumo_/10-pytorch-compile-tips-that-halve-epoch-time-291e744a9418",
+      "title": "10 PyTorch Compile Tips That Halve Epoch Time"
+    },
+    {
+      "url": "https://medium.com/@bhagyarana80/7-pytorch-compile-moves-that-slash-training-time-cb664e666d14",
+      "title": "7 PyTorch Compile Moves That Slash Training Time"
+    },
+    {
+      "url": "https://docs.vllm.ai/en/latest/design/cuda_graphs/",
+      "title": "CUDA Graphs - vLLM"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/NVIDIA/Torch-TensorRT/master/docs/tutorials/_rendered_examples/dynamo/torch_export_cudagraphs.",
+      "title": "Torch Export with Cudagraphs \u2014 Torch-TensorRT"
+    },
+    {
+      "url": "https://discuss.pytorch.org/t/memory-footprint-of-eager-mode-vs-torch-compiled-default-with-cuda-graph-and-cuda-graph-dynamic/19",
+      "title": "Memory Footprint of Eager Mode vs Torch Compiled"
+    },
+    {
+      "url": "https://github.com/pytorch/pytorch/issues/121968",
+      "title": "[RFC] Use CUDA graphs by default on torch.compile"
+    }
+  ]
+}

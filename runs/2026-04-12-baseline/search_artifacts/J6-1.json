@@ -1,0 +1,32 @@
+{
+  "case_id": "J6-1",
+  "search_query": "torch.compile(dynamic=True) keeps specializing on the batch dimension during LayerNorm backward, causing recompiles. How do I prevent this?",
+  "search_tool": "three_pai_external_web_search",
+  "search_timestamp": "2026-04-12T16:10:05.317264+00:00",
+  "results": [
+    {
+      "url": "https://docs.pytorch.org/docs/stable/user_guide/torch_compiler/compile/programming_model.recompilation.html",
+      "title": "Dealing with Recompilations \u2014 PyTorch 2.11 documentation"
+    },
+    {
+      "url": "https://discuss.pytorch.org/t/dynamic-slicing/218156",
+      "title": "Dynamic slicing - torch.compile - PyTorch Forums"
+    },
+    {
+      "url": "https://medium.com/@ThinkingLoop/7-pytorch-2-x-compile-tips-that-halve-epoch-time-67d8f6ea3fb9",
+      "title": "7 PyTorch 2.x Compile Tips That Halve Epoch Time"
+    },
+    {
+      "url": "https://medium.com/@lambdafluxofficial/everything-you-need-to-know-about-pytorch-compile-3d7fd94ce701",
+      "title": "Everything You Need to Know About PyTorch Compile"
+    },
+    {
+      "url": "https://discuss.pytorch.org/t/torch-compile-emits-double-backward-error-even-when-the-corresponding-function-is-disabled/218952",
+      "title": "Torch.compile emits double backward error"
+    },
+    {
+      "url": "https://github.com/pytorch/pytorch/issues/153993",
+      "title": "torch.compile custom autograd.Function + dynamic shapes + torch.tensor constructor in backward"
+    }
+  ]
+}

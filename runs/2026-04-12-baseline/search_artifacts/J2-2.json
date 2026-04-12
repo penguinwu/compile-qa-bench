@@ -1,0 +1,32 @@
+{
+  "case_id": "J2-2",
+  "search_query": "torch.compile makes my backward pass 100x slower for torch.cumprod. How do I figure out what's going wrong?",
+  "search_tool": "three_pai_external_web_search",
+  "search_timestamp": "2026-04-12T16:09:58.951022+00:00",
+  "results": [
+    {
+      "url": "https://discuss.pytorch.org/t/how-to-figure-out-why-my-backwards-pass-is-so-slow/214983",
+      "title": "How to figure out why my backwards pass is so slow?"
+    },
+    {
+      "url": "https://github.com/pytorch/pytorch/issues/101937",
+      "title": "torch.compile fails to fuse backward pass when using torch.autograd.Function \u00b7 Issue #101937 \u00b7"
+    },
+    {
+      "url": "https://www.scoding.kr/2026/01/how-to-fix-torchcompile-performance.html",
+      "title": "How to Fix torch.compile Performance Regressions Caused by Graph Breaks"
+    },
+    {
+      "url": "https://discuss.pytorch.org/t/torch-compile-emits-double-backward-error-even-when-the-corresponding-function-is-disabled/218952",
+      "title": "Torch.compile emits double backward error even when the corresponding function is disabled"
+    },
+    {
+      "url": "https://github.com/pytorch/pytorch/issues/108971",
+      "title": "Really slow compilation times for torch.compile causing distributed training errors \u00b7 Issue #108971"
+    },
+    {
+      "url": "https://docs.pytorch.org/docs/2.7/torch.compiler_troubleshooting.html",
+      "title": "torch.compile Troubleshooting \u2014 PyTorch 2.7 documentation"
+    }
+  ]
+}

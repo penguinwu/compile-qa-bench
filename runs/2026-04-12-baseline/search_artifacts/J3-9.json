@@ -1,0 +1,28 @@
+{
+  "case_id": "J3-9",
+  "search_query": "How do I benchmark whether torch.compile actually improves accuracy and performance across different models?",
+  "results": [
+    {
+      "url": "https://arxiv.org/abs/2304.14226v3",
+      "title": "[2304.14226v3] TorchBench: Benchmarking PyTorch with High API Surface Coverage"
+    },
+    {
+      "url": "https://www.researchgate.net/publication/370338883_TorchBench_Benchmarking_PyTorch_with_High_API_Surface_Coverage",
+      "title": "TorchBench: Benchmarking PyTorch with High API Surface Coverage"
+    },
+    {
+      "url": "https://arxiv.org/html/2304.14226",
+      "title": "TorchBench: Benchmarking PyTorch with High API Surface Coverage"
+    },
+    {
+      "url": "https://blog.csdn.net/deephub/article/details/148023801",
+      "title": "\u6df1\u5165\u89e3\u6790torch.compile\uff1a\u63d0\u5347PyTorch\u6a21\u578b\u6027\u80fd\u3001\u9ad8\u6548\u89e3\u51b3\u5e38\u89c1\u95ee\u9898"
+    },
+    {
+      "url": "https://pytorch.org/blog/torch-compile-and-diffusers-a-hands-on-guide-to-peak-performance/",
+      "title": "torch.compile and Diffusers: A Hands-On Guide to Peak Performance \u2013 PyTorch"
+    }
+  ],
+  "search_timestamp": "2026-04-12T16:07:47.318974+00:00",
+  "search_tool": "three_pai_external_web_search"
+}

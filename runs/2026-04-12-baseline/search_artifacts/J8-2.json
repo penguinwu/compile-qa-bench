@@ -1,0 +1,20 @@
+{
+  "case_id": "J8-2",
+  "search_query": "Compiled flex_attention segfaults during the backward pass. How do I debug this?",
+  "search_tool": "three_pai_external_web_search",
+  "search_timestamp": "2026-04-12T16:09:50.299263+00:00",
+  "results": [
+    {
+      "url": "https://www.flyriver.com/g/how-to-debug-a-segmentation-fault",
+      "title": "Best Information about Debugging Segmentation Faults: A Comprehensive Guide | Flyriver.com"
+    },
+    {
+      "url": "https://www.cprogramming.com/debugging/segfaults.html",
+      "title": "Debugging Segmentation Faults and Pointer Problems - Cprogramming.com"
+    },
+    {
+      "url": "https://moldstud.com/articles/p-resolving-segmentation-faults-in-your-assembly-code-a-comprehensive-guide",
+      "title": "Resolving Segmentation Faults in Assembly Code Guide | MoldStud"
+    }
+  ]
+}

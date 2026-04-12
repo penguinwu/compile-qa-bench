@@ -1,0 +1,28 @@
+{
+  "case_id": "J3-11",
+  "search_query": "I'm seeing a 4.7% relative error in Conv2d output on CPU when using torch.compile vs eager mode. Is this level of numerical divergence expected?",
+  "results": [
+    {
+      "url": "https://medium.com/@ngocson2vn/torch-compile-and-with-triton-combo-kernel-1-causes-a-serious-accuracy-issue-634e62c39f25",
+      "title": "torch.compile() with TRITON_COMBO_KERNEL=1 causes a serious accuracy issue | by Son Nguyen | Nov, 20"
+    },
+    {
+      "url": "https://discuss.pytorch.org/t/torch-compile-emits-double-backward-error-even-when-the-corresponding-function-is-disabled/218952",
+      "title": "Torch.compile emits double backward error even when the corresponding function is disabled"
+    },
+    {
+      "url": "https://github.com/pytorch/pytorch/issues/108971",
+      "title": "Really slow compilation times for torch.compile causing distributed training errors \u00b7 Issue #108971"
+    },
+    {
+      "url": "https://medium.com/@soydotrun/how-torch-compile-solves-the-eager-execution-problem-in-pytorch-4d45ef7e7777",
+      "title": "How Computation Graphs Solve the Eager Execution Problem in PyTorch | by Aryan Keluskar | Feb, 2026"
+    },
+    {
+      "url": "https://discuss.pytorch.org/t/inconsistent-results-with-torch-compile-on-identical-environments-and-gpus/212706/3",
+      "title": "Inconsistent Results with torch.compile on Identical Environments and GPUs"
+    }
+  ],
+  "search_timestamp": "2026-04-12T16:09:30.207778+00:00",
+  "search_tool": "three_pai_external_web_search"
+}

@@ -1,0 +1,36 @@
+{
+  "case_id": "J7-8",
+  "search_query": "Inductor autotuning crashes with an illegal memory access when some input tensors are None. How do I work around this?",
+  "search_tool": "three_pai_external_web_search",
+  "search_timestamp": "2026-04-12T16:07:23.257773+00:00",
+  "results": [
+    {
+      "url": "https://discuss.pytorch.org/t/during-backward-cuda-error-an-illegal-memory-access-was-encountered/199081",
+      "title": "During backward() | CUDA error: an illegal memory access was encountered"
+    },
+    {
+      "url": "https://docs.pytorch.org/docs/stable/user_guide/torch_compiler/torch.compiler_aot_inductor_debugging_guide.html",
+      "title": "AOTInductor Debugging Guide \u2014 PyTorch 2.10 documentation"
+    },
+    {
+      "url": "https://github.com/pytorch/pytorch/issues/153993",
+      "title": "torch.compile custom autograd.Function + dynamic shapes + torch.tensor constructor in backward can c"
+    },
+    {
+      "url": "https://forums.developer.nvidia.com/t/an-illegal-memory-access-was-encountered-during-inference/337279",
+      "title": "An illegal memory access was encountered during inference"
+    },
+    {
+      "url": "https://discuss.pytorch.org/t/triton-error-cuda-an-illegal-memory-access-was-encountered/173168",
+      "title": "Triton Error [CUDA]: an illegal memory access was encountered"
+    },
+    {
+      "url": "https://promwad.com/news/ai-accelerators-troubleshooting-guide",
+      "title": "Troubleshooting Guide for AI Accelerators in Edge Devices"
+    },
+    {
+      "url": "https://discuss.pytorch.org/t/illegal-memory-access-for-using-cuda-tensor-in-separate-kernel/127727",
+      "title": "Illegal memory access for using cuda tensor in separate kernel"
+    }
+  ]
+}

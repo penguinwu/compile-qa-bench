@@ -1,0 +1,20 @@
+{
+  "case_id": "J5-3",
+  "search_query": "FlexAttention (templated attention) performance is really bad when I combine a causal mask with an upper square mask. Each mask alone is fast. Why does the combination kill performance?",
+  "search_tool": "three_pai_external_web_search",
+  "search_timestamp": "2026-04-12T16:07:19.356107+00:00",
+  "results": [
+    {
+      "url": "https://mbrenndoerfer.com/writing/attention-masking-transformers",
+      "title": "Attention Masking: Controlling Information Flow in Transformers"
+    },
+    {
+      "url": "https://huggingface.co/blog/wubingheng/dmattn",
+      "title": "Trainable Dynamic Mask Sparse Attention"
+    },
+    {
+      "url": "https://arxiv.org/html/2410.01359v1",
+      "title": "FlashMask: Efficient and Rich Mask Extension of FlashAttention"
+    }
+  ]
+}

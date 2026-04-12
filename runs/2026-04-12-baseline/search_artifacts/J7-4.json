@@ -1,0 +1,28 @@
+{
+  "case_id": "J7-4",
+  "search_query": "My compiled AdamW optimizer recompiles every step when I use OneCycleLR scheduler. The learning rate change triggers a new compilation. How do I prevent this?",
+  "search_tool": "three_pai_external_web_search",
+  "search_timestamp": "2026-04-12T16:06:39.226389+00:00",
+  "results": [
+    {
+      "url": "https://apxml.com/courses/optimization-techniques-ml/chapter-3-adaptive-learning-rate-algorithms/learning-rate-schedules-advance",
+      "title": "Advanced Learning Rate Scheduling Techniques"
+    },
+    {
+      "url": "https://apxml.com/courses/deep-learning-regularization-optimization/chapter-7-optimization-refinements-tuning/implementing-lr-sc",
+      "title": "Implementing LR Scheduling"
+    },
+    {
+      "url": "https://discuss.huggingface.co/t/how-do-use-lr-scheduler/4046",
+      "title": "How do use lr_scheduler"
+    },
+    {
+      "url": "https://dev-discuss.pytorch.org/t/compiled-optimizer-w-lr-scheduler-now-supported/2107",
+      "title": "PyTorch Developer Mailing List"
+    },
+    {
+      "url": "https://huggingface.co/docs/transformers/v4.14.1/main_classes/optimizer_schedules",
+      "title": "Optimization"
+    }
+  ]
+}

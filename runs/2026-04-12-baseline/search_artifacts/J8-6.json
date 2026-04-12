@@ -1,0 +1,32 @@
+{
+  "case_id": "J8-6",
+  "search_query": "FlexAttention output deviates significantly from SDPA when I use torch.compile() with torch.set_float32_matmul_precision('high'). Is this a precision bug?",
+  "search_tool": "three_pai_external_web_search",
+  "search_timestamp": "2026-04-12T16:10:37.905268+00:00",
+  "results": [
+    {
+      "url": "https://github.com/pytorch/pytorch/issues/146896",
+      "title": "Assertion error in Flex Attention backward pass when indexing a parameter \u00b7 Issue #146896 \u00b7 pytorc"
+    },
+    {
+      "url": "https://discuss.pytorch.org/t/using-f-scaled-dot-product-attention-gives-the-error/189206",
+      "title": "Using F.scaled_dot_product_attention gives the error"
+    },
+    {
+      "url": "https://github.com/AuleTechnologies/Aule-Attention",
+      "title": "GitHub - AuleTechnologies/Aule-Attention: High-performance FlashAttention-2 for AMD, Intel, and Appl"
+    },
+    {
+      "url": "https://pytorch.org/blog/flexattention/",
+      "title": "FlexAttention: The Flexibility of PyTorch with the Performance of FlashAttention \u2013 PyTorch"
+    },
+    {
+      "url": "https://gist.github.com/a-r-r-o-w/58425fd303633e3c3702283b4687599d",
+      "title": "SDPA benchmark for torch, FA2, FA3, transformer engine, xformers, Sage Attention and HF kernels-lib"
+    },
+    {
+      "url": "https://docs.pytorch.org/docs/2.2/generated/torch.set_float32_matmul_precision.html",
+      "title": "torch.set_float32_matmul_precision \u2014 PyTorch 2.2 documentation"
+    }
+  ]
+}

@@ -1,0 +1,32 @@
+{
+  "case_id": "J8-16",
+  "search_query": "How do I use symmetric memory (for NVLink-based collectives) with torch.compile? It currently breaks compilation.",
+  "search_tool": "three_pai_external_web_search",
+  "search_timestamp": "2026-04-12T16:12:10.861487+00:00",
+  "results": [
+    {
+      "url": "https://dev-discuss.pytorch.org/t/pytorch-symmetricmemory-harnessing-nvlink-programmability-with-ease/2798",
+      "title": "PyTorch Developer Mailing List"
+    },
+    {
+      "url": "https://docs.vllm.ai/en/v0.10.2/design/torch_compile.html",
+      "title": "torch.compile integration"
+    },
+    {
+      "url": "https://medium.com/@lambdafluxofficial/everything-you-need-to-know-about-pytorch-compile-3d7fd94ce701",
+      "title": "Everything You Need to Know About PyTorch Compile | by LambdaFlux | Medium"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/NVIDIA/Torch-TensorRT/master/docs/tutorials/_rendered_examples/dynamo/torch_compile_advanced_u",
+      "title": "Torch Compile Advanced Usage \u2014 Torch-TensorRT"
+    },
+    {
+      "url": "https://huggingface.co/blog/PrunaAI/torch-compile-zero-warmup",
+      "title": "Slashing torch.compile Warmup & LoRA Swapping Times with Pruna"
+    },
+    {
+      "url": "https://hippocampus-garden.com/torch_compile/",
+      "title": "torch.compile Benchmarked | Hippocampus's Garden"
+    }
+  ]
+}

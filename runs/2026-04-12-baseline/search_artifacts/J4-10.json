@@ -1,0 +1,36 @@
+{
+  "case_id": "J4-10",
+  "search_query": "Dynamo can't trace through AdamW when I use a learning rate scheduler. It fails with graph breaks. How do I compile my optimizer step with an LR scheduler?",
+  "results": [
+    {
+      "url": "https://discuss.pytorch.org/t/optimizer-step-before-lr-scheduler-step-error-using-gradscaler/92930",
+      "title": "`optimizer.step()` before `lr_scheduler.step()` error using GradScaler"
+    },
+    {
+      "url": "https://discuss.huggingface.co/t/how-do-use-lr-scheduler/4046",
+      "title": "How do use lr_scheduler"
+    },
+    {
+      "url": "https://docs.pytorch.org/docs/2.0/generated/torch.optim.lr_scheduler.StepLR.html",
+      "title": "StepLR \u2014 PyTorch 2.0 documentation"
+    },
+    {
+      "url": "https://github.com/Lightning-AI/pytorch-lightning/discussions/12518",
+      "title": "Using steps rather than epochs for learning rate scheduler \u00b7 Lightning-AI pytorch-lightning \u00b7 Disc"
+    },
+    {
+      "url": "https://huggingface.co/transformers/v2.9.1/main_classes/optimizer_schedules.html",
+      "title": "Optimizer \u2014 transformers 2.9.1 documentation"
+    },
+    {
+      "url": "https://huggingface.co/docs/transformers/en/main_classes/optimizer_schedules",
+      "title": "Optimization"
+    },
+    {
+      "url": "https://huggingface.co/transformers/v4.4.2/main_classes/optimizer_schedules.html",
+      "title": "Optimization \u2014 transformers 4.4.2 documentation"
+    }
+  ],
+  "search_timestamp": "2026-04-12T16:11:44.150039+00:00",
+  "search_tool": "three_pai_external_web_search"
+}

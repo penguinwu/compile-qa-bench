@@ -1,0 +1,32 @@
+{
+  "case_id": "J7-18",
+  "search_query": "AOT Autograd tracing takes an extremely long time for my model. Where is the compilation time being spent?",
+  "search_tool": "three_pai_external_web_search",
+  "search_timestamp": "2026-04-12T16:09:10.229296+00:00",
+  "results": [
+    {
+      "url": "https://github.com/pytorch/pytorch/issues/108971",
+      "title": "Really slow compilation times for torch.compile causing distributed training errors \u00b7 Issue #108971"
+    },
+    {
+      "url": "https://intel.github.io/intel-extension-for-pytorch/xpu/2.1.20+xpu/tutorials/technical_details/AOT.html",
+      "title": "Ahead of Time (AOT) Compilation \u2014 Intel Extension for PyTorch* 2.1.20+xpu documentation"
+    },
+    {
+      "url": "https://intel.github.io/intel-extension-for-pytorch/xpu/latest/tutorials/technical_details/AOT.html",
+      "title": "Ahead of Time (AOT) Compilation \u2014 Intel Extension for PyTorch* 2.8.10+xpu documentation"
+    },
+    {
+      "url": "https://intel.github.io/intel-extension-for-pytorch/xpu/2.1.30+xpu/tutorials/technical_details/AOT.html",
+      "title": "Ahead of Time (AOT) Compilation \u2014 Intel Extension for PyTorch* 2.1.30+xpu documentation"
+    },
+    {
+      "url": "https://discuss.pytorch.org/t/autograd-grad-computation-time-becomes-longer-and-longer/155201",
+      "title": "Autograd.grad computation time becomes longer and longer"
+    },
+    {
+      "url": "https://lightning.ai/pages/community/tutorial/how-to-speed-up-pytorch-model-training/",
+      "title": "How to Speed Up PyTorch Model Training"
+    }
+  ]
+}

@@ -1,0 +1,32 @@
+{
+  "case_id": "J3-14",
+  "search_query": "torch.compile fails on macOS with 'omp.h file not found'. How do I fix OpenMP issues on Mac?",
+  "results": [
+    {
+      "url": "https://programmerah.com/solved-mac-cmake-complie-openmp-error-fatal-error-omp-h-file-not-found-38465/",
+      "title": "[Solved] Mac Cmake Complie openmp Error: fatal error: omp.h file not found"
+    },
+    {
+      "url": "https://github.com/pytorch/pytorch/issues/95708",
+      "title": "Dynamo + MacOS: fatal error: 'omp.h' file not found \u00b7 Issue #95708 \u00b7 pytorch/pytorch \u00b7 GitHub"
+    },
+    {
+      "url": "https://openmc.discourse.group/t/openmp-on-mac-fails-success/2070",
+      "title": "OpenMP on Mac fails -- SUCCESS"
+    },
+    {
+      "url": "https://github.com/pytorch/pytorch/issues/127973",
+      "title": "Torch compile OpenMP error with simple nn.Module \u00b7 Issue #127973 \u00b7 pytorch/pytorch \u00b7 GitHub"
+    },
+    {
+      "url": "https://medium.com/p/c0e7dc0f66aa",
+      "title": "Resolving OpenMP Compilation Issues on macOS for CMake Builds | by Denis B\u00e9langer"
+    },
+    {
+      "url": "https://openmc.discourse.group/t/openmp-on-mac-fails-success/2070/3",
+      "title": "OpenMP on Mac fails -- SUCCESS"
+    }
+  ],
+  "search_timestamp": "2026-04-12T16:09:36.559390+00:00",
+  "search_tool": "three_pai_external_web_search"
+}

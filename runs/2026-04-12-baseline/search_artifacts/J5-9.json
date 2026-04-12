@@ -1,0 +1,28 @@
+{
+  "case_id": "J5-9",
+  "search_query": "torch.compile/inductor doesn't work on Windows at all. I get linker errors. Is Windows supported?",
+  "search_tool": "three_pai_external_web_search",
+  "search_timestamp": "2026-04-12T16:07:19.356107+00:00",
+  "results": [
+    {
+      "url": "https://github.com/pytorch/pytorch/issues/108971",
+      "title": "Really slow compilation times for torch.compile causing distributed training errors"
+    },
+    {
+      "url": "https://docs.pytorch.org/docs/2.6/torch.compiler_troubleshooting.html",
+      "title": "torch.compile Troubleshooting \u2014 PyTorch 2.6 documentation"
+    },
+    {
+      "url": "https://discuss.pytorch.org/t/cannot-import-torch-on-windows-dll-problem/167088",
+      "title": "Cannot import torch on windows (dll problem)"
+    },
+    {
+      "url": "https://github.com/pytorch/pytorch/issues/15099",
+      "title": "Does libtorch support mingw on windows?"
+    },
+    {
+      "url": "https://note.com/198619891990/n/n82ffd27203f9",
+      "title": "How to fix torch.compile on Windows"
+    }
+  ]
+}

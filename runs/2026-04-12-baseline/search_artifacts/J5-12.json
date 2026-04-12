@@ -1,0 +1,12 @@
+{
+  "case_id": "J5-12",
+  "search_query": "I'm getting 'shared memory out of resource' error when using compiled flex_attention on my RTX 4090. How do I work around GPU shared memory limits with torch.compile?",
+  "search_tool": "three_pai_external_web_search",
+  "search_timestamp": "2026-04-12T16:08:45.380107+00:00",
+  "results": [
+    {
+      "url": "https://github.com/pytorch/pytorch/issues/133254",
+      "title": "Shared memory out of resource when using flex attention"
+    }
+  ]
+}

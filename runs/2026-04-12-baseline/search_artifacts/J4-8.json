@@ -1,0 +1,24 @@
+{
+  "case_id": "J4-8",
+  "search_query": "torch.compile doesn't work properly with selective activation checkpointing (SAC). How do I combine compile with gradient checkpointing?",
+  "results": [
+    {
+      "url": "https://pytorch.Org/blog/activation-checkpointing-techniques/",
+      "title": "Current and New Activation Checkpointing Techniques in PyTorch \u2013 PyTorch"
+    },
+    {
+      "url": "https://discuss.pytorch.org/t/gradient-checkpointing/205416",
+      "title": "Gradient checkpointing - autograd - PyTorch Forums"
+    },
+    {
+      "url": "https://discuss.pytorch.org/t/how-to-use-torch-compile-with-cuda-graphs-when-using-gradient-activation-checkpointing/179466",
+      "title": "How to use `torch.compile` with CUDA graphs when using gradient activation checkpointing"
+    },
+    {
+      "url": "https://discuss.pytorch.org/t/about-the-the-implementation-of-activation-checkpointing/167177",
+      "title": "About the the implementation of activation checkpointing"
+    }
+  ],
+  "search_timestamp": "2026-04-12T16:11:39.827551+00:00",
+  "search_tool": "three_pai_external_web_search"
+}

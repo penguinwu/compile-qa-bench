@@ -1,0 +1,28 @@
+{
+  "case_id": "J6-20",
+  "search_query": "torch.combinations throws RuntimeError with dynamic shapes enabled. Is this op supported in dynamic mode?",
+  "search_tool": "three_pai_external_web_search",
+  "search_timestamp": "2026-04-12T16:11:29.958772+00:00",
+  "results": [
+    {
+      "url": "https://raw.githubusercontent.com/NVIDIA/Torch-TensorRT/master/docs/_modules/torch_tensorrt/dynamo/runtime/_PythonTorchTensorRTM",
+      "title": "torch_tensorrt.dynamo.runtime._PythonTorchTensorRTModule"
+    },
+    {
+      "url": "https://markaicode.com/pytorch-3-dynamic-shapes-optimization/",
+      "title": "PyTorch 3.0 Dynamic Shapes: Optimizing Models for AI Accelerators"
+    },
+    {
+      "url": "https://discuss.pytorch.org/t/runtimeerror-tensor-device-mismatch-in-custom-pytorch-model-with-dynamic-relative-position-bias/20",
+      "title": "RuntimeError: Tensor Device Mismatch in Custom PyTorch Model"
+    },
+    {
+      "url": "https://pytorch.org/blog/pytorch-2-1/",
+      "title": "PyTorch 2.1: automatic dynamic shape compilation, distributed checkpointing"
+    },
+    {
+      "url": "https://github.com/pytorch/pytorch/issues/153993",
+      "title": "torch.compile custom autograd.Function + dynamic shapes + torch.tensor constructor in backward"
+    }
+  ]
+}

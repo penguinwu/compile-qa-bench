@@ -1,0 +1,36 @@
+{
+  "case_id": "J8-5",
+  "search_query": "I can't compile flex_attention with dynamic shapes when my BlockMask depends on the batch dimension. How do I use dynamic shapes with batch-dependent block masks?",
+  "search_tool": "three_pai_external_web_search",
+  "search_timestamp": "2026-04-12T16:09:50.299263+00:00",
+  "results": [
+    {
+      "url": "https://github.com/Tencent-Hunyuan/flex-block-attn",
+      "title": "GitHub - Tencent-Hunyuan/flex-block-attn: flex-block-attn: an efficient block sparse attention compu"
+    },
+    {
+      "url": "https://markaicode.com/pytorch-3-dynamic-shapes-optimization/",
+      "title": "PyTorch 3.0 Dynamic Shapes: Optimizing Models for AI Accelerators | Markaicode"
+    },
+    {
+      "url": "https://mbrenndoerfer.com/writing/attention-masking-transformers",
+      "title": "Attention Masking: Controlling Information Flow in Transformers - Interactive | Michael Brenndoerfer"
+    },
+    {
+      "url": "https://medium.com/@ggmynam27/pytorch-flexattention-ways-to-mask-attention-0ebb99c85f0a",
+      "title": "Pytorch FlexAttention, ways to Mask Attention | by nousnomix | Mar, 2026 | Medium"
+    },
+    {
+      "url": "https://docs.habana.ai/en/latest/PyTorch/Model_Optimization_PyTorch/Dynamic_Shapes.html?highlight=dynamic%2520shapes",
+      "title": "Handling Dynamic Shapes \u2014 Gaudi Documentation 1.23.0 documentation"
+    },
+    {
+      "url": "https://furiosa.ai/blog/how-pytorch-handles-dynamic-tensor-shapes",
+      "title": "How PyTorch Handles Dynamic Tensor Shapes"
+    },
+    {
+      "url": "https://github.com/pytorch/pytorch/issues/148527",
+      "title": "[FlexAttention] Error using create_block_mask with mask head number greater than 1 \u00b7 Issue #148527"
+    }
+  ]
+}

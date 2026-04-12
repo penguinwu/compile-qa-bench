@@ -1,0 +1,24 @@
+{
+  "case_id": "J6-4",
+  "search_query": "torch.compile fails on my GNN model trained with neighbor sampling because the input sizes change every batch. How do I use torch.compile with variable-size graph data?",
+  "search_tool": "three_pai_external_web_search",
+  "search_timestamp": "2026-04-12T16:10:05.317264+00:00",
+  "results": [
+    {
+      "url": "https://github.com/pytorch/pytorch/issues/108971",
+      "title": "Really slow compilation times for torch.compile causing distributed training errors"
+    },
+    {
+      "url": "https://github.com/pytorch/pytorch/issues/114109",
+      "title": "torch.compile() makes loss nan"
+    },
+    {
+      "url": "https://discuss.pytorch.org/t/torch-compile-error-for-recurrent-model/194451",
+      "title": "Torch.compile error for recurrent model"
+    },
+    {
+      "url": "https://docs.pytorch.org/docs/2.6/torch.compiler_troubleshooting.html",
+      "title": "torch.compile Troubleshooting \u2014 PyTorch 2.6 documentation"
+    }
+  ]
+}

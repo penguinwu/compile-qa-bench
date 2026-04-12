@@ -1,0 +1,16 @@
+{
+  "case_id": "J1-13",
+  "search_query": "I'm trying to use torch.compile with a GRU model but it doesn't seem to be supported. Is there a workaround for compiling RNN-based models?",
+  "search_tool": "three_pai_external_web_search",
+  "search_timestamp": "2026-04-12T16:08:33.401023+00:00",
+  "results": [
+    {
+      "url": "https://machinelearningmastery.com/train-a-model-faster-with-torch-compile-and-gradient-accumulation/",
+      "title": "Train a Model Faster with torch.compile and Gradient Accumulation - MachineLearningMastery.com"
+    },
+    {
+      "url": "https://medium.com/@lambdafluxofficial/everything-you-need-to-know-about-pytorch-compile-3d7fd94ce701",
+      "title": "Everything You Need to Know About PyTorch Compile | by LambdaFlux | Medium"
+    }
+  ]
+}

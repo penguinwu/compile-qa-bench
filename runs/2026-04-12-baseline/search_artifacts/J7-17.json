@@ -1,0 +1,36 @@
+{
+  "case_id": "J7-17",
+  "search_query": "Inductor has persistent caching but Dynamo frontend doesn't. Can Dynamo cache its analysis to speed up cold compilation?",
+  "search_tool": "three_pai_external_web_search",
+  "search_timestamp": "2026-04-12T16:09:10.229296+00:00",
+  "results": [
+    {
+      "url": "https://medium.com/@equal_to_light/caching-explained-for-backend-engineers-edfd97d3eeca",
+      "title": "Caching: How Modern Systems Stay Fast at Scale | by Satyam Singh | Mar, 2026 | Medium"
+    },
+    {
+      "url": "https://dynobase.dev/dynamodb-cache/",
+      "title": "Using DynamoDB as a Cache - What You Need To Know [2026]"
+    },
+    {
+      "url": "https://xebia.com/blog/using-dynamodb-as-a-cache/",
+      "title": "Using DynamoDB As A Cache | Xebia"
+    },
+    {
+      "url": "https://fastercapital.com/term/dynamic-caching.html",
+      "title": "Dynamic Caching - FasterCapital"
+    },
+    {
+      "url": "https://arxiv.org/html/2512.07312v1",
+      "title": "DCO: Dynamic Cache Orchestration for LLM Accelerators through Predictive Management"
+    },
+    {
+      "url": "https://moldstud.com/articles/p-optimizing-dynamodb-query-performance-through-effective-caching-strategies-for-increased-speed-a",
+      "title": "Caching Strategies to Enhance DynamoDB Query Performance: Boost Speed and Efficiency | MoldStud"
+    },
+    {
+      "url": "https://medium.com/@duckweave/9-node-cache-patterns-that-fix-p99-safely-442a51d776ff",
+      "title": "9 Node Cache Patterns That Fix p99 Safely | by Duckweave | Feb, 2026 | Medium"
+    }
+  ]
+}

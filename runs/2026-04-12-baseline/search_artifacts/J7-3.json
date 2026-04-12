@@ -1,0 +1,24 @@
+{
+  "case_id": "J7-3",
+  "search_query": "Compiling my optimizer (Adam with 200+ parameters) takes 70 seconds because dynamo traces through every iteration of the for loop. How do I speed this up?",
+  "search_tool": "three_pai_external_web_search",
+  "search_timestamp": "2026-04-12T16:06:39.226389+00:00",
+  "results": [
+    {
+      "url": "https://www.analyticsvidhya.com/blog/2021/10/a-comprehensive-guide-on-deep-learning-optimizers/",
+      "title": "Optimizers in Deep Learning: A Detailed Guide"
+    },
+    {
+      "url": "https://medium.com/@rakshanthamidhun/unlocking-faster-and-smarter-optimization-in-deep-learning-1bb387280a63",
+      "title": "Unlocking Faster and Smarter Optimization in Deep Learning"
+    },
+    {
+      "url": "https://docs.pytorch.org/docs/2.7/torch.compiler_dynamo_overview.html",
+      "title": "Dynamo Overview \u2014 PyTorch 2.7 documentation"
+    },
+    {
+      "url": "https://www.kdnuggets.com/2022/12/tuning-adam-optimizer-parameters-pytorch.html",
+      "title": "Tuning Adam Optimizer Parameters in PyTorch - KDnuggets"
+    }
+  ]
+}

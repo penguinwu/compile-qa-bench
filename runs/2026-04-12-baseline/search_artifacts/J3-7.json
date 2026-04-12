@@ -1,0 +1,36 @@
+{
+  "case_id": "J3-7",
+  "search_query": "dstack followed by reciprocal gives wrong results under torch.compile but correct results in eager. Is this a known inductor bug?",
+  "results": [
+    {
+      "url": "https://github.com/pytorch/pytorch/issues/170360",
+      "title": "MPS compile off by 2x with broadcast and sum \u00b7 Issue #170360 \u00b7 pytorch/pytorch \u00b7 GitHub"
+    },
+    {
+      "url": "https://discuss.pytorch.org/t/torch-compile-mode-max-autotune-produces-different-inference-result-from-eager-mode-is-this-expect",
+      "title": "Torch.compile(mode=\"max-autotune\") produces different inference result from eager mode \u2014 is this e"
+    },
+    {
+      "url": "https://medium.com/@lambdafluxofficial/everything-you-need-to-know-about-pytorch-compile-3d7fd94ce701",
+      "title": "Everything You Need to Know About PyTorch Compile | by LambdaFlux | Medium"
+    },
+    {
+      "url": "https://docs.pytorch.org/docs/2.7/torch.compiler_troubleshooting.html",
+      "title": "torch.compile Troubleshooting \u2014 PyTorch 2.7 documentation"
+    },
+    {
+      "url": "https://github.com/pytorch/pytorch/issues/151918",
+      "title": "Inductor generates wrong code for `torch.embedding` \u00b7 Issue #151918 \u00b7 pytorch/pytorch \u00b7 GitHub"
+    },
+    {
+      "url": "https://discuss.pytorch.org/t/inconsistent-results-with-torch-compile-on-identical-environments-and-gpus/212706",
+      "title": "Inconsistent Results with torch.compile on Identical Environments and GPUs"
+    },
+    {
+      "url": "https://runebook.dev/en/docs/pytorch/torch.compiler_profiling_torch_compile",
+      "title": "Debugging Performance Issues in PyTorch's torch.compile with Profiling"
+    }
+  ],
+  "search_timestamp": "2026-04-12T16:07:43.286954+00:00",
+  "search_tool": "three_pai_external_web_search"
+}

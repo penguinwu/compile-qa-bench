@@ -1,0 +1,28 @@
+{
+  "case_id": "J4-13",
+  "search_query": "Dynamo doesn't generate guards for frozen dataclasses, so config changes don't trigger recompilation. Is this expected?",
+  "results": [
+    {
+      "url": "https://www.repost.aws/ja/questions/QUnmdnqh4qTWSm9ZqXvtbPxQ/aws-service-dynamo-db-is-not-getting-triggered",
+      "title": "AWS Service: Dynamo DB is not getting triggered"
+    },
+    {
+      "url": "https://reintech.io/blog/troubleshooting-dynamodb-issues-performance",
+      "title": "Troubleshooting Common DynamoDB Issues and Performance Bottlenecks | Reintech media"
+    },
+    {
+      "url": "https://Hackernoon.com/lite/golang-working-with-inconsistent-data-types-in-dynamodb-part-1-manual-conversion?ref=hackernoon",
+      "title": "GoLang Guide: Manual Handling of Inconsistent DynamoDB Data | HackerNoon"
+    },
+    {
+      "url": "https://hackernoon.com/golang-working-with-inconsistent-data-types-in-dynamodb-part-1-manual-conversion?source=rss",
+      "title": "GoLang Guide: Manual Handling of Inconsistent DynamoDB Data | HackerNoon"
+    },
+    {
+      "url": "http://hackernoon.com/golang-working-with-inconsistent-data-types-in-dynamodb-part-1-manual-conversion",
+      "title": "GoLang Guide: Manual Handling of Inconsistent DynamoDB Data | HackerNoon"
+    }
+  ],
+  "search_timestamp": "2026-04-12T16:13:18.246818+00:00",
+  "search_tool": "three_pai_external_web_search"
+}

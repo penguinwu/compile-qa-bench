@@ -1,0 +1,32 @@
+{
+  "case_id": "J3-20",
+  "search_query": "I'm getting NaN values when using reduce-overhead or max-autotune modes, but the model works fine in default mode. What causes this?",
+  "results": [
+    {
+      "url": "https://medium.com/@kimminha1994/why-model-return-nan-values-6a6696c55494",
+      "title": "Why model return NaN values. The output of a segmentation model may\u2026 | by VLM_Newbie | Mediu"
+    },
+    {
+      "url": "https://www.meegle.com/en_us/topics/neural-networks/neural-network-performance-tuning",
+      "title": "Neural Network Performance Tuning"
+    },
+    {
+      "url": "https://www.baeldung.com/cs/ml-training-nan-errors-fix",
+      "title": "Common Causes of NaNs During Training | Baeldung on Computer Science"
+    },
+    {
+      "url": "https://docsallover.com/blog/data-science/hyperparameter-tuning-optimizing-model-performance/",
+      "title": "Hyperparameter Tuning: Optimizing Model Performance"
+    },
+    {
+      "url": "https://www.gocodeo.com/post/what-not-to-do-while-fine-tuning-common-pitfalls-and-how-to-avoid-them",
+      "title": "What Not to Do While Fine-Tuning: Common Pitfalls and How to Avoid Them"
+    },
+    {
+      "url": "https://github.com/pytorch/pytorch/issues/40497",
+      "title": "Mixed precision causes NaN loss \u00b7 Issue #40497 \u00b7 pytorch/pytorch \u00b7 GitHub"
+    }
+  ],
+  "search_timestamp": "2026-04-12T16:09:50.057539+00:00",
+  "search_tool": "three_pai_external_web_search"
+}

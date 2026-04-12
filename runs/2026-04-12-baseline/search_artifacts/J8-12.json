@@ -1,0 +1,32 @@
+{
+  "case_id": "J8-12",
+  "search_query": "Compiled FlexAttention gives illegal memory access or device-side assert errors even though all my tensors are contiguous and on the right device. What's causing this?",
+  "search_tool": "three_pai_external_web_search",
+  "search_timestamp": "2026-04-12T16:11:21.472134+00:00",
+  "results": [
+    {
+      "url": "https://docs.nvidia.com/deeplearning/tensorrt/latest/reference/troubleshooting.html",
+      "title": "Troubleshooting \u2014 NVIDIA TensorRT"
+    },
+    {
+      "url": "https://forums.developer.nvidia.com/t/local-memory-array-giving-illegal-access-error/160052",
+      "title": "Local memory array giving illegal access error"
+    },
+    {
+      "url": "https://discuss.pytorch.org/t/how-to-fix-cuda-error-device-side-assert-triggered-error/137553",
+      "title": "How to fix \"CUDA error: device-side assert triggered\" error?"
+    },
+    {
+      "url": "https://forums.developer.nvidia.com/t/consistent-cuda-error-an-illegal-memory-access-was-encountered-error/356185",
+      "title": "Consistent \"CUDA error: an illegal memory access was encountered\" Error - Compute Sanitizer - NVIDIA"
+    },
+    {
+      "url": "https://discuss.vllm.ai/t/triton-error-illegal-memory-access-fp8/1147",
+      "title": "Triton Error - illegal memory access (FP8)"
+    },
+    {
+      "url": "https://github.com/Dao-AILab/flash-attention/issues/1054",
+      "title": "illegal memory access was encountered when processing 20000 tokens with return_softmax \u00b7 Issue #105"
+    }
+  ]
+}

@@ -1,0 +1,28 @@
+{
+  "case_id": "J4-3",
+  "search_query": "I'm getting 'Unsupported: __self__ mismatch for bound method' graph break after upgrading PyTorch. What changed and how do I fix it?",
+  "results": [
+    {
+      "url": "https://apxml.com/courses/getting-started-with-pytorch/chapter-8-monitoring-debugging-models/debugging-shape-mismatches",
+      "title": "Debug PyTorch Shape Mismatches"
+    },
+    {
+      "url": "https://docs.pytorch.org/docs/2.6/torch.compiler_troubleshooting.html",
+      "title": "torch.compile Troubleshooting \u2014 PyTorch 2.6 documentation"
+    },
+    {
+      "url": "https://apxml.com/courses/getting-started-with-pytorch/chapter-8-monitoring-debugging-models/common-pytorch-pitfalls",
+      "title": "Common PyTorch Errors and Mistakes"
+    },
+    {
+      "url": "https://github.com/pytorch/pytorch/issues/151771",
+      "title": "Graph break on .t() when Tensor._make_subclass \u00b7 Issue #151771 \u00b7 pytorch/pytorch \u00b7 GitHub"
+    },
+    {
+      "url": "http://quantumzeitgeist.com/75-percent-8-percent-pytorch-models-graphmend-fixes-graph-breaks-enabling-compilation-more-reducing/",
+      "title": "Graphmend Fixes PyTorch 2 Graph Breaks, Enabling Compilation Of 75% More Models And Reducing Fallbac"
+    }
+  ],
+  "search_timestamp": "2026-04-12T16:11:29.710415+00:00",
+  "search_tool": "three_pai_external_web_search"
+}

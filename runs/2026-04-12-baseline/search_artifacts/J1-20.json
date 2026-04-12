@@ -1,0 +1,36 @@
+{
+  "case_id": "J1-20",
+  "search_query": "torch.compile raises JSONDecodeError when using compile cache with Ray and multiple GPUs. The cache seems corrupted. How do I fix this?",
+  "search_tool": "three_pai_external_web_search",
+  "search_timestamp": "2026-04-12T16:08:33.401023+00:00",
+  "results": [
+    {
+      "url": "https://shreyansh26.github.io/post/2025-03-02_cross-encoder-inference-torch-compile/",
+      "title": "Faster Cross-Encoder Inference: Unleashing torch.compile for speed | Shreyansh Singh"
+    },
+    {
+      "url": "https://www.scoding.kr/2026/01/how-to-fix-torchcompile-performance.html",
+      "title": "How to Fix torch.compile Performance Regressions Caused by Graph Breaks"
+    },
+    {
+      "url": "https://github.com/pytorch/pytorch/issues/108971",
+      "title": "Really slow compilation times for torch.compile causing distributed training errors \u00b7 Issue #108971"
+    },
+    {
+      "url": "http://dev-discuss.pytorch.org/t/fixing-torch-compile-reference-leaks-automatic-deletion-of-dynamo-code-objects/2197/1",
+      "title": "PyTorch Developer Mailing List"
+    },
+    {
+      "url": "https://docs.pytorch.org/docs/2.6/torch.compiler_troubleshooting.html",
+      "title": "torch.compile Troubleshooting \u2014 PyTorch 2.6 documentation"
+    },
+    {
+      "url": "https://discuss.pytorch.org/t/compiler-error-with-torch-compile-example/206028",
+      "title": "Compiler error with torch compile example"
+    },
+    {
+      "url": "https://markaicode.com/pytorch-cuda-memory-optimization-guide/",
+      "title": "Fixing CUDA Memory Errors in PyTorch 3.5-Powered Agents: A 2025 GPU Optimization Guide | Markaicode"
+    }
+  ]
+}

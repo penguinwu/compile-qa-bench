@@ -1,0 +1,28 @@
+{
+  "case_id": "J8-11",
+  "search_query": "My custom op defined with torch.library causes an illegal memory access when used with torch.compile. The same op works in eager. How do I debug this?",
+  "search_tool": "three_pai_external_web_search",
+  "search_timestamp": "2026-04-12T16:11:21.472134+00:00",
+  "results": [
+    {
+      "url": "https://github.com/pytorch/pytorch/issues/112090",
+      "title": "Memory leak in torch.compile after aborting backward \u00b7 Issue #112090 \u00b7 pytorch/pytorch \u00b7 GitHub"
+    },
+    {
+      "url": "https://github.com/pytorch/pytorch/issues/139111",
+      "title": "`torch.compile` errors when inputs memory overlap.  \u00b7 Issue #139111 \u00b7 pytorch/pytorch \u00b7 GitHub"
+    },
+    {
+      "url": "https://discuss.pytorch.org/t/illegal-memory-access-error/33268",
+      "title": "Illegal memory access error"
+    },
+    {
+      "url": "https://medium.com/@lambdafluxofficial/everything-you-need-to-know-about-pytorch-compile-3d7fd94ce701",
+      "title": "Everything You Need to Know About PyTorch Compile | by LambdaFlux | Medium"
+    },
+    {
+      "url": "https://docs.pytorch.org/docs/2.3/_modules/torch/library.html",
+      "title": "torch.library \u2014 PyTorch 2.3 documentation"
+    }
+  ]
+}

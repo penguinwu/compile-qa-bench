@@ -1,0 +1,24 @@
+{
+  "case_id": "J8-1",
+  "search_query": "How do I create a custom op that works with torch.compile / dynamo / inductor? The docs are unclear.",
+  "search_tool": "three_pai_external_web_search",
+  "search_timestamp": "2026-04-12T16:09:50.299263+00:00",
+  "results": [
+    {
+      "url": "https://docs.pytorch.org/TensorRT/tutorials/_rendered_examples/dynamo/dynamo_compile_advanced_usage.html",
+      "title": "Dynamo Compile Advanced Usage \u2014 Torch-TensorRT v1.4.0+7d1d80773 documentation"
+    },
+    {
+      "url": "https://pyimagesearch.com/2023/04/24/whats-behind-pytorch-2-0-torchdynamo-and-torchinductor-primarily-for-developers/",
+      "title": "What's Behind PyTorch 2.0? TorchDynamo and TorchInductor (primarily for developers) - PyImageSearch"
+    },
+    {
+      "url": "https://github.com/onnx/tutorials/blob/main/PyTorchCustomOperator/README.md",
+      "title": "tutorials/PyTorchCustomOperator/README.md at main \u00b7 onnx/tutorials \u00b7 GitHub"
+    },
+    {
+      "url": "https://discuss.pytorch.org/t/how-to-define-an-in-place-custom-op-in-dynamo/188814",
+      "title": "How to define an in-place custom op in dynamo?"
+    }
+  ]
+}

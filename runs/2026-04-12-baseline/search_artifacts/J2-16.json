@@ -1,0 +1,20 @@
+{
+  "case_id": "J2-16",
+  "search_query": "Inductor generates suboptimal kernels when a pointwise op feeds into a reduction. The fused kernel is slower than separate kernels. How do I fix this?",
+  "search_tool": "three_pai_external_web_search",
+  "search_timestamp": "2026-04-12T16:11:19.900832+00:00",
+  "results": [
+    {
+      "url": "https://docs.pytorch.org/docs/2.1/torch.compiler_inductor_profiling.html",
+      "title": "TorchInductor GPU Profiling \u2014 PyTorch 2.1 documentation"
+    },
+    {
+      "url": "https://github.com/pytorch/pytorch/issues/128063",
+      "title": "[Inductor] Fusion of Tiled Point-Wise and Reduction Operators \u00b7 Issue #128063 \u00b7 pytorch/pytorch \u00b7"
+    },
+    {
+      "url": "https://apxml.com/courses/llm-compression-acceleration/chapter-6-hardware-acceleration-systems-optimization/optimized-kernels-ll",
+      "title": "Optimized LLM Kernels"
+    }
+  ]
+}

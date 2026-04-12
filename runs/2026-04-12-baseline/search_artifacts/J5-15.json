@@ -1,0 +1,36 @@
+{
+  "case_id": "J5-15",
+  "search_query": "I wrote a custom softmax Triton kernel and registered it with torch.library, but torch.compile throws an error when trying to use it.",
+  "search_tool": "three_pai_external_web_search",
+  "search_timestamp": "2026-04-12T16:08:45.380107+00:00",
+  "results": [
+    {
+      "url": "https://medium.com/@ngocson2vn/torch-compile-and-with-triton-combo-kernel-1-causes-a-serious-accuracy-issue-634e62c39f25",
+      "title": "torch.compile() with TRITON_COMBO_KERNEL=1 causes a serious accuracy issue"
+    },
+    {
+      "url": "https://discuss.pytorch.org/t/torch-compile-generated-triton-kernel-seems-wrong/216192",
+      "title": "Torch.compile: Generated Triton kernel seems wrong"
+    },
+    {
+      "url": "https://github.com/pytorch/pytorch/issues/106220",
+      "title": "torch compile does not work with torch.nn.functional.softmax?"
+    },
+    {
+      "url": "https://github.com/pytorch/pytorch/issues/151254",
+      "title": "torch.compile(mode=\"max-autotune-without-cudagraph\") errors in triton compiler"
+    },
+    {
+      "url": "https://docs.pytorch.org/tutorials/recipes/torch_compile_user_defined_triton_kernel_tutorial.html",
+      "title": "Using User-Defined Triton Kernels with torch.compile \u2014 PyTorch Tutorials"
+    },
+    {
+      "url": "https://docs.pytorch.org/docs/2.6/torch.compiler_troubleshooting.html",
+      "title": "torch.compile Troubleshooting \u2014 PyTorch 2.6 documentation"
+    },
+    {
+      "url": "https://discuss.pytorch.org/t/torch-compile-regularly-fails-with-triton-error-cuda-device-kernel-image-is-invalid/185288",
+      "title": "Torch.compile regularly fails with Triton Error"
+    }
+  ]
+}

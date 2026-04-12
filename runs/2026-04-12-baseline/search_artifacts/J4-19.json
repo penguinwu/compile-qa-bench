@@ -1,0 +1,28 @@
+{
+  "case_id": "J4-19",
+  "search_query": "I need better guardrails for combining distributed optimizations with non-fullgraph compile. The current behavior is confusing.",
+  "results": [
+    {
+      "url": "https://medium.com/@mvtavares/ai-can-speed-up-code-review-but-merge-decisions-still-need-deterministic-guardrails-c9d6ec9325e6",
+      "title": "How to Safely Automate GitHub Pull Requests with AI and Deterministic Guardrails | Medium"
+    },
+    {
+      "url": "https://nextagile.ai/blogs/agile/agile-guardrails/",
+      "title": "Agile Guardrails Explained: Drive Autonomy With Strategic Alignment"
+    },
+    {
+      "url": "https://arxiv.org/abs/2407.06323",
+      "title": "[2407.06323] When in Doubt, Cascade: Towards Building Efficient and Capable Guardrails"
+    },
+    {
+      "url": "https://aws.amazon.com/blogs/security/implementing-safety-guardrails-for-applications-using-amazon-sagemaker/",
+      "title": "Implementing safety guardrails for applications using Amazon SageMaker | AWS Security Blog"
+    },
+    {
+      "url": "https://www.fullstack.com/labs/resources/blog/optimizing-graphql-n-1-query-problems-in-ruby-on-rails",
+      "title": "Optimizing GraphQL N+1 Query Problems in Rails | FullStack Blog"
+    }
+  ],
+  "search_timestamp": "2026-04-12T16:13:35.465839+00:00",
+  "search_tool": "three_pai_external_web_search"
+}

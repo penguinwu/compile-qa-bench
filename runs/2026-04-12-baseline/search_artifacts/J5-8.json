@@ -1,0 +1,28 @@
+{
+  "case_id": "J5-8",
+  "search_query": "How do I make torch.compile work with vLLM? I keep getting errors when trying to compile OPT-125M.",
+  "search_tool": "three_pai_external_web_search",
+  "search_timestamp": "2026-04-12T16:07:19.356107+00:00",
+  "results": [
+    {
+      "url": "https://docs.vllm.ai/en/latest/design/v1/torch_compile.html",
+      "title": "vLLM's torch.compile integration"
+    },
+    {
+      "url": "https://docs.vllm.ai/en/v0.10.2/design/torch_compile.html",
+      "title": "torch.compile integration"
+    },
+    {
+      "url": "https://vllm.ai/blog/torch-compile",
+      "title": "Introduction to torch.compile and How It Works with vLLM"
+    },
+    {
+      "url": "https://whk-lab.github.io/posts/deep-dive-into-vllm-torch-compile/",
+      "title": "Deep Dive into vLLM: Architecting torch.compile for High-Performance Inference"
+    },
+    {
+      "url": "https://docs.pytorch.org/docs/2.7/torch.compiler_troubleshooting.html",
+      "title": "torch.compile Troubleshooting \u2014 PyTorch 2.7 documentation"
+    }
+  ]
+}

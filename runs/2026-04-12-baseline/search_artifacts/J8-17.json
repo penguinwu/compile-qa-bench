@@ -1,0 +1,24 @@
+{
+  "case_id": "J8-17",
+  "search_query": "Custom ops registered with @torch.library.custom_op decorator are much slower than ops registered with torch.Library.define + impl. Why the performance difference?",
+  "search_tool": "three_pai_external_web_search",
+  "search_timestamp": "2026-04-12T16:12:10.861487+00:00",
+  "results": [
+    {
+      "url": "https://discuss.pytorch.org/t/how-do-i-add-overloads-for-custom-ops-defined-via-torch-library/192308",
+      "title": "How do I add overloads for custom ops defined via torch.Library?`"
+    },
+    {
+      "url": "https://docs.pytorch.org/docs/stable/library.html",
+      "title": "torch.library \u2014 PyTorch 2.11 documentation"
+    },
+    {
+      "url": "https://github.com/pytorch/pytorch/issues/152270",
+      "title": "Question about that support of torch.compile for a custom  CUDA operator? \u00b7 Issue #152270 \u00b7 pytorc"
+    },
+    {
+      "url": "https://docs.modular.com/max/develop/custom-kernels-pytorch/",
+      "title": "Write hardware-agnostic custom ops for PyTorch | Modular"
+    }
+  ]
+}

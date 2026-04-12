@@ -1,0 +1,32 @@
+{
+  "case_id": "J1-1",
+  "search_query": "How do I use compile cache in torch.compile so I don't have to recompile every time I restart my script?",
+  "search_tool": "three_pai_external_web_search",
+  "search_timestamp": "2026-04-12T16:07:18.593489+00:00",
+  "results": [
+    {
+      "url": "https://www.aidoczh.com/torchtutorials/recipes/torch_compile_caching_tutorial.html",
+      "title": "Compile Time Caching in torch.compile \u2014 PyTorch Tutorials 2.5.0+cu124 documentation"
+    },
+    {
+      "url": "https://docs.pytorch.org/tutorials/recipes/torch_compile_caching_tutorial.html",
+      "title": "Compile Time Caching in torch.compile \u2014 PyTorch Tutorials 2.11.0+cu130 documentation"
+    },
+    {
+      "url": "https://docs.pytorch.org/tutorials/recipes/torch_compile_caching_configuration_tutorial.html",
+      "title": "Compile Time Caching Configuration \u2014 PyTorch Tutorials 2.10.0+cu128 documentation"
+    },
+    {
+      "url": "https://medium.com/@ThinkingLoop/7-pytorch-2-x-compile-tips-that-halve-epoch-time-67d8f6ea3fb9",
+      "title": "7 PyTorch 2.x Compile Tips That Halve Epoch Time | by Thinking Loop | Oct, 2025 | Medium"
+    },
+    {
+      "url": "https://medium.com/@lambdafluxofficial/everything-you-need-to-know-about-pytorch-compile-3d7fd94ce701",
+      "title": "Everything You Need to Know About PyTorch Compile | by LambdaFlux | Medium"
+    },
+    {
+      "url": "https://docs.pytorch.org/tutorials/recipes/regional_compilation.html",
+      "title": "Reducing torch.compile cold start compilation time with regional compilation \u2014 PyTorch Tutorials 2"
+    }
+  ]
+}

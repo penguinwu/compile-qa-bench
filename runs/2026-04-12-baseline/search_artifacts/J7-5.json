@@ -1,0 +1,20 @@
+{
+  "case_id": "J7-5",
+  "search_query": "Compilation is 2x faster when my input size is 1 versus any other size. The forward pass time stays the same. Why does input size affect compile time so much?",
+  "search_tool": "three_pai_external_web_search",
+  "search_timestamp": "2026-04-12T16:06:39.226389+00:00",
+  "results": [
+    {
+      "url": "https://www.flyriver.com/g/compile-speed-slow",
+      "title": "Best Information about Compile Speed Slow: A Comprehensive Analysis and Optimization Guide | Flyrive"
+    },
+    {
+      "url": "https://www.flyriver.com/g/compile-time-calculation",
+      "title": "Flyriver: Compile-Time Calculation: Optimizing Performance Before Execution"
+    },
+    {
+      "url": "https://www.flyriver.com/g/compile-times",
+      "title": "Flyriver: The Intricacies of Compile Times"
+    }
+  ]
+}

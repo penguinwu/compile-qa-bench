@@ -1,0 +1,28 @@
+{
+  "case_id": "J4-14",
+  "search_query": "torch.compiler.allow_in_graph doesn't create a call_module node in the FX graph. How do I properly inline a module?",
+  "results": [
+    {
+      "url": "https://docs.pytorch.org/docs/1.11/_modules/torch/fx/graph_module.html",
+      "title": "torch.fx.graph_module \u2014 PyTorch 1.11.0 documentation"
+    },
+    {
+      "url": "https://docs.pytorch.org/docs/2.0/_modules/torch/fx/graph_module.html",
+      "title": "torch.fx.graph_module \u2014 PyTorch 2.0 documentation"
+    },
+    {
+      "url": "https://runebook.dev/en/articles/pytorch/fx/torch.fx.Graph.call_module",
+      "title": "PyTorch FX: A Deep Dive into call_module()"
+    },
+    {
+      "url": "https://pytorch.org/docs/2.6/generated/torch.compiler.allow_in_graph.html",
+      "title": "torch.compiler.allow_in_graph \u2014 PyTorch 2.6 documentation"
+    },
+    {
+      "url": "http://pytorch.org/docs/2.6/torch.compiler_transformations.html",
+      "title": "Writing Graph Transformations on ATen IR \u2014 PyTorch 2.6 documentation"
+    }
+  ],
+  "search_timestamp": "2026-04-12T16:13:20.991369+00:00",
+  "search_tool": "three_pai_external_web_search"
+}

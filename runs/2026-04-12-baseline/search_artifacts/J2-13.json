@@ -1,0 +1,12 @@
+{
+  "case_id": "J2-13",
+  "search_query": "The inductor-generated backward kernel for float8 scaled_grouped_mm is much slower than eager. How do I get inductor to generate efficient float8 code?",
+  "search_tool": "three_pai_external_web_search",
+  "search_timestamp": "2026-04-12T16:11:19.900832+00:00",
+  "results": [
+    {
+      "url": "https://docs.pytorch.org/tutorials/intermediate/inductor_debug_cpu.html",
+      "title": "Inductor CPU backend debugging and profiling"
+    }
+  ]
+}

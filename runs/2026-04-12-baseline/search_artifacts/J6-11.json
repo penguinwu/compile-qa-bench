@@ -1,0 +1,28 @@
+{
+  "case_id": "J6-11",
+  "search_query": "DTensor placement propagation is missing for as_strided, causing failures when I compile models using DTensor sharding.",
+  "search_tool": "three_pai_external_web_search",
+  "search_timestamp": "2026-04-12T16:11:29.958772+00:00",
+  "results": [
+    {
+      "url": "https://github.com/pytorch/pytorch/issues/118836",
+      "title": "[DTensor] Local tensor stride incorrect for uneven case"
+    },
+    {
+      "url": "https://blog.ezyang.com/2026/02/dtensor-erasure/",
+      "title": "DTensor erasure : ezyang's blog"
+    },
+    {
+      "url": "https://docs.nvidia.com/deeplearning/physicsnemo/physicsnemo-core/_modules/physicsnemo/distributed/shard_tensor.html",
+      "title": "physicsnemo distributed shard_tensor"
+    },
+    {
+      "url": "https://gist.github.com/YouJiacheng/d075abc0840cd56155dc8a56abde3317",
+      "title": "dtensor-uneven-shard.py"
+    },
+    {
+      "url": "https://www.tensorflow.org/tutorials/distribute/dtensor_ml_tutorial",
+      "title": "Distributed training with DTensors | TensorFlow Core"
+    }
+  ]
+}

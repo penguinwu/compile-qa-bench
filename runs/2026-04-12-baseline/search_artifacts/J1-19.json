@@ -1,0 +1,20 @@
+{
+  "case_id": "J1-19",
+  "search_query": "torch.compile fails with '/usr/bin/ld: cannot find -lcuda' even though CUDA is installed. How do I fix the linker error?",
+  "search_tool": "three_pai_external_web_search",
+  "search_timestamp": "2026-04-12T16:08:33.401023+00:00",
+  "results": [
+    {
+      "url": "https://forums.developer.nvidia.com/t/usr-bin-ld-cannot-find-lcuda/133583",
+      "title": "/usr/bin/ld: cannot find -lcuda"
+    },
+    {
+      "url": "https://forums.developer.nvidia.com/t/linker-error-usr-bin-ld-cannot-find-lcudart/21050",
+      "title": "linker error /usr/bin/ld: cannot find -lcudart"
+    },
+    {
+      "url": "https://medium.com/@_jeremy_/1-torch-not-compiled-with-cuda-enabled-127e55965e96",
+      "title": "Summary of Errors with CUDA/Torch and DistributedDataParallel and NCCP | by Arch | Medium"
+    }
+  ]
+}

@@ -1,0 +1,24 @@
+{
+  "case_id": "J7-11",
+  "search_query": "I enabled TORCHINDUCTOR_FX_GRAPH_CACHE=1 but compilation is still slow on cold start. What else can I do to reduce compile time?",
+  "search_tool": "three_pai_external_web_search",
+  "search_timestamp": "2026-04-12T16:08:21.032349+00:00",
+  "results": [
+    {
+      "url": "https://docs.pytorch.org/tutorials/recipes/regional_compilation.html",
+      "title": "Reducing torch.compile cold start compilation time with regional compilation \u2014 PyTorch Tutorials 2"
+    },
+    {
+      "url": "https://github.com/pytorch/pytorch/issues/108971",
+      "title": "Really slow compilation times for torch.compile causing distributed training errors \u00b7 Issue #108971"
+    },
+    {
+      "url": "https://www.aidoczh.com/torchtutorials/recipes/regional_compilation.html",
+      "title": "Reducing torch.compile cold start compilation time with regional compilation \u2014 PyTorch Tutorials 2"
+    },
+    {
+      "url": "https://tensorfuse.io/docs/blogs/reducing_gpu_cold_start",
+      "title": "Reducing GPU Cold Start Time when using vLLM - Tensorfuse"
+    }
+  ]
+}
