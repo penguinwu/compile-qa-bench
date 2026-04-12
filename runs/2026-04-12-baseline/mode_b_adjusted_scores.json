@@ -1,0 +1,1157 @@
+{
+  "metadata": {
+    "base_scores": "mode_b_raven_scores.json",
+    "adjustment": "Fabrication cap: if scorer notes fabricated configs/APIs, score capped at 1",
+    "date": "2026-04-12",
+    "fabrication_cases": [
+      "J1-8",
+      "J1-11",
+      "J3-4",
+      "J3-5",
+      "J3-13",
+      "J4-2",
+      "J4-7",
+      "J4-8",
+      "J4-12",
+      "J5-2",
+      "J5-3",
+      "J5-4",
+      "J5-7",
+      "J5-8",
+      "J5-10",
+      "J5-12",
+      "J5-18",
+      "J5-19",
+      "J6-2",
+      "J7-4",
+      "J7-14",
+      "J7-18",
+      "J7-20",
+      "J8-1",
+      "J8-4",
+      "J8-11"
+    ]
+  },
+  "scores": [
+    {
+      "id": "J1-1",
+      "original_score": 2,
+      "adjusted_score": 2,
+      "has_fabrication": false,
+      "justification": "Correctly recommends TORCHINDUCTOR_FX_GRAPH_CACHE=1 but dismisses save_cache_artifacts as 'manual' when user likely asked about it specifically"
+    },
+    {
+      "id": "J1-2",
+      "original_score": 3,
+      "adjusted_score": 3,
+      "has_fabrication": false,
+      "justification": "Correctly explains backend parameter, lists valid backends, shows list_backends(), addresses macOS compiler issue"
+    },
+    {
+      "id": "J1-3",
+      "original_score": 2,
+      "adjusted_score": 2,
+      "has_fabrication": false,
+      "justification": "DDP+compile+autocast pattern advice is reasonable but diagnosis of autocast NotImplementedError is vague and hand-wavy"
+    },
+    {
+      "id": "J1-4",
+      "original_score": 3,
+      "adjusted_score": 3,
+      "has_fabrication": false,
+      "justification": "Correctly identifies missing g++ and libcuda.so in Docker; provides actionable Dockerfile fixes"
+    },
+    {
+      "id": "J1-5",
+      "original_score": 3,
+      "adjusted_score": 3,
+      "has_fabrication": false,
+      "justification": "Correctly explains compilation warmup overhead and when torch.compile is/isn't beneficial"
+    },
+    {
+      "id": "J1-6",
+      "original_score": 2,
+      "adjusted_score": 2,
+      "has_fabrication": false,
+      "justification": "Generic advice about compile after parallelize_module; doesn't diagnose the specific crash"
+    },
+    {
+      "id": "J1-7",
+      "original_score": 2,
+      "adjusted_score": 2,
+      "has_fabrication": false,
+      "justification": "Correctly identifies set_device as problematic inside compiled functions; explanation of WHY is partially speculative"
+    },
+    {
+      "id": "J1-8",
+      "original_score": 2,
+      "adjusted_score": 1,
+      "has_fabrication": true,
+      "justification": "Correct CUDA version mismatch diagnosis but fabricates TORCHINDUCTOR_TRITON_CODEGEN=0 env var"
+    },
+    {
+      "id": "J1-9",
+      "original_score": 2,
+      "adjusted_score": 2,
+      "has_fabrication": false,
+      "justification": "Recommends real configs but mischaracterizes cache_size_limit as input caching rather than recompile limit"
+    },
+    {
+      "id": "J1-10",
+      "original_score": 2,
+      "adjusted_score": 2,
+      "has_fabrication": false,
+      "justification": "Right area (compile+checkpointing compatible, avoid reduce-overhead) but vague and not actionable enough"
+    },
+    {
+      "id": "J1-11",
+      "original_score": 1,
+      "adjusted_score": 1,
+      "has_fabrication": true,
+      "justification": "Fabricates torch._dynamo.config.log_recompilation and .verbose; correct answer (TORCH_LOGS='recompiles') mentioned only as secondary"
+    },
+    {
+      "id": "J1-12",
+      "original_score": 1,
+      "adjusted_score": 1,
+      "has_fabrication": false,
+      "justification": "Wrong: claims autograd.grad not supported in Dynamo when it IS registered. torch.func suggestions valid but based on incorrect premise"
+    },
+    {
+      "id": "J1-13",
+      "original_score": 2,
+      "adjusted_score": 2,
+      "has_fabrication": false,
+      "justification": "Correctly identifies RNN/GRU limited compile support; reasonable workarounds (fullgraph=False, manual reimplementation)"
+    },
+    {
+      "id": "J1-14",
+      "original_score": 3,
+      "adjusted_score": 3,
+      "has_fabrication": false,
+      "justification": "Correctly identifies daemonic process issue from inductor async compilation; TORCHINDUCTOR_COMPILE_THREADS=1 verified"
+    },
+    {
+      "id": "J1-15",
+      "original_score": 2,
+      "adjusted_score": 2,
+      "has_fabrication": false,
+      "justification": "Correctly identifies DtypeView gap; reasonable upgrade advice but suggests quantize_dynamic as alternative to MXFP8 (apples-to-oranges)"
+    },
+    {
+      "id": "J1-16",
+      "original_score": 1,
+      "adjusted_score": 1,
+      "has_fabrication": false,
+      "justification": "Wrong: claims complex dtypes missing from DTYPE_TO_CPP when they ARE all mapped. Core diagnosis is incorrect"
+    },
+    {
+      "id": "J1-17",
+      "original_score": 2,
+      "adjusted_score": 2,
+      "has_fabrication": false,
+      "justification": "Correctly identifies MSVC need and WSL2 alternative; cpp_wrapper=False won't help for CPU compilation"
+    },
+    {
+      "id": "J1-18",
+      "original_score": 2,
+      "adjusted_score": 2,
+      "has_fabrication": false,
+      "justification": "Right area (reshape vs view semantic difference in pattern matcher); reasonable workaround suggestions"
+    },
+    {
+      "id": "J1-19",
+      "original_score": 3,
+      "adjusted_score": 3,
+      "has_fabrication": false,
+      "justification": "Correctly diagnoses missing libcuda.so symlink; standard find/symlink/ldconfig fixes are actionable"
+    },
+    {
+      "id": "J1-20",
+      "original_score": 2,
+      "adjusted_score": 2,
+      "has_fabrication": false,
+      "justification": "Right diagnosis (race condition in multi-process cache writes); per-process cache dirs is reasonable but may not fully solve"
+    },
+    {
+      "id": "J2-1",
+      "original_score": 2,
+      "adjusted_score": 2,
+      "has_fabrication": false,
+      "justification": "Right diagnosis (missing torch.no_grad causes gradient tracking overhead); plausible but unconfirmed as THE fix"
+    },
+    {
+      "id": "J2-2",
+      "original_score": 2,
+      "adjusted_score": 2,
+      "has_fabrication": false,
+      "justification": "Reasonable cumprod decomposition diagnosis; valid torch.compiler.disable workaround but root cause unverified"
+    },
+    {
+      "id": "J2-3",
+      "original_score": 2,
+      "adjusted_score": 2,
+      "has_fabrication": false,
+      "justification": "Correct general advice about reduce-overhead and small model limitations; generic profiling guidance"
+    },
+    {
+      "id": "J2-4",
+      "original_score": 2,
+      "adjusted_score": 2,
+      "has_fabrication": false,
+      "justification": "Good diagnostic methodology; TORCHINDUCTOR_MAX_AUTOTUNE and COORDINATE_DESCENT_TUNING verified real"
+    },
+    {
+      "id": "J2-5",
+      "original_score": 2,
+      "adjusted_score": 2,
+      "has_fabrication": false,
+      "justification": "Correctly identifies old nightly as likely culprit; PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True is real"
+    },
+    {
+      "id": "J2-6",
+      "original_score": 2,
+      "adjusted_score": 2,
+      "has_fabrication": false,
+      "justification": "Correctly identifies benchmarking methodology issues (missing warmup, missing cuda.synchronize)"
+    },
+    {
+      "id": "J2-7",
+      "original_score": 1,
+      "adjusted_score": 1,
+      "has_fabrication": false,
+      "justification": "Speculative claim about compiled Triton kernels holding GIL; core diagnosis not well-substantiated"
+    },
+    {
+      "id": "J2-8",
+      "original_score": 1,
+      "adjusted_score": 1,
+      "has_fabrication": false,
+      "justification": "Generic profiling advice for FlexAttention backward; doesn't identify root cause or fix"
+    },
+    {
+      "id": "J2-9",
+      "original_score": 2,
+      "adjusted_score": 2,
+      "has_fabrication": false,
+      "justification": "Correctly identifies dynamic shapes and recompilation as key decoder issues; valid suggestions"
+    },
+    {
+      "id": "J2-10",
+      "original_score": 2,
+      "adjusted_score": 2,
+      "has_fabrication": false,
+      "justification": "Correctly points to lowering.py as authoritative source; mentions real APIs and configs"
+    },
+    {
+      "id": "J2-11",
+      "original_score": 2,
+      "adjusted_score": 2,
+      "has_fabrication": false,
+      "justification": "Good diagnostic steps for large model compilation overhead; correctly identifies as potentially a compilation overhead issue"
+    },
+    {
+      "id": "J2-12",
+      "original_score": 2,
+      "adjusted_score": 2,
+      "has_fabrication": false,
+      "justification": "Correctly identifies complex tensor support as known inductor limitation; practical workarounds"
+    },
+    {
+      "id": "J2-13",
+      "original_score": 2,
+      "adjusted_score": 2,
+      "has_fabrication": false,
+      "justification": "Correctly identifies float8 inductor codegen issue; references actual GitHub issue"
+    },
+    {
+      "id": "J2-14",
+      "original_score": 2,
+      "adjusted_score": 2,
+      "has_fabrication": false,
+      "justification": "Accurately describes template-based matmul approach and tl.dot limitation; custom Triton kernel workaround is valid"
+    },
+    {
+      "id": "J2-15",
+      "original_score": 1,
+      "adjusted_score": 1,
+      "has_fabrication": false,
+      "justification": "TF32 speculation plausible but unverified; sdp_kernel API shown is deprecated"
+    },
+    {
+      "id": "J2-16",
+      "original_score": 2,
+      "adjusted_score": 2,
+      "has_fabrication": false,
+      "justification": "Correctly identifies fusion heuristic issue; references real GitHub issue #128063"
+    },
+    {
+      "id": "J2-17",
+      "original_score": 2,
+      "adjusted_score": 2,
+      "has_fabrication": false,
+      "justification": "Correctly identifies _foreach_copy_ mixed-dtype fallback; manual loop workaround is practical"
+    },
+    {
+      "id": "J2-18",
+      "original_score": 2,
+      "adjusted_score": 2,
+      "has_fabrication": false,
+      "justification": "Correctly identifies no performance canary exists; valid existing diagnostic tools listed"
+    },
+    {
+      "id": "J2-19",
+      "original_score": 1,
+      "adjusted_score": 1,
+      "has_fabrication": false,
+      "justification": "Hand-wavy about CPU benchmarks; TorchBench install command likely wrong"
+    },
+    {
+      "id": "J2-20",
+      "original_score": 3,
+      "adjusted_score": 3,
+      "has_fabrication": false,
+      "justification": "Accurate: XPU support upstreamed in PyTorch 2.5 as Beta; installation and usage correct"
+    },
+    {
+      "id": "J3-1",
+      "original_score": 2,
+      "adjusted_score": 2,
+      "has_fabrication": false,
+      "justification": "Right diagnosis (inductor correctness bug with storage offsets/views); .contiguous() workaround reasonable"
+    },
+    {
+      "id": "J3-2",
+      "original_score": 2,
+      "adjusted_score": 2,
+      "has_fabrication": false,
+      "justification": "Correctly identifies backward correctness bug with interpolation modes; working modes as workaround"
+    },
+    {
+      "id": "J3-3",
+      "original_score": 1,
+      "adjusted_score": 1,
+      "has_fabrication": false,
+      "justification": "Generic precision debugging for resolved issue; doesn't identify actual fix"
+    },
+    {
+      "id": "J3-4",
+      "original_score": 2,
+      "adjusted_score": 1,
+      "has_fabrication": true,
+      "justification": "Right area (RMSNorm+float8 regression); reasonable workarounds but fabricates 'aggressive_fusion' relevance"
+    },
+    {
+      "id": "J3-5",
+      "original_score": 2,
+      "adjusted_score": 1,
+      "has_fabrication": true,
+      "justification": "Right area (autotuning non-determinism); fabricates 'config.triton.autotune' simple toggle"
+    },
+    {
+      "id": "J3-6",
+      "original_score": 2,
+      "adjusted_score": 2,
+      "has_fabrication": false,
+      "justification": "Correctly identifies torch.func.grad+compile composition issue as real bug; verify_correctness config is real"
+    },
+    {
+      "id": "J3-7",
+      "original_score": 2,
+      "adjusted_score": 2,
+      "has_fabrication": false,
+      "justification": "Right diagnosis (inductor bug with dstack+reciprocal); valid workarounds"
+    },
+    {
+      "id": "J3-8",
+      "original_score": 2,
+      "adjusted_score": 2,
+      "has_fabrication": false,
+      "justification": "Correct GQA+SDPA backward NaN identification; padding workaround practical"
+    },
+    {
+      "id": "J3-9",
+      "original_score": 1,
+      "adjusted_score": 1,
+      "has_fabrication": false,
+      "justification": "Generic benchmarking advice for resolved accuracy debugging issue; doesn't address actual problem"
+    },
+    {
+      "id": "J3-10",
+      "original_score": 2,
+      "adjusted_score": 2,
+      "has_fabrication": false,
+      "justification": "Right area (2.4->2.5 regression); valid debugging steps"
+    },
+    {
+      "id": "J3-11",
+      "original_score": 2,
+      "adjusted_score": 2,
+      "has_fabrication": false,
+      "justification": "Good analysis identifying input scale as likely cause; normalizing inputs suggestion is sound"
+    },
+    {
+      "id": "J3-12",
+      "original_score": 2,
+      "adjusted_score": 2,
+      "has_fabrication": false,
+      "justification": "Good diagnosis (CUDA_LAUNCH_BLOCKING fixing = sync/race issue); valid workarounds"
+    },
+    {
+      "id": "J3-13",
+      "original_score": 2,
+      "adjusted_score": 1,
+      "has_fabrication": true,
+      "justification": "Right area (non-deterministic kernels); fabricates 'triton.autotune' config but real GitHub issue referenced"
+    },
+    {
+      "id": "J3-14",
+      "original_score": 3,
+      "adjusted_score": 3,
+      "has_fabrication": false,
+      "justification": "Correctly identifies omp.h macOS issue; provides actual fix (CFLAGS/LDFLAGS to Homebrew libomp)"
+    },
+    {
+      "id": "J3-15",
+      "original_score": 2,
+      "adjusted_score": 2,
+      "has_fabrication": false,
+      "justification": "Partially correct epilogue fusion mutation analysis; oversimplifies design space"
+    },
+    {
+      "id": "J3-16",
+      "original_score": 3,
+      "adjusted_score": 3,
+      "has_fabrication": false,
+      "justification": "Correctly identifies data-dependent control flow limitation; suggests valid alternatives (torch.where, torch.cond)"
+    },
+    {
+      "id": "J3-17",
+      "original_score": 2,
+      "adjusted_score": 2,
+      "has_fabrication": false,
+      "justification": "Mostly correct about side effects not captured in compiled graph; graph_break valid workaround"
+    },
+    {
+      "id": "J3-18",
+      "original_score": 2,
+      "adjusted_score": 2,
+      "has_fabrication": false,
+      "justification": "Right area (AOTAutograd stride assumptions); correctly describes architectural tension"
+    },
+    {
+      "id": "J3-19",
+      "original_score": 1,
+      "adjusted_score": 1,
+      "has_fabrication": false,
+      "justification": "Generic ROCm debugging without specific insight into conv stride test failure"
+    },
+    {
+      "id": "J3-20",
+      "original_score": 2,
+      "adjusted_score": 2,
+      "has_fabrication": false,
+      "justification": "Correct diagnosis area (aggressive optimizations causing NaNs); valid debugging configs"
+    },
+    {
+      "id": "J4-1",
+      "original_score": 2,
+      "adjusted_score": 2,
+      "has_fabrication": false,
+      "justification": "Right area (closures breaking fullgraph) but solutions are generic; torch.cond doesn't apply to mask_mod"
+    },
+    {
+      "id": "J4-2",
+      "original_score": 2,
+      "adjusted_score": 1,
+      "has_fabrication": true,
+      "justification": "Correct DDP+compile graph break understanding but fabricates wrong DDPOptimizer import path"
+    },
+    {
+      "id": "J4-3",
+      "original_score": 2,
+      "adjusted_score": 2,
+      "has_fabrication": false,
+      "justification": "Reasonable bound method diagnosis; fix mechanism is speculative"
+    },
+    {
+      "id": "J4-4",
+      "original_score": 2,
+      "adjusted_score": 2,
+      "has_fabrication": false,
+      "justification": "Right area (version upgrade FSDP issue); generic debugging suggestions"
+    },
+    {
+      "id": "J4-5",
+      "original_score": 1,
+      "adjusted_score": 1,
+      "has_fabrication": false,
+      "justification": "Wrong diagnosis about torch.compiler.disable recursive behavior; real issue likely nested @torch.compile"
+    },
+    {
+      "id": "J4-6",
+      "original_score": 2,
+      "adjusted_score": 2,
+      "has_fabrication": false,
+      "justification": "Right area (dataclass tracing issues); valid workarounds but speculative about UserDefinedVariable internals"
+    },
+    {
+      "id": "J4-7",
+      "original_score": 2,
+      "adjusted_score": 1,
+      "has_fabrication": true,
+      "justification": "Correct global config guard diagnosis; torch._dynamo.reset() valid but fabricates 'config_key' API"
+    },
+    {
+      "id": "J4-8",
+      "original_score": 1,
+      "adjusted_score": 1,
+      "has_fabrication": true,
+      "justification": "Fabricates 'SAC_checkpoint' API that doesn't exist; SAC designed to work with compile"
+    },
+    {
+      "id": "J4-9",
+      "original_score": 2,
+      "adjusted_score": 2,
+      "has_fabrication": false,
+      "justification": "Correct inspect.signature diagnosis; _compile=False parameter verified real"
+    },
+    {
+      "id": "J4-10",
+      "original_score": 3,
+      "adjusted_score": 3,
+      "has_fabrication": false,
+      "justification": "Correct: Python float lr causes guards/recompilation, tensor lr fixes it. Documented solution"
+    },
+    {
+      "id": "J4-11",
+      "original_score": 2,
+      "adjusted_score": 2,
+      "has_fabrication": false,
+      "justification": "Right area (AOTAutograd graph classification for optimizers); practical advice works but diagnosis is misleading"
+    },
+    {
+      "id": "J4-12",
+      "original_score": 2,
+      "adjusted_score": 1,
+      "has_fabrication": true,
+      "justification": "Correct DDP+compile understanding but fabricates wrong DDPOptimizer import path"
+    },
+    {
+      "id": "J4-13",
+      "original_score": 3,
+      "adjusted_score": 3,
+      "has_fabrication": false,
+      "justification": "Correctly identifies guard optimization opportunity for frozen dataclasses; accurate analysis"
+    },
+    {
+      "id": "J4-14",
+      "original_score": 1,
+      "adjusted_score": 1,
+      "has_fabrication": false,
+      "justification": "Vague and speculative; suggests checking release notes without actionable guidance"
+    },
+    {
+      "id": "J4-15",
+      "original_score": 2,
+      "adjusted_score": 2,
+      "has_fabrication": false,
+      "justification": "Correctly identifies CompiledAutograd; config flag verified correct"
+    },
+    {
+      "id": "J4-16",
+      "original_score": 2,
+      "adjusted_score": 2,
+      "has_fabrication": false,
+      "justification": "Right area (cache persistence bug); doesn't identify actual root cause"
+    },
+    {
+      "id": "J4-17",
+      "original_score": 2,
+      "adjusted_score": 2,
+      "has_fabrication": false,
+      "justification": "Correctly advises downgrading; config workarounds (cpp_wrapper, freezing) are speculative"
+    },
+    {
+      "id": "J4-18",
+      "original_score": 3,
+      "adjusted_score": 3,
+      "has_fabrication": false,
+      "justification": "Correct: AOTAutograd backward is once_differentiable; correctly advises eager for second-order gradients"
+    },
+    {
+      "id": "J4-19",
+      "original_score": 2,
+      "adjusted_score": 2,
+      "has_fabrication": false,
+      "justification": "Correctly identifies config interaction (bucket_all_gathers_fx + fullgraph + CUDA graphs); workarounds reasonable"
+    },
+    {
+      "id": "J4-20",
+      "original_score": 2,
+      "adjusted_score": 2,
+      "has_fabrication": false,
+      "justification": "Correctly identifies Parameter subclasses as unsupported; reasonable workarounds"
+    },
+    {
+      "id": "J5-1",
+      "original_score": 2,
+      "adjusted_score": 2,
+      "has_fabrication": false,
+      "justification": "Right area (TF32/precision) but max-autotune does NOT independently enable TF32; diagnosis plausible but inaccurate"
+    },
+    {
+      "id": "J5-2",
+      "original_score": 1,
+      "adjusted_score": 1,
+      "has_fabrication": true,
+      "justification": "Generic debugging for a regression; fabricates config timing claims; doesn't identify actual fix"
+    },
+    {
+      "id": "J5-3",
+      "original_score": 1,
+      "adjusted_score": 1,
+      "has_fabrication": true,
+      "justification": "Fabricates 'torch.nn.attention.create_mask' API; flex_attention uses score_mod/block_mask not boolean masks"
+    },
+    {
+      "id": "J5-4",
+      "original_score": 2,
+      "adjusted_score": 1,
+      "has_fabrication": true,
+      "justification": "Correctly identifies split_cat pass bug area; fabricates UnbindCatRemover class name but workaround is directionally correct"
+    },
+    {
+      "id": "J5-5",
+      "original_score": 1,
+      "adjusted_score": 1,
+      "has_fabrication": false,
+      "justification": "Generic bisection advice; doesn't address the specific resolved issue"
+    },
+    {
+      "id": "J5-6",
+      "original_score": 2,
+      "adjusted_score": 2,
+      "has_fabrication": false,
+      "justification": "Correctly identifies alignment issue; max_autotune_gemm_backends config verified; bfloat16 alignment explanation oversimplified"
+    },
+    {
+      "id": "J5-7",
+      "original_score": 1,
+      "adjusted_score": 1,
+      "has_fabrication": true,
+      "justification": "Fabricates 'fuse_cross_entropy_linear' config; F.cross_entropy weight parameter explanation is wrong"
+    },
+    {
+      "id": "J5-8",
+      "original_score": 1,
+      "adjusted_score": 1,
+      "has_fabrication": true,
+      "justification": "Generic vLLM+compile advice; fabricates 'cpp_wrapper = True' solving OOM; technical claims unsupported"
+    },
+    {
+      "id": "J5-9",
+      "original_score": 2,
+      "adjusted_score": 2,
+      "has_fabrication": false,
+      "justification": "Correctly identifies Windows as poorly supported; WSL2 recommendation is standard and reasonable"
+    },
+    {
+      "id": "J5-10",
+      "original_score": 1,
+      "adjusted_score": 1,
+      "has_fabrication": true,
+      "justification": "Fabricates 'split_large_kernels' config; workaround code patterns are fabricated"
+    },
+    {
+      "id": "J5-11",
+      "original_score": 2,
+      "adjusted_score": 2,
+      "has_fabrication": false,
+      "justification": "Correctly identifies max-autotune/cudagraphs tension; 'max-autotune-no-cudagraphs' mode exists"
+    },
+    {
+      "id": "J5-12",
+      "original_score": 2,
+      "adjusted_score": 1,
+      "has_fabrication": true,
+      "justification": "Right area (shared memory limitation on consumer GPUs); fabricates triton config names"
+    },
+    {
+      "id": "J5-13",
+      "original_score": 2,
+      "adjusted_score": 2,
+      "has_fabrication": false,
+      "justification": "Correctly identifies embedding as memory-bound; torch.compiler.disable is valid; 'fallback_random' wrong context"
+    },
+    {
+      "id": "J5-14",
+      "original_score": 2,
+      "adjusted_score": 2,
+      "has_fabrication": false,
+      "justification": "Reasonable specialization vs performance tradeoff discussion; divisible_by_16 config exists"
+    },
+    {
+      "id": "J5-15",
+      "original_score": 2,
+      "adjusted_score": 2,
+      "has_fabrication": false,
+      "justification": "Correctly describes torch.library custom_op and allow_in_graph; register_fake pattern accurate"
+    },
+    {
+      "id": "J5-16",
+      "original_score": 2,
+      "adjusted_score": 2,
+      "has_fabrication": false,
+      "justification": "Reasonable custom backend integration guidance; torch.library alternative correctly identified"
+    },
+    {
+      "id": "J5-17",
+      "original_score": 1,
+      "adjusted_score": 1,
+      "has_fabrication": false,
+      "justification": "Generic debugging for test failure; CUDA version theory speculative; no specific fix"
+    },
+    {
+      "id": "J5-18",
+      "original_score": 2,
+      "adjusted_score": 1,
+      "has_fabrication": true,
+      "justification": "Right area (padding hurts performance); fabricates 'config.triton.reduce_block_size'"
+    },
+    {
+      "id": "J5-19",
+      "original_score": 1,
+      "adjusted_score": 1,
+      "has_fabrication": true,
+      "justification": "Fabricates 'config.triton.use_welford_reduction'; core advice built on non-existent config"
+    },
+    {
+      "id": "J5-20",
+      "original_score": 2,
+      "adjusted_score": 2,
+      "has_fabrication": false,
+      "justification": "Reasonable CUDA graphs tradeoff discussion; correctly notes reduce-overhead enables cudagraphs"
+    },
+    {
+      "id": "J6-1",
+      "original_score": 2,
+      "adjusted_score": 2,
+      "has_fabrication": false,
+      "justification": "Right diagnosis; mark_dynamic correct but overstates need since automatic_dynamic_shapes self-corrects"
+    },
+    {
+      "id": "J6-2",
+      "original_score": 2,
+      "adjusted_score": 1,
+      "has_fabrication": true,
+      "justification": "Correctly identifies compiler bug with empty tensors; fabricates specific division-by-zero detail"
+    },
+    {
+      "id": "J6-3",
+      "original_score": 1,
+      "adjusted_score": 1,
+      "has_fabrication": false,
+      "justification": "Speculative symbolic ints diagnosis doesn't match how dynamo traces dim args; generic workarounds"
+    },
+    {
+      "id": "J6-4",
+      "original_score": 2,
+      "adjusted_score": 2,
+      "has_fabrication": false,
+      "justification": "Correct general approach (dynamic=True + mark_dynamic for GNNs); standard boilerplate"
+    },
+    {
+      "id": "J6-5",
+      "original_score": 2,
+      "adjusted_score": 2,
+      "has_fabrication": false,
+      "justification": "Correct recompilation diagnosis; mark_dynamic is right fix direction"
+    },
+    {
+      "id": "J6-6",
+      "original_score": 2,
+      "adjusted_score": 2,
+      "has_fabrication": false,
+      "justification": "Right diagnosis; TORCH_LOGS=recompiles correct; cache_size_limit correctly flagged as non-fix"
+    },
+    {
+      "id": "J6-7",
+      "original_score": 2,
+      "adjusted_score": 2,
+      "has_fabrication": false,
+      "justification": "Mischaracterizes mechanism but right practical advice (mark_dynamic for specific dims)"
+    },
+    {
+      "id": "J6-8",
+      "original_score": 2,
+      "adjusted_score": 2,
+      "has_fabrication": false,
+      "justification": "Correct data-dependent slicing limitation; .item() workaround valid but fails to mention graph break caveat"
+    },
+    {
+      "id": "J6-9",
+      "original_score": 1,
+      "adjusted_score": 1,
+      "has_fabrication": false,
+      "justification": "Wrong direction: autocast is traced through by dynamo; inside vs outside placement not the real issue"
+    },
+    {
+      "id": "J6-10",
+      "original_score": 2,
+      "adjusted_score": 2,
+      "has_fabrication": false,
+      "justification": "Reasonable generic advice for variable-length inputs; right area but boilerplate"
+    },
+    {
+      "id": "J6-11",
+      "original_score": 2,
+      "adjusted_score": 2,
+      "has_fabrication": false,
+      "justification": "Correctly identifies as_strided DTensor limitation; practical workarounds"
+    },
+    {
+      "id": "J6-12",
+      "original_score": 2,
+      "adjusted_score": 2,
+      "has_fabrication": false,
+      "justification": "Correctly identifies mark_dynamic limitations with nn.Parameters; honest about gap"
+    },
+    {
+      "id": "J6-13",
+      "original_score": 2,
+      "adjusted_score": 2,
+      "has_fabrication": false,
+      "justification": "Correctly identifies symbolic shape debugging gap; TORCH_LOGS=dynamic valid"
+    },
+    {
+      "id": "J6-14",
+      "original_score": 2,
+      "adjusted_score": 2,
+      "has_fabrication": false,
+      "justification": "Valid debugging methodology but generic; doesn't address specific xor_sum error"
+    },
+    {
+      "id": "J6-15",
+      "original_score": 2,
+      "adjusted_score": 2,
+      "has_fabrication": false,
+      "justification": "Correctly identifies guard accumulation problem; config flags verified real"
+    },
+    {
+      "id": "J6-16",
+      "original_score": 2,
+      "adjusted_score": 2,
+      "has_fabrication": false,
+      "justification": "Correctly identifies immutable_list type mismatch with custom ops; reasonable workarounds"
+    },
+    {
+      "id": "J6-17",
+      "original_score": 2,
+      "adjusted_score": 2,
+      "has_fabrication": false,
+      "justification": "Correct DeepSpeed+compile guard incompatibility; torch._dynamo.disable() valid workaround"
+    },
+    {
+      "id": "J6-18",
+      "original_score": 2,
+      "adjusted_score": 2,
+      "has_fabrication": false,
+      "justification": "Correct debugging approach for recompilation storms; generic but applicable"
+    },
+    {
+      "id": "J6-19",
+      "original_score": 2,
+      "adjusted_score": 2,
+      "has_fabrication": false,
+      "justification": "Correctly identifies custom autograd + dynamic output shapes limitation; new_dynamic_size() verified real"
+    },
+    {
+      "id": "J6-20",
+      "original_score": 2,
+      "adjusted_score": 2,
+      "has_fabrication": false,
+      "justification": "Correctly identifies torch.combinations unsupported with dynamic shapes; disable workaround valid"
+    },
+    {
+      "id": "J7-1",
+      "original_score": 1,
+      "adjusted_score": 1,
+      "has_fabrication": false,
+      "justification": "Primary fix (inline_inbuilt_nn_modules=False) is deprecated and always True; setting it does nothing"
+    },
+    {
+      "id": "J7-2",
+      "original_score": 2,
+      "adjusted_score": 2,
+      "has_fabrication": false,
+      "justification": "Correctly identifies AOTAutograd backward explosion; disabling gradients or breaking loop valid partial fixes"
+    },
+    {
+      "id": "J7-3",
+      "original_score": 3,
+      "adjusted_score": 3,
+      "has_fabrication": false,
+      "justification": "foreach=True and fused=True are correct documented solutions for slow optimizer compilation"
+    },
+    {
+      "id": "J7-4",
+      "original_score": 1,
+      "adjusted_score": 1,
+      "has_fabrication": true,
+      "justification": "Fabricates: wrapping LR as tensor won't work \u2014 optimizers expect scalar lr. mark_dynamic on scalar fails"
+    },
+    {
+      "id": "J7-5",
+      "original_score": 2,
+      "adjusted_score": 2,
+      "has_fabrication": false,
+      "justification": "dynamic=True and FX graph caching valid; size-1 specialization plausible; generic"
+    },
+    {
+      "id": "J7-6",
+      "original_score": 2,
+      "adjusted_score": 2,
+      "has_fabrication": false,
+      "justification": "Correctly identifies Windows rename vs replace issue; cache dir path wrong but general advice reasonable"
+    },
+    {
+      "id": "J7-7",
+      "original_score": 2,
+      "adjusted_score": 2,
+      "has_fabrication": false,
+      "justification": "Reasonable debugging methodology; configs like automatic_dynamic_shapes=False and cpp_wrapper=False are real"
+    },
+    {
+      "id": "J7-8",
+      "original_score": 2,
+      "adjusted_score": 2,
+      "has_fabrication": false,
+      "justification": "Correct autotuner None handling issue; removing @triton.autotune valid workaround"
+    },
+    {
+      "id": "J7-9",
+      "original_score": 1,
+      "adjusted_score": 1,
+      "has_fabrication": false,
+      "justification": "Wrong: split_reductions is for reduction parallelism not file splitting; most suggestions don't address actual problem"
+    },
+    {
+      "id": "J7-10",
+      "original_score": 2,
+      "adjusted_score": 2,
+      "has_fabrication": false,
+      "justification": "compiled_autograd correctly identified as experimental; FSDP suggestion valid"
+    },
+    {
+      "id": "J7-11",
+      "original_score": 2,
+      "adjusted_score": 2,
+      "has_fabrication": false,
+      "justification": "Correctly identifies Dynamo/AOTAutograd lacking persistent caching; torch.export valid workaround"
+    },
+    {
+      "id": "J7-12",
+      "original_score": 2,
+      "adjusted_score": 2,
+      "has_fabrication": false,
+      "justification": "Good debugging advice with TORCH_LOGS and dist.barrier; generic but appropriate"
+    },
+    {
+      "id": "J7-13",
+      "original_score": 2,
+      "adjusted_score": 2,
+      "has_fabrication": false,
+      "justification": "Correctly identifies Dynamo loop unrolling as root cause; vectorization workaround valid"
+    },
+    {
+      "id": "J7-14",
+      "original_score": 1,
+      "adjusted_score": 1,
+      "has_fabrication": true,
+      "justification": "Fabricates cpp.vec_isa config; actual config is cpp.vec_isa_ok (bool)"
+    },
+    {
+      "id": "J7-15",
+      "original_score": 2,
+      "adjusted_score": 2,
+      "has_fabrication": false,
+      "justification": "automatic_dynamic_shapes=False is real; logging advice valid; generic but appropriate"
+    },
+    {
+      "id": "J7-16",
+      "original_score": 2,
+      "adjusted_score": 2,
+      "has_fabrication": false,
+      "justification": "Correctly states compile'd models can't be serialized; torch.export recommended path valid"
+    },
+    {
+      "id": "J7-17",
+      "original_score": 2,
+      "adjusted_score": 2,
+      "has_fabrication": false,
+      "justification": "Accurately describes Dynamo frontend caching gap; explanation of why it's hard is correct"
+    },
+    {
+      "id": "J7-18",
+      "original_score": 1,
+      "adjusted_score": 1,
+      "has_fabrication": true,
+      "justification": "use_functionalize toggle likely fabricated; TORCHDYNAMO_REPRO_AFTER mischaracterized; vague advice"
+    },
+    {
+      "id": "J7-19",
+      "original_score": 2,
+      "adjusted_score": 2,
+      "has_fabrication": false,
+      "justification": "use_orig_params=True correct and critical for FSDP+compile; MixedPrecision config valid"
+    },
+    {
+      "id": "J7-20",
+      "original_score": 2,
+      "adjusted_score": 1,
+      "has_fabrication": true,
+      "justification": "Correctly identifies GIL limitation during Triton compilation; fabricates compile_threads_async=True"
+    },
+    {
+      "id": "J8-1",
+      "original_score": 2,
+      "adjusted_score": 1,
+      "has_fabrication": true,
+      "justification": "Correct on custom_op and register_fake; fabricates @op.register_decomposition"
+    },
+    {
+      "id": "J8-2",
+      "original_score": 2,
+      "adjusted_score": 2,
+      "has_fabrication": false,
+      "justification": "Right area (FX graph caching + flex_attention backward); generic troubleshooting"
+    },
+    {
+      "id": "J8-3",
+      "original_score": 2,
+      "adjusted_score": 2,
+      "has_fabrication": false,
+      "justification": "Correct: while_loop requires functional semantics incompatible with BatchNorm state mutation"
+    },
+    {
+      "id": "J8-4",
+      "original_score": 2,
+      "adjusted_score": 1,
+      "has_fabrication": true,
+      "justification": "Good custom op migration checklist; fabricates @op.register_decomposition"
+    },
+    {
+      "id": "J8-5",
+      "original_score": 2,
+      "adjusted_score": 2,
+      "has_fabrication": false,
+      "justification": "Right area about flex_attention + dynamic shapes + BlockMask; advice to create mask outside compile reasonable"
+    },
+    {
+      "id": "J8-6",
+      "original_score": 3,
+      "adjusted_score": 3,
+      "has_fabrication": false,
+      "justification": "Correct: TF32 precision differences between FlexAttention and SDPA expected; valid precision recommendations"
+    },
+    {
+      "id": "J8-7",
+      "original_score": 2,
+      "adjusted_score": 2,
+      "has_fabrication": false,
+      "justification": "Right diagnosis about third-party ops lacking compile integration; dynamo.disable and allow_in_graph valid"
+    },
+    {
+      "id": "J8-8",
+      "original_score": 2,
+      "adjusted_score": 2,
+      "has_fabrication": false,
+      "justification": "Identifies torch.cond constraints correctly; specific Functionalize fix speculative"
+    },
+    {
+      "id": "J8-9",
+      "original_score": 2,
+      "adjusted_score": 2,
+      "has_fabrication": false,
+      "justification": "Right area about complex number support gaps; decomposition workaround valid but generic"
+    },
+    {
+      "id": "J8-10",
+      "original_score": 2,
+      "adjusted_score": 2,
+      "has_fabrication": false,
+      "justification": "Correctly identifies autotuning issue; max_autotune configs real; generic debugging"
+    },
+    {
+      "id": "J8-11",
+      "original_score": 2,
+      "adjusted_score": 1,
+      "has_fabrication": true,
+      "justification": "Good aliased tensor mutation root cause identification; fabricates torch._dynamo.config.output_code"
+    },
+    {
+      "id": "J8-12",
+      "original_score": 2,
+      "adjusted_score": 2,
+      "has_fabrication": false,
+      "justification": "Correctly identifies complex score_mod as FlexAttention codegen trigger; reasonable approach"
+    },
+    {
+      "id": "J8-13",
+      "original_score": 3,
+      "adjusted_score": 3,
+      "has_fabrication": false,
+      "justification": "Correctly identifies CUDA graphs thread-safety limitation; all workarounds valid and actionable"
+    },
+    {
+      "id": "J8-14",
+      "original_score": 0,
+      "adjusted_score": 0,
+      "has_fabrication": false,
+      "justification": "Confidently wrong: claims no torch.scan exists when torch._higher_order_ops.scan is fully implemented"
+    },
+    {
+      "id": "J8-15",
+      "original_score": 0,
+      "adjusted_score": 0,
+      "has_fabrication": false,
+      "justification": "Confidently wrong: claims no built-in parallel scan when torch._higher_order_ops.associative_scan exists"
+    },
+    {
+      "id": "J8-16",
+      "original_score": 2,
+      "adjusted_score": 2,
+      "has_fabrication": false,
+      "justification": "Correctly identifies symmetric memory as alpha; eager mode for those ops is reasonable advice"
+    },
+    {
+      "id": "J8-17",
+      "original_score": 2,
+      "adjusted_score": 2,
+      "has_fabrication": false,
+      "justification": "Plausible decorator vs API overhead hypothesis; investigation steps reasonable but speculative"
+    },
+    {
+      "id": "J8-18",
+      "original_score": 2,
+      "adjusted_score": 2,
+      "has_fabrication": false,
+      "justification": "Reasonable CPU inductor limitations for custom reductions; debugging steps valid"
+    },
+    {
+      "id": "J8-19",
+      "original_score": 2,
+      "adjusted_score": 2,
+      "has_fabrication": false,
+      "justification": "Correct Triton/LLVM version mismatch category; DISABLE_LLVM_OPT plausible but unverified"
+    },
+    {
+      "id": "J8-20",
+      "original_score": 2,
+      "adjusted_score": 2,
+      "has_fabrication": false,
+      "justification": "Correctly identifies complex mask patterns as backward codegen trigger; reasonable approach"
+    }
+  ]
+}
