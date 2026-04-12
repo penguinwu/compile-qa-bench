@@ -1,6 +1,6 @@
 # Evaluation Methodology: torch.compile Agent-Friendly Documentation
 
-**Status:** Validated via experiment (2026-04-11)
+**Status:** Baselined (2026-04-12) — Mode A + Mode B complete, IAA validated
 **Owner:** Rocky (design & validation)
 
 ---
@@ -55,13 +55,16 @@ The question is whether the *concept itself* belongs to the compile world:
 
 Example: User asks "symmetric memory breaks under torch.compile." symmetric_memory.html covers the eager API but never mentions compile → Coverage = None. But if a user asks "how to fix graph breaks," landing on a graph breaks page is a hit even without the word "torch.compile" — because graph breaks ARE a compile concept.
 
-**Validated baseline (15-case sample, April 2026):**
+**Full baseline (160 cases, 2026-04-12):**
 
 | Coverage | Count | % |
 |----------|-------|---|
-| Full | 6 | 40% |
-| Partial | 5 | 33% |
-| None | 4 | 27% |
+| Full | 25 | 15.6% |
+| Partial | 92 | 57.5% |
+| None | 43 | 26.9% |
+
+Worst-served: J3 (Correctness) — zero Full, J5 (Perf Optimization) — 8 None.
+Best-served: J6 (Dynamic Shapes) — 4 Full, only 3 None.
 
 ### Dimension 2: Discoverability (automated, cheap) — PRIMARY METRIC
 
@@ -80,14 +83,16 @@ For each test question, run a web search and classify by **topic relevance** (no
 
 **Search tool:** Three Pai external web search (Meta internal). Must be pinned for reproducibility — same API, same parameters, documented date.
 
-**Current baseline (80 resolved cases, April 2026):**
+**Full baseline (160 cases, 2026-04-12):**
 
 | Score | Count | % |
 |-------|-------|---|
-| Direct (3) | 10 | 12.5% |
-| Tangential (2) | 28 | 35.0% |
-| Community (1) | ~35 | ~44% |
-| Missing (0) | ~7 | ~9% |
+| Direct (3) | 26 | 16.2% |
+| Tangential (2) | 48 | 30.0% |
+| Community (1) | 60 | 37.5% |
+| Missing (0) | 26 | 16.2% |
+
+Mean: 1.46/3. Worst: J5 (1.1), J8 (1.2). Best: J6 (1.8).
 
 **Primary metric: % of queries with Score 3 (Direct).** Target: 50%+ after Phase 1.
 
@@ -100,11 +105,11 @@ The key insight from the validation experiment: these two dimensions create a 2�
 | **Docs Exist** | ✅ Working — no action | Fix SEO, cross-linking, page titles |
 | **Docs Don't Exist** | N/A | Write new documentation |
 
-**Validated distribution (15-case sample):**
-- No gap (both exist + findable): 27%
-- Discoverability gap (docs exist, search misses): 13%
-- Coverage gap (docs don't exist): 27%
-- Both (partial docs, poorly discoverable): 33%
+**Full baseline distribution (160 cases, 2026-04-12):**
+- Best case (Full + Disc=3): 18 cases (11.2%) — docs exist and are findable
+- Discoverability gap (Full/Partial + Disc≤1): 72 cases (45.0%) — docs exist but search misses
+- Coverage gap (None + Disc=0): 12 cases (7.5%) — complete dead zones
+- Worst funnel: Troubleshooting page appears 22x as best_url but only 1 is Full — the "catch-all that catches nothing"
 
 ### Dimension 3: Source Attribution (automated, cheap)
 
@@ -179,6 +184,50 @@ No ground truth exists. The test is whether the agent is HONEST about uncertaint
 
 **Key principle:** For unresolved issues, the BEST outcome is honesty (Score 3), not a fabricated answer. An agent that says "this appears to be an open bug, here's the issue link" is more useful than one that confidently suggests a wrong fix.
 
+### Scoring Protocol: Independent Dual-Scorer (validated 2026-04-12)
+
+**Self-scoring is invalid.** The generating agent self-scored 2.67 mean; an independent scorer scored 1.89 — a +0.79 inflation bias. The generating agent cannot detect its own fabrications.
+
+**Required protocol:**
+1. **Generator agent** — produces agent guidance (acts as torch.compile helper). Does NOT score.
+2. **Scorer 1** — independently scores guidance quality. Must not be the generator.
+3. **Scorer 2** — independently scores guidance quality. Must not be the generator.
+4. Neither scorer should be the **doc author** (conflict of interest — motivated to see high scores).
+
+**IAA metrics (baseline, n=160):**
+- Exact agreement: 31.2%
+- Within ±1: 91.2%
+- Off by 2+: 8.8% (14 cases — mostly fabricated configs self-scored as 3)
+
+**Validated finding — Coverage predicts Mode B quality (with independent scoring):**
+
+| Coverage | Self-Score | Independent Score |
+|----------|-----------|-------------------|
+| Full | 2.64 | 1.96 |
+| Partial | 2.70 | 1.95 |
+| None | 2.65 | **1.72** |
+
+Self-scoring shows no signal (flat ~2.65). Independent scoring reveals Coverage=None cases score 0.24 lower — and account for both score-0 cases and 10 of 28 score-1 cases.
+
+### Mode B Failure Modes (baseline, 2026-04-12)
+
+Top failure modes from independent scoring (n=30 cases scoring 0-1):
+
+1. **Fabricated configs/APIs (12 cases):** Agent invents plausible-sounding `torch._inductor.config.*` flags, env vars, or API methods that don't exist. Most dangerous failure — confidently wrong.
+2. **Wrong diagnosis (10 cases):** Agent misidentifies root cause (e.g., claims `autograd.grad` unsupported when it IS; denies existence of `torch.scan` which IS implemented).
+3. **Generic/vague for resolved issues (8 cases):** Standard debugging methodology without addressing the specific fix.
+
+**Full Mode B baseline (160 cases, independent scorer):**
+
+| Score | Count | % | Label |
+|-------|-------|---|-------|
+| 3 | 14 | 8.8% | Correct fix or valid workaround |
+| 2 | 116 | 72.5% | Right area, partial solution |
+| 1 | 28 | 17.5% | Wrong diagnosis or tangential |
+| 0 | 2 | 1.2% | Confidently wrong |
+
+Mean: 1.89/3. The 72.5% cluster at score 2 is the key signal: agents consistently get to the right area but miss the specific fix — this is directly addressable with better documentation.
+
 ## How to Run
 
 ### Baseline (Before)
@@ -218,28 +267,38 @@ No ground truth exists. The test is whether the agent is HONEST about uncertaint
 
 | File | Description |
 |------|-------------|
-| `data/balanced_test_suite.json` | **Primary**: 160 test cases (10 resolved + 10 unresolved × 8 journeys) |
-| `data/expanded_test_suite.json` | Previous 80-case suite (mostly resolved), used for retrieval baseline |
-| `analysis/coverage_vs_discoverability.md` | Validation experiment: separating coverage from discoverability (15 cases) |
-| `analysis/retrieval_analysis_report.md` | Full retrieval analysis with per-journey breakdown (80 cases) |
-| `analysis/journey_issues_analysis.md` | Initial 40-issue extraction with methodology |
-| `scripts/build_balanced_test_suite.py` | Builds 160-case balanced suite from issue pool |
-| `scripts/build_expanded_suite.py` | Builds 80-case expanded suite |
-| `scripts/extract_journey_issues.py` | Issue extraction and journey classification script |
+| `suite/cases.json` | **Primary**: 160 test cases (FIXED — immutable after finalization) |
+| `suite/sampling.md` | Documents how 160 cases were selected from 9,277 issues |
+| `protocol/annotation_guide.md` | Scoring rubric for Mode A (v1.1) with worked examples |
+| `protocol/methodology.md` | This file |
+| `runs/2026-04-12-baseline/mode_a_scores.json` | Mode A baseline: coverage + discoverability for 160 cases |
+| `runs/2026-04-12-baseline/mode_b_results.json` | Mode B baseline: full agent guidance + self-scores (160 cases) |
+| `runs/2026-04-12-baseline/mode_b_raven_scores.json` | Mode B independent scores from Raven (160 cases) |
+| `runs/2026-04-12-baseline/search_artifacts/` | Pinned search results (1 JSON per case, 160 files) |
+| `runs/2026-04-12-baseline/pytorch_org_doc_inventory.md` | Inventory of ~58 pytorch.org compile doc pages |
+| `runs/iaa/mode_b_pilot/` | Mode B pilot IAA (20 cases, Rocky vs Raven) |
+| `scripts/run_mode_a.py` | Mode A evaluation script |
+| `scripts/run_mode_b.py` | Mode B evaluation script |
+| `scripts/compute_iaa.py` | Inter-annotator agreement computation |
+
+## Resolved Design Questions
+
+1. **Coverage annotation at scale**: ✅ LLM-as-annotator against doc inventory, validated via IAA. Coverage scored by checking pytorch.org doc inventory (~58 pages), not relying on search results.
+
+2. **Full-context evaluation tooling**: ✅ LLM-as-judge with independent dual-scorer protocol. Self-scoring invalidated (+0.79 bias). Two independent scorers required, neither the generator nor the doc author.
+
+3. **Journey weighting**: Equal weight across all 8 journeys. Confirmed appropriate — each journey has distinct doc gaps.
+
+4. **Temporal stability**: ✅ Search results pinned as immutable artifacts. Both annotators score from same URL set. Re-run searches after doc improvements to measure delta.
 
 ## Open Design Questions
 
-1. **Coverage annotation at scale**: The 15-case experiment was done manually. For all 160 cases, should we use an LLM-as-annotator (checking pytorch.org pages) or keep it manual? Manual is gold-standard but expensive; LLM is scalable but may miss nuance.
+1. **Second independent scorer**: Currently Raven is the only independent scorer. Adding a second scorer (not Beaver — conflict of interest as doc author) would give three-way agreement data. Candidates: Otter, Prof, or a dedicated scorer agent.
 
-2. **Full-context evaluation tooling**: Mode B requires running an agent end-to-end on each case and judging the output. Options:
-   - Manual expert scoring (expensive, gold standard)
-   - LLM-as-judge with ground truth from resolved issues (scalable, needs calibration)
-   - Hybrid: LLM scores, human reviews disagreements
+2. **Mode B rubric refinement**: 72.5% of cases cluster at score 2. The 2-vs-3 boundary may need sharpening — "right area but misses specific fix" covers too wide a range of quality.
 
-3. **Journey weighting**: Equal weight across all 8 journeys. Issue volume is a biased sample — J1 (First Compile) is massively underreported because users who can't get started don't file issues, but it's the gateway journey. Issue counts reflect who persists, not who needs help.
-
-4. **Temporal stability**: Search results change. How often to re-baseline? Suggestion: snapshot quarterly, always record exact date.
+3. **Fabrication detection**: The #1 failure mode (fabricated configs) is detectable — verify claimed config flags against the PyTorch codebase. Could be automated as a post-hoc validation step.
 
 ---
 
-*Methodology validated via coverage vs. discoverability experiment on 2026-04-11. Core finding: the 2×2 matrix (coverage × discoverability) produces actionable signal that simple retrieval scoring cannot.*
+*Methodology baselined 2026-04-12. Key finding: self-scoring hides doc gap signal; independent scoring reveals Coverage=None → lower agent quality (1.72 vs 1.96), with fabricated configs as the primary failure mode.*
