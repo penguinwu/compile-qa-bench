@@ -46,7 +46,14 @@ Does pytorch.org have content that addresses the **compile-specific** aspect of 
 | **Partial** | pytorch.org has compile-related content in the same area but doesn't address the specific question |
 | **None** | No relevant compile-specific pytorch.org content exists |
 
-**Key calibration rule:** Eager-mode docs for a general feature (e.g., symmetric memory, DTensor, GRU) do NOT count as coverage for a compile question about that feature. torch.compile is an add-on layer — if the page doesn't mention compile behavior, it doesn't answer a compile question. Example: symmetric_memory.html exists but never mentions torch.compile compatibility → Coverage = None, not Partial.
+**Key calibration rule — compile concept vs. eager concept:**
+
+The question is whether the *concept itself* belongs to the compile world:
+
+- **Compile concepts** (graph breaks, dynamic shapes, AOTInductor, compile cache, recompilation, Dynamo tracing, inductor backends): A page about these topics is a coverage match — the concept inherently lives in the compile world.
+- **Eager concepts** (symmetric memory, DTensor, GRU, dataclasses, OpenMP, cross-entropy loss): A page about these topics is NOT a match unless it specifically discusses compile behavior. These are general PyTorch features; their eager-mode docs don't answer compile questions.
+
+Example: User asks "symmetric memory breaks under torch.compile." symmetric_memory.html covers the eager API but never mentions compile → Coverage = None. But if a user asks "how to fix graph breaks," landing on a graph breaks page is a hit even without the word "torch.compile" — because graph breaks ARE a compile concept.
 
 **Validated baseline (15-case sample, April 2026):**
 
