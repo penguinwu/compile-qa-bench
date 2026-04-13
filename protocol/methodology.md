@@ -318,6 +318,11 @@ Mean: 1.89/3. The 72.5% cluster at score 2 is the key signal: agents consistentl
 | `scripts/compute_iaa.py` | Inter-annotator agreement computation |
 | `scripts/verify_claims.py` | **Automated fabrication detector** — verifies claims against PyTorch source |
 | `runs/2026-04-12-baseline/fabrication_check_v2.json` | Fabrication detection results (22 fabrications, 21 cases, 0 FP) |
+| `runs/2026-04-12-baseline/fabrication_check_pip.json` | Track 1 fabrication re-checked against pip-installed torch (fair comparison) |
+| `runs/2026-04-12-baseline/track3_full_results.json` | Track 3 full results: 160 cases, source-grounded generator |
+| `runs/2026-04-12-baseline/track3_full_fabrication.json` | Track 3 fabrication detection (10 fabrications, 9 cases) |
+| `runs/2026-04-12-baseline/track3_pilot_results.json` | Track 3 pilot: 10 cases, initial source-grounded validation |
+| `runs/2026-04-12-baseline/track3_pilot_fabrication.json` | Track 3 pilot fabrication detection |
 
 ## Resolved Design Questions
 
@@ -328,6 +333,32 @@ Mean: 1.89/3. The 72.5% cluster at score 2 is the key signal: agents consistentl
 3. **Journey weighting**: Equal weight across all 8 journeys. Confirmed appropriate — each journey has distinct doc gaps.
 
 4. **Temporal stability**: ✅ Search results pinned as immutable artifacts. Both annotators score from same URL set. Re-run searches after doc improvements to measure delta.
+
+## Track 3: Source-Grounded Evaluation (2026-04-13)
+
+**Hypothesis:** Giving generators access to pip-installed PyTorch source code reduces fabrication by enabling verification before recommending.
+
+**Setup:**
+- Generator agents have read access to `/home/pengwu/envs/torch-nightly/lib/python3.12/site-packages/torch`
+- Agents instructed: "Before recommending any config flag, env var, or API, verify it exists in the source"
+- Same 160 cases, same model (claude-sonnet-4-20250514), same scoring rubric
+
+**Results — Track 1 (Unrestricted) vs Track 3 (Source-Grounded):**
+
+| Metric | Track 1 | Track 3 | Change |
+|--------|---------|---------|--------|
+| Total claims | 210 | 237 | +13% |
+| Verified | 188 (89.5%) | 227 (95.8%) | +6.3pp |
+| Fabricated | 22 (10.5%) | 10 (4.2%) | -6.3pp |
+| Cases with fabrication | 21/160 | 9/160 | -57% |
+
+**Key findings:**
+1. **55% fewer fabricated claims**, 57% fewer affected cases
+2. Source access increases total claims (+13%) — agents produce more specific, verifiable guidance
+3. Remaining fabrications are mostly **speculative env vars and configs** where agents hedged ("if such config exists") — a residual "guessing" tendency even with source access
+4. Track 3 fabrication types: env_var (4), inductor_config (4), triton_subconfig (1), config_assignment (1) — narrower spread than Track 1's 9 types
+
+**Implication:** Source access is high-leverage for reducing fabrication but doesn't eliminate it entirely. The remaining gap requires either: (a) stricter agent instructions to omit unverified claims, or (b) better documentation that makes verification unnecessary.
 
 ## Open Design Questions
 

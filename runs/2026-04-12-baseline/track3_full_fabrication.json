@@ -1,0 +1,3129 @@
+{
+  "metadata": {
+    "torch_dir": "/home/pengwu/envs/torch-nightly/lib/python3.12/site-packages/torch",
+    "total_claims": 237,
+    "verified": 227,
+    "fabricated": 10,
+    "cases_with_fabrication": 9,
+    "fabrication_by_type": {
+      "triton_subconfig": 1,
+      "env_var": 4,
+      "inductor_config": 4,
+      "config_assignment": 1
+    }
+  },
+  "results": [
+    {
+      "id": "J1-1",
+      "total_claims": 2,
+      "verified": 2,
+      "fabricated": 0,
+      "claims": [
+        {
+          "claim": "torch.compiler.save_cache_artifacts",
+          "value": "save_cache_artifacts",
+          "type": "compiler_api",
+          "context": "run with torch.compile, call `torch.compiler.save_cache_artifacts()` which returns a tuple of (",
+          "verified": true,
+          "grep_output": "/home/pengwu/envs/torch-nightly/lib/python3.12/site-packages/torch/_inductor/standalone_compile.py:108:    CompiledArtifact that depends on torch.compiler.save_cache_artifacts\n/home/pengwu/envs/torch-"
+        },
+        {
+          "claim": "torch.compiler.load_cache_artifacts",
+          "value": "load_cache_artifacts",
+          "type": "compiler_api",
+          "context": "ile, load the bytes and call `torch.compiler.load_cache_artifacts(serialized_artifacts)` to hot",
+          "verified": true,
+          "grep_output": "/home/pengwu/envs/torch-nightly/lib/python3.12/site-packages/torch/_inductor/standalone_compile.py:97:                torch.compiler.load_cache_artifacts(artifact_bytes)\n/home/pengwu/envs/torch-nightl"
+        }
+      ]
+    },
+    {
+      "id": "J1-9",
+      "total_claims": 5,
+      "verified": 5,
+      "fabricated": 0,
+      "claims": [
+        {
+          "claim": "torch._dynamo.config.automatic_dynamic_shapes",
+          "value": "automatic_dynamic_shapes",
+          "type": "dynamo_config",
+          "context": "rt.Dim if using export\n3. Set torch._dynamo.config.automatic_dynamic_shapes=True (default) to automatical",
+          "verified": true,
+          "grep_output": "70:#   \">10:automatic_dynamic_shapes=False\"  - Disable dynamic shapes for graphs > 10\n176:automatic_dynamic_shapes = (\n181:automatic_dynamic_shapes_mark_as: Literal[\"dynamic\", \"unbacked\"] = \"dynamic\"\n"
+        },
+        {
+          "claim": "config.automatic_dynamic_shapes=",
+          "value": "automatic_dynamic_shapes",
+          "type": "config_assignment",
+          "context": "g export\n3. Set torch._dynamo.config.automatic_dynamic_shapes=True (default) to automaticall",
+          "verified": true,
+          "grep_output": "/home/pengwu/envs/torch-nightly/lib/python3.12/site-packages/torch/_dynamo/config.py:70:#   \">10:automatic_dynamic_shapes=False\"  - Disable dynamic shapes for graphs > 10\n/home/pengwu/envs/torch-night"
+        },
+        {
+          "claim": "TORCHINDUCTOR_CACHE_DIR",
+          "value": "TORCHINDUCTOR_CACHE_DIR",
+          "type": "env_var",
+          "context": "ory with environment variable TORCHINDUCTOR_CACHE_DIR. For the specific issue menti",
+          "verified": true,
+          "grep_output": "/home/pengwu/envs/torch-nightly/lib/python3.12/site-packages/torch/_inductor/aoti_eager.py:265:        {\"TORCHINDUCTOR_CACHE_DIR\": persistent_cache_lib.absolute().as_posix()},\n/home/pengwu/envs/torch-"
+        },
+        {
+          "claim": "torch.compiler.save_cache_artifacts",
+          "value": "save_cache_artifacts",
+          "type": "compiler_api",
+          "context": "Same answer as J1-1 - use torch.compiler.save_cache_artifacts() and torch.compiler.load_cac",
+          "verified": true,
+          "grep_output": "/home/pengwu/envs/torch-nightly/lib/python3.12/site-packages/torch/_inductor/standalone_compile.py:108:    CompiledArtifact that depends on torch.compiler.save_cache_artifacts\n/home/pengwu/envs/torch-"
+        },
+        {
+          "claim": "torch.compiler.load_cache_artifacts",
+          "value": "load_cache_artifacts",
+          "type": "compiler_api",
+          "context": "er.save_cache_artifacts() and torch.compiler.load_cache_artifacts(). Additionally, PyTorch auto",
+          "verified": true,
+          "grep_output": "/home/pengwu/envs/torch-nightly/lib/python3.12/site-packages/torch/_inductor/standalone_compile.py:97:                torch.compiler.load_cache_artifacts(artifact_bytes)\n/home/pengwu/envs/torch-nightl"
+        }
+      ]
+    },
+    {
+      "id": "J1-17",
+      "total_claims": 0,
+      "verified": 0,
+      "fabricated": 0,
+      "claims": []
+    },
+    {
+      "id": "J2-5",
+      "total_claims": 0,
+      "verified": 0,
+      "fabricated": 0,
+      "claims": []
+    },
+    {
+      "id": "J2-13",
+      "total_claims": 1,
+      "verified": 1,
+      "fabricated": 0,
+      "claims": [
+        {
+          "claim": "torch._inductor.config.trace",
+          "value": "trace",
+          "type": "inductor_config",
+          "context": ".\n\n4. Profile with:\n```python\ntorch._inductor.config.trace.enabled = True\ntorch._inducto",
+          "verified": true,
+          "grep_output": "1340:# Populate traceback field on IRNode; good for debugging why origin_node is\n1342:debug_ir_traceback = False\n1405:# ensures that a cProfile trace to this frame will be a straight line without\n1917"
+        }
+      ]
+    },
+    {
+      "id": "J3-1",
+      "total_claims": 6,
+      "verified": 6,
+      "fabricated": 0,
+      "claims": [
+        {
+          "claim": "torch._inductor.config.fallback_random",
+          "value": "fallback_random",
+          "type": "inductor_config",
+          "context": "ific optimizations:\n```python\ntorch._inductor.config.fallback_random = True  # Disable random op f",
+          "verified": true,
+          "grep_output": "811:fallback_random = False\n2602:    graphsafe_rng_func_ignores_fallback_random = False\n"
+        },
+        {
+          "claim": "torch._inductor.config.debug",
+          "value": "debug",
+          "type": "inductor_config",
+          "context": "are generated code:\n```python\ntorch._inductor.config.debug = True  # Generates detailed ",
+          "verified": true,
+          "grep_output": "88:# add some debug printouts\n89:debug = False\n433:reorder_for_peak_memory_debug = False\n783:# kernel has inputs with mixed layouts.  This is helpful for perf debugging\n810:# fallback to eager for ran"
+        },
+        {
+          "claim": "torch._dynamo.config.verify_correctness",
+          "value": "verify_correctness",
+          "type": "dynamo_config",
+          "context": "tness verification:\n```python\ntorch._dynamo.config.verify_correctness = True\ncompiled_fn = torch.co",
+          "verified": true,
+          "grep_output": "40:verify_correctness = False\n"
+        },
+        {
+          "claim": "config.verify_correctness =",
+          "value": "verify_correctness",
+          "type": "config_assignment",
+          "context": "tion:\n```python\ntorch._dynamo.config.verify_correctness = True\ncompiled_fn = torch.comp",
+          "verified": true,
+          "grep_output": "/home/pengwu/envs/torch-nightly/lib/python3.12/site-packages/torch/_dynamo/config.py:40:verify_correctness = False\n/home/pengwu/envs/torch-nightly/lib/python3.12/site-packages/torch/_dynamo/decorators"
+        },
+        {
+          "claim": "config.fallback_random =",
+          "value": "fallback_random",
+          "type": "config_assignment",
+          "context": "ns:\n```python\ntorch._inductor.config.fallback_random = True  # Disable random op fus",
+          "verified": true,
+          "grep_output": "/home/pengwu/envs/torch-nightly/lib/python3.12/site-packages/torch/__init__.py:2681:        - `fallback_random` which is useful when debugging accuracy issues\n/home/pengwu/envs/torch-nightly/lib/pytho"
+        },
+        {
+          "claim": "config.debug =",
+          "value": "debug",
+          "type": "config_assignment",
+          "context": "de:\n```python\ntorch._inductor.config.debug = True  # Generates detailed de",
+          "verified": true,
+          "grep_output": "/home/pengwu/envs/torch-nightly/lib/python3.12/site-packages/torch/__init__.py:100:    \"get_deterministic_debug_mode\",\n/home/pengwu/envs/torch-nightly/lib/python3.12/site-packages/torch/__init__.py:12"
+        }
+      ]
+    },
+    {
+      "id": "J3-9",
+      "total_claims": 2,
+      "verified": 2,
+      "fabricated": 0,
+      "claims": [
+        {
+          "claim": "torch._dynamo.config.verify_correctness",
+          "value": "verify_correctness",
+          "type": "dynamo_config",
+          "context": "verify_correctness:\n```python\ntorch._dynamo.config.verify_correctness = True\n```\n\n2. For performanc",
+          "verified": true,
+          "grep_output": "40:verify_correctness = False\n"
+        },
+        {
+          "claim": "config.verify_correctness =",
+          "value": "verify_correctness",
+          "type": "config_assignment",
+          "context": "ness:\n```python\ntorch._dynamo.config.verify_correctness = True\n```\n\n2. For performance ",
+          "verified": true,
+          "grep_output": "/home/pengwu/envs/torch-nightly/lib/python3.12/site-packages/torch/_dynamo/config.py:40:verify_correctness = False\n/home/pengwu/envs/torch-nightly/lib/python3.12/site-packages/torch/_dynamo/decorators"
+        }
+      ]
+    },
+    {
+      "id": "J3-17",
+      "total_claims": 2,
+      "verified": 2,
+      "fabricated": 0,
+      "claims": [
+        {
+          "claim": "torch._dynamo.config.replay_side_effects",
+          "value": "replay_side_effects",
+          "type": "dynamo_config",
+          "context": " list).\n\n2. The config option torch._dynamo.config.replay_side_effects (default True) controls wheth",
+          "verified": true,
+          "grep_output": "100:replay_side_effects = True\n"
+        },
+        {
+          "claim": "torch.compiler.disable",
+          "value": "disable",
+          "type": "compiler_api",
+          "context": "hon\ndef forward(self, x):\n    torch.compiler.disable(lambda: Model.items.append(x)",
+          "verified": true,
+          "grep_output": "/home/pengwu/envs/torch-nightly/lib/python3.12/site-packages/torch/__init__.py:2240:from torch._compile import _disable_dynamo  # usort: skip\n/home/pengwu/envs/torch-nightly/lib/python3.12/site-packag"
+        }
+      ]
+    },
+    {
+      "id": "J4-5",
+      "total_claims": 2,
+      "verified": 2,
+      "fabricated": 0,
+      "claims": [
+        {
+          "claim": "torch.compiler.disable",
+          "value": "disable",
+          "type": "compiler_api",
+          "context": "The issue is that torch.compiler.disable needs to be applied to the fu",
+          "verified": true,
+          "grep_output": "/home/pengwu/envs/torch-nightly/lib/python3.12/site-packages/torch/__init__.py:2240:from torch._compile import _disable_dynamo  # usort: skip\n/home/pengwu/envs/torch-nightly/lib/python3.12/site-packag"
+        },
+        {
+          "claim": "torch.compiler.set_stance",
+          "value": "set_stance",
+          "type": "compiler_api",
+          "context": "\nNote: This is different from torch.compiler.set_stance('force_eager'), which can be ",
+          "verified": true,
+          "grep_output": "/home/pengwu/envs/torch-nightly/lib/python3.12/site-packages/torch/_dynamo/__init__.py:45:    set_stance,\n/home/pengwu/envs/torch-nightly/lib/python3.12/site-packages/torch/_dynamo/__init__.py:115:   "
+        }
+      ]
+    },
+    {
+      "id": "J4-13",
+      "total_claims": 6,
+      "verified": 6,
+      "fabricated": 0,
+      "claims": [
+        {
+          "claim": "torch.compiler.skip_guard_on_inbuilt_nn_modules_unsafe",
+          "value": "skip_guard_on_inbuilt_nn_modules_unsafe",
+          "type": "compiler_api",
+          "context": "er/__init__.py:556-679):\n   - torch.compiler.skip_guard_on_inbuilt_nn_modules_unsafe\n   - torch.compiler.skip_guar",
+          "verified": true,
+          "grep_output": "/home/pengwu/envs/torch-nightly/lib/python3.12/site-packages/torch/__init__.py:2695:          - `torch.compiler.skip_guard_on_inbuilt_nn_modules_unsafe`\n/home/pengwu/envs/torch-nightly/lib/python3.12/"
+        },
+        {
+          "claim": "torch.compiler.skip_guard_on_all_nn_modules_unsafe",
+          "value": "skip_guard_on_all_nn_modules_unsafe",
+          "type": "compiler_api",
+          "context": "nbuilt_nn_modules_unsafe\n   - torch.compiler.skip_guard_on_all_nn_modules_unsafe\n   - torch.compiler.skip_guar",
+          "verified": true,
+          "grep_output": "/home/pengwu/envs/torch-nightly/lib/python3.12/site-packages/torch/__init__.py:2696:          - `torch.compiler.skip_guard_on_all_nn_modules_unsafe`\n/home/pengwu/envs/torch-nightly/lib/python3.12/site"
+        },
+        {
+          "claim": "torch.compiler.skip_guard_on_globals_unsafe",
+          "value": "skip_guard_on_globals_unsafe",
+          "type": "compiler_api",
+          "context": "on_all_nn_modules_unsafe\n   - torch.compiler.skip_guard_on_globals_unsafe\n   - torch.compiler.skip_all_",
+          "verified": true,
+          "grep_output": "/home/pengwu/envs/torch-nightly/lib/python3.12/site-packages/torch/compiler/__init__.py:38:    \"skip_guard_on_globals_unsafe\",\n/home/pengwu/envs/torch-nightly/lib/python3.12/site-packages/torch/compil"
+        },
+        {
+          "claim": "torch.compiler.skip_all_guards_unsafe",
+          "value": "skip_all_guards_unsafe",
+          "type": "compiler_api",
+          "context": "_guard_on_globals_unsafe\n   - torch.compiler.skip_all_guards_unsafe\n   - torch.compiler.keep_tens",
+          "verified": true,
+          "grep_output": "/home/pengwu/envs/torch-nightly/lib/python3.12/site-packages/torch/compiler/__init__.py:39:    \"skip_all_guards_unsafe\",\n/home/pengwu/envs/torch-nightly/lib/python3.12/site-packages/torch/compiler/__i"
+        },
+        {
+          "claim": "torch.compiler.keep_tensor_guards_unsafe",
+          "value": "keep_tensor_guards_unsafe",
+          "type": "compiler_api",
+          "context": "r.skip_all_guards_unsafe\n   - torch.compiler.keep_tensor_guards_unsafe\n   - torch.compiler.keep_port",
+          "verified": true,
+          "grep_output": "/home/pengwu/envs/torch-nightly/lib/python3.12/site-packages/torch/__init__.py:2697:          - `torch.compiler.keep_tensor_guards_unsafe`\n/home/pengwu/envs/torch-nightly/lib/python3.12/site-packages/"
+        },
+        {
+          "claim": "torch.compiler.keep_portable_guards_unsafe",
+          "value": "keep_portable_guards_unsafe",
+          "type": "compiler_api",
+          "context": "eep_tensor_guards_unsafe\n   - torch.compiler.keep_portable_guards_unsafe\n\nBut I don't see a built-in f",
+          "verified": true,
+          "grep_output": "/home/pengwu/envs/torch-nightly/lib/python3.12/site-packages/torch/_dynamo/guards.py:4149:        torch.compiler.keep_portable_guards_unsafe(\n/home/pengwu/envs/torch-nightly/lib/python3.12/site-packag"
+        }
+      ]
+    },
+    {
+      "id": "J5-1",
+      "total_claims": 0,
+      "verified": 0,
+      "fabricated": 0,
+      "claims": []
+    },
+    {
+      "id": "J5-9",
+      "total_claims": 1,
+      "verified": 1,
+      "fabricated": 0,
+      "claims": [
+        {
+          "claim": "TORCHINDUCTOR_CACHE_DIR",
+          "value": "TORCHINDUCTOR_CACHE_DIR",
+          "type": "env_var",
+          "context": "3. Temp directory errors: Set TORCHINDUCTOR_CACHE_DIR to a short path\n\nThe verify_d",
+          "verified": true,
+          "grep_output": "/home/pengwu/envs/torch-nightly/lib/python3.12/site-packages/torch/_inductor/aoti_eager.py:265:        {\"TORCHINDUCTOR_CACHE_DIR\": persistent_cache_lib.absolute().as_posix()},\n/home/pengwu/envs/torch-"
+        }
+      ]
+    },
+    {
+      "id": "J5-17",
+      "total_claims": 7,
+      "verified": 6,
+      "fabricated": 1,
+      "claims": [
+        {
+          "claim": "torch._inductor.config.triton.convolution",
+          "value": "convolution",
+          "type": "triton_subconfig",
+          "context": " types are failing:\n```python\ntorch._inductor.config.triton.convolution = False  # Disable Triton con",
+          "verified": false,
+          "grep_output": ""
+        },
+        {
+          "claim": "torch._inductor.config.max_autotune",
+          "value": "max_autotune",
+          "type": "inductor_config",
+          "context": "ltered incorrectly:\n```python\ntorch._inductor.config.max_autotune = True\ntorch._inductor.config",
+          "verified": true,
+          "grep_output": "496:distributed_max_autotune_gemm = (\n501:pipeline_max_autotune_gemm = (\n506:max_autotune = os.environ.get(\"TORCHINDUCTOR_MAX_AUTOTUNE\") == \"1\"\n509:max_autotune_pointwise = os.environ.get(\"TORCHINDUCT"
+        },
+        {
+          "claim": "torch._inductor.config.autotune_local_cache",
+          "value": "autotune_local_cache",
+          "type": "inductor_config",
+          "context": "or.config.max_autotune = True\ntorch._inductor.config.autotune_local_cache = False  # Force re-tuning\n``",
+          "verified": true,
+          "grep_output": "138:autotune_local_cache: bool = True\n143:# autotune_local_cache. If both local and remote are enabled then on write both\n160:# True: Enables the cache (requires autotune_local_cache)\n2542:    \"autotu"
+        },
+        {
+          "claim": "torch._inductor.config.autotune_fallback_to_aten",
+          "value": "autotune_fallback_to_aten",
+          "type": "inductor_config",
+          "context": " isolate the issue:\n```python\ntorch._inductor.config.autotune_fallback_to_aten = True\n```\n\n6. Check if speci",
+          "verified": true,
+          "grep_output": "686:autotune_fallback_to_aten = False\n"
+        },
+        {
+          "claim": "config.max_autotune =",
+          "value": "max_autotune",
+          "type": "config_assignment",
+          "context": "ly:\n```python\ntorch._inductor.config.max_autotune = True\ntorch._inductor.config.a",
+          "verified": true,
+          "grep_output": "/home/pengwu/envs/torch-nightly/lib/python3.12/site-packages/torch/__init__.py:2677:        - `epilogue_fusion` which fuses pointwise ops into templates. Requires `max_autotune` to also be set\n/home/p"
+        },
+        {
+          "claim": "config.autotune_local_cache =",
+          "value": "autotune_local_cache",
+          "type": "config_assignment",
+          "context": "totune = True\ntorch._inductor.config.autotune_local_cache = False  # Force re-tuning\n```\n",
+          "verified": true,
+          "grep_output": "/home/pengwu/envs/torch-nightly/lib/python3.12/site-packages/torch/_inductor/codecache.py:314:        local_cache = self.get_local_cache() if config.autotune_local_cache else {}\n/home/pengwu/envs/torc"
+        },
+        {
+          "claim": "config.autotune_fallback_to_aten =",
+          "value": "autotune_fallback_to_aten",
+          "type": "config_assignment",
+          "context": "ue:\n```python\ntorch._inductor.config.autotune_fallback_to_aten = True\n```\n\n6. Check if specifi",
+          "verified": true,
+          "grep_output": "/home/pengwu/envs/torch-nightly/lib/python3.12/site-packages/torch/_inductor/config.py:686:autotune_fallback_to_aten = False\n"
+        }
+      ]
+    },
+    {
+      "id": "J6-5",
+      "total_claims": 6,
+      "verified": 6,
+      "fabricated": 0,
+      "claims": [
+        {
+          "claim": "torch._dynamo.config.automatic_dynamic_shapes",
+          "value": "automatic_dynamic_shapes",
+          "type": "dynamo_config",
+          "context": " (default is True):\n```python\ntorch._dynamo.config.automatic_dynamic_shapes = True  # Default\ntorch._dyna",
+          "verified": true,
+          "grep_output": "70:#   \">10:automatic_dynamic_shapes=False\"  - Disable dynamic shapes for graphs > 10\n176:automatic_dynamic_shapes = (\n181:automatic_dynamic_shapes_mark_as: Literal[\"dynamic\", \"unbacked\"] = \"dynamic\"\n"
+        },
+        {
+          "claim": "torch._dynamo.config.assume_static_by_default",
+          "value": "assume_static_by_default",
+          "type": "dynamo_config",
+          "context": "amic_shapes = True  # Default\ntorch._dynamo.config.assume_static_by_default = False\n```\nWith automatic_dy",
+          "verified": true,
+          "grep_output": "149:# inputs.  Note that assume_static_by_default will also cause ints to get\n167:# When assume_static_by_default is True, we only allocate symbols for shapes marked dynamic via mark_dynamic.\n170:assu"
+        },
+        {
+          "claim": "torch._dynamo.config.recompile_limit",
+          "value": "recompile_limit",
+          "type": "dynamo_config",
+          "context": "error suggests you're hitting torch._dynamo.config.recompile_limit (default 8). With dynamic=Tru",
+          "verified": true,
+          "grep_output": "116:recompile_limit = 8\n119:accumulated_recompile_limit = 256\n121:skip_code_recursive_on_recompile_limit_hit: bool = Config(\n127:# you regress guards/specialization.  This works best when recompile_li"
+        },
+        {
+          "claim": "config.automatic_dynamic_shapes =",
+          "value": "automatic_dynamic_shapes",
+          "type": "config_assignment",
+          "context": "rue):\n```python\ntorch._dynamo.config.automatic_dynamic_shapes = True  # Default\ntorch._dynamo",
+          "verified": true,
+          "grep_output": "/home/pengwu/envs/torch-nightly/lib/python3.12/site-packages/torch/_dynamo/config.py:70:#   \">10:automatic_dynamic_shapes=False\"  - Disable dynamic shapes for graphs > 10\n/home/pengwu/envs/torch-night"
+        },
+        {
+          "claim": "config.assume_static_by_default =",
+          "value": "assume_static_by_default",
+          "type": "config_assignment",
+          "context": "True  # Default\ntorch._dynamo.config.assume_static_by_default = False\n```\nWith automatic_dyna",
+          "verified": true,
+          "grep_output": "/home/pengwu/envs/torch-nightly/lib/python3.12/site-packages/torch/_dynamo/config.py:149:# inputs.  Note that assume_static_by_default will also cause ints to get\n/home/pengwu/envs/torch-nightly/lib/p"
+        },
+        {
+          "claim": "from torch.export import Dim",
+          "value": "Dim",
+          "type": "import_claim",
+          "module_path": "torch.export",
+          "context": "ensions as dynamic:\n```python\nfrom torch.export import Dim\n# This is for torch.export, n",
+          "verified": true,
+          "grep_output": "/home/pengwu/envs/torch-nightly/lib/python3.12/site-packages/torch/export/__init__.py:20:    \"Dim\",\n/home/pengwu/envs/torch-nightly/lib/python3.12/site-packages/torch/export/__init__.py:43:from .dynam"
+        }
+      ]
+    },
+    {
+      "id": "J6-13",
+      "total_claims": 0,
+      "verified": 0,
+      "fabricated": 0,
+      "claims": []
+    },
+    {
+      "id": "J7-1",
+      "total_claims": 10,
+      "verified": 10,
+      "fabricated": 0,
+      "claims": [
+        {
+          "claim": "torch._inductor.config.freezing",
+          "value": "freezing",
+          "type": "inductor_config",
+          "context": "cope for inference:\n```python\ntorch._inductor.config.freezing = True\n```\nThis inlines weigh",
+          "verified": true,
+          "grep_output": "1371:# and run constant folding and other optimizations on them. After freezing, weights\n1373:freezing: bool = os.environ.get(\"TORCHINDUCTOR_FREEZING\", \"0\") == \"1\"\n1375:# Make freezing invalidate the "
+        },
+        {
+          "claim": "torch._inductor.config.verbose_progress",
+          "value": "verbose_progress",
+          "type": "inductor_config",
+          "context": "mpilation progress:\n```python\ntorch._inductor.config.verbose_progress = True\ntorch._inductor.config",
+          "verified": true,
+          "grep_output": "95:verbose_progress = False\n"
+        },
+        {
+          "claim": "torch._inductor.config.disable_progress",
+          "value": "disable_progress",
+          "type": "inductor_config",
+          "context": "onfig.verbose_progress = True\ntorch._inductor.config.disable_progress = False\n```\n\n7. Set compilati",
+          "verified": true,
+          "grep_output": "92:disable_progress = True\n"
+        },
+        {
+          "claim": "torch._inductor.config.precompilation_timeout_seconds",
+          "value": "precompilation_timeout_seconds",
+          "type": "inductor_config",
+          "context": " timeout if needed:\n```python\ntorch._inductor.config.precompilation_timeout_seconds = 600  # 10 min\n```\n\n8. For H",
+          "verified": true,
+          "grep_output": "103:precompilation_timeout_seconds: int = int(\n"
+        },
+        {
+          "claim": "config.freezing =",
+          "value": "freezing",
+          "type": "config_assignment",
+          "context": "ce:\n```python\ntorch._inductor.config.freezing = True\n```\nThis inlines weights",
+          "verified": true,
+          "grep_output": "/home/pengwu/envs/torch-nightly/lib/python3.12/site-packages/torch/_dynamo/config.py:227:# Set this to False to assume nn.Modules() contents are immutable (similar assumption as freezing)\n/home/pengwu"
+        },
+        {
+          "claim": "config.verbose_progress =",
+          "value": "verbose_progress",
+          "type": "config_assignment",
+          "context": "ss:\n```python\ntorch._inductor.config.verbose_progress = True\ntorch._inductor.config.d",
+          "verified": true,
+          "grep_output": "/home/pengwu/envs/torch-nightly/lib/python3.12/site-packages/torch/_inductor/async_compile.py:731:            if config.verbose_progress and not isinstance(pbar, _Faketqdm):\n/home/pengwu/envs/torch-ni"
+        },
+        {
+          "claim": "config.disable_progress =",
+          "value": "disable_progress",
+          "type": "config_assignment",
+          "context": "ogress = True\ntorch._inductor.config.disable_progress = False\n```\n\n7. Set compilation",
+          "verified": true,
+          "grep_output": "/home/pengwu/envs/torch-nightly/lib/python3.12/site-packages/torch/_dynamo/logging.py:21:disable_progress = True\n/home/pengwu/envs/torch-nightly/lib/python3.12/site-packages/torch/_dynamo/logging.py:5"
+        },
+        {
+          "claim": "config.precompilation_timeout_seconds =",
+          "value": "precompilation_timeout_seconds",
+          "type": "config_assignment",
+          "context": "ed:\n```python\ntorch._inductor.config.precompilation_timeout_seconds = 600  # 10 min\n```\n\n8. For Hug",
+          "verified": true,
+          "grep_output": "/home/pengwu/envs/torch-nightly/lib/python3.12/site-packages/torch/_inductor/config.py:103:precompilation_timeout_seconds: int = int(\n/home/pengwu/envs/torch-nightly/lib/python3.12/site-packages/torch"
+        },
+        {
+          "claim": "torch.compiler.save_cache_artifacts",
+          "value": "save_cache_artifacts",
+          "type": "compiler_api",
+          "context": " (see J1-1 answer):\n```python\ntorch.compiler.save_cache_artifacts()  # After first compilation\n",
+          "verified": true,
+          "grep_output": "/home/pengwu/envs/torch-nightly/lib/python3.12/site-packages/torch/_inductor/standalone_compile.py:108:    CompiledArtifact that depends on torch.compiler.save_cache_artifacts\n/home/pengwu/envs/torch-"
+        },
+        {
+          "claim": "torch.compiler.load_cache_artifacts",
+          "value": "load_cache_artifacts",
+          "type": "compiler_api",
+          "context": "()  # After first compilation\ntorch.compiler.load_cache_artifacts(artifacts)  # On subsequent r",
+          "verified": true,
+          "grep_output": "/home/pengwu/envs/torch-nightly/lib/python3.12/site-packages/torch/_inductor/standalone_compile.py:97:                torch.compiler.load_cache_artifacts(artifact_bytes)\n/home/pengwu/envs/torch-nightl"
+        }
+      ]
+    },
+    {
+      "id": "J7-9",
+      "total_claims": 6,
+      "verified": 6,
+      "fabricated": 0,
+      "claims": [
+        {
+          "claim": "torch._inductor.config.freezing",
+          "value": "freezing",
+          "type": "inductor_config",
+          "context": "ng (for inference):\n```python\ntorch._inductor.config.freezing = True  # Inline weights, red",
+          "verified": true,
+          "grep_output": "1371:# and run constant folding and other optimizations on them. After freezing, weights\n1373:freezing: bool = os.environ.get(\"TORCHINDUCTOR_FREEZING\", \"0\") == \"1\"\n1375:# Make freezing invalidate the "
+        },
+        {
+          "claim": "torch._inductor.config.cpp_wrapper",
+          "value": "cpp_wrapper",
+          "type": "inductor_config",
+          "context": "isable C++ wrapper:\n```python\ntorch._inductor.config.cpp_wrapper = False\n```\n\nd) For CPU model",
+          "verified": true,
+          "grep_output": "195:cpp_wrapper: bool = os.environ.get(\"TORCHINDUCTOR_CPP_WRAPPER\", \"0\") == \"1\"\n197:# controls whether to compile entry and kernel separately for cpp_wrapper mode.\n202:cpp_wrapper_build_separate: bool"
+        },
+        {
+          "claim": "torch._inductor.config.precompilation_timeout_seconds",
+          "value": "precompilation_timeout_seconds",
+          "type": "inductor_config",
+          "context": " timeout if needed:\n```python\ntorch._inductor.config.precompilation_timeout_seconds = 7200  # 2 hours\n```\n\n6. Con",
+          "verified": true,
+          "grep_output": "103:precompilation_timeout_seconds: int = int(\n"
+        },
+        {
+          "claim": "config.freezing =",
+          "value": "freezing",
+          "type": "config_assignment",
+          "context": "e):\n```python\ntorch._inductor.config.freezing = True  # Inline weights, reduc",
+          "verified": true,
+          "grep_output": "/home/pengwu/envs/torch-nightly/lib/python3.12/site-packages/torch/_dynamo/config.py:227:# Set this to False to assume nn.Modules() contents are immutable (similar assumption as freezing)\n/home/pengwu"
+        },
+        {
+          "claim": "config.cpp_wrapper =",
+          "value": "cpp_wrapper",
+          "type": "config_assignment",
+          "context": "er:\n```python\ntorch._inductor.config.cpp_wrapper = False\n```\n\nd) For CPU models,",
+          "verified": true,
+          "grep_output": "/home/pengwu/envs/torch-nightly/lib/python3.12/site-packages/torch/__init__.py:2509:        self.apply_options({\"cpp_wrapper\": True})\n/home/pengwu/envs/torch-nightly/lib/python3.12/site-packages/torch"
+        },
+        {
+          "claim": "config.precompilation_timeout_seconds =",
+          "value": "precompilation_timeout_seconds",
+          "type": "config_assignment",
+          "context": "ed:\n```python\ntorch._inductor.config.precompilation_timeout_seconds = 7200  # 2 hours\n```\n\n6. Consi",
+          "verified": true,
+          "grep_output": "/home/pengwu/envs/torch-nightly/lib/python3.12/site-packages/torch/_inductor/config.py:103:precompilation_timeout_seconds: int = int(\n/home/pengwu/envs/torch-nightly/lib/python3.12/site-packages/torch"
+        }
+      ]
+    },
+    {
+      "id": "J7-17",
+      "total_claims": 8,
+      "verified": 8,
+      "fabricated": 0,
+      "claims": [
+        {
+          "claim": "torch._inductor.config.fx_graph_cache",
+          "value": "fx_graph_cache",
+          "type": "inductor_config",
+          "context": "ctor backend cache:\n```python\ntorch._inductor.config.fx_graph_cache = True  # Default, caches com",
+          "verified": true,
+          "grep_output": "44:def bundle_triton_into_fx_graph_cache_default() -> bool | None:\n108:fx_graph_cache: bool = Config(\n109:    justknob=\"pytorch/remote_cache:enable_local_fx_graph_cache\",\n124:bundle_triton_into_fx_gra"
+        },
+        {
+          "claim": "torch._inductor.config.fx_graph_remote_cache",
+          "value": "fx_graph_remote_cache",
+          "type": "inductor_config",
+          "context": "cache = True  # Backend cache\ntorch._inductor.config.fx_graph_remote_cache = None  # Optional remote cac",
+          "verified": true,
+          "grep_output": "24:def fx_graph_remote_cache_default() -> bool | None:\n121:fx_graph_remote_cache: bool | None = fx_graph_remote_cache_default()\n2541:    \"fx_graph_remote_cache\",\n"
+        },
+        {
+          "claim": "torch._dynamo.config.caching_precompile",
+          "value": "caching_precompile",
+          "type": "dynamo_config",
+          "context": "namo state caching:\n```python\ntorch._dynamo.config.caching_precompile = True  # Experimental\n```\nTh",
+          "verified": true,
+          "grep_output": "742:caching_precompile = os.environ.get(\"TORCH_CACHING_PRECOMPILE\", \"0\") == \"1\"\n"
+        },
+        {
+          "claim": "config.fx_graph_cache =",
+          "value": "fx_graph_cache",
+          "type": "config_assignment",
+          "context": "he:\n```python\ntorch._inductor.config.fx_graph_cache = True  # Default, caches compi",
+          "verified": true,
+          "grep_output": "/home/pengwu/envs/torch-nightly/lib/python3.12/site-packages/torch/_dynamo/utils.py:1514:    remote_fx_graph_cache_get_time_ms: int | None = None\n/home/pengwu/envs/torch-nightly/lib/python3.12/site-pa"
+        },
+        {
+          "claim": "config.caching_precompile =",
+          "value": "caching_precompile",
+          "type": "config_assignment",
+          "context": "hing:\n```python\ntorch._dynamo.config.caching_precompile = True  # Experimental\n```\nThis",
+          "verified": true,
+          "grep_output": "/home/pengwu/envs/torch-nightly/lib/python3.12/site-packages/torch/_dynamo/config.py:742:caching_precompile = os.environ.get(\"TORCH_CACHING_PRECOMPILE\", \"0\") == \"1\"\n/home/pengwu/envs/torch-nightly/lib"
+        },
+        {
+          "claim": "config.fx_graph_remote_cache =",
+          "value": "fx_graph_remote_cache",
+          "type": "config_assignment",
+          "context": "Backend cache\ntorch._inductor.config.fx_graph_remote_cache = None  # Optional remote cache",
+          "verified": true,
+          "grep_output": "/home/pengwu/envs/torch-nightly/lib/python3.12/site-packages/torch/_inductor/compile_fx.py:904:    fx_graph_remote_cache = should_use_remote_fx_graph_cache()\n/home/pengwu/envs/torch-nightly/lib/python"
+        },
+        {
+          "claim": "torch.compiler.save_cache_artifacts",
+          "value": "save_cache_artifacts",
+          "type": "compiler_api",
+          "context": "led_model(inputs)\nartifacts = torch.compiler.save_cache_artifacts()\n\n# Subsequent runs:\ntorch.c",
+          "verified": true,
+          "grep_output": "/home/pengwu/envs/torch-nightly/lib/python3.12/site-packages/torch/_inductor/standalone_compile.py:108:    CompiledArtifact that depends on torch.compiler.save_cache_artifacts\n/home/pengwu/envs/torch-"
+        },
+        {
+          "claim": "torch.compiler.load_cache_artifacts",
+          "value": "load_cache_artifacts",
+          "type": "compiler_api",
+          "context": "tifacts()\n\n# Subsequent runs:\ntorch.compiler.load_cache_artifacts(artifacts)\ncompiled_model = t",
+          "verified": true,
+          "grep_output": "/home/pengwu/envs/torch-nightly/lib/python3.12/site-packages/torch/_inductor/standalone_compile.py:97:                torch.compiler.load_cache_artifacts(artifact_bytes)\n/home/pengwu/envs/torch-nightl"
+        }
+      ]
+    },
+    {
+      "id": "J8-5",
+      "total_claims": 3,
+      "verified": 3,
+      "fabricated": 0,
+      "claims": [
+        {
+          "claim": "from torch.nn.attention.flex_attention import flex_attention, create_block_mask",
+          "value": "flex_attention",
+          "type": "import_claim",
+          "module_path": "torch.nn.attention.flex_attention",
+          "context": ". Solution pattern:\n```python\nfrom torch.nn.attention.flex_attention import flex_attention, create_block_mask\n\ndef batch_dependent_mask(b, ",
+          "verified": true,
+          "grep_output": "3:\"\"\"This module implements the user facing API for flex_attention in PyTorch.\"\"\"\n22:from torch._higher_order_ops.flex_attention import flex_attention as flex_attention_hop\n38:# This flag only affects"
+        },
+        {
+          "claim": "from torch.nn.attention.flex_attention import flex_attention, create_block_mask",
+          "value": "create_block_mask",
+          "type": "import_claim",
+          "module_path": "torch.nn.attention.flex_attention",
+          "context": ". Solution pattern:\n```python\nfrom torch.nn.attention.flex_attention import flex_attention, create_block_mask\n\ndef batch_dependent_mask(b, ",
+          "verified": true,
+          "grep_output": "69:    \"create_block_mask\",\n372:        \"\\n  base_mask = create_block_mask(my_mask_fn, ...)\"\n376:        \"\\n  base_mask = create_block_mask(my_mask_fn, ...)\"\n900:                block_mask = create_bl"
+        },
+        {
+          "claim": "torch.nn.attention.flex_attention",
+          "value": "flex_attention",
+          "type": "attention_api",
+          "context": "\n\n1. flex_attention exists in torch.nn.attention.flex_attention module (verified in source se",
+          "verified": true,
+          "grep_output": "/home/pengwu/envs/torch-nightly/lib/python3.12/site-packages/torch/nn/attention/flex_attention.py:3:\"\"\"This module implements the user facing API for flex_attention in PyTorch.\"\"\"\n/home/pengwu/envs/to"
+        }
+      ]
+    },
+    {
+      "id": "J8-13",
+      "total_claims": 0,
+      "verified": 0,
+      "fabricated": 0,
+      "claims": []
+    },
+    {
+      "id": "J1-2",
+      "total_claims": 0,
+      "verified": 0,
+      "fabricated": 0,
+      "claims": []
+    },
+    {
+      "id": "J1-10",
+      "total_claims": 1,
+      "verified": 1,
+      "fabricated": 0,
+      "claims": [
+        {
+          "claim": "torch.utils.checkpoint.checkpoint",
+          "value": "checkpoint",
+          "type": "checkpoint_api",
+          "context": " with gradient checkpointing (torch.utils.checkpoint.checkpoint). The interaction works but m",
+          "verified": true,
+          "grep_output": "24:    \"checkpoint\",\n51:    Context manager that sets whether checkpoint should print additional debug\n53:    :func:`~torch.utils.checkpoint.checkpoint` for more information. Note that\n55:    checkpoi"
+        }
+      ]
+    },
+    {
+      "id": "J1-18",
+      "total_claims": 0,
+      "verified": 0,
+      "fabricated": 0,
+      "claims": []
+    },
+    {
+      "id": "J2-6",
+      "total_claims": 0,
+      "verified": 0,
+      "fabricated": 0,
+      "claims": []
+    },
+    {
+      "id": "J2-14",
+      "total_claims": 0,
+      "verified": 0,
+      "fabricated": 0,
+      "claims": []
+    },
+    {
+      "id": "J3-2",
+      "total_claims": 0,
+      "verified": 0,
+      "fabricated": 0,
+      "claims": []
+    },
+    {
+      "id": "J3-10",
+      "total_claims": 0,
+      "verified": 0,
+      "fabricated": 0,
+      "claims": []
+    },
+    {
+      "id": "J3-18",
+      "total_claims": 0,
+      "verified": 0,
+      "fabricated": 0,
+      "claims": []
+    },
+    {
+      "id": "J4-6",
+      "total_claims": 1,
+      "verified": 1,
+      "fabricated": 0,
+      "claims": [
+        {
+          "claim": "torch.compiler.allow_in_graph",
+          "value": "allow_in_graph",
+          "type": "compiler_api",
+          "context": " location, (2) Consider using torch.compiler.allow_in_graph decorator on the dataclass if",
+          "verified": true,
+          "grep_output": "/home/pengwu/envs/torch-nightly/lib/python3.12/site-packages/torch/_dynamo/__init__.py:27:    allow_in_graph,\n/home/pengwu/envs/torch-nightly/lib/python3.12/site-packages/torch/_dynamo/__init__.py:31:"
+        }
+      ]
+    },
+    {
+      "id": "J4-14",
+      "total_claims": 1,
+      "verified": 1,
+      "fabricated": 0,
+      "claims": [
+        {
+          "claim": "torch.compiler.allow_in_graph",
+          "value": "allow_in_graph",
+          "type": "compiler_api",
+          "context": "The torch.compiler.allow_in_graph decorator affects how Dynamo ",
+          "verified": true,
+          "grep_output": "/home/pengwu/envs/torch-nightly/lib/python3.12/site-packages/torch/_dynamo/__init__.py:27:    allow_in_graph,\n/home/pengwu/envs/torch-nightly/lib/python3.12/site-packages/torch/_dynamo/__init__.py:31:"
+        }
+      ]
+    },
+    {
+      "id": "J5-2",
+      "total_claims": 0,
+      "verified": 0,
+      "fabricated": 0,
+      "claims": []
+    },
+    {
+      "id": "J5-10",
+      "total_claims": 0,
+      "verified": 0,
+      "fabricated": 0,
+      "claims": []
+    },
+    {
+      "id": "J5-18",
+      "total_claims": 0,
+      "verified": 0,
+      "fabricated": 0,
+      "claims": []
+    },
+    {
+      "id": "J6-6",
+      "total_claims": 3,
+      "verified": 3,
+      "fabricated": 0,
+      "claims": [
+        {
+          "claim": "torch._dynamo.config.cache_size_limit",
+          "value": "cache_size_limit",
+          "type": "dynamo_config",
+          "context": "Increase cache_size_limit via torch._dynamo.config.cache_size_limit = 128 (default is 64), (2) Us",
+          "verified": true,
+          "grep_output": "132:cache_size_limit: int = Config(alias=\"torch._dynamo.config.recompile_limit\")\n133:accumulated_cache_size_limit: int = Config(\n"
+        },
+        {
+          "claim": "torch._dynamo.config.accumulated_cache_size_limit",
+          "value": "accumulated_cache_size_limit",
+          "type": "dynamo_config",
+          "context": "more dynamic kernels, (3) Set torch._dynamo.config.accumulated_cache_size_limit if you need even larger limit",
+          "verified": true,
+          "grep_output": "133:accumulated_cache_size_limit: int = Config(\n"
+        },
+        {
+          "claim": "config.cache_size_limit =",
+          "value": "cache_size_limit",
+          "type": "config_assignment",
+          "context": "_size_limit via torch._dynamo.config.cache_size_limit = 128 (default is 64), (2) Use ",
+          "verified": true,
+          "grep_output": "/home/pengwu/envs/torch-nightly/lib/python3.12/site-packages/torch/_dynamo/config.py:132:cache_size_limit: int = Config(alias=\"torch._dynamo.config.recompile_limit\")\n/home/pengwu/envs/torch-nightly/li"
+        }
+      ]
+    },
+    {
+      "id": "J6-14",
+      "total_claims": 1,
+      "verified": 1,
+      "fabricated": 0,
+      "claims": [
+        {
+          "claim": "torch._dynamo.config.cache_size_limit",
+          "value": "cache_size_limit",
+          "type": "dynamo_config",
+          "context": "cific specialization, (3) Use torch._dynamo.config.cache_size_limit to see if you're hitting the ",
+          "verified": true,
+          "grep_output": "132:cache_size_limit: int = Config(alias=\"torch._dynamo.config.recompile_limit\")\n133:accumulated_cache_size_limit: int = Config(\n"
+        }
+      ]
+    },
+    {
+      "id": "J7-2",
+      "total_claims": 0,
+      "verified": 0,
+      "fabricated": 0,
+      "claims": []
+    },
+    {
+      "id": "J7-10",
+      "total_claims": 0,
+      "verified": 0,
+      "fabricated": 0,
+      "claims": []
+    },
+    {
+      "id": "J7-18",
+      "total_claims": 0,
+      "verified": 0,
+      "fabricated": 0,
+      "claims": []
+    },
+    {
+      "id": "J8-6",
+      "total_claims": 1,
+      "verified": 1,
+      "fabricated": 0,
+      "claims": [
+        {
+          "claim": "torch.nn.attention.flex_attention",
+          "value": "flex_attention",
+          "type": "attention_api",
+          "context": "TF32, (3) FlexAttention is in torch.nn.attention.flex_attention, (4) Compare compiled vs unco",
+          "verified": true,
+          "grep_output": "/home/pengwu/envs/torch-nightly/lib/python3.12/site-packages/torch/nn/attention/flex_attention.py:3:\"\"\"This module implements the user facing API for flex_attention in PyTorch.\"\"\"\n/home/pengwu/envs/to"
+        }
+      ]
+    },
+    {
+      "id": "J8-14",
+      "total_claims": 0,
+      "verified": 0,
+      "fabricated": 0,
+      "claims": []
+    },
+    {
+      "id": "J1-3",
+      "total_claims": 0,
+      "verified": 0,
+      "fabricated": 0,
+      "claims": []
+    },
+    {
+      "id": "J1-11",
+      "total_claims": 1,
+      "verified": 1,
+      "fabricated": 0,
+      "claims": [
+        {
+          "claim": "TORCHINDUCTOR_FX_GRAPH_CACHE",
+          "value": "TORCHINDUCTOR_FX_GRAPH_CACHE",
+          "type": "env_var",
+          "context": "he full workload. 3) Check if TORCHINDUCTOR_FX_GRAPH_CACHE is actually hitting - look fo",
+          "verified": true,
+          "grep_output": "/home/pengwu/envs/torch-nightly/lib/python3.12/site-packages/torch/_inductor/config.py:110:    env_name_default=\"TORCHINDUCTOR_FX_GRAPH_CACHE_DEFAULT\",\n/home/pengwu/envs/torch-nightly/lib/python3.12/s"
+        }
+      ]
+    },
+    {
+      "id": "J1-19",
+      "total_claims": 0,
+      "verified": 0,
+      "fabricated": 0,
+      "claims": []
+    },
+    {
+      "id": "J2-7",
+      "total_claims": 0,
+      "verified": 0,
+      "fabricated": 0,
+      "claims": []
+    },
+    {
+      "id": "J2-15",
+      "total_claims": 1,
+      "verified": 1,
+      "fabricated": 0,
+      "claims": [
+        {
+          "claim": "torch.nn.attention.sdpa_kernel",
+          "value": "sdpa_kernel",
+          "type": "attention_api",
+          "context": "y set the backend using `with torch.nn.attention.sdpa_kernel(SDPBackend.EFFICIENT_ATTENTIO",
+          "verified": true,
+          "grep_output": "/home/pengwu/envs/torch-nightly/lib/python3.12/site-packages/torch/nn/attention/__init__.py:20:    \"sdpa_kernel\",\n/home/pengwu/envs/torch-nightly/lib/python3.12/site-packages/torch/nn/attention/__init"
+        }
+      ]
+    },
+    {
+      "id": "J3-3",
+      "total_claims": 0,
+      "verified": 0,
+      "fabricated": 0,
+      "claims": []
+    },
+    {
+      "id": "J3-11",
+      "total_claims": 0,
+      "verified": 0,
+      "fabricated": 0,
+      "claims": []
+    },
+    {
+      "id": "J3-19",
+      "total_claims": 0,
+      "verified": 0,
+      "fabricated": 0,
+      "claims": []
+    },
+    {
+      "id": "J4-7",
+      "total_claims": 0,
+      "verified": 0,
+      "fabricated": 0,
+      "claims": []
+    },
+    {
+      "id": "J4-15",
+      "total_claims": 2,
+      "verified": 2,
+      "fabricated": 0,
+      "claims": [
+        {
+          "claim": "torch._dynamo.config.compiled_autograd",
+          "value": "compiled_autograd",
+          "type": "dynamo_config",
+          "context": "sing Dynamo. Enable it with: `torch._dynamo.config.compiled_autograd = True` or use the context ma",
+          "verified": true,
+          "grep_output": "401:# of compiled_autograd. With \"python_reducer\", DDP will disable the C++ reducer\n402:# and use the Python reducer to allow compiled_autograd to trace the\n407:# overlap. This mode CANNOT be used wit"
+        },
+        {
+          "claim": "config.compiled_autograd =",
+          "value": "compiled_autograd",
+          "type": "config_assignment",
+          "context": "nable it with: `torch._dynamo.config.compiled_autograd = True` or use the context mana",
+          "verified": true,
+          "grep_output": "/home/pengwu/envs/torch-nightly/lib/python3.12/site-packages/torch/_guards.py:54:    r\"^!(?P<compiled_autograd_id>\\d+)(?:/(?P<frame_id>\\d+)/(?P<frame_compile_id>\\d+))?$\"\n/home/pengwu/envs/torch-nightl"
+        }
+      ]
+    },
+    {
+      "id": "J5-3",
+      "total_claims": 0,
+      "verified": 0,
+      "fabricated": 0,
+      "claims": []
+    },
+    {
+      "id": "J5-11",
+      "total_claims": 2,
+      "verified": 1,
+      "fabricated": 1,
+      "claims": [
+        {
+          "claim": "TORCHINDUCTOR_CUDAGRAPH_SKIP_DYNAMIC_GRAPHS",
+          "value": "TORCHINDUCTOR_CUDAGRAPH_SKIP_DYNAMIC_GRAPHS",
+          "type": "env_var",
+          "context": "that break the graph. 3) Try `TORCHINDUCTOR_CUDAGRAPH_SKIP_DYNAMIC_GRAPHS=False` to see if the graph ca",
+          "verified": false,
+          "grep_output": ""
+        },
+        {
+          "claim": "torch.compiler.cudagraph_mark_step_begin",
+          "value": "cudagraph_mark_step_begin",
+          "type": "compiler_api",
+          "context": " to detected dynamism. 4) Use torch.compiler.cudagraph_mark_step_begin() between iterations to expli",
+          "verified": true,
+          "grep_output": "/home/pengwu/envs/torch-nightly/lib/python3.12/site-packages/torch/_inductor/__init__.py:26:    \"cudagraph_mark_step_begin\",\n/home/pengwu/envs/torch-nightly/lib/python3.12/site-packages/torch/_inducto"
+        }
+      ]
+    },
+    {
+      "id": "J5-19",
+      "total_claims": 2,
+      "verified": 2,
+      "fabricated": 0,
+      "claims": [
+        {
+          "claim": "torch._inductor.config.disable_welford_reduction",
+          "value": "disable_welford_reduction",
+          "type": "inductor_config",
+          "context": "Welford reductions by setting torch._inductor.config.disable_welford_reduction = True before compilation. Th",
+          "verified": true,
+          "grep_output": "2394:    disable_welford_reduction = False\n"
+        },
+        {
+          "claim": "config.disable_welford_reduction =",
+          "value": "disable_welford_reduction",
+          "type": "config_assignment",
+          "context": "ns by setting torch._inductor.config.disable_welford_reduction = True before compilation. This",
+          "verified": true,
+          "grep_output": "/home/pengwu/envs/torch-nightly/lib/python3.12/site-packages/torch/_inductor/config.py:2394:    disable_welford_reduction = False\n/home/pengwu/envs/torch-nightly/lib/python3.12/site-packages/torch/_in"
+        }
+      ]
+    },
+    {
+      "id": "J6-7",
+      "total_claims": 4,
+      "verified": 4,
+      "fabricated": 0,
+      "claims": [
+        {
+          "claim": "torch._dynamo.config.dynamic_shapes",
+          "value": "dynamic_shapes",
+          "type": "dynamo_config",
+          "context": "ic=True in torch.compile sets torch._dynamo.config.dynamic_shapes=True, but the default behavio",
+          "verified": true,
+          "grep_output": "70:#   \">10:automatic_dynamic_shapes=False\"  - Disable dynamic shapes for graphs > 10\n148:# dynamic_shapes; when dynamic_shapes is False, we ALWAYS specialize on int\n160:dynamic_shapes = True\n166:# Th"
+        },
+        {
+          "claim": "torch._dynamo.config.automatic_dynamic_shapes",
+          "value": "automatic_dynamic_shapes",
+          "type": "dynamo_config",
+          "context": "mic_shapes is enabled: check `torch._dynamo.config.automatic_dynamic_shapes` (should be True when dynamic",
+          "verified": true,
+          "grep_output": "70:#   \">10:automatic_dynamic_shapes=False\"  - Disable dynamic shapes for graphs > 10\n176:automatic_dynamic_shapes = (\n181:automatic_dynamic_shapes_mark_as: Literal[\"dynamic\", \"unbacked\"] = \"dynamic\"\n"
+        },
+        {
+          "claim": "config.dynamic_shapes=",
+          "value": "dynamic_shapes",
+          "type": "config_assignment",
+          "context": "ch.compile sets torch._dynamo.config.dynamic_shapes=True, but the default behavior",
+          "verified": true,
+          "grep_output": "/home/pengwu/envs/torch-nightly/lib/python3.12/site-packages/torch/_dynamo/config.py:70:#   \">10:automatic_dynamic_shapes=False\"  - Disable dynamic shapes for graphs > 10\n/home/pengwu/envs/torch-night"
+        },
+        {
+          "claim": "config.assume_static_by_default=",
+          "value": "assume_static_by_default",
+          "type": "config_assignment",
+          "context": "ue when dynamic=True). 3) The config.assume_static_by_default=True (default) conflicts with ",
+          "verified": true,
+          "grep_output": "/home/pengwu/envs/torch-nightly/lib/python3.12/site-packages/torch/_dynamo/config.py:149:# inputs.  Note that assume_static_by_default will also cause ints to get\n/home/pengwu/envs/torch-nightly/lib/p"
+        }
+      ]
+    },
+    {
+      "id": "J6-15",
+      "total_claims": 1,
+      "verified": 1,
+      "fabricated": 0,
+      "claims": [
+        {
+          "claim": "torch._dynamo.config.automatic_dynamic_exclusion_guard",
+          "value": "automatic_dynamic_exclusion_guard",
+          "type": "dynamo_config",
+          "context": " for better control. 5) Check torch._dynamo.config.automatic_dynamic_exclusion_guard (line 201 in config.py) - thi",
+          "verified": true,
+          "grep_output": "201:automatic_dynamic_exclusion_guard = False\n"
+        }
+      ]
+    },
+    {
+      "id": "J7-3",
+      "total_claims": 0,
+      "verified": 0,
+      "fabricated": 0,
+      "claims": []
+    },
+    {
+      "id": "J7-11",
+      "total_claims": 2,
+      "verified": 1,
+      "fabricated": 1,
+      "claims": [
+        {
+          "claim": "TORCHINDUCTOR_FX_GRAPH_CACHE",
+          "value": "TORCHINDUCTOR_FX_GRAPH_CACHE",
+          "type": "env_var",
+          "context": "TORCHINDUCTOR_FX_GRAPH_CACHE=1 only caches Inductor backen",
+          "verified": true,
+          "grep_output": "/home/pengwu/envs/torch-nightly/lib/python3.12/site-packages/torch/_inductor/config.py:110:    env_name_default=\"TORCHINDUCTOR_FX_GRAPH_CACHE_DEFAULT\",\n/home/pengwu/envs/torch-nightly/lib/python3.12/s"
+        },
+        {
+          "claim": "TORCHDYNAMO_TRACING_CACHE",
+          "value": "TORCHDYNAMO_TRACING_CACHE",
+          "type": "env_var",
+          "context": "roduction-ready solution yet (TORCHDYNAMO_TRACING_CACHE is experimental/not implement",
+          "verified": false,
+          "grep_output": ""
+        }
+      ]
+    },
+    {
+      "id": "J7-19",
+      "total_claims": 2,
+      "verified": 2,
+      "fabricated": 0,
+      "claims": [
+        {
+          "claim": "torch._dynamo.config.compiled_autograd",
+          "value": "compiled_autograd",
+          "type": "dynamo_config",
+          "context": " it's automatically enabled: `torch._dynamo.config.compiled_autograd = False`. The error suggests ",
+          "verified": true,
+          "grep_output": "401:# of compiled_autograd. With \"python_reducer\", DDP will disable the C++ reducer\n402:# and use the Python reducer to allow compiled_autograd to trace the\n407:# overlap. This mode CANNOT be used wit"
+        },
+        {
+          "claim": "config.compiled_autograd =",
+          "value": "compiled_autograd",
+          "type": "config_assignment",
+          "context": "cally enabled: `torch._dynamo.config.compiled_autograd = False`. The error suggests ba",
+          "verified": true,
+          "grep_output": "/home/pengwu/envs/torch-nightly/lib/python3.12/site-packages/torch/_guards.py:54:    r\"^!(?P<compiled_autograd_id>\\d+)(?:/(?P<frame_id>\\d+)/(?P<frame_compile_id>\\d+))?$\"\n/home/pengwu/envs/torch-nightl"
+        }
+      ]
+    },
+    {
+      "id": "J8-7",
+      "total_claims": 1,
+      "verified": 1,
+      "fabricated": 0,
+      "claims": [
+        {
+          "claim": "torch.compiler.disable",
+          "value": "disable",
+          "type": "compiler_api",
+          "context": "kip the custom op region with torch.compiler.disable: wrap the radius call with `w",
+          "verified": true,
+          "grep_output": "/home/pengwu/envs/torch-nightly/lib/python3.12/site-packages/torch/__init__.py:2240:from torch._compile import _disable_dynamo  # usort: skip\n/home/pengwu/envs/torch-nightly/lib/python3.12/site-packag"
+        }
+      ]
+    },
+    {
+      "id": "J8-15",
+      "total_claims": 1,
+      "verified": 1,
+      "fabricated": 0,
+      "claims": [
+        {
+          "claim": "torch._higher_order_ops.associative_scan",
+          "value": "associative_scan",
+          "type": "higher_order_ops",
+          "context": "ctions. Usage: 1) Import from torch._higher_order_ops.associative_scan. 2) Define a combine function",
+          "verified": true,
+          "grep_output": "/home/pengwu/envs/torch-nightly/lib/python3.12/site-packages/torch/_higher_order_ops/__init__.py:7:from torch._higher_order_ops.associative_scan import associative_scan\n/home/pengwu/envs/torch-nightly"
+        }
+      ]
+    },
+    {
+      "id": "J1-4",
+      "total_claims": 0,
+      "verified": 0,
+      "fabricated": 0,
+      "claims": []
+    },
+    {
+      "id": "J1-12",
+      "total_claims": 0,
+      "verified": 0,
+      "fabricated": 0,
+      "claims": []
+    },
+    {
+      "id": "J1-20",
+      "total_claims": 3,
+      "verified": 3,
+      "fabricated": 0,
+      "claims": [
+        {
+          "claim": "torch._inductor.config.fx_graph_cache",
+          "value": "fx_graph_cache",
+          "type": "inductor_config",
+          "context": "y, you can disable cache with torch._inductor.config.fx_graph_cache = False for debugging. The ca",
+          "verified": true,
+          "grep_output": "44:def bundle_triton_into_fx_graph_cache_default() -> bool | None:\n108:fx_graph_cache: bool = Config(\n109:    justknob=\"pytorch/remote_cache:enable_local_fx_graph_cache\",\n124:bundle_triton_into_fx_gra"
+        },
+        {
+          "claim": "config.fx_graph_cache =",
+          "value": "fx_graph_cache",
+          "type": "config_assignment",
+          "context": "le cache with torch._inductor.config.fx_graph_cache = False for debugging. The cach",
+          "verified": true,
+          "grep_output": "/home/pengwu/envs/torch-nightly/lib/python3.12/site-packages/torch/_dynamo/utils.py:1514:    remote_fx_graph_cache_get_time_ms: int | None = None\n/home/pengwu/envs/torch-nightly/lib/python3.12/site-pa"
+        },
+        {
+          "claim": "TORCHINDUCTOR_CACHE_DIR",
+          "value": "TORCHINDUCTOR_CACHE_DIR",
+          "type": "env_var",
+          "context": "e directories per process via TORCHINDUCTOR_CACHE_DIR environment variable. Set TOR",
+          "verified": true,
+          "grep_output": "/home/pengwu/envs/torch-nightly/lib/python3.12/site-packages/torch/_inductor/aoti_eager.py:265:        {\"TORCHINDUCTOR_CACHE_DIR\": persistent_cache_lib.absolute().as_posix()},\n/home/pengwu/envs/torch-"
+        }
+      ]
+    },
+    {
+      "id": "J2-8",
+      "total_claims": 2,
+      "verified": 2,
+      "fabricated": 0,
+      "claims": [
+        {
+          "claim": "TORCHINDUCTOR_PROFILE",
+          "value": "TORCHINDUCTOR_PROFILE",
+          "type": "env_var",
+          "context": "en addressed. To profile: use TORCHINDUCTOR_PROFILE=1 with TORCHINDUCTOR_PROFILE_",
+          "verified": true,
+          "grep_output": "/home/pengwu/envs/torch-nightly/lib/python3.12/site-packages/torch/_inductor/autotune_process.py:159:            \"TORCHINDUCTOR_PROFILE_WITH_DO_BENCH_USING_PROFILING\": \"1\"\n/home/pengwu/envs/torch-nigh"
+        },
+        {
+          "claim": "TORCHINDUCTOR_PROFILE_OUTPUT",
+          "value": "TORCHINDUCTOR_PROFILE_OUTPUT",
+          "type": "env_var",
+          "context": " TORCHINDUCTOR_PROFILE=1 with TORCHINDUCTOR_PROFILE_OUTPUT=/path/to/output.txt to get ke",
+          "verified": true,
+          "grep_output": "/home/pengwu/envs/torch-nightly/lib/python3.12/site-packages/torch/_inductor/config.py:1357:    \"TORCHINDUCTOR_PROFILE_OUTPUT\", None\n"
+        }
+      ]
+    },
+    {
+      "id": "J2-16",
+      "total_claims": 4,
+      "verified": 4,
+      "fabricated": 0,
+      "claims": [
+        {
+          "claim": "torch._inductor.config.realize_reads_threshold",
+          "value": "realize_reads_threshold",
+          "type": "inductor_config",
+          "context": "o-reduction patterns, adjust: torch._inductor.config.realize_reads_threshold (default 4), torch._inductor.",
+          "verified": true,
+          "grep_output": "791:realize_reads_threshold = 4\n"
+        },
+        {
+          "claim": "torch._inductor.config.realize_opcount_threshold",
+          "value": "realize_opcount_threshold",
+          "type": "inductor_config",
+          "context": "_reads_threshold (default 4), torch._inductor.config.realize_opcount_threshold (default 30), and torch._indu",
+          "verified": true,
+          "grep_output": "792:realize_opcount_threshold = 30\n"
+        },
+        {
+          "claim": "torch._inductor.config.max_fusion_size",
+          "value": "max_fusion_size",
+          "type": "inductor_config",
+          "context": "t_threshold (default 30), and torch._inductor.config.max_fusion_size (default 64). Lower realize t",
+          "verified": true,
+          "grep_output": "884:max_fusion_size = 64\n"
+        },
+        {
+          "claim": "TORCHINDUCTOR_PROFILE",
+          "value": "TORCHINDUCTOR_PROFILE",
+          "type": "env_var",
+          "context": "te torch.compile regions. Use TORCHINDUCTOR_PROFILE=1 to compare fused vs unfused",
+          "verified": true,
+          "grep_output": "/home/pengwu/envs/torch-nightly/lib/python3.12/site-packages/torch/_inductor/autotune_process.py:159:            \"TORCHINDUCTOR_PROFILE_WITH_DO_BENCH_USING_PROFILING\": \"1\"\n/home/pengwu/envs/torch-nigh"
+        }
+      ]
+    },
+    {
+      "id": "J3-4",
+      "total_claims": 1,
+      "verified": 1,
+      "fabricated": 0,
+      "claims": [
+        {
+          "claim": "TORCH_COMPILE_DEBUG",
+          "value": "TORCH_COMPILE_DEBUG",
+          "type": "env_var",
+          "context": "nel generation - inspect with TORCH_COMPILE_DEBUG=1.",
+          "verified": true,
+          "grep_output": "/home/pengwu/envs/torch-nightly/lib/python3.12/site-packages/torch/_dynamo/config.py:633:    DEBUG_DIR_VAR_NAME = \"TORCH_COMPILE_DEBUG_DIR\"\n/home/pengwu/envs/torch-nightly/lib/python3.12/site-packages"
+        }
+      ]
+    },
+    {
+      "id": "J3-12",
+      "total_claims": 0,
+      "verified": 0,
+      "fabricated": 0,
+      "claims": []
+    },
+    {
+      "id": "J3-20",
+      "total_claims": 1,
+      "verified": 1,
+      "fabricated": 0,
+      "claims": [
+        {
+          "claim": "torch._inductor.config.triton.cudagraphs",
+          "value": "cudagraphs",
+          "type": "triton_subconfig",
+          "context": "y mode='reduce-overhead' with torch._inductor.config.triton.cudagraphs = False to isolate, (2) max-a",
+          "verified": true,
+          "grep_output": "1607:    cudagraphs = os.environ.get(\"TORCHINDUCTOR_CUDAGRAPHS\") == \"1\"\n"
+        }
+      ]
+    },
+    {
+      "id": "J4-8",
+      "total_claims": 1,
+      "verified": 1,
+      "fabricated": 0,
+      "claims": [
+        {
+          "claim": "torch.utils.checkpoint.checkpoint",
+          "value": "checkpoint",
+          "type": "checkpoint_api",
+          "context": "rch.compile is supported. Use torch.utils.checkpoint.checkpoint with use_reentrant=False and ",
+          "verified": true,
+          "grep_output": "24:    \"checkpoint\",\n51:    Context manager that sets whether checkpoint should print additional debug\n53:    :func:`~torch.utils.checkpoint.checkpoint` for more information. Note that\n55:    checkpoi"
+        }
+      ]
+    },
+    {
+      "id": "J4-16",
+      "total_claims": 1,
+      "verified": 1,
+      "fabricated": 0,
+      "claims": [
+        {
+          "claim": "TORCHINDUCTOR_AUTOGRAD_CACHE",
+          "value": "TORCHINDUCTOR_AUTOGRAD_CACHE",
+          "type": "env_var",
+          "context": " key instability. Enable with TORCHINDUCTOR_AUTOGRAD_CACHE=1 and debug with TORCH_LOGS=t",
+          "verified": true,
+          "grep_output": "/home/pengwu/envs/torch-nightly/lib/python3.12/site-packages/torch/_dynamo/compiled_autograd.py:1461:                    compiled autograd. Please turn off AOTAutogradCache using `TORCHINDUCTOR_AUTOGR"
+        }
+      ]
+    },
+    {
+      "id": "J5-4",
+      "total_claims": 3,
+      "verified": 3,
+      "fabricated": 0,
+      "claims": [
+        {
+          "claim": "torch._inductor.config.permute_fusion",
+          "value": "permute_fusion",
+          "type": "inductor_config",
+          "context": "N=0 (environment variable) or torch._inductor.config.permute_fusion = False. This is a known issu",
+          "verified": true,
+          "grep_output": "1330:permute_fusion = os.environ.get(\"TORCHINDUCTOR_PERMUTE_FUSION\", \"0\") == \"1\"\n"
+        },
+        {
+          "claim": "config.permute_fusion =",
+          "value": "permute_fusion",
+          "type": "config_assignment",
+          "context": " variable) or torch._inductor.config.permute_fusion = False. This is a known issue ",
+          "verified": true,
+          "grep_output": "/home/pengwu/envs/torch-nightly/lib/python3.12/site-packages/torch/_inductor/config.py:1330:permute_fusion = os.environ.get(\"TORCHINDUCTOR_PERMUTE_FUSION\", \"0\") == \"1\"\n/home/pengwu/envs/torch-nightly/"
+        },
+        {
+          "claim": "TORCHINDUCTOR_PERMUTE_FUSION",
+          "value": "TORCHINDUCTOR_PERMUTE_FUSION",
+          "type": "env_var",
+          "context": "isable this optimization with TORCHINDUCTOR_PERMUTE_FUSION=0 (environment variable) or t",
+          "verified": true,
+          "grep_output": "/home/pengwu/envs/torch-nightly/lib/python3.12/site-packages/torch/_inductor/config.py:1330:permute_fusion = os.environ.get(\"TORCHINDUCTOR_PERMUTE_FUSION\", \"0\") == \"1\"\n"
+        }
+      ]
+    },
+    {
+      "id": "J5-12",
+      "total_claims": 1,
+      "verified": 1,
+      "fabricated": 0,
+      "claims": [
+        {
+          "claim": "torch.compiler.disable",
+          "value": "disable",
+          "type": "compiler_api",
+          "context": "ble compile for backward: use torch.compiler.disable on the backward pass, (5) Wai",
+          "verified": true,
+          "grep_output": "/home/pengwu/envs/torch-nightly/lib/python3.12/site-packages/torch/__init__.py:2240:from torch._compile import _disable_dynamo  # usort: skip\n/home/pengwu/envs/torch-nightly/lib/python3.12/site-packag"
+        }
+      ]
+    },
+    {
+      "id": "J5-20",
+      "total_claims": 1,
+      "verified": 1,
+      "fabricated": 0,
+      "claims": [
+        {
+          "claim": "torch._inductor.config.triton.cudagraphs",
+          "value": "cudagraphs",
+          "type": "triton_subconfig",
+          "context": "phs). Control explicitly with torch._inductor.config.triton.cudagraphs = True/False. CUDA graphs can",
+          "verified": true,
+          "grep_output": "1607:    cudagraphs = os.environ.get(\"TORCHINDUCTOR_CUDAGRAPHS\") == \"1\"\n"
+        }
+      ]
+    },
+    {
+      "id": "J6-8",
+      "total_claims": 0,
+      "verified": 0,
+      "fabricated": 0,
+      "claims": []
+    },
+    {
+      "id": "J6-16",
+      "total_claims": 2,
+      "verified": 2,
+      "fabricated": 0,
+      "claims": [
+        {
+          "claim": "torch._dynamo.config.capture_scalar_outputs",
+          "value": "capture_scalar_outputs",
+          "type": "dynamo_config",
+          "context": "r outputs. This is related to torch._dynamo.config.capture_scalar_outputs = True which changes list typ",
+          "verified": true,
+          "grep_output": "363:capture_scalar_outputs = os.environ.get(\"TORCHDYNAMO_CAPTURE_SCALAR_OUTPUTS\") == \"1\"\n368:# If you set this to True, you probably also want capture_scalar_outputs\n"
+        },
+        {
+          "claim": "config.capture_scalar_outputs =",
+          "value": "capture_scalar_outputs",
+          "type": "config_assignment",
+          "context": "s is related to torch._dynamo.config.capture_scalar_outputs = True which changes list types",
+          "verified": true,
+          "grep_output": "/home/pengwu/envs/torch-nightly/lib/python3.12/site-packages/torch/__init__.py:2637:        capture_scalar_outputs and capture_dynamic_output_shape_ops on by default.\n/home/pengwu/envs/torch-nightly/l"
+        }
+      ]
+    },
+    {
+      "id": "J7-4",
+      "total_claims": 0,
+      "verified": 0,
+      "fabricated": 0,
+      "claims": []
+    },
+    {
+      "id": "J7-12",
+      "total_claims": 5,
+      "verified": 5,
+      "fabricated": 0,
+      "claims": [
+        {
+          "claim": "torch._inductor.config.compile_threads",
+          "value": "compile_threads",
+          "type": "inductor_config",
+          "context": "ssues. Investigate: (1) Check torch._inductor.config.compile_threads - set via TORCHINDUCTOR_COMPI",
+          "verified": true,
+          "grep_output": "1170:    So for fbcode, we assign compile_threads to 'None' below and initialize lazily in\n1180:def decide_compile_threads() -> int:\n1182:    Here are the precedence to decide compile_threads\n1195:   "
+        },
+        {
+          "claim": "torch._inductor.config.compile_profile",
+          "value": "compile_profile",
+          "type": "inductor_config",
+          "context": " (4) Profile compilation with torch._inductor.config.compile_profile = True to identify bottleneck",
+          "verified": true,
+          "grep_output": "2480:    compile_profile = False\n"
+        },
+        {
+          "claim": "config.compile_profile =",
+          "value": "compile_profile",
+          "type": "config_assignment",
+          "context": "pilation with torch._inductor.config.compile_profile = True to identify bottlenecks,",
+          "verified": true,
+          "grep_output": "/home/pengwu/envs/torch-nightly/lib/python3.12/site-packages/torch/_inductor/config.py:2480:    compile_profile = False\n"
+        },
+        {
+          "claim": "TORCHINDUCTOR_COMPILE_THREADS",
+          "value": "TORCHINDUCTOR_COMPILE_THREADS",
+          "type": "env_var",
+          "context": "fig.compile_threads - set via TORCHINDUCTOR_COMPILE_THREADS environment variable (default",
+          "verified": true,
+          "grep_output": "/home/pengwu/envs/torch-nightly/lib/python3.12/site-packages/torch/_inductor/async_compile.py:740:                    \"you can re-run with TORCHINDUCTOR_COMPILE_THREADS=1 \"\n/home/pengwu/envs/torch-nig"
+        },
+        {
+          "claim": "TORCHINDUCTOR_CACHE_DIR",
+          "value": "TORCHINDUCTOR_CACHE_DIR",
+          "type": "env_var",
+          "context": "ntify bottlenecks, (5) Ensure TORCHINDUCTOR_CACHE_DIR and TRITON_CACHE_DIR are set ",
+          "verified": true,
+          "grep_output": "/home/pengwu/envs/torch-nightly/lib/python3.12/site-packages/torch/_inductor/aoti_eager.py:265:        {\"TORCHINDUCTOR_CACHE_DIR\": persistent_cache_lib.absolute().as_posix()},\n/home/pengwu/envs/torch-"
+        }
+      ]
+    },
+    {
+      "id": "J7-20",
+      "total_claims": 3,
+      "verified": 3,
+      "fabricated": 0,
+      "claims": [
+        {
+          "claim": "torch._inductor.config.triton.autotune_at_compile_time",
+          "value": "autotune_at_compile_time",
+          "type": "triton_subconfig",
+          "context": "ring NCCL operations, (4) Use torch._inductor.config.triton.autotune_at_compile_time if available to move autotuni",
+          "verified": true,
+          "grep_output": "1716:    autotune_at_compile_time: bool | None = autotune_at_compile_time_default()\n"
+        },
+        {
+          "claim": "torch._inductor.config.compile_threads",
+          "value": "compile_threads",
+          "type": "inductor_config",
+          "context": "1) Use async compilation with torch._inductor.config.compile_threads > 1 (via TORCHINDUCTOR_COMPIL",
+          "verified": true,
+          "grep_output": "1170:    So for fbcode, we assign compile_threads to 'None' below and initialize lazily in\n1180:def decide_compile_threads() -> int:\n1182:    Here are the precedence to decide compile_threads\n1195:   "
+        },
+        {
+          "claim": "TORCHINDUCTOR_COMPILE_THREADS",
+          "value": "TORCHINDUCTOR_COMPILE_THREADS",
+          "type": "env_var",
+          "context": "nfig.compile_threads > 1 (via TORCHINDUCTOR_COMPILE_THREADS), though subprocess pool may ",
+          "verified": true,
+          "grep_output": "/home/pengwu/envs/torch-nightly/lib/python3.12/site-packages/torch/_inductor/async_compile.py:740:                    \"you can re-run with TORCHINDUCTOR_COMPILE_THREADS=1 \"\n/home/pengwu/envs/torch-nig"
+        }
+      ]
+    },
+    {
+      "id": "J8-8",
+      "total_claims": 0,
+      "verified": 0,
+      "fabricated": 0,
+      "claims": []
+    },
+    {
+      "id": "J8-16",
+      "total_claims": 0,
+      "verified": 0,
+      "fabricated": 0,
+      "claims": []
+    },
+    {
+      "id": "J1-5",
+      "total_claims": 0,
+      "verified": 0,
+      "fabricated": 0,
+      "claims": []
+    },
+    {
+      "id": "J1-13",
+      "total_claims": 0,
+      "verified": 0,
+      "fabricated": 0,
+      "claims": []
+    },
+    {
+      "id": "J2-1",
+      "total_claims": 0,
+      "verified": 0,
+      "fabricated": 0,
+      "claims": []
+    },
+    {
+      "id": "J2-9",
+      "total_claims": 0,
+      "verified": 0,
+      "fabricated": 0,
+      "claims": []
+    },
+    {
+      "id": "J2-17",
+      "total_claims": 0,
+      "verified": 0,
+      "fabricated": 0,
+      "claims": []
+    },
+    {
+      "id": "J3-5",
+      "total_claims": 0,
+      "verified": 0,
+      "fabricated": 0,
+      "claims": []
+    },
+    {
+      "id": "J3-13",
+      "total_claims": 0,
+      "verified": 0,
+      "fabricated": 0,
+      "claims": []
+    },
+    {
+      "id": "J4-1",
+      "total_claims": 1,
+      "verified": 1,
+      "fabricated": 0,
+      "claims": [
+        {
+          "claim": "torch.nn.attention.flex_attention",
+          "value": "flex_attention",
+          "type": "attention_api",
+          "context": "nd create_block_mask exist in torch.nn.attention.flex_attention\n2. fullgraph=True requires en",
+          "verified": true,
+          "grep_output": "/home/pengwu/envs/torch-nightly/lib/python3.12/site-packages/torch/nn/attention/flex_attention.py:3:\"\"\"This module implements the user facing API for flex_attention in PyTorch.\"\"\"\n/home/pengwu/envs/to"
+        }
+      ]
+    },
+    {
+      "id": "J4-9",
+      "total_claims": 1,
+      "verified": 1,
+      "fabricated": 0,
+      "claims": [
+        {
+          "claim": "torch.nn.attention.flex_attention",
+          "value": "flex_attention",
+          "type": "attention_api",
+          "context": "ists and can be imported from torch.nn.attention.flex_attention\n2. The issue mentions inspect",
+          "verified": true,
+          "grep_output": "/home/pengwu/envs/torch-nightly/lib/python3.12/site-packages/torch/nn/attention/flex_attention.py:3:\"\"\"This module implements the user facing API for flex_attention in PyTorch.\"\"\"\n/home/pengwu/envs/to"
+        }
+      ]
+    },
+    {
+      "id": "J4-17",
+      "total_claims": 0,
+      "verified": 0,
+      "fabricated": 0,
+      "claims": []
+    },
+    {
+      "id": "J5-5",
+      "total_claims": 1,
+      "verified": 1,
+      "fabricated": 0,
+      "claims": [
+        {
+          "claim": "TORCHINDUCTOR_MAX_AUTOTUNE",
+          "value": "TORCHINDUCTOR_MAX_AUTOTUNE",
+          "type": "env_var",
+          "context": "n differences\n4. Environment: TORCHINDUCTOR_MAX_AUTOTUNE for kernel selection visibili",
+          "verified": true,
+          "grep_output": "/home/pengwu/envs/torch-nightly/lib/python3.12/site-packages/torch/_inductor/config.py:506:max_autotune = os.environ.get(\"TORCHINDUCTOR_MAX_AUTOTUNE\") == \"1\"\n/home/pengwu/envs/torch-nightly/lib/python"
+        }
+      ]
+    },
+    {
+      "id": "J5-13",
+      "total_claims": 0,
+      "verified": 0,
+      "fabricated": 0,
+      "claims": []
+    },
+    {
+      "id": "J6-1",
+      "total_claims": 1,
+      "verified": 1,
+      "fabricated": 0,
+      "claims": [
+        {
+          "claim": "torch._dynamo.config.recompile_limit",
+          "value": "recompile_limit",
+          "type": "dynamo_config",
+          "context": "ialization decisions\n3. Check torch._dynamo.config.recompile_limit (default=8) to see cache size",
+          "verified": true,
+          "grep_output": "116:recompile_limit = 8\n119:accumulated_recompile_limit = 256\n121:skip_code_recursive_on_recompile_limit_hit: bool = Config(\n127:# you regress guards/specialization.  This works best when recompile_li"
+        }
+      ]
+    },
+    {
+      "id": "J6-9",
+      "total_claims": 3,
+      "verified": 2,
+      "fabricated": 1,
+      "claims": [
+        {
+          "claim": "torch._dynamo.config.recompile_limit",
+          "value": "recompile_limit",
+          "type": "dynamo_config",
+          "context": "to see specialization\n- Check torch._dynamo.config.recompile_limit (default=8)\n\nWORKAROUND (if p",
+          "verified": true,
+          "grep_output": "116:recompile_limit = 8\n119:accumulated_recompile_limit = 256\n121:skip_code_recursive_on_recompile_limit_hit: bool = Config(\n127:# you regress guards/specialization.  This works best when recompile_li"
+        },
+        {
+          "claim": "config.recompile_limit =",
+          "value": "recompile_limit",
+          "type": "config_assignment",
+          "context": "ecompile_limit: torch._dynamo.config.recompile_limit = 32\n- Or compile separate vers",
+          "verified": true,
+          "grep_output": "/home/pengwu/envs/torch-nightly/lib/python3.12/site-packages/torch/__init__.py:2610:    recompile_limit: builtins.int | None = None,\n/home/pengwu/envs/torch-nightly/lib/python3.12/site-packages/torch/"
+        },
+        {
+          "claim": "TORCHDYNAMO_INLINE_INBUILT_NN_MODULES",
+          "value": "TORCHDYNAMO_INLINE_INBUILT_NN_MODULES",
+          "type": "env_var",
+          "context": "ach dtype\n\nThe issue mentions TORCHDYNAMO_INLINE_INBUILT_NN_MODULES=1 - this is a verified env va",
+          "verified": false,
+          "grep_output": ""
+        }
+      ]
+    },
+    {
+      "id": "J6-17",
+      "total_claims": 3,
+      "verified": 3,
+      "fabricated": 0,
+      "claims": [
+        {
+          "claim": "torch._dynamo.config.suppress_errors",
+          "value": "suppress_errors",
+          "type": "dynamo_config",
+          "context": "see where tracing fails\n- Try torch._dynamo.config.suppress_errors = True to skip failing frames",
+          "verified": true,
+          "grep_output": "128:# This flag is incompatible with: suppress_errors.\n264:suppress_errors = bool(os.environ.get(\"TORCHDYNAMO_SUPPRESS_ERRORS\", False))\n"
+        },
+        {
+          "claim": "config.suppress_errors =",
+          "value": "suppress_errors",
+          "type": "config_assignment",
+          "context": "ing fails\n- Try torch._dynamo.config.suppress_errors = True to skip failing frames (",
+          "verified": true,
+          "grep_output": "/home/pengwu/envs/torch-nightly/lib/python3.12/site-packages/torch/_dynamo/config.py:128:# This flag is incompatible with: suppress_errors.\n/home/pengwu/envs/torch-nightly/lib/python3.12/site-packages"
+        },
+        {
+          "claim": "TORCHDYNAMO_SUPPRESS_ERRORS",
+          "value": "TORCHDYNAMO_SUPPRESS_ERRORS",
+          "type": "env_var",
+          "context": "rrors=True (verified env var: TORCHDYNAMO_SUPPRESS_ERRORS)\n\nThis appears to require Dee",
+          "verified": true,
+          "grep_output": "/home/pengwu/envs/torch-nightly/lib/python3.12/site-packages/torch/_dynamo/config.py:264:suppress_errors = bool(os.environ.get(\"TORCHDYNAMO_SUPPRESS_ERRORS\", False))\n"
+        }
+      ]
+    },
+    {
+      "id": "J7-5",
+      "total_claims": 0,
+      "verified": 0,
+      "fabricated": 0,
+      "claims": []
+    },
+    {
+      "id": "J7-13",
+      "total_claims": 0,
+      "verified": 0,
+      "fabricated": 0,
+      "claims": []
+    },
+    {
+      "id": "J8-1",
+      "total_claims": 1,
+      "verified": 1,
+      "fabricated": 0,
+      "claims": [
+        {
+          "claim": "from torch.library import custom_op",
+          "value": "custom_op",
+          "type": "import_claim",
+          "module_path": "torch.library",
+          "context": "ions:\n\n```python\nimport torch\nfrom torch.library import custom_op\n\n# Register custom op (verifi",
+          "verified": true,
+          "grep_output": "17:    custom_op,\n40:    \"custom_op\",\n819:        >>> from torch.library import custom_op\n823:        >>> @custom_op(\"mylib::numpy_sin\", mutates_args=(), device_types=\"cpu\")\n888:        >>> from torch"
+        }
+      ]
+    },
+    {
+      "id": "J8-9",
+      "total_claims": 0,
+      "verified": 0,
+      "fabricated": 0,
+      "claims": []
+    },
+    {
+      "id": "J8-17",
+      "total_claims": 0,
+      "verified": 0,
+      "fabricated": 0,
+      "claims": []
+    },
+    {
+      "id": "J1-6",
+      "total_claims": 1,
+      "verified": 1,
+      "fabricated": 0,
+      "claims": [
+        {
+          "claim": "torch.compiler.allow_in_graph",
+          "value": "allow_in_graph",
+          "type": "compiler_api",
+          "context": "n distributed primitives, use torch.compiler.allow_in_graph() to mark specific distribute",
+          "verified": true,
+          "grep_output": "/home/pengwu/envs/torch-nightly/lib/python3.12/site-packages/torch/_dynamo/__init__.py:27:    allow_in_graph,\n/home/pengwu/envs/torch-nightly/lib/python3.12/site-packages/torch/_dynamo/__init__.py:31:"
+        }
+      ]
+    },
+    {
+      "id": "J1-14",
+      "total_claims": 3,
+      "verified": 3,
+      "fabricated": 0,
+      "claims": [
+        {
+          "claim": "torch._inductor.config.compile_threads",
+          "value": "compile_threads",
+          "type": "inductor_config",
+          "context": "Verified workarounds: (1) Set torch._inductor.config.compile_threads=1 to disable async compilatio",
+          "verified": true,
+          "grep_output": "1170:    So for fbcode, we assign compile_threads to 'None' below and initialize lazily in\n1180:def decide_compile_threads() -> int:\n1182:    Here are the precedence to decide compile_threads\n1195:   "
+        },
+        {
+          "claim": "config.compile_threads=",
+          "value": "compile_threads",
+          "type": "config_assignment",
+          "context": "unds: (1) Set torch._inductor.config.compile_threads=1 to disable async compilation",
+          "verified": true,
+          "grep_output": "/home/pengwu/envs/torch-nightly/lib/python3.12/site-packages/torch/_dynamo/test_minifier_common.py:88:                    \"compile_threads\": 1,\n/home/pengwu/envs/torch-nightly/lib/python3.12/site-pack"
+        },
+        {
+          "claim": "TORCHINDUCTOR_COMPILE_THREADS",
+          "value": "TORCHINDUCTOR_COMPILE_THREADS",
+          "type": "env_var",
+          "context": " tasks. Environment variable: TORCHINDUCTOR_COMPILE_THREADS=1.",
+          "verified": true,
+          "grep_output": "/home/pengwu/envs/torch-nightly/lib/python3.12/site-packages/torch/_inductor/async_compile.py:740:                    \"you can re-run with TORCHINDUCTOR_COMPILE_THREADS=1 \"\n/home/pengwu/envs/torch-nig"
+        }
+      ]
+    },
+    {
+      "id": "J2-2",
+      "total_claims": 1,
+      "verified": 1,
+      "fabricated": 0,
+      "claims": [
+        {
+          "claim": "TORCH_COMPILE_DEBUG",
+          "value": "TORCH_COMPILE_DEBUG",
+          "type": "env_var",
+          "context": "rnel. Diagnose using: (1) Set TORCH_COMPILE_DEBUG=1 to enable debug output dire",
+          "verified": true,
+          "grep_output": "/home/pengwu/envs/torch-nightly/lib/python3.12/site-packages/torch/_dynamo/config.py:633:    DEBUG_DIR_VAR_NAME = \"TORCH_COMPILE_DEBUG_DIR\"\n/home/pengwu/envs/torch-nightly/lib/python3.12/site-packages"
+        }
+      ]
+    },
+    {
+      "id": "J2-10",
+      "total_claims": 1,
+      "verified": 1,
+      "fabricated": 0,
+      "claims": [
+        {
+          "claim": "TORCH_COMPILE_DEBUG",
+          "value": "TORCH_COMPILE_DEBUG",
+          "type": "env_var",
+          "context": "k kernel definitions; (2) Use TORCH_COMPILE_DEBUG=1 and inspect the output_code",
+          "verified": true,
+          "grep_output": "/home/pengwu/envs/torch-nightly/lib/python3.12/site-packages/torch/_dynamo/config.py:633:    DEBUG_DIR_VAR_NAME = \"TORCH_COMPILE_DEBUG_DIR\"\n/home/pengwu/envs/torch-nightly/lib/python3.12/site-packages"
+        }
+      ]
+    },
+    {
+      "id": "J2-18",
+      "total_claims": 2,
+      "verified": 2,
+      "fabricated": 0,
+      "claims": [
+        {
+          "claim": "torch._inductor.config.trace",
+          "value": "trace",
+          "type": "inductor_config",
+          "context": "ing performance data; (2) Use torch._inductor.config.trace.enabled and torch._inductor.c",
+          "verified": true,
+          "grep_output": "1340:# Populate traceback field on IRNode; good for debugging why origin_node is\n1342:debug_ir_traceback = False\n1405:# ensures that a cProfile trace to this frame will be a straight line without\n1917"
+        },
+        {
+          "claim": "TORCH_COMPILE_DEBUG",
+          "value": "TORCH_COMPILE_DEBUG",
+          "type": "env_var",
+          "context": "e canary/diagnostic mode: (1) TORCH_COMPILE_DEBUG=1 enables comprehensive debug",
+          "verified": true,
+          "grep_output": "/home/pengwu/envs/torch-nightly/lib/python3.12/site-packages/torch/_dynamo/config.py:633:    DEBUG_DIR_VAR_NAME = \"TORCH_COMPILE_DEBUG_DIR\"\n/home/pengwu/envs/torch-nightly/lib/python3.12/site-packages"
+        }
+      ]
+    },
+    {
+      "id": "J3-6",
+      "total_claims": 4,
+      "verified": 4,
+      "fabricated": 0,
+      "claims": [
+        {
+          "claim": "torch._dynamo.config.verify_correctness",
+          "value": "verify_correctness",
+          "type": "dynamo_config",
+          "context": "re serious. Debug by: (1) Use torch._dynamo.config.verify_correctness = True to enable automatic co",
+          "verified": true,
+          "grep_output": "40:verify_correctness = False\n"
+        },
+        {
+          "claim": "torch._dynamo.config.replay_side_effects",
+          "value": "replay_side_effects",
+          "type": "dynamo_config",
+          "context": "uring development. Also check torch._dynamo.config.replay_side_effects is True to ensure mutations a",
+          "verified": true,
+          "grep_output": "100:replay_side_effects = True\n"
+        },
+        {
+          "claim": "config.verify_correctness =",
+          "value": "verify_correctness",
+          "type": "config_assignment",
+          "context": "bug by: (1) Use torch._dynamo.config.verify_correctness = True to enable automatic corr",
+          "verified": true,
+          "grep_output": "/home/pengwu/envs/torch-nightly/lib/python3.12/site-packages/torch/_dynamo/config.py:40:verify_correctness = False\n/home/pengwu/envs/torch-nightly/lib/python3.12/site-packages/torch/_dynamo/decorators"
+        },
+        {
+          "claim": "TORCH_COMPILE_DEBUG",
+          "value": "TORCH_COMPILE_DEBUG",
+          "type": "env_var",
+          "context": "to isolate the issue; (3) Use TORCH_COMPILE_DEBUG=1 to inspect the captured gra",
+          "verified": true,
+          "grep_output": "/home/pengwu/envs/torch-nightly/lib/python3.12/site-packages/torch/_dynamo/config.py:633:    DEBUG_DIR_VAR_NAME = \"TORCH_COMPILE_DEBUG_DIR\"\n/home/pengwu/envs/torch-nightly/lib/python3.12/site-packages"
+        }
+      ]
+    },
+    {
+      "id": "J3-14",
+      "total_claims": 0,
+      "verified": 0,
+      "fabricated": 0,
+      "claims": []
+    },
+    {
+      "id": "J4-2",
+      "total_claims": 1,
+      "verified": 1,
+      "fabricated": 0,
+      "claims": [
+        {
+          "claim": "torch.compiler.allow_in_graph",
+          "value": "allow_in_graph",
+          "type": "compiler_api",
+          "context": "rimitives. Solutions: (1) Use torch.compiler.allow_in_graph() or torch._dynamo.allow_in_g",
+          "verified": true,
+          "grep_output": "/home/pengwu/envs/torch-nightly/lib/python3.12/site-packages/torch/_dynamo/__init__.py:27:    allow_in_graph,\n/home/pengwu/envs/torch-nightly/lib/python3.12/site-packages/torch/_dynamo/__init__.py:31:"
+        }
+      ]
+    },
+    {
+      "id": "J4-10",
+      "total_claims": 0,
+      "verified": 0,
+      "fabricated": 0,
+      "claims": []
+    },
+    {
+      "id": "J4-18",
+      "total_claims": 0,
+      "verified": 0,
+      "fabricated": 0,
+      "claims": []
+    },
+    {
+      "id": "J5-6",
+      "total_claims": 2,
+      "verified": 2,
+      "fabricated": 0,
+      "claims": [
+        {
+          "claim": "torch._inductor.config.max_autotune_gemm",
+          "value": "max_autotune_gemm",
+          "type": "inductor_config",
+          "context": "de='reduce-overhead'; (2) Set torch._inductor.config.max_autotune_gemm=False to disable GEMM autotun",
+          "verified": true,
+          "grep_output": "496:distributed_max_autotune_gemm = (\n501:pipeline_max_autotune_gemm = (\n512:max_autotune_gemm = os.environ.get(\"TORCHINDUCTOR_MAX_AUTOTUNE_GEMM\") == \"1\"\n604:max_autotune_gemm_backends = os.environ.ge"
+        },
+        {
+          "claim": "config.max_autotune_gemm=",
+          "value": "max_autotune_gemm",
+          "type": "config_assignment",
+          "context": "ead'; (2) Set torch._inductor.config.max_autotune_gemm=False to disable GEMM autotuni",
+          "verified": true,
+          "grep_output": "/home/pengwu/envs/torch-nightly/lib/python3.12/site-packages/torch/_inductor/autotune_process.py:1190:        assert config.pipeline_max_autotune_gemm, (\n/home/pengwu/envs/torch-nightly/lib/python3.12"
+        }
+      ]
+    },
+    {
+      "id": "J5-14",
+      "total_claims": 1,
+      "verified": 1,
+      "fabricated": 0,
+      "claims": [
+        {
+          "claim": "TORCH_COMPILE_DEBUG",
+          "value": "TORCH_COMPILE_DEBUG",
+          "type": "env_var",
+          "context": "ton code in debug output with TORCH_COMPILE_DEBUG=1; (2) Look for changes in tl",
+          "verified": true,
+          "grep_output": "/home/pengwu/envs/torch-nightly/lib/python3.12/site-packages/torch/_dynamo/config.py:633:    DEBUG_DIR_VAR_NAME = \"TORCH_COMPILE_DEBUG_DIR\"\n/home/pengwu/envs/torch-nightly/lib/python3.12/site-packages"
+        }
+      ]
+    },
+    {
+      "id": "J6-2",
+      "total_claims": 0,
+      "verified": 0,
+      "fabricated": 0,
+      "claims": []
+    },
+    {
+      "id": "J6-10",
+      "total_claims": 2,
+      "verified": 2,
+      "fabricated": 0,
+      "claims": [
+        {
+          "claim": "torch._dynamo.config.assume_static_by_default",
+          "value": "assume_static_by_default",
+          "type": "dynamo_config",
+          "context": "equires PyTorch 2.1+; (2) Set torch._dynamo.config.assume_static_by_default=False to make all shapes dyna",
+          "verified": true,
+          "grep_output": "149:# inputs.  Note that assume_static_by_default will also cause ints to get\n167:# When assume_static_by_default is True, we only allocate symbols for shapes marked dynamic via mark_dynamic.\n170:assu"
+        },
+        {
+          "claim": "config.assume_static_by_default=",
+          "value": "assume_static_by_default",
+          "type": "config_assignment",
+          "context": "h 2.1+; (2) Set torch._dynamo.config.assume_static_by_default=False to make all shapes dynam",
+          "verified": true,
+          "grep_output": "/home/pengwu/envs/torch-nightly/lib/python3.12/site-packages/torch/_dynamo/config.py:149:# inputs.  Note that assume_static_by_default will also cause ints to get\n/home/pengwu/envs/torch-nightly/lib/p"
+        }
+      ]
+    },
+    {
+      "id": "J6-18",
+      "total_claims": 3,
+      "verified": 3,
+      "fabricated": 0,
+      "claims": [
+        {
+          "claim": "torch._dynamo.config.automatic_dynamic_shapes",
+          "value": "automatic_dynamic_shapes",
+          "type": "dynamo_config",
+          "context": " changes); (4) Consider using torch._dynamo.config.automatic_dynamic_shapes=True which automatically prom",
+          "verified": true,
+          "grep_output": "70:#   \">10:automatic_dynamic_shapes=False\"  - Disable dynamic shapes for graphs > 10\n176:automatic_dynamic_shapes = (\n181:automatic_dynamic_shapes_mark_as: Literal[\"dynamic\", \"unbacked\"] = \"dynamic\"\n"
+        },
+        {
+          "claim": "config.automatic_dynamic_shapes=",
+          "value": "automatic_dynamic_shapes",
+          "type": "config_assignment",
+          "context": " Consider using torch._dynamo.config.automatic_dynamic_shapes=True which automatically promo",
+          "verified": true,
+          "grep_output": "/home/pengwu/envs/torch-nightly/lib/python3.12/site-packages/torch/_dynamo/config.py:70:#   \">10:automatic_dynamic_shapes=False\"  - Disable dynamic shapes for graphs > 10\n/home/pengwu/envs/torch-night"
+        },
+        {
+          "claim": "torch.compiler.skip_guard_on_",
+          "value": "skip_guard_on_",
+          "type": "compiler_api",
+          "context": "uires_grad) across calls. Use torch.compiler.skip_guard_on_* APIs to selectively relax gu",
+          "verified": true,
+          "grep_output": "/home/pengwu/envs/torch-nightly/lib/python3.12/site-packages/torch/__init__.py:2695:          - `torch.compiler.skip_guard_on_inbuilt_nn_modules_unsafe`\n/home/pengwu/envs/torch-nightly/lib/python3.12/"
+        }
+      ]
+    },
+    {
+      "id": "J7-6",
+      "total_claims": 0,
+      "verified": 0,
+      "fabricated": 0,
+      "claims": []
+    },
+    {
+      "id": "J7-14",
+      "total_claims": 1,
+      "verified": 1,
+      "fabricated": 0,
+      "claims": [
+        {
+          "claim": "TORCHINDUCTOR_VEC_ISA_OK",
+          "value": "TORCHINDUCTOR_VEC_ISA_OK",
+          "type": "env_var",
+          "context": "dles this. Solutions: (1) Set TORCHINDUCTOR_VEC_ISA_OK=1 to skip detection and assum",
+          "verified": true,
+          "grep_output": "/home/pengwu/envs/torch-nightly/lib/python3.12/site-packages/torch/_inductor/config.py:29:    if os.environ.get(\"TORCHINDUCTOR_VEC_ISA_OK\") == \"1\":\n/home/pengwu/envs/torch-nightly/lib/python3.12/site-"
+        }
+      ]
+    },
+    {
+      "id": "J8-2",
+      "total_claims": 1,
+      "verified": 1,
+      "fabricated": 0,
+      "claims": [
+        {
+          "claim": "TORCH_COMPILE_DEBUG",
+          "value": "TORCH_COMPILE_DEBUG",
+          "type": "env_var",
+          "context": "ss) needs investigation - use TORCH_COMPILE_DEBUG=1 to capture the graph; (4) f",
+          "verified": true,
+          "grep_output": "/home/pengwu/envs/torch-nightly/lib/python3.12/site-packages/torch/_dynamo/config.py:633:    DEBUG_DIR_VAR_NAME = \"TORCH_COMPILE_DEBUG_DIR\"\n/home/pengwu/envs/torch-nightly/lib/python3.12/site-packages"
+        }
+      ]
+    },
+    {
+      "id": "J8-10",
+      "total_claims": 2,
+      "verified": 1,
+      "fabricated": 1,
+      "claims": [
+        {
+          "claim": "TORCHINDUCTOR_AUTOTUNE_POINTWISE",
+          "value": "TORCHINDUCTOR_AUTOTUNE_POINTWISE",
+          "type": "env_var",
+          "context": "utotuning. Debugging: (1) Set TORCHINDUCTOR_AUTOTUNE_POINTWISE=0 and similar flags to disabl",
+          "verified": false,
+          "grep_output": ""
+        },
+        {
+          "claim": "TORCH_COMPILE_DEBUG",
+          "value": "TORCH_COMPILE_DEBUG",
+          "type": "env_var",
+          "context": "utotuning categories; (2) Use TORCH_COMPILE_DEBUG=1 to capture the failing kern",
+          "verified": true,
+          "grep_output": "/home/pengwu/envs/torch-nightly/lib/python3.12/site-packages/torch/_dynamo/config.py:633:    DEBUG_DIR_VAR_NAME = \"TORCH_COMPILE_DEBUG_DIR\"\n/home/pengwu/envs/torch-nightly/lib/python3.12/site-packages"
+        }
+      ]
+    },
+    {
+      "id": "J8-18",
+      "total_claims": 3,
+      "verified": 3,
+      "fabricated": 0,
+      "claims": [
+        {
+          "claim": "torch._inductor.config.cpp.enable_kernel_profile",
+          "value": "enable_kernel_profile",
+          "type": "cpp_subconfig",
+          "context": " you'd write by hand; (5) Try torch._inductor.config.cpp.enable_kernel_profile=True to profile the generated",
+          "verified": true,
+          "grep_output": "1497:    enable_kernel_profile = (\n"
+        },
+        {
+          "claim": "torch._dynamo.config.assume_static_by_default",
+          "value": "assume_static_by_default",
+          "type": "dynamo_config",
+          "context": "urt performance - verify with torch._dynamo.config.assume_static_by_default=True; (3) The cpp_micro_gemm.",
+          "verified": true,
+          "grep_output": "149:# inputs.  Note that assume_static_by_default will also cause ints to get\n167:# When assume_static_by_default is True, we only allocate symbols for shapes marked dynamic via mark_dynamic.\n170:assu"
+        },
+        {
+          "claim": "config.assume_static_by_default=",
+          "value": "assume_static_by_default",
+          "type": "config_assignment",
+          "context": "e - verify with torch._dynamo.config.assume_static_by_default=True; (3) The cpp_micro_gemm.p",
+          "verified": true,
+          "grep_output": "/home/pengwu/envs/torch-nightly/lib/python3.12/site-packages/torch/_dynamo/config.py:149:# inputs.  Note that assume_static_by_default will also cause ints to get\n/home/pengwu/envs/torch-nightly/lib/p"
+        }
+      ]
+    },
+    {
+      "id": "J1-7",
+      "total_claims": 0,
+      "verified": 0,
+      "fabricated": 0,
+      "claims": []
+    },
+    {
+      "id": "J1-15",
+      "total_claims": 0,
+      "verified": 0,
+      "fabricated": 0,
+      "claims": []
+    },
+    {
+      "id": "J2-3",
+      "total_claims": 2,
+      "verified": 2,
+      "fabricated": 0,
+      "claims": [
+        {
+          "claim": "torch._inductor.config.cpp_wrapper",
+          "value": "cpp_wrapper",
+          "type": "inductor_config",
+          "context": "mpute-to-overhead ratio\n- Use torch._inductor.config.cpp_wrapper = True for lower overhead wra",
+          "verified": true,
+          "grep_output": "195:cpp_wrapper: bool = os.environ.get(\"TORCHINDUCTOR_CPP_WRAPPER\", \"0\") == \"1\"\n197:# controls whether to compile entry and kernel separately for cpp_wrapper mode.\n202:cpp_wrapper_build_separate: bool"
+        },
+        {
+          "claim": "config.cpp_wrapper =",
+          "value": "cpp_wrapper",
+          "type": "config_assignment",
+          "context": "d ratio\n- Use torch._inductor.config.cpp_wrapper = True for lower overhead wrapp",
+          "verified": true,
+          "grep_output": "/home/pengwu/envs/torch-nightly/lib/python3.12/site-packages/torch/__init__.py:2509:        self.apply_options({\"cpp_wrapper\": True})\n/home/pengwu/envs/torch-nightly/lib/python3.12/site-packages/torch"
+        }
+      ]
+    },
+    {
+      "id": "J2-11",
+      "total_claims": 0,
+      "verified": 0,
+      "fabricated": 0,
+      "claims": []
+    },
+    {
+      "id": "J2-19",
+      "total_claims": 2,
+      "verified": 2,
+      "fabricated": 0,
+      "claims": [
+        {
+          "claim": "torch._inductor.config.cpp_wrapper",
+          "value": "cpp_wrapper",
+          "type": "inductor_config",
+          "context": "cible CPU benchmarking:\n- Set torch._inductor.config.cpp_wrapper = True for CPU codegen\n- Disa",
+          "verified": true,
+          "grep_output": "195:cpp_wrapper: bool = os.environ.get(\"TORCHINDUCTOR_CPP_WRAPPER\", \"0\") == \"1\"\n197:# controls whether to compile entry and kernel separately for cpp_wrapper mode.\n202:cpp_wrapper_build_separate: bool"
+        },
+        {
+          "claim": "config.cpp_wrapper =",
+          "value": "cpp_wrapper",
+          "type": "config_assignment",
+          "context": "arking:\n- Set torch._inductor.config.cpp_wrapper = True for CPU codegen\n- Disabl",
+          "verified": true,
+          "grep_output": "/home/pengwu/envs/torch-nightly/lib/python3.12/site-packages/torch/__init__.py:2509:        self.apply_options({\"cpp_wrapper\": True})\n/home/pengwu/envs/torch-nightly/lib/python3.12/site-packages/torch"
+        }
+      ]
+    },
+    {
+      "id": "J3-7",
+      "total_claims": 2,
+      "verified": 2,
+      "fabricated": 0,
+      "claims": [
+        {
+          "claim": "torch._dynamo.config.suppress_errors",
+          "value": "suppress_errors",
+          "type": "dynamo_config",
+          "context": "ue\n3. If still occurring, use torch._dynamo.config.suppress_errors = True as a temporary workaro",
+          "verified": true,
+          "grep_output": "128:# This flag is incompatible with: suppress_errors.\n264:suppress_errors = bool(os.environ.get(\"TORCHDYNAMO_SUPPRESS_ERRORS\", False))\n"
+        },
+        {
+          "claim": "config.suppress_errors =",
+          "value": "suppress_errors",
+          "type": "config_assignment",
+          "context": " occurring, use torch._dynamo.config.suppress_errors = True as a temporary workaroun",
+          "verified": true,
+          "grep_output": "/home/pengwu/envs/torch-nightly/lib/python3.12/site-packages/torch/_dynamo/config.py:128:# This flag is incompatible with: suppress_errors.\n/home/pengwu/envs/torch-nightly/lib/python3.12/site-packages"
+        }
+      ]
+    },
+    {
+      "id": "J3-15",
+      "total_claims": 4,
+      "verified": 4,
+      "fabricated": 0,
+      "claims": [
+        {
+          "claim": "torch._inductor.config.epilogue_fusion",
+          "value": "epilogue_fusion",
+          "type": "inductor_config",
+          "context": " ordering dependencies\n2. Set torch._inductor.config.epilogue_fusion = True (already default)\n3. C",
+          "verified": true,
+          "grep_output": "273:epilogue_fusion = True\n279:epilogue_fusion_first = False\n282:epilogue_fusion_user_defined_triton_kernel = False\n876:benchmark_epilogue_fusion = (\n2185:    cutlass_epilogue_fusion_enabled = (\n"
+        },
+        {
+          "claim": "torch._inductor.config.benchmark_epilogue_fusion",
+          "value": "benchmark_epilogue_fusion",
+          "type": "inductor_config",
+          "context": "ready default)\n3. Consider if torch._inductor.config.benchmark_epilogue_fusion = True helps (this exists but",
+          "verified": true,
+          "grep_output": "876:benchmark_epilogue_fusion = (\n"
+        },
+        {
+          "claim": "config.epilogue_fusion =",
+          "value": "epilogue_fusion",
+          "type": "config_assignment",
+          "context": "encies\n2. Set torch._inductor.config.epilogue_fusion = True (already default)\n3. Con",
+          "verified": true,
+          "grep_output": "/home/pengwu/envs/torch-nightly/lib/python3.12/site-packages/torch/__init__.py:2677:        - `epilogue_fusion` which fuses pointwise ops into templates. Requires `max_autotune` to also be set\n/home/p"
+        },
+        {
+          "claim": "config.benchmark_epilogue_fusion =",
+          "value": "benchmark_epilogue_fusion",
+          "type": "config_assignment",
+          "context": ". Consider if torch._inductor.config.benchmark_epilogue_fusion = True helps (this exists but b",
+          "verified": true,
+          "grep_output": "/home/pengwu/envs/torch-nightly/lib/python3.12/site-packages/torch/_inductor/config.py:876:benchmark_epilogue_fusion = (\n/home/pengwu/envs/torch-nightly/lib/python3.12/site-packages/torch/_inductor/sc"
+        }
+      ]
+    },
+    {
+      "id": "J4-3",
+      "total_claims": 2,
+      "verified": 2,
+      "fabricated": 0,
+      "claims": [
+        {
+          "claim": "torch._dynamo.config.suppress_errors",
+          "value": "suppress_errors",
+          "type": "dynamo_config",
+          "context": " As a last resort workaround: torch._dynamo.config.suppress_errors = True (not recommended as it",
+          "verified": true,
+          "grep_output": "128:# This flag is incompatible with: suppress_errors.\n264:suppress_errors = bool(os.environ.get(\"TORCHDYNAMO_SUPPRESS_ERRORS\", False))\n"
+        },
+        {
+          "claim": "config.suppress_errors =",
+          "value": "suppress_errors",
+          "type": "config_assignment",
+          "context": "ort workaround: torch._dynamo.config.suppress_errors = True (not recommended as it m",
+          "verified": true,
+          "grep_output": "/home/pengwu/envs/torch-nightly/lib/python3.12/site-packages/torch/_dynamo/config.py:128:# This flag is incompatible with: suppress_errors.\n/home/pengwu/envs/torch-nightly/lib/python3.12/site-packages"
+        }
+      ]
+    },
+    {
+      "id": "J4-11",
+      "total_claims": 0,
+      "verified": 0,
+      "fabricated": 0,
+      "claims": []
+    },
+    {
+      "id": "J4-19",
+      "total_claims": 4,
+      "verified": 4,
+      "fabricated": 0,
+      "claims": [
+        {
+          "claim": "torch._inductor.config.bucket_all_gathers_fx",
+          "value": "bucket_all_gathers_fx",
+          "type": "inductor_config",
+          "context": "The deadlock with FSDP and torch._inductor.config.bucket_all_gathers_fx = 'only_fsdp' combined with f",
+          "verified": true,
+          "grep_output": "443:bucket_all_gathers_fx: Literal[\"none\", \"all\", \"only_fsdp\"] = \"none\"\n445:bucket_all_gathers_fx_bucket_size_determinator: Callable[[int], int] | None = None\n"
+        },
+        {
+          "claim": "torch._inductor.config.reorder_for_compute_comm_overlap",
+          "value": "reorder_for_compute_comm_overlap",
+          "type": "inductor_config",
+          "context": "d FSDP boundaries\n4. Consider torch._inductor.config.reorder_for_compute_comm_overlap = False\n\nThis appears to be a",
+          "verified": true,
+          "grep_output": "405:reorder_for_compute_comm_overlap = False\n414:# Recommended configuration for reorder_for_compute_comm_overlap_passes:\n420:reorder_for_compute_comm_overlap_passes: list[\n1053:# reorder_for_compute_"
+        },
+        {
+          "claim": "config.bucket_all_gathers_fx =",
+          "value": "bucket_all_gathers_fx",
+          "type": "config_assignment",
+          "context": "with FSDP and torch._inductor.config.bucket_all_gathers_fx = 'only_fsdp' combined with ful",
+          "verified": true,
+          "grep_output": "/home/pengwu/envs/torch-nightly/lib/python3.12/site-packages/torch/_inductor/config.py:443:bucket_all_gathers_fx: Literal[\"none\", \"all\", \"only_fsdp\"] = \"none\"\n/home/pengwu/envs/torch-nightly/lib/pytho"
+        },
+        {
+          "claim": "config.reorder_for_compute_comm_overlap =",
+          "value": "reorder_for_compute_comm_overlap",
+          "type": "config_assignment",
+          "context": "s\n4. Consider torch._inductor.config.reorder_for_compute_comm_overlap = False\n\nThis appears to be an ",
+          "verified": true,
+          "grep_output": "/home/pengwu/envs/torch-nightly/lib/python3.12/site-packages/torch/_inductor/__init__.py:325:    \"reorder_for_compute_comm_overlap\": False,\n/home/pengwu/envs/torch-nightly/lib/python3.12/site-packages"
+        }
+      ]
+    },
+    {
+      "id": "J5-7",
+      "total_claims": 4,
+      "verified": 4,
+      "fabricated": 0,
+      "claims": [
+        {
+          "claim": "torch._inductor.config.epilogue_fusion",
+          "value": "epilogue_fusion",
+          "type": "inductor_config",
+          "context": "\n\nInductor's epilogue fusion (torch._inductor.config.epilogue_fusion = True, which is the default)",
+          "verified": true,
+          "grep_output": "273:epilogue_fusion = True\n279:epilogue_fusion_first = False\n282:epilogue_fusion_user_defined_triton_kernel = False\n876:benchmark_epilogue_fusion = (\n2185:    cutlass_epilogue_fusion_enabled = (\n"
+        },
+        {
+          "claim": "torch._inductor.config.max_autotune_gemm",
+          "value": "max_autotune_gemm",
+          "type": "inductor_config",
+          "context": "er kernel selection\n2. Enable torch._inductor.config.max_autotune_gemm = True specifically for GEMM ",
+          "verified": true,
+          "grep_output": "496:distributed_max_autotune_gemm = (\n501:pipeline_max_autotune_gemm = (\n512:max_autotune_gemm = os.environ.get(\"TORCHINDUCTOR_MAX_AUTOTUNE_GEMM\") == \"1\"\n604:max_autotune_gemm_backends = os.environ.ge"
+        },
+        {
+          "claim": "config.epilogue_fusion =",
+          "value": "epilogue_fusion",
+          "type": "config_assignment",
+          "context": "logue fusion (torch._inductor.config.epilogue_fusion = True, which is the default) c",
+          "verified": true,
+          "grep_output": "/home/pengwu/envs/torch-nightly/lib/python3.12/site-packages/torch/__init__.py:2677:        - `epilogue_fusion` which fuses pointwise ops into templates. Requires `max_autotune` to also be set\n/home/p"
+        },
+        {
+          "claim": "config.max_autotune_gemm =",
+          "value": "max_autotune_gemm",
+          "type": "config_assignment",
+          "context": "ion\n2. Enable torch._inductor.config.max_autotune_gemm = True specifically for GEMM op",
+          "verified": true,
+          "grep_output": "/home/pengwu/envs/torch-nightly/lib/python3.12/site-packages/torch/_inductor/autotune_process.py:1190:        assert config.pipeline_max_autotune_gemm, (\n/home/pengwu/envs/torch-nightly/lib/python3.12"
+        }
+      ]
+    },
+    {
+      "id": "J5-15",
+      "total_claims": 2,
+      "verified": 2,
+      "fabricated": 0,
+      "claims": [
+        {
+          "claim": "torch._inductor.config.implicit_fallback",
+          "value": "implicit_fallback",
+          "type": "inductor_config",
+          "context": "ks in eager\n4. Consider using torch._inductor.config.implicit_fallback = True if available\n\nThe code",
+          "verified": true,
+          "grep_output": "820:implicit_fallbacks = True\n"
+        },
+        {
+          "claim": "config.implicit_fallback =",
+          "value": "implicit_fallback",
+          "type": "config_assignment",
+          "context": "onsider using torch._inductor.config.implicit_fallback = True if available\n\nThe code s",
+          "verified": true,
+          "grep_output": "/home/pengwu/envs/torch-nightly/lib/python3.12/site-packages/torch/_inductor/config.py:820:implicit_fallbacks = True\n/home/pengwu/envs/torch-nightly/lib/python3.12/site-packages/torch/_inductor/graph."
+        }
+      ]
+    },
+    {
+      "id": "J6-3",
+      "total_claims": 0,
+      "verified": 0,
+      "fabricated": 0,
+      "claims": []
+    },
+    {
+      "id": "J6-11",
+      "total_claims": 0,
+      "verified": 0,
+      "fabricated": 0,
+      "claims": []
+    },
+    {
+      "id": "J6-19",
+      "total_claims": 0,
+      "verified": 0,
+      "fabricated": 0,
+      "claims": []
+    },
+    {
+      "id": "J7-7",
+      "total_claims": 3,
+      "verified": 3,
+      "fabricated": 0,
+      "claims": [
+        {
+          "claim": "torch._inductor.config.cpp_wrapper",
+          "value": "cpp_wrapper",
+          "type": "inductor_config",
+          "context": "\n4. **Key configs to try:**\n- torch._inductor.config.cpp_wrapper = True/False\n- Different comp",
+          "verified": true,
+          "grep_output": "195:cpp_wrapper: bool = os.environ.get(\"TORCHINDUCTOR_CPP_WRAPPER\", \"0\") == \"1\"\n197:# controls whether to compile entry and kernel separately for cpp_wrapper mode.\n202:cpp_wrapper_build_separate: bool"
+        },
+        {
+          "claim": "config.cpp_wrapper =",
+          "value": "cpp_wrapper",
+          "type": "config_assignment",
+          "context": "s to try:**\n- torch._inductor.config.cpp_wrapper = True/False\n- Different compil",
+          "verified": true,
+          "grep_output": "/home/pengwu/envs/torch-nightly/lib/python3.12/site-packages/torch/__init__.py:2509:        self.apply_options({\"cpp_wrapper\": True})\n/home/pengwu/envs/torch-nightly/lib/python3.12/site-packages/torch"
+        },
+        {
+          "claim": "TORCHINDUCTOR_FREEZING",
+          "value": "TORCHINDUCTOR_FREEZING",
+          "type": "env_var",
+          "context": "freezing changed: os.environ['TORCHINDUCTOR_FREEZING'] = '0'\n\nThe regression from ",
+          "verified": true,
+          "grep_output": "/home/pengwu/envs/torch-nightly/lib/python3.12/site-packages/torch/_inductor/config.py:1373:freezing: bool = os.environ.get(\"TORCHINDUCTOR_FREEZING\", \"0\") == \"1\"\n"
+        }
+      ]
+    },
+    {
+      "id": "J7-15",
+      "total_claims": 2,
+      "verified": 1,
+      "fabricated": 1,
+      "claims": [
+        {
+          "claim": "torch._inductor.config.fx_graph_cache",
+          "value": "fx_graph_cache",
+          "type": "inductor_config",
+          "context": "DP wraps if possible\n   - Use torch._inductor.config.fx_graph_cache and remote cache to avoid rep",
+          "verified": true,
+          "grep_output": "44:def bundle_triton_into_fx_graph_cache_default() -> bool | None:\n108:fx_graph_cache: bool = Config(\n109:    justknob=\"pytorch/remote_cache:enable_local_fx_graph_cache\",\n124:bundle_triton_into_fx_gra"
+        },
+        {
+          "claim": "torch._inductor.config.recompile_limit",
+          "value": "recompile_limit",
+          "type": "inductor_config",
+          "context": "ted compilation\n   - Check if torch._inductor.config.recompile_limit needs adjustment\n\nWithout mor",
+          "verified": false,
+          "grep_output": ""
+        }
+      ]
+    },
+    {
+      "id": "J8-3",
+      "total_claims": 1,
+      "verified": 1,
+      "fabricated": 0,
+      "claims": [
+        {
+          "claim": "from torch.nn import functional",
+          "value": "functional",
+          "type": "import_claim",
+          "module_path": "torch.nn",
+          "context": "cit inputs/outputs:\n```python\nfrom torch.nn import functional as F\n# In body_fn\noutput = F.",
+          "verified": true,
+          "grep_output": "/home/pengwu/envs/torch-nightly/lib/python3.12/site-packages/torch/nn/__init__.py:11:    functional as functional,\n/home/pengwu/envs/torch-nightly/lib/python3.12/site-packages/torch/nn/functional.py:3"
+        }
+      ]
+    },
+    {
+      "id": "J8-11",
+      "total_claims": 4,
+      "verified": 4,
+      "fabricated": 0,
+      "claims": [
+        {
+          "claim": "torch._inductor.config.allow_buffer_reuse",
+          "value": "allow_buffer_reuse",
+          "type": "inductor_config",
+          "context": "ctor optimizations:\n```python\ntorch._inductor.config.allow_buffer_reuse = False\ntorch._inductor.confi",
+          "verified": true,
+          "grep_output": "251:allow_buffer_reuse = True\n"
+        },
+        {
+          "claim": "torch._inductor.config.inplace_buffers",
+          "value": "inplace_buffers",
+          "type": "inductor_config",
+          "context": "ig.allow_buffer_reuse = False\ntorch._inductor.config.inplace_buffers = False\n```\n\nThe illegal memo",
+          "verified": true,
+          "grep_output": "248:inplace_buffers = True\n"
+        },
+        {
+          "claim": "config.allow_buffer_reuse =",
+          "value": "allow_buffer_reuse",
+          "type": "config_assignment",
+          "context": "ns:\n```python\ntorch._inductor.config.allow_buffer_reuse = False\ntorch._inductor.config.",
+          "verified": true,
+          "grep_output": "/home/pengwu/envs/torch-nightly/lib/python3.12/site-packages/torch/_inductor/__init__.py:333:    \"allow_buffer_reuse\": False,\n/home/pengwu/envs/torch-nightly/lib/python3.12/site-packages/torch/_induct"
+        },
+        {
+          "claim": "config.inplace_buffers =",
+          "value": "inplace_buffers",
+          "type": "config_assignment",
+          "context": "reuse = False\ntorch._inductor.config.inplace_buffers = False\n```\n\nThe illegal memory",
+          "verified": true,
+          "grep_output": "/home/pengwu/envs/torch-nightly/lib/python3.12/site-packages/torch/_inductor/config.py:248:inplace_buffers = True\n/home/pengwu/envs/torch-nightly/lib/python3.12/site-packages/torch/_inductor/graph.py:"
+        }
+      ]
+    },
+    {
+      "id": "J8-19",
+      "total_claims": 0,
+      "verified": 0,
+      "fabricated": 0,
+      "claims": []
+    },
+    {
+      "id": "J1-8",
+      "total_claims": 3,
+      "verified": 3,
+      "fabricated": 0,
+      "claims": [
+        {
+          "claim": "torch._inductor.config.force_disable_caches",
+          "value": "force_disable_caches",
+          "type": "inductor_config",
+          "context": "g the compilation cache with `torch._inductor.config.force_disable_caches = True` or clearing it manual",
+          "verified": true,
+          "grep_output": "164:# See torch.compiler.config.force_disable_caches\n165:force_disable_caches: bool = Config(alias=\"torch.compiler.config.force_disable_caches\")\n"
+        },
+        {
+          "claim": "config.force_disable_caches =",
+          "value": "force_disable_caches",
+          "type": "config_assignment",
+          "context": "n cache with `torch._inductor.config.force_disable_caches = True` or clearing it manually",
+          "verified": true,
+          "grep_output": "/home/pengwu/envs/torch-nightly/lib/python3.12/site-packages/torch/_dynamo/eval_frame.py:859:            if torch._inductor.config.force_disable_caches:\n/home/pengwu/envs/torch-nightly/lib/python3.12/"
+        },
+        {
+          "claim": "TORCH_COMPILE_DEBUG",
+          "value": "TORCH_COMPILE_DEBUG",
+          "type": "env_var",
+          "context": "ng, set environment variable `TORCH_COMPILE_DEBUG=1` to get detailed compilatio",
+          "verified": true,
+          "grep_output": "/home/pengwu/envs/torch-nightly/lib/python3.12/site-packages/torch/_dynamo/config.py:633:    DEBUG_DIR_VAR_NAME = \"TORCH_COMPILE_DEBUG_DIR\"\n/home/pengwu/envs/torch-nightly/lib/python3.12/site-packages"
+        }
+      ]
+    },
+    {
+      "id": "J1-16",
+      "total_claims": 0,
+      "verified": 0,
+      "fabricated": 0,
+      "claims": []
+    },
+    {
+      "id": "J2-4",
+      "total_claims": 4,
+      "verified": 3,
+      "fabricated": 1,
+      "claims": [
+        {
+          "claim": "torch._inductor.config.profile",
+          "value": "profile",
+          "type": "inductor_config",
+          "context": "ion limits. (6) Profile with `torch._inductor.config.profile = True` and check `torch._ind",
+          "verified": true,
+          "grep_output": "609:# Configures the maximum number of NVIDIA Universal GEMM (NVGEMM) configs to profile\n1105:    # TODO - need estimated and profile based version\n1332:# Mark the wrapper call in PyTorch profiler\n133"
+        },
+        {
+          "claim": "torch._inductor.config.profile_output",
+          "value": "profile_output",
+          "type": "inductor_config",
+          "context": "ig.profile = True` and check `torch._inductor.config.profile_output`. (7) Compare compilation log",
+          "verified": false,
+          "grep_output": ""
+        },
+        {
+          "claim": "torch._dynamo.config.recompile_limit",
+          "value": "recompile_limit",
+          "type": "dynamo_config",
+          "context": "g Triton autotuning. (5) Use `torch._dynamo.config.recompile_limit` to track if you're hitting r",
+          "verified": true,
+          "grep_output": "116:recompile_limit = 8\n119:accumulated_recompile_limit = 256\n121:skip_code_recursive_on_recompile_limit_hit: bool = Config(\n127:# you regress guards/specialization.  This works best when recompile_li"
+        },
+        {
+          "claim": "config.profile =",
+          "value": "profile",
+          "type": "config_assignment",
+          "context": "Profile with `torch._inductor.config.profile = True` and check `torch._induc",
+          "verified": true,
+          "grep_output": "/home/pengwu/envs/torch-nightly/lib/python3.12/site-packages/torch/__init__.py:57:    profiler_allow_cudagraph_cupti_lazy_reinit_cuda12,\n/home/pengwu/envs/torch-nightly/lib/python3.12/site-packages/to"
+        }
+      ]
+    },
+    {
+      "id": "J2-12",
+      "total_claims": 0,
+      "verified": 0,
+      "fabricated": 0,
+      "claims": []
+    },
+    {
+      "id": "J2-20",
+      "total_claims": 0,
+      "verified": 0,
+      "fabricated": 0,
+      "claims": []
+    },
+    {
+      "id": "J3-8",
+      "total_claims": 6,
+      "verified": 6,
+      "fabricated": 0,
+      "claims": [
+        {
+          "claim": "torch._inductor.config.size_asserts",
+          "value": "size_asserts",
+          "type": "inductor_config",
+          "context": ". (3) Enable assertions with `torch._inductor.config.size_asserts = True` and `torch._inductor.",
+          "verified": true,
+          "grep_output": "231:size_asserts = os.environ.get(\"TORCHINDUCTOR_SIZE_ASSERTS\", \"1\") == \"1\"\n"
+        },
+        {
+          "claim": "torch._inductor.config.nan_asserts",
+          "value": "nan_asserts",
+          "type": "inductor_config",
+          "context": "fig.size_asserts = True` and `torch._inductor.config.nan_asserts = True` (both verified in con",
+          "verified": true,
+          "grep_output": "232:nan_asserts = os.environ.get(\"TORCHINDUCTOR_NAN_ASSERTS\") == \"1\"\n233:runtime_triton_nan_asserts = (\n"
+        },
+        {
+          "claim": "torch._inductor.config.fallback_random",
+          "value": "fallback_random",
+          "type": "inductor_config",
+          "context": "t(tensor.stride())`. (5) Try `torch._inductor.config.fallback_random = True` to ensure determinist",
+          "verified": true,
+          "grep_output": "811:fallback_random = False\n2602:    graphsafe_rng_func_ignores_fallback_random = False\n"
+        },
+        {
+          "claim": "config.size_asserts =",
+          "value": "size_asserts",
+          "type": "config_assignment",
+          "context": "ertions with `torch._inductor.config.size_asserts = True` and `torch._inductor.co",
+          "verified": true,
+          "grep_output": "/home/pengwu/envs/torch-nightly/lib/python3.12/site-packages/torch/_inductor/compile_fx.py:1989:    if config.size_asserts:\n/home/pengwu/envs/torch-nightly/lib/python3.12/site-packages/torch/_inductor"
+        },
+        {
+          "claim": "config.nan_asserts =",
+          "value": "nan_asserts",
+          "type": "config_assignment",
+          "context": " = True` and `torch._inductor.config.nan_asserts = True` (both verified in confi",
+          "verified": true,
+          "grep_output": "/home/pengwu/envs/torch-nightly/lib/python3.12/site-packages/torch/_inductor/config.py:232:nan_asserts = os.environ.get(\"TORCHINDUCTOR_NAN_ASSERTS\") == \"1\"\n/home/pengwu/envs/torch-nightly/lib/python3."
+        },
+        {
+          "claim": "config.fallback_random =",
+          "value": "fallback_random",
+          "type": "config_assignment",
+          "context": "))`. (5) Try `torch._inductor.config.fallback_random = True` to ensure deterministic",
+          "verified": true,
+          "grep_output": "/home/pengwu/envs/torch-nightly/lib/python3.12/site-packages/torch/__init__.py:2681:        - `fallback_random` which is useful when debugging accuracy issues\n/home/pengwu/envs/torch-nightly/lib/pytho"
+        }
+      ]
+    },
+    {
+      "id": "J3-16",
+      "total_claims": 0,
+      "verified": 0,
+      "fabricated": 0,
+      "claims": []
+    },
+    {
+      "id": "J4-4",
+      "total_claims": 3,
+      "verified": 3,
+      "fabricated": 0,
+      "claims": [
+        {
+          "claim": "torch._inductor.config.shape_padding",
+          "value": "shape_padding",
+          "type": "inductor_config",
+          "context": "rs with cross-attention, try `torch._inductor.config.shape_padding = False` to disable padding o",
+          "verified": true,
+          "grep_output": "1277:shape_padding = os.environ.get(\"TORCHINDUCTOR_SHAPE_PADDING\", \"1\") == \"1\"\n"
+        },
+        {
+          "claim": "torch._dynamo.config.recompile_limit",
+          "value": "recompile_limit",
+          "type": "dynamo_config",
+          "context": "n/cache/` directory. (7) Use `torch._dynamo.config.recompile_limit` to control graph recompilati",
+          "verified": true,
+          "grep_output": "116:recompile_limit = 8\n119:accumulated_recompile_limit = 256\n121:skip_code_recursive_on_recompile_limit_hit: bool = Config(\n127:# you regress guards/specialization.  This works best when recompile_li"
+        },
+        {
+          "claim": "config.shape_padding =",
+          "value": "shape_padding",
+          "type": "config_assignment",
+          "context": "tention, try `torch._inductor.config.shape_padding = False` to disable padding opt",
+          "verified": true,
+          "grep_output": "/home/pengwu/envs/torch-nightly/lib/python3.12/site-packages/torch/__init__.py:2683:        - `shape_padding` which pads matrix shapes to better align loads on GPUs especially for tensor cores\n/home/p"
+        }
+      ]
+    },
+    {
+      "id": "J4-12",
+      "total_claims": 4,
+      "verified": 3,
+      "fabricated": 1,
+      "claims": [
+        {
+          "claim": "torch._inductor.config.optimize_ddp",
+          "value": "optimize_ddp",
+          "type": "inductor_config",
+          "context": " better DDP compilation, use `torch._inductor.config.optimize_ddp = True` if available, or use ",
+          "verified": false,
+          "grep_output": ""
+        },
+        {
+          "claim": "torch._dynamo.config.compiled_autograd",
+          "value": "compiled_autograd",
+          "type": "dynamo_config",
+          "context": " can be traced - enable with `torch._dynamo.config.compiled_autograd = True`. (6) Monitor graph br",
+          "verified": true,
+          "grep_output": "401:# of compiled_autograd. With \"python_reducer\", DDP will disable the C++ reducer\n402:# and use the Python reducer to allow compiled_autograd to trace the\n407:# overlap. This mode CANNOT be used wit"
+        },
+        {
+          "claim": "config.optimize_ddp =",
+          "value": "optimize_ddp",
+          "type": "config_assignment",
+          "context": "ilation, use `torch._inductor.config.optimize_ddp = True` if available, or use th",
+          "verified": true,
+          "grep_output": "/home/pengwu/envs/torch-nightly/lib/python3.12/site-packages/torch/_dynamo/config.py:411:optimize_ddp: (\n/home/pengwu/envs/torch-nightly/lib/python3.12/site-packages/torch/_dynamo/config.py:437:optimi"
+        },
+        {
+          "claim": "config.compiled_autograd =",
+          "value": "compiled_autograd",
+          "type": "config_assignment",
+          "context": " - enable with `torch._dynamo.config.compiled_autograd = True`. (6) Monitor graph brea",
+          "verified": true,
+          "grep_output": "/home/pengwu/envs/torch-nightly/lib/python3.12/site-packages/torch/_guards.py:54:    r\"^!(?P<compiled_autograd_id>\\d+)(?:/(?P<frame_id>\\d+)/(?P<frame_compile_id>\\d+))?$\"\n/home/pengwu/envs/torch-nightl"
+        }
+      ]
+    },
+    {
+      "id": "J4-20",
+      "total_claims": 0,
+      "verified": 0,
+      "fabricated": 0,
+      "claims": []
+    },
+    {
+      "id": "J5-8",
+      "total_claims": 4,
+      "verified": 4,
+      "fabricated": 0,
+      "claims": [
+        {
+          "claim": "torch._inductor.config.shape_padding",
+          "value": "shape_padding",
+          "type": "inductor_config",
+          "context": "nce lengths in vLLM. (2) Set `torch._inductor.config.shape_padding = False` (verified config.py ",
+          "verified": true,
+          "grep_output": "1277:shape_padding = os.environ.get(\"TORCHINDUCTOR_SHAPE_PADDING\", \"1\") == \"1\"\n"
+        },
+        {
+          "claim": "torch._inductor.config.comprehensive_padding",
+          "value": "comprehensive_padding",
+          "type": "inductor_config",
+          "context": "flates buffer sizes. (3) Try `torch._inductor.config.comprehensive_padding = False` (config.py line 1281",
+          "verified": true,
+          "grep_output": "1280:comprehensive_padding = (\n"
+        },
+        {
+          "claim": "config.shape_padding =",
+          "value": "shape_padding",
+          "type": "config_assignment",
+          "context": "LLM. (2) Set `torch._inductor.config.shape_padding = False` (verified config.py li",
+          "verified": true,
+          "grep_output": "/home/pengwu/envs/torch-nightly/lib/python3.12/site-packages/torch/__init__.py:2683:        - `shape_padding` which pads matrix shapes to better align loads on GPUs especially for tensor cores\n/home/p"
+        },
+        {
+          "claim": "config.comprehensive_padding =",
+          "value": "comprehensive_padding",
+          "type": "config_assignment",
+          "context": "zes. (3) Try `torch._inductor.config.comprehensive_padding = False` (config.py line 1281) ",
+          "verified": true,
+          "grep_output": "/home/pengwu/envs/torch-nightly/lib/python3.12/site-packages/torch/_inductor/compile_fx.py:677:def maybe_disable_comprehensive_padding(\n/home/pengwu/envs/torch-nightly/lib/python3.12/site-packages/tor"
+        }
+      ]
+    },
+    {
+      "id": "J5-16",
+      "total_claims": 0,
+      "verified": 0,
+      "fabricated": 0,
+      "claims": []
+    },
+    {
+      "id": "J6-4",
+      "total_claims": 3,
+      "verified": 3,
+      "fabricated": 0,
+      "claims": [
+        {
+          "claim": "torch._dynamo.config.assume_static_by_default",
+          "value": "assume_static_by_default",
+          "type": "dynamo_config",
+          "context": "m() and constraints. (3) Use `torch._dynamo.config.assume_static_by_default = False` (verified in multipl",
+          "verified": true,
+          "grep_output": "149:# inputs.  Note that assume_static_by_default will also cause ints to get\n167:# When assume_static_by_default is True, we only allocate symbols for shapes marked dynamic via mark_dynamic.\n170:assu"
+        },
+        {
+          "claim": "torch._dynamo.config.recompile_limit",
+          "value": "recompile_limit",
+          "type": "dynamo_config",
+          "context": " wastes computation. (5) Set `torch._dynamo.config.recompile_limit` higher than default 8 to all",
+          "verified": true,
+          "grep_output": "116:recompile_limit = 8\n119:accumulated_recompile_limit = 256\n121:skip_code_recursive_on_recompile_limit_hit: bool = Config(\n127:# you regress guards/specialization.  This works best when recompile_li"
+        },
+        {
+          "claim": "config.assume_static_by_default =",
+          "value": "assume_static_by_default",
+          "type": "config_assignment",
+          "context": "aints. (3) Use `torch._dynamo.config.assume_static_by_default = False` (verified in multiple ",
+          "verified": true,
+          "grep_output": "/home/pengwu/envs/torch-nightly/lib/python3.12/site-packages/torch/_dynamo/config.py:149:# inputs.  Note that assume_static_by_default will also cause ints to get\n/home/pengwu/envs/torch-nightly/lib/p"
+        }
+      ]
+    },
+    {
+      "id": "J6-12",
+      "total_claims": 2,
+      "verified": 2,
+      "fabricated": 0,
+      "claims": [
+        {
+          "claim": "torch._dynamo.config.assume_static_by_default",
+          "value": "assume_static_by_default",
+          "type": "dynamo_config",
+          "context": "m to torch.export(). (3) Set `torch._dynamo.config.assume_static_by_default = False` (verified in config ",
+          "verified": true,
+          "grep_output": "149:# inputs.  Note that assume_static_by_default will also cause ints to get\n167:# When assume_static_by_default is True, we only allocate symbols for shapes marked dynamic via mark_dynamic.\n170:assu"
+        },
+        {
+          "claim": "config.assume_static_by_default =",
+          "value": "assume_static_by_default",
+          "type": "config_assignment",
+          "context": "ort(). (3) Set `torch._dynamo.config.assume_static_by_default = False` (verified in config fi",
+          "verified": true,
+          "grep_output": "/home/pengwu/envs/torch-nightly/lib/python3.12/site-packages/torch/_dynamo/config.py:149:# inputs.  Note that assume_static_by_default will also cause ints to get\n/home/pengwu/envs/torch-nightly/lib/p"
+        }
+      ]
+    },
+    {
+      "id": "J6-20",
+      "total_claims": 0,
+      "verified": 0,
+      "fabricated": 0,
+      "claims": []
+    },
+    {
+      "id": "J7-8",
+      "total_claims": 5,
+      "verified": 5,
+      "fabricated": 0,
+      "claims": [
+        {
+          "claim": "torch._inductor.config.max_autotune",
+          "value": "max_autotune",
+          "type": "inductor_config",
+          "context": "orrectly. Solutions: (1) Set `torch._inductor.config.max_autotune = False` (verified config.py ",
+          "verified": true,
+          "grep_output": "496:distributed_max_autotune_gemm = (\n501:pipeline_max_autotune_gemm = (\n506:max_autotune = os.environ.get(\"TORCHINDUCTOR_MAX_AUTOTUNE\") == \"1\"\n509:max_autotune_pointwise = os.environ.get(\"TORCHINDUCT"
+        },
+        {
+          "claim": "torch._inductor.config.autotune_in_subproc",
+          "value": "autotune_in_subproc",
+          "type": "inductor_config",
+          "context": "lt kernel selection. (2) Use `torch._inductor.config.autotune_in_subproc = False` (config.py line 698)",
+          "verified": true,
+          "grep_output": "698:autotune_in_subproc = os.environ.get(\"TORCHINDUCTOR_AUTOTUNE_IN_SUBPROC\") == \"1\"\n700:# The following three timeouts are applicable if autotune_in_subproc is True:\n"
+        },
+        {
+          "claim": "config.max_autotune =",
+          "value": "max_autotune",
+          "type": "config_assignment",
+          "context": "ons: (1) Set `torch._inductor.config.max_autotune = False` (verified config.py li",
+          "verified": true,
+          "grep_output": "/home/pengwu/envs/torch-nightly/lib/python3.12/site-packages/torch/__init__.py:2677:        - `epilogue_fusion` which fuses pointwise ops into templates. Requires `max_autotune` to also be set\n/home/p"
+        },
+        {
+          "claim": "config.autotune_in_subproc =",
+          "value": "autotune_in_subproc",
+          "type": "config_assignment",
+          "context": "ion. (2) Use `torch._inductor.config.autotune_in_subproc = False` (config.py line 698) t",
+          "verified": true,
+          "grep_output": "/home/pengwu/envs/torch-nightly/lib/python3.12/site-packages/torch/_inductor/autotune_process.py:1333:def run_autotune_in_subprocess(\n/home/pengwu/envs/torch-nightly/lib/python3.12/site-packages/torch"
+        },
+        {
+          "claim": "TORCHINDUCTOR_AUTOTUNE_IN_SUBPROC",
+          "value": "TORCHINDUCTOR_AUTOTUNE_IN_SUBPROC",
+          "type": "env_var",
+          "context": "pect generated code. (6) Set `TORCHINDUCTOR_AUTOTUNE_IN_SUBPROC=0` environment variable to de",
+          "verified": true,
+          "grep_output": "/home/pengwu/envs/torch-nightly/lib/python3.12/site-packages/torch/_inductor/config.py:698:autotune_in_subproc = os.environ.get(\"TORCHINDUCTOR_AUTOTUNE_IN_SUBPROC\") == \"1\"\n/home/pengwu/envs/torch-nigh"
+        }
+      ]
+    },
+    {
+      "id": "J7-16",
+      "total_claims": 3,
+      "verified": 3,
+      "fabricated": 0,
+      "claims": [
+        {
+          "claim": "torch._inductor.config.fx_graph_cache",
+          "value": "fx_graph_cache",
+          "type": "inductor_config",
+          "context": "s automatically. Enable with `torch._inductor.config.fx_graph_cache = True` (uses env var TORCHIN",
+          "verified": true,
+          "grep_output": "44:def bundle_triton_into_fx_graph_cache_default() -> bool | None:\n108:fx_graph_cache: bool = Config(\n109:    justknob=\"pytorch/remote_cache:enable_local_fx_graph_cache\",\n124:bundle_triton_into_fx_gra"
+        },
+        {
+          "claim": "config.fx_graph_cache =",
+          "value": "fx_graph_cache",
+          "type": "config_assignment",
+          "context": " Enable with `torch._inductor.config.fx_graph_cache = True` (uses env var TORCHINDU",
+          "verified": true,
+          "grep_output": "/home/pengwu/envs/torch-nightly/lib/python3.12/site-packages/torch/_dynamo/utils.py:1514:    remote_fx_graph_cache_get_time_ms: int | None = None\n/home/pengwu/envs/torch-nightly/lib/python3.12/site-pa"
+        },
+        {
+          "claim": "TORCHINDUCTOR_FX_GRAPH_CACHE",
+          "value": "TORCHINDUCTOR_FX_GRAPH_CACHE",
+          "type": "env_var",
+          "context": "h_cache = True` (uses env var TORCHINDUCTOR_FX_GRAPH_CACHE verified in config.py lines 1",
+          "verified": true,
+          "grep_output": "/home/pengwu/envs/torch-nightly/lib/python3.12/site-packages/torch/_inductor/config.py:110:    env_name_default=\"TORCHINDUCTOR_FX_GRAPH_CACHE_DEFAULT\",\n/home/pengwu/envs/torch-nightly/lib/python3.12/s"
+        }
+      ]
+    },
+    {
+      "id": "J8-4",
+      "total_claims": 0,
+      "verified": 0,
+      "fabricated": 0,
+      "claims": []
+    },
+    {
+      "id": "J8-12",
+      "total_claims": 3,
+      "verified": 3,
+      "fabricated": 0,
+      "claims": [
+        {
+          "claim": "torch._inductor.config.max_autotune",
+          "value": "max_autotune",
+          "type": "inductor_config",
+          "context": "3) Try disabling autotuning: `torch._inductor.config.max_autotune = False`. (4) Use `TORCH_LOGS",
+          "verified": true,
+          "grep_output": "496:distributed_max_autotune_gemm = (\n501:pipeline_max_autotune_gemm = (\n506:max_autotune = os.environ.get(\"TORCHINDUCTOR_MAX_AUTOTUNE\") == \"1\"\n509:max_autotune_pointwise = os.environ.get(\"TORCHINDUCT"
+        },
+        {
+          "claim": "config.max_autotune =",
+          "value": "max_autotune",
+          "type": "config_assignment",
+          "context": " autotuning: `torch._inductor.config.max_autotune = False`. (4) Use `TORCH_LOGS=o",
+          "verified": true,
+          "grep_output": "/home/pengwu/envs/torch-nightly/lib/python3.12/site-packages/torch/__init__.py:2677:        - `epilogue_fusion` which fuses pointwise ops into templates. Requires `max_autotune` to also be set\n/home/p"
+        },
+        {
+          "claim": "torch.nn.attention.flex_attention",
+          "value": "flex_attention",
+          "type": "attention_api",
+          "context": "ou're using the correct API: `torch.nn.attention.flex_attention.flex_attention(Q, K, V, score",
+          "verified": true,
+          "grep_output": "/home/pengwu/envs/torch-nightly/lib/python3.12/site-packages/torch/nn/attention/flex_attention.py:3:\"\"\"This module implements the user facing API for flex_attention in PyTorch.\"\"\"\n/home/pengwu/envs/to"
+        }
+      ]
+    },
+    {
+      "id": "J8-20",
+      "total_claims": 4,
+      "verified": 2,
+      "fabricated": 2,
+      "claims": [
+        {
+          "claim": "torch._inductor.config.nan_asserts",
+          "value": "nan_asserts",
+          "type": "inductor_config",
+          "context": " Enable gradient assertions: `torch._inductor.config.nan_asserts = True` (verified config.py l",
+          "verified": true,
+          "grep_output": "232:nan_asserts = os.environ.get(\"TORCHINDUCTOR_NAN_ASSERTS\") == \"1\"\n233:runtime_triton_nan_asserts = (\n"
+        },
+        {
+          "claim": "torch._inductor.config.autotune_fallback_to_eager",
+          "value": "autotune_fallback_to_eager",
+          "type": "inductor_config",
+          "context": " backward optimizations with `torch._inductor.config.autotune_fallback_to_eager = True` if such config exists",
+          "verified": false,
+          "grep_output": ""
+        },
+        {
+          "claim": "config.nan_asserts =",
+          "value": "nan_asserts",
+          "type": "config_assignment",
+          "context": " assertions: `torch._inductor.config.nan_asserts = True` (verified config.py lin",
+          "verified": true,
+          "grep_output": "/home/pengwu/envs/torch-nightly/lib/python3.12/site-packages/torch/_inductor/config.py:232:nan_asserts = os.environ.get(\"TORCHINDUCTOR_NAN_ASSERTS\") == \"1\"\n/home/pengwu/envs/torch-nightly/lib/python3."
+        },
+        {
+          "claim": "config.autotune_fallback_to_eager =",
+          "value": "autotune_fallback_to_eager",
+          "type": "config_assignment",
+          "context": "zations with `torch._inductor.config.autotune_fallback_to_eager = True` if such config exists. ",
+          "verified": false,
+          "grep_output": ""
+        }
+      ]
+    }
+  ]
+}
