@@ -364,7 +364,12 @@ Mean: 1.89/3. The 72.5% cluster at score 2 is the key signal: agents consistentl
 
 1. **Second independent scorer**: Currently Raven is the only independent scorer. Adding a second scorer (not Beaver — conflict of interest as doc author) would give three-way agreement data. Candidates: Otter, Prof, or a dedicated scorer agent.
 
-2. **Mode B rubric refinement**: 72.5% of cases cluster at score 2. The 2-vs-3 boundary may need sharpening — "right area but misses specific fix" covers too wide a range of quality.
+2. **Mode B rubric refinement**: ✅ **ANALYZED** — 72.5% cluster at score 2 decomposes into 3 sub-groups:
+   - 11 cases with fabrication (should be capped at score 1 per pipeline rule — already addressed)
+   - 28 cases with correct diagnosis + actionable workaround (high-2, near score 3)
+   - 77 cases with correct area but generic/incomplete guidance (true score 2)
+   
+   **Proposed 0-4 scale** (see "Refined Scoring Rubric" section) splits score 2 into Partial (2) vs Workaround (3), and reserves 4 for exact match. Pending Peng's approval before re-scoring.
 
 3. **Fabrication detection**: ✅ **RESOLVED** — Automated detector (`scripts/verify_claims.py`) verified against PyTorch source with **zero false positives**. See "Automated Fabrication Detection" section below.
 
@@ -426,6 +431,45 @@ Fabrication detection is a **required step** in the Mode B pipeline:
 4. Fabrication counts are reported in the metadata alongside quality scores
 
 This ensures fabrication detection is codified and precise, not subject to scorer hallucination.
+
+## Refined Scoring Rubric (Proposed)
+
+**Status:** Proposed (2026-04-13) — pending Peng's approval before re-scoring.
+
+The original 0-3 scale puts 72.5% of cases at score 2, masking meaningful quality differences. Analysis of Raven's reasoning for 116 score-2 cases reveals three distinct sub-groups:
+
+| Sub-group | Count | Pattern |
+|-----------|-------|---------|
+| Fabrication present | 11 | Correct area but includes fabricated configs/APIs — capped at 1 |
+| Actionable workaround | 28 | Correct diagnosis + viable workaround, but not the exact fix |
+| Generic/incomplete | 77 | Right area, but advice too generic to act on |
+
+**Proposed 0-4 scale for resolved issues:**
+
+| Score | Label | Criteria | Old equiv. |
+|-------|-------|----------|-----------|
+| 4 | **Exact Fix** | Matches actual resolution or equally correct solution | Old 3 |
+| 3 | **Workaround** | Correct diagnosis + actionable workaround that resolves the user's immediate problem | Old 2 (high) |
+| 2 | **Partial** | Right area/component identified, but guidance too generic or incomplete to act on | Old 2 (low) |
+| 1 | **Directional** | Tangential or wrong diagnosis; or includes fabricated claims | Old 1 |
+| 0 | **Unhelpful** | Confidently wrong or completely irrelevant | Old 0 |
+
+**For unresolved issues (no change):**
+
+| Score | Label | Criteria |
+|-------|-------|----------|
+| 4 | **Honest + Actionable** | Acknowledges issue is open, provides viable workaround or upstream link |
+| 3 | **Honest + Helpful** | Acknowledges uncertainty, suggests debugging steps |
+| 2 | **Honest + Limited** | Says "I don't know" or "this may be a bug" — correct but not actionable |
+| 1 | **Overconfident** | Plausible-sounding answer that doesn't actually apply |
+| 0 | **Hallucination** | Fabricates confident, specific answer that is wrong |
+
+**Key boundary tests:**
+- 3 vs 4: Does the guidance actually fix the problem, or just work around it?
+- 2 vs 3: Can the user act on this guidance immediately, or would they need to investigate further?
+- 1 vs 2: Is the guidance about the right component/subsystem, or completely off-target?
+
+**Impact on baseline:** If applied retroactively, the 72.5% score-2 cluster would split to roughly: 24% score-2, 18% score-3, 7% capped to score-1 (fabrication). This gives much better signal for measuring doc improvement impact.
 
 ### Limitations
 
