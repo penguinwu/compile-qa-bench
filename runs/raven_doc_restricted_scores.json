@@ -1,0 +1,962 @@
+[
+  {
+    "has_fabrication": true,
+    "id": "J1-1",
+    "justification": "Implies save_cache_artifacts()/load_cache_artifacts() exist ('You don't need to manually call them') — these functions don't exist. Correct on TORCHINDUCTOR_FX_GRAPH_CACHE but fabrication caps at 1.",
+    "score": 1
+  },
+  {
+    "has_fabrication": false,
+    "id": "J1-2",
+    "justification": "Correctly identifies backend parameter, lists real backends, points to real Custom Backends doc. Minor imprecision (cudagraphs listed as backend vs mode) but actionable.",
+    "score": 2
+  },
+  {
+    "has_fabrication": false,
+    "id": "J1-3",
+    "justification": "Honestly identifies DDP+AMP+compile gap. Gives reasonable advice (autocast inside forward). Points to real AMP docs.",
+    "score": 2
+  },
+  {
+    "has_fabrication": false,
+    "id": "J1-4",
+    "justification": "Correctly identifies C++ compiler requirement gap but provides no specific fix — just restates the problem.",
+    "score": 1
+  },
+  {
+    "has_fabrication": false,
+    "id": "J1-5",
+    "justification": "Correctly explains warmup/compilation overhead. Points to real regional compilation tutorial and blog. Actionable advice on measuring after warmup.",
+    "score": 2
+  },
+  {
+    "has_fabrication": false,
+    "id": "J1-6",
+    "justification": "Correctly identifies tensor parallel + compile gap. No actionable guidance beyond 'not documented.'",
+    "score": 1
+  },
+  {
+    "has_fabrication": false,
+    "id": "J1-7",
+    "justification": "No docs found, no actionable guidance. Just reports the gap.",
+    "score": 1
+  },
+  {
+    "has_fabrication": false,
+    "id": "J1-8",
+    "justification": "No docs found, no actionable guidance. Just reports the gap.",
+    "score": 1
+  },
+  {
+    "has_fabrication": false,
+    "id": "J1-9",
+    "justification": "Correctly explains FX graph cache with TORCHINDUCTOR_FX_GRAPH_CACHE=1, automatic persistence, default cache dir. Points to real caching tutorial. Directly answers the question.",
+    "score": 3
+  },
+  {
+    "has_fabrication": false,
+    "id": "J1-10",
+    "justification": "Identifies checkpoint+compile gap but no specific guidance. Just says 'not documented.'",
+    "score": 1
+  },
+  {
+    "has_fabrication": false,
+    "id": "J1-11",
+    "justification": "Points to real troubleshooting doc, mentions TORCH_LOGS='+recompiles' (correct). Partially addresses diagnostic approach for caching issues.",
+    "score": 2
+  },
+  {
+    "has_fabrication": false,
+    "id": "J1-12",
+    "justification": "Identifies autograd.grad gap. No actionable workaround.",
+    "score": 1
+  },
+  {
+    "has_fabrication": false,
+    "id": "J1-13",
+    "justification": "No docs found for GRU compile support. No guidance.",
+    "score": 1
+  },
+  {
+    "has_fabrication": false,
+    "id": "J1-14",
+    "justification": "No docs found for multiprocessing+compile. No guidance.",
+    "score": 1
+  },
+  {
+    "has_fabrication": false,
+    "id": "J1-15",
+    "justification": "No docs found for MXFP8. No guidance.",
+    "score": 1
+  },
+  {
+    "has_fabrication": false,
+    "id": "J1-16",
+    "justification": "No docs found for complex dtype support. No guidance.",
+    "score": 1
+  },
+  {
+    "has_fabrication": false,
+    "id": "J1-17",
+    "justification": "No docs found for Windows compile setup. No guidance.",
+    "score": 1
+  },
+  {
+    "has_fabrication": false,
+    "id": "J1-18",
+    "justification": "No docs found for inductor pattern matching. No guidance.",
+    "score": 1
+  },
+  {
+    "has_fabrication": false,
+    "id": "J1-19",
+    "justification": "No docs found for linker/libcuda path issues. No guidance.",
+    "score": 1
+  },
+  {
+    "has_fabrication": false,
+    "id": "J1-20",
+    "justification": "Identifies multi-process cache safety gap. Points to caching tutorial but can't address the specific race condition issue.",
+    "score": 1
+  },
+  {
+    "has_fabrication": false,
+    "id": "J2-1",
+    "justification": "Excellent guidance: torch.profiler code example, TORCH_LOGS='+graph_breaks', reduce-overhead mode, systematic diagnosis approach. Points to real troubleshooting and profiling docs.",
+    "score": 3
+  },
+  {
+    "has_fabrication": false,
+    "id": "J2-2",
+    "justification": "Points to real profiling doc. Mentions TORCHINDUCTOR_PROFILE=1 and TORCH_COMPILE_DEBUG=1 (real env vars). Acknowledges operator-specific gap.",
+    "score": 2
+  },
+  {
+    "has_fabrication": false,
+    "id": "J2-3",
+    "justification": "Correctly explains when compile helps vs doesn't. Mentions reduce-overhead mode. Points to real troubleshooting doc.",
+    "score": 2
+  },
+  {
+    "has_fabrication": false,
+    "id": "J2-4",
+    "justification": "Correctly identifies no version changelog exists. Mentions profiling tools but can't address the specific regression question.",
+    "score": 1
+  },
+  {
+    "has_fabrication": false,
+    "id": "J2-5",
+    "justification": "Mentions real debugging tools (TORCH_LOGS, TORCH_COMPILE_DEBUG). Correctly identifies C++ crash as beyond doc scope.",
+    "score": 2
+  },
+  {
+    "has_fabrication": false,
+    "id": "J2-6",
+    "justification": "Good explanation: matmul already uses cuBLAS, compile benefits come from fusion not single ops. Points to real docs.",
+    "score": 2
+  },
+  {
+    "has_fabrication": false,
+    "id": "J2-7",
+    "justification": "No docs found for GIL behavior with compiled kernels. No guidance.",
+    "score": 1
+  },
+  {
+    "has_fabrication": false,
+    "id": "J2-8",
+    "justification": "No docs found for flex_attention specifics. No guidance.",
+    "score": 1
+  },
+  {
+    "has_fabrication": false,
+    "id": "J2-9",
+    "justification": "Good profiling guidance: torch.profiler, Chrome traces, systematic methodology. Points to real profiling doc.",
+    "score": 2
+  },
+  {
+    "has_fabrication": false,
+    "id": "J2-10",
+    "justification": "Correctly identifies no operator coverage list exists. No actionable path forward.",
+    "score": 1
+  },
+  {
+    "has_fabrication": false,
+    "id": "J2-11",
+    "justification": "Identifies full-model compilation perf gap. No specific guidance.",
+    "score": 1
+  },
+  {
+    "has_fabrication": false,
+    "id": "J2-12",
+    "justification": "No docs for complex tensor perf. No guidance.",
+    "score": 1
+  },
+  {
+    "has_fabrication": false,
+    "id": "J2-13",
+    "justification": "No docs for float8 perf. No guidance.",
+    "score": 1
+  },
+  {
+    "has_fabrication": false,
+    "id": "J2-14",
+    "justification": "No docs for inductor codegen strategy. No guidance.",
+    "score": 1
+  },
+  {
+    "has_fabrication": false,
+    "id": "J2-15",
+    "justification": "No docs for SDPA+compile+tf32 interaction. No guidance.",
+    "score": 1
+  },
+  {
+    "has_fabrication": false,
+    "id": "J2-16",
+    "justification": "No docs for inductor fusion strategies. No guidance.",
+    "score": 1
+  },
+  {
+    "has_fabrication": false,
+    "id": "J2-17",
+    "justification": "No docs for torch._foreach ops. No guidance.",
+    "score": 1
+  },
+  {
+    "has_fabrication": false,
+    "id": "J2-18",
+    "justification": "Identifies no performance canary feature exists. Mentions profiling tools but can't help with the feature request.",
+    "score": 1
+  },
+  {
+    "has_fabrication": false,
+    "id": "J2-19",
+    "justification": "Points to real CPU inference blog but correctly notes no benchmark dashboard. No actionable path.",
+    "score": 1
+  },
+  {
+    "has_fabrication": false,
+    "id": "J2-20",
+    "justification": "Claims no XPU docs exist — actually Intel GPU/XPU docs ARE on pytorch.org. Incorrect gap assessment but not a fabrication (omission vs invention).",
+    "score": 1
+  },
+  {
+    "has_fabrication": false,
+    "id": "J3-1",
+    "justification": "Boilerplate template: 'minifier/repro_level appear to be internal development tools' — wrong, repro_level IS in troubleshooting docs. Cookie-cutter response doesn't engage with specifics.",
+    "score": 1
+  },
+  {
+    "has_fabrication": false,
+    "id": "J3-2",
+    "justification": "Identical boilerplate to J3-1. Same wrong claim about minifier/repro_level being internal-only.",
+    "score": 1
+  },
+  {
+    "has_fabrication": false,
+    "id": "J3-3",
+    "justification": "Slightly varied — mentions FlexAttention blogs. But still generic advice without engaging with the specific accuracy issue.",
+    "score": 1
+  },
+  {
+    "has_fabrication": false,
+    "id": "J3-4",
+    "justification": "Mentions float8 blog and numerical accuracy docs. Generic advice (detect_anomaly, check scaling). Doesn't engage with compile-specific NaN debugging.",
+    "score": 1
+  },
+  {
+    "has_fabrication": false,
+    "id": "J3-5",
+    "justification": "Generic reproducibility advice (set seeds). Doesn't engage with compile-specific reproducibility mechanisms.",
+    "score": 1
+  },
+  {
+    "has_fabrication": false,
+    "id": "J3-6",
+    "justification": "Identical boilerplate to J3-1.",
+    "score": 1
+  },
+  {
+    "has_fabrication": false,
+    "id": "J3-7",
+    "justification": "Identical boilerplate to J3-1.",
+    "score": 1
+  },
+  {
+    "has_fabrication": false,
+    "id": "J3-8",
+    "justification": "Same as J3-4 — generic NaN advice template.",
+    "score": 1
+  },
+  {
+    "has_fabrication": false,
+    "id": "J3-9",
+    "justification": "Identical boilerplate to J3-1.",
+    "score": 1
+  },
+  {
+    "has_fabrication": false,
+    "id": "J3-10",
+    "justification": "Identical boilerplate to J3-1.",
+    "score": 1
+  },
+  {
+    "has_fabrication": false,
+    "id": "J3-11",
+    "justification": "Generic: 'Use TORCH_LOGS, consult GitHub issues.' No specific engagement with the issue.",
+    "score": 1
+  },
+  {
+    "has_fabrication": false,
+    "id": "J3-12",
+    "justification": "Generic 'open issue' template: 'isolate, create minimal repro, check GitHub.' Applied identically to all remaining cases.",
+    "score": 1
+  },
+  {
+    "has_fabrication": false,
+    "id": "J3-13",
+    "justification": "Identical 'open issue' boilerplate.",
+    "score": 1
+  },
+  {
+    "has_fabrication": false,
+    "id": "J3-14",
+    "justification": "Identical 'open issue' boilerplate.",
+    "score": 1
+  },
+  {
+    "has_fabrication": false,
+    "id": "J3-15",
+    "justification": "Identical 'open issue' boilerplate.",
+    "score": 1
+  },
+  {
+    "has_fabrication": false,
+    "id": "J3-16",
+    "justification": "Identical 'open issue' boilerplate.",
+    "score": 1
+  },
+  {
+    "has_fabrication": false,
+    "id": "J3-17",
+    "justification": "Identical 'open issue' boilerplate.",
+    "score": 1
+  },
+  {
+    "has_fabrication": false,
+    "id": "J3-18",
+    "justification": "Identical 'open issue' boilerplate.",
+    "score": 1
+  },
+  {
+    "has_fabrication": false,
+    "id": "J3-19",
+    "justification": "Identical 'open issue' boilerplate.",
+    "score": 1
+  },
+  {
+    "has_fabrication": false,
+    "id": "J3-20",
+    "justification": "Slightly varied template mentioning graph breaks/TORCH_LOGS. Still generic, doesn't engage with the specific issue.",
+    "score": 1
+  },
+  {
+    "has_fabrication": false,
+    "id": "J4-1",
+    "justification": "Cookie-cutter graph break template applied identically to J4-1 through J4-6, J4-8-10. Mentions real tools (TORCH_LOGS='+dynamo', torch.compiler.disable) but completely non-specific to the actual issue.",
+    "score": 1
+  },
+  {
+    "has_fabrication": false,
+    "id": "J4-2",
+    "justification": "Identical graph break template. Doesn't engage with the specific issue.",
+    "score": 1
+  },
+  {
+    "has_fabrication": false,
+    "id": "J4-3",
+    "justification": "Identical graph break template.",
+    "score": 1
+  },
+  {
+    "has_fabrication": false,
+    "id": "J4-4",
+    "justification": "Identical graph break template.",
+    "score": 1
+  },
+  {
+    "has_fabrication": false,
+    "id": "J4-5",
+    "justification": "Identical graph break template.",
+    "score": 1
+  },
+  {
+    "has_fabrication": false,
+    "id": "J4-6",
+    "justification": "Identical graph break template.",
+    "score": 1
+  },
+  {
+    "has_fabrication": false,
+    "id": "J4-7",
+    "justification": "Slightly different: 'specific guidance not available.' Still generic.",
+    "score": 1
+  },
+  {
+    "has_fabrication": false,
+    "id": "J4-8",
+    "justification": "Identical graph break template.",
+    "score": 1
+  },
+  {
+    "has_fabrication": false,
+    "id": "J4-9",
+    "justification": "Identical graph break template.",
+    "score": 1
+  },
+  {
+    "has_fabrication": false,
+    "id": "J4-10",
+    "justification": "Identical graph break template.",
+    "score": 1
+  },
+  {
+    "has_fabrication": false,
+    "id": "J4-11",
+    "justification": "Unresolved boilerplate: 'check error messages, consult GitHub issues, file bug report.' Applied identically to J4-11 through J4-20.",
+    "score": 1
+  },
+  {
+    "has_fabrication": false,
+    "id": "J4-12",
+    "justification": "Identical unresolved boilerplate.",
+    "score": 1
+  },
+  {
+    "has_fabrication": false,
+    "id": "J4-13",
+    "justification": "Identical unresolved boilerplate.",
+    "score": 1
+  },
+  {
+    "has_fabrication": false,
+    "id": "J4-14",
+    "justification": "Identical unresolved boilerplate.",
+    "score": 1
+  },
+  {
+    "has_fabrication": false,
+    "id": "J4-15",
+    "justification": "Identical unresolved boilerplate.",
+    "score": 1
+  },
+  {
+    "has_fabrication": false,
+    "id": "J4-16",
+    "justification": "Identical unresolved boilerplate.",
+    "score": 1
+  },
+  {
+    "has_fabrication": false,
+    "id": "J4-17",
+    "justification": "Identical unresolved boilerplate.",
+    "score": 1
+  },
+  {
+    "has_fabrication": false,
+    "id": "J4-18",
+    "justification": "Identical unresolved boilerplate.",
+    "score": 1
+  },
+  {
+    "has_fabrication": false,
+    "id": "J4-19",
+    "justification": "Identical unresolved boilerplate.",
+    "score": 1
+  },
+  {
+    "has_fabrication": false,
+    "id": "J4-20",
+    "justification": "Identical unresolved boilerplate.",
+    "score": 1
+  },
+  {
+    "has_fabrication": false,
+    "id": "J5-1",
+    "justification": "Mentions real concepts (max-autotune, CUDA graphs, torch.amp). Identifies precision gap. Points to real Performance Tuning Guide.",
+    "score": 2
+  },
+  {
+    "has_fabrication": false,
+    "id": "J5-2",
+    "justification": "Notes reduce-overhead uses CUDA graphs. Generic suggestions for 7x regression. No version-specific debugging help.",
+    "score": 1
+  },
+  {
+    "has_fabrication": false,
+    "id": "J5-3",
+    "justification": "Points to real FlexAttention blogs. Notes composition performance gap but no actionable guidance.",
+    "score": 1
+  },
+  {
+    "has_fabrication": false,
+    "id": "J5-4",
+    "justification": "Correctly identifies inductor passes as undocumented internals. No guidance beyond 'file GitHub issue.'",
+    "score": 1
+  },
+  {
+    "has_fabrication": false,
+    "id": "J5-5",
+    "justification": "Points to troubleshooting docs. Notes bisection gap. No actionable regression debugging path.",
+    "score": 1
+  },
+  {
+    "has_fabrication": false,
+    "id": "J5-6",
+    "justification": "No docs on autotuner template selection. No guidance.",
+    "score": 1
+  },
+  {
+    "has_fabrication": false,
+    "id": "J5-7",
+    "justification": "Notes CrossEntropyLoss documented but fused variant isn't. No actionable path.",
+    "score": 1
+  },
+  {
+    "has_fabrication": false,
+    "id": "J5-8",
+    "justification": "Correctly notes vLLM is external, not covered. No guidance.",
+    "score": 1
+  },
+  {
+    "has_fabrication": false,
+    "id": "J5-9",
+    "justification": "Notes Windows support unclear for compile specifically. No guidance.",
+    "score": 1
+  },
+  {
+    "has_fabrication": false,
+    "id": "J5-10",
+    "justification": "Points to torch.optim docs. Gives useful tip: 'compile training step function, not optimizer directly.' Partially actionable.",
+    "score": 2
+  },
+  {
+    "has_fabrication": false,
+    "id": "J5-11",
+    "justification": "No docs on mode combinations. No guidance.",
+    "score": 1
+  },
+  {
+    "has_fabrication": false,
+    "id": "J5-12",
+    "justification": "Points to FlexAttention blog. Notes shared memory limit gap. Basic workaround suggestion (reduce batch/heads) but too generic.",
+    "score": 1
+  },
+  {
+    "has_fabrication": false,
+    "id": "J5-13",
+    "justification": "No docs on inductor embedding optimization. No guidance.",
+    "score": 1
+  },
+  {
+    "has_fabrication": false,
+    "id": "J5-14",
+    "justification": "Points to Triton tutorial. Notes performance tuning gap. No actionable guidance.",
+    "score": 1
+  },
+  {
+    "has_fabrication": false,
+    "id": "J5-15",
+    "justification": "Points to real torch.library and Triton kernel docs. Identifies common issues (incorrect schema, missing fake/meta). Partially actionable.",
+    "score": 2
+  },
+  {
+    "has_fabrication": false,
+    "id": "J5-16",
+    "justification": "No docs on custom backend integration with inductor. No guidance.",
+    "score": 1
+  },
+  {
+    "has_fabrication": false,
+    "id": "J5-17",
+    "justification": "No docs on inductor algorithm selection/test infra. No guidance.",
+    "score": 1
+  },
+  {
+    "has_fabrication": false,
+    "id": "J5-18",
+    "justification": "No docs on inductor kernel generation for reductions. No guidance.",
+    "score": 1
+  },
+  {
+    "has_fabrication": false,
+    "id": "J5-19",
+    "justification": "No docs on Welford algorithm in inductor. No guidance.",
+    "score": 1
+  },
+  {
+    "has_fabrication": false,
+    "id": "J5-20",
+    "justification": "Notes reduce-overhead enables graphs. Correctly identifies gap on why not default. No resolution.",
+    "score": 1
+  },
+  {
+    "has_fabrication": false,
+    "id": "J6-1",
+    "justification": "Points to real Dynamic Shapes docs. Correctly explains dynamic=True and mark_dynamic for batch dims. Actionable for the LayerNorm recompilation case.",
+    "score": 2
+  },
+  {
+    "has_fabrication": false,
+    "id": "J6-2",
+    "justification": "Points to Dynamic Shapes docs but correctly identifies empty tensor gap. No actionable workaround.",
+    "score": 1
+  },
+  {
+    "has_fabrication": false,
+    "id": "J6-3",
+    "justification": "Points to Dynamic Shapes Core Concepts. Notes reduction-specific gap but no guidance.",
+    "score": 1
+  },
+  {
+    "has_fabrication": false,
+    "id": "J6-4",
+    "justification": "Correctly identifies PyTorch Geometric as third-party. General dynamic shapes suggestion but no GNN-specific guidance.",
+    "score": 1
+  },
+  {
+    "has_fabrication": false,
+    "id": "J6-5",
+    "justification": "Good advice: dynamic=True, mark_dynamic on sequence dim, bucketing suggestion. Points to real docs. Actionable for variable-length attention.",
+    "score": 2
+  },
+  {
+    "has_fabrication": false,
+    "id": "J6-6",
+    "justification": "Points to Dynamic Core. Discusses guard system and mark_dynamic. Useful context for debugging recompilation exhaustion.",
+    "score": 2
+  },
+  {
+    "has_fabrication": false,
+    "id": "J6-7",
+    "justification": "Notes symbolic shapes limitations. Mentions torch._dynamo.explain (real debugging tool). Partially actionable.",
+    "score": 2
+  },
+  {
+    "has_fabrication": false,
+    "id": "J6-8",
+    "justification": "Good explanation of data-dependent ops challenge. Suggests masking instead of dynamic indexing — useful general principle.",
+    "score": 2
+  },
+  {
+    "has_fabrication": false,
+    "id": "J6-9",
+    "justification": "Identifies AMP+compile recompilation problem but provides no solution. Points to AMP docs but they don't address compile interaction.",
+    "score": 1
+  },
+  {
+    "has_fabrication": false,
+    "id": "J6-10",
+    "justification": "Gives correct general advice for speech models: dynamic=True, mark_dynamic on time dimension. Points to real docs.",
+    "score": 2
+  },
+  {
+    "has_fabrication": false,
+    "id": "J6-11",
+    "justification": "Points to DTensor docs. Identifies as_strided limitation. No workaround.",
+    "score": 1
+  },
+  {
+    "has_fabrication": false,
+    "id": "J6-12",
+    "justification": "No docs on mark_dynamic + nn.Parameter interaction. No guidance.",
+    "score": 1
+  },
+  {
+    "has_fabrication": false,
+    "id": "J6-13",
+    "justification": "No debugging tools for symbol creation documented. No guidance.",
+    "score": 1
+  },
+  {
+    "has_fabrication": false,
+    "id": "J6-14",
+    "justification": "No docs on recompilation affecting behavior/training. No guidance.",
+    "score": 1
+  },
+  {
+    "has_fabrication": false,
+    "id": "J6-15",
+    "justification": "No docs on guard accumulation limits. No guidance.",
+    "score": 1
+  },
+  {
+    "has_fabrication": false,
+    "id": "J6-16",
+    "justification": "No error message reference for type errors in dynamic context. No guidance.",
+    "score": 1
+  },
+  {
+    "has_fabrication": false,
+    "id": "J6-17",
+    "justification": "Correctly identifies DeepSpeed as third-party. No guidance.",
+    "score": 1
+  },
+  {
+    "has_fabrication": false,
+    "id": "J6-18",
+    "justification": "No model-specific guard recompilation debugging. No guidance.",
+    "score": 1
+  },
+  {
+    "has_fabrication": false,
+    "id": "J6-19",
+    "justification": "No docs on data-dependent shapes + gradients + compile interaction. No guidance.",
+    "score": 1
+  },
+  {
+    "has_fabrication": false,
+    "id": "J6-20",
+    "justification": "No operation support status list for dynamic shapes. No guidance.",
+    "score": 1
+  },
+  {
+    "has_fabrication": false,
+    "id": "J7-1",
+    "justification": "Points to real regional compilation tutorial, torch.compile docs, Dynamic Shapes. Identifies inline_inbuilt_nn_modules gap. Partially actionable.",
+    "score": 2
+  },
+  {
+    "has_fabrication": false,
+    "id": "J7-2",
+    "justification": "Points to Dynamo Overview. Correctly identifies AOTAutograd exponential compilation gap but no mitigation.",
+    "score": 1
+  },
+  {
+    "has_fabrication": false,
+    "id": "J7-3",
+    "justification": "Points to Dynamo Overview. Notes optimizer compilation gap but no specific guidance.",
+    "score": 1
+  },
+  {
+    "has_fabrication": false,
+    "id": "J7-4",
+    "justification": "Points to Dynamic Shapes docs. Identifies LR scheduler recompilation gap. No workaround provided.",
+    "score": 1
+  },
+  {
+    "has_fabrication": false,
+    "id": "J7-5",
+    "justification": "Points to Dynamic Shapes Core Concepts. No insight into compilation time variance by input size.",
+    "score": 1
+  },
+  {
+    "has_fabrication": false,
+    "id": "J7-6",
+    "justification": "Points to troubleshooting docs. Identifies Windows cache path gap. No fix.",
+    "score": 1
+  },
+  {
+    "has_fabrication": false,
+    "id": "J7-7",
+    "justification": "Points to troubleshooting docs. Identifies version bisection gap. No tools or methodology provided.",
+    "score": 1
+  },
+  {
+    "has_fabrication": false,
+    "id": "J7-8",
+    "justification": "Points to troubleshooting docs. Identifies autotuning crash gap. No workaround.",
+    "score": 1
+  },
+  {
+    "has_fabrication": false,
+    "id": "J7-9",
+    "justification": "Good — points to both regional compilation AND AOTInductor. Two complementary real approaches for compiling deep models in pieces.",
+    "score": 2
+  },
+  {
+    "has_fabrication": false,
+    "id": "J7-10",
+    "justification": "Mentions repro_level from troubleshooting docs (real). But doesn't engage with compiled autograd readiness question specifically.",
+    "score": 1
+  },
+  {
+    "has_fabrication": false,
+    "id": "J7-11",
+    "justification": "Correctly notes FX_GRAPH_CACHE documentation gap. No actionable guidance beyond the gap report.",
+    "score": 1
+  },
+  {
+    "has_fabrication": false,
+    "id": "J7-12",
+    "justification": "Generic 'not addressed in official sources' template. No specific guidance for compile timeout / NCCL timeout issue.",
+    "score": 1
+  },
+  {
+    "has_fabrication": false,
+    "id": "J7-13",
+    "justification": "Generic template. No specific guidance for loop compilation overhead.",
+    "score": 1
+  },
+  {
+    "has_fabrication": false,
+    "id": "J7-14",
+    "justification": "Generic template. No guidance for pick_vec_isa slowness on CPU.",
+    "score": 1
+  },
+  {
+    "has_fabrication": false,
+    "id": "J7-15",
+    "justification": "Generic template. No guidance for FSDP+dynamic shapes recompilation regression.",
+    "score": 1
+  },
+  {
+    "has_fabrication": false,
+    "id": "J7-16",
+    "justification": "Good — points to AOTInductor docs which directly address serializing compiled models. Relevant and actionable for the question.",
+    "score": 2
+  },
+  {
+    "has_fabrication": false,
+    "id": "J7-17",
+    "justification": "Correctly identifies Dynamo frontend caching as undocumented. No path forward.",
+    "score": 1
+  },
+  {
+    "has_fabrication": false,
+    "id": "J7-18",
+    "justification": "Generic template. No AOT Autograd tracing time diagnosis.",
+    "score": 1
+  },
+  {
+    "has_fabrication": false,
+    "id": "J7-19",
+    "justification": "Generic template. No FSDP+mixed precision+compile guidance.",
+    "score": 1
+  },
+  {
+    "has_fabrication": false,
+    "id": "J7-20",
+    "justification": "Generic template. No GIL/background compilation guidance.",
+    "score": 1
+  },
+  {
+    "has_fabrication": false,
+    "id": "J8-1",
+    "justification": "Points to Triton kernel tutorial and Dynamo Overview. Notes torch.library coverage gap. No actionable guidance for custom op registration.",
+    "score": 1
+  },
+  {
+    "has_fabrication": false,
+    "id": "J8-2",
+    "justification": "Points to FlexAttention blogs and troubleshooting. Notes backward segfault gap. No debugging path.",
+    "score": 1
+  },
+  {
+    "has_fabrication": false,
+    "id": "J8-3",
+    "justification": "Points to Control Flow Cond docs. Notes while_loop not documented. No guidance for BatchNorm2d in loops.",
+    "score": 1
+  },
+  {
+    "has_fabrication": false,
+    "id": "J8-4",
+    "justification": "Same as J8-1 — notes custom op docs gap. No guidance.",
+    "score": 1
+  },
+  {
+    "has_fabrication": false,
+    "id": "J8-5",
+    "justification": "Points to FlexAttention blog and Dynamic Shapes. Notes BlockMask dynamic shape gap. No workaround.",
+    "score": 1
+  },
+  {
+    "has_fabrication": false,
+    "id": "J8-6",
+    "justification": "Points to FlexAttention blogs. Notes precision gap. No guidance for numerical deviation.",
+    "score": 1
+  },
+  {
+    "has_fabrication": false,
+    "id": "J8-7",
+    "justification": "No docs for pytorch_cluster compatibility. No guidance.",
+    "score": 1
+  },
+  {
+    "has_fabrication": false,
+    "id": "J8-8",
+    "justification": "Points to Cond docs. Notes limitations gap. No workaround.",
+    "score": 1
+  },
+  {
+    "has_fabrication": false,
+    "id": "J8-9",
+    "justification": "No docs for complex tensor support status. No guidance.",
+    "score": 1
+  },
+  {
+    "has_fabrication": false,
+    "id": "J8-10",
+    "justification": "Points to Triton tutorial and troubleshooting. Notes autotuning error gap. No debugging path.",
+    "score": 1
+  },
+  {
+    "has_fabrication": false,
+    "id": "J8-11",
+    "justification": "Generic template. No guidance for custom op illegal memory access.",
+    "score": 1
+  },
+  {
+    "has_fabrication": false,
+    "id": "J8-12",
+    "justification": "Generic template. No guidance for FlexAttention memory access errors.",
+    "score": 1
+  },
+  {
+    "has_fabrication": false,
+    "id": "J8-13",
+    "justification": "Generic template. No guidance for CUDA graphs + multithreaded inference.",
+    "score": 1
+  },
+  {
+    "has_fabrication": false,
+    "id": "J8-14",
+    "justification": "Correctly identifies torch.scan as non-existent in PyTorch. Accurately frames the gap vs JAX's lax.scan. Specific and useful gap identification.",
+    "score": 2
+  },
+  {
+    "has_fabrication": false,
+    "id": "J8-15",
+    "justification": "Correctly identifies associative_scan as undocumented. Accurate gap identification for parallel prefix operations.",
+    "score": 2
+  },
+  {
+    "has_fabrication": false,
+    "id": "J8-16",
+    "justification": "Generic template. No guidance for symmetric memory + compile.",
+    "score": 1
+  },
+  {
+    "has_fabrication": false,
+    "id": "J8-17",
+    "justification": "Generic template. No guidance for custom_op decorator perf vs Library.define.",
+    "score": 1
+  },
+  {
+    "has_fabrication": false,
+    "id": "J8-18",
+    "justification": "Generic template. No guidance for CPU inductor reduction performance.",
+    "score": 1
+  },
+  {
+    "has_fabrication": false,
+    "id": "J8-19",
+    "justification": "Generic template. No guidance for FlexAttention+Triton pin LLVM crash.",
+    "score": 1
+  },
+  {
+    "has_fabrication": false,
+    "id": "J8-20",
+    "justification": "Generic template. No guidance for FlexAttention gradient correctness.",
+    "score": 1
+  }
+]
