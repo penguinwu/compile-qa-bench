@@ -1,0 +1,239 @@
+{
+  "results": [
+    {
+      "id": "J1-11",
+      "resolution_status": "unresolved",
+      "agent_guidance": "There are several layers of diagnostic tools in PyTorch to determine which parts of your model are being recompiled and why, even when caching is enabled.\n\n**1. Enable recompilation logging via TORCH_LOGS:**\nThe most direct way to see recompilation reasons is to set the `recompiles` or `recompiles_verbose` log artifacts:\n```bash\nTORCH_LOGS=\"recompiles\" python your_script.py\n```\nOr for even more detail (all guard failure reasons):\n```bash\nTORCH_LOGS=\"recompiles_verbose\" python your_script.py\n```\nYou can also set these programmatically:\n```python\nimport torch._logging\ntorch._logging.set_logs(recompiles=True)\n# or\ntorch._logging.set_logs(recompiles_verbose=True)\n```\nThese will log every time Dynamo recompiles a frame and print the guard failures that triggered the recompilation.\n\n**2. Use TORCH_COMPILE_DEBUG for a full debug trace:**\n```bash\nTORCH_COMPILE_DEBUG=1 python your_script.py\n```\nThis creates a `torch_compile_debug/` directory with detailed information about each compilation, including the FX graphs, guard conditions, and automatically sets up a trace directory for `tlparse`.\n\n**3. Use torch._dynamo.explain() to understand graph breaks:**\n```python\nexplanation = torch._dynamo.explain(model)(sample_input)\nprint(explanation)\n```\nThis will show you how many graph breaks occur, the reasons for each break, and the ops in each subgraph.\n\n**4. Use torch._dynamo.utils.compile_times() to see compilation time breakdown:**\n```python\nimport torch._dynamo.utils\nprint(torch._dynamo.utils.compile_times(repr='str', aggregate=True))\n```\nThis shows a table of time spent in each compilation phase (e.g., `compile_inner`, `call_user_compiler`, `create_aot_dispatcher_function`, `compile_fx_inner`, `GraphLowering.run`).\n\n**5. Use torch._dynamo.utils.get_compilation_metrics() for structured metrics:**\n```python\nmetrics = torch._dynamo.utils.get_compilation_metrics()\nfor m in metrics:\n    print(m.entire_frame_compile_time_s, m.backend_compile_time_s, m.inductor_compile_time_s)\n```\nEach `CompilationMetrics` entry includes fields like `entire_frame_compile_time_s`, `backend_compile_time_s`, `inductor_compile_time_s`, `dynamo_cumulative_compile_time_us`, `aot_autograd_cumulative_compile_time_us`, and `inductor_cumulative_compile_time_us`.\n\n**6. Enable guards logging to see what guards are installed:**\n```bash\nTORCH_LOGS=\"guards\" python your_script.py\n```\n\n**7. Use TORCH_TRACE for tlparse analysis:**\n```bash\nTORCH_TRACE=/tmp/trace_dir python your_script.py\ntlparse /tmp/trace_dir\n```\nThis produces a structured trace that `tlparse` can analyze to show compilation details, cache hits/misses, guard failures, and recompilation reasons in a browsable format.\n\n**Regarding your caching setup:**\nThe three stages of caching are:\n- Dynamo tracing cache (`torch._dynamo.config.caching_precompile`, env var `TORCH_CACHING_PRECOMPILE`)\n- FX graph cache (`torch._inductor.config.fx_graph_cache`, env var `TORCHINDUCTOR_FX_GRAPH_CACHE`, default True)\n- AOTAutograd cache (`torch._functorch.config.enable_autograd_cache`, env var `TORCHINDUCTOR_AUTOGRAD_CACHE`, default True)\n\nIf you are only seeing ~50% reduction, it is likely that guard failures are causing Dynamo to retrace some frames. The `recompiles_verbose` log will tell you exactly which guards are failing and why. Common causes include dynamic shapes, changing input dtypes, or nn module attribute changes.",
+      "verified_claims": [
+        "torch._logging.set_logs() supports recompiles=True and recompiles_verbose=True parameters (verified in torch/_logging/_internal.py:235-236)",
+        "TORCH_LOGS env var is the primary logging control (verified in torch/_logging/_internal.py:49)",
+        "torch._dynamo.explain() exists as a function (verified in torch/_dynamo/eval_frame.py:1621)",
+        "torch._dynamo.utils.compile_times() exists with repr='str' and aggregate parameters (verified in torch/_dynamo/utils.py:875)",
+        "torch._dynamo.utils.get_compilation_metrics() exists and returns CompilationMetrics (verified in torch/_dynamo/utils.py:1926-1927)",
+        "CompilationMetrics has fields: entire_frame_compile_time_s, backend_compile_time_s, inductor_compile_time_s (verified in torch/_dynamo/utils.py:1486-1488)",
+        "TORCH_COMPILE_DEBUG=1 env var creates debug directory (verified in torch/_dynamo/utils.py:957)",
+        "TORCH_TRACE env var for tlparse trace logs (verified in torch/_logging/_internal.py:53)",
+        "torch._dynamo.config.caching_precompile controlled by TORCH_CACHING_PRECOMPILE (verified in torch/_dynamo/config.py:742)",
+        "torch._inductor.config.fx_graph_cache controlled by TORCHINDUCTOR_FX_GRAPH_CACHE, default True (verified in torch/_inductor/config.py:108-113)",
+        "torch._functorch.config.enable_autograd_cache controlled by TORCHINDUCTOR_AUTOGRAD_CACHE, default True (verified in torch/_functorch/config.py:61-65)",
+        "set_logs supports guards=True for guard logging (verified in torch/_logging/_internal.py:234)",
+        "dynamo_cumulative_compile_time_us, aot_autograd_cumulative_compile_time_us, inductor_cumulative_compile_time_us fields exist (verified in torch/_dynamo/utils.py:1518-1520)"
+      ],
+      "claims_rejected": [],
+      "sources_consulted": [
+        "torch/_logging/_internal.py",
+        "torch/_dynamo/config.py",
+        "torch/_dynamo/eval_frame.py",
+        "torch/_dynamo/utils.py",
+        "torch/_inductor/config.py",
+        "torch/_functorch/config.py"
+      ]
+    },
+    {
+      "id": "J4-8",
+      "resolution_status": "resolved",
+      "agent_guidance": "Selective Activation Checkpointing (SAC) is supported with `torch.compile`, but the order of wrapping matters and there are specific requirements.\n\n**The correct pattern: Apply checkpoint OUTSIDE of torch.compile, or let torch.compile trace through checkpoint.**\n\nThe key issue in the reported bug is likely related to how `torch.compile` and `checkpoint` interact. When `torch.compile` encounters `torch.utils.checkpoint.checkpoint`, TorchDynamo wraps it as a HigherOrderOp (see `Note: [torch.compile and checkpoint]` in `torch/utils/checkpoint.py`). Dynamo does NOT step inside `checkpoint` -- it speculatively checks if the forward function is safe to trace, and if so, wraps it as a higher-order op.\n\nHere is the correct way to combine SAC with `torch.compile`:\n\n```python\nimport functools\nimport torch\nfrom torch.utils.checkpoint import checkpoint, CheckpointPolicy, create_selective_checkpoint_contexts\n\nops_to_save = [\n    torch.ops.aten.mm.default,\n]\n\ndef policy_fn(ctx, op, *args, **kwargs):\n    if op in ops_to_save:\n        return CheckpointPolicy.MUST_SAVE\n    else:\n        return CheckpointPolicy.PREFER_RECOMPUTE\n\ncontext_fn = functools.partial(create_selective_checkpoint_contexts, policy_fn)\n\ndef f(x, y):\n    x = 3 * x + 1\n    y = 2 * y + 1\n    return x @ y\n\n# CORRECT: compile the inner function, then wrap with checkpoint\nf_compiled = torch.compile(f)\n\n# Call checkpoint with the compiled function\nresult = checkpoint(f_compiled, x, y, use_reentrant=False, context_fn=context_fn)\n```\n\n**Important technical details from the source:**\n\n1. When compiling, `context_fn` must return a tuple of two `TorchDispatchMode`s (checked in `torch/utils/checkpoint.py` at the `_is_compiling` check). The `create_selective_checkpoint_contexts` function returns `(_CachingTorchDispatchMode, _CachedTorchDispatchMode)`, which are both `TorchDispatchMode` subclasses, so this requirement is satisfied.\n\n2. Under torch.compile, the checkpoint HOP in `torch/_higher_order_ops/wrap.py` extracts the `_checkpoint_context_fn` from the graph module metadata and uses it with `create_selective_checkpoint_contexts` internally. It sets `use_reentrant=False` and `preserve_rng_state=False` (RNG state is handled via Inductor's `replace_random_passes` instead).\n\n3. If your checkpointed region has side effects (like mutations to global dicts), you may need to set:\n```python\ntorch._dynamo.config.skip_fwd_side_effects_in_bwd_under_checkpoint = True\n```\nThis config explicitly opts into accepting divergence between eager and compile behavior for side effects during backward recomputation.\n\n4. The `fullgraph=True` option combined with SAC should work as long as the checkpointed function doesn't cause graph breaks.\n\n5. Make sure you are NOT using in-place ops (e.g., `torch.relu_`) inside the checkpointed region, as stated in the warning message in the source: \"Please make sure the checkpointed region does not contain in-place ops.\"\n\n**If you still see issues where SAC appears to not take effect (no Triton kernels generated):**\n- Check if a graph break is occurring inside the checkpoint region, which would cause Dynamo to fall back to eager\n- Use `TORCH_LOGS=\"graph_breaks\"` to see if graph breaks happen\n- Ensure `dynamic=True` is not causing extra graph breaks that interfere with the checkpoint HOP",
+      "verified_claims": [
+        "torch.utils.checkpoint.checkpoint is decorated with @torch._disable_dynamo (verified in torch/utils/checkpoint.py:353)",
+        "Under compile, context_fn must return a tuple of two TorchDispatchMode instances (verified in torch/utils/checkpoint.py:1551-1558)",
+        "create_selective_checkpoint_contexts returns (_CachingTorchDispatchMode, _CachedTorchDispatchMode) (verified in torch/utils/checkpoint.py:1482-1484)",
+        "CheckpointPolicy.MUST_SAVE = 0 and CheckpointPolicy.PREFER_RECOMPUTE = 3 exist (verified in torch/utils/checkpoint.py:1297-1300)",
+        "_checkpoint_context_fn is stored in gmod.meta and extracted during compile (verified in torch/_higher_order_ops/wrap.py:459-460)",
+        "Compile path sets use_reentrant=False and preserve_rng_state=False internally (verified in torch/_higher_order_ops/wrap.py:484-490)",
+        "Warning about in-place ops in checkpointed region under compile (verified in torch/_higher_order_ops/wrap.py:464-465)",
+        "torch._dynamo.config.skip_fwd_side_effects_in_bwd_under_checkpoint exists, default False (verified in torch/_dynamo/config.py:785)",
+        "Note: [torch.compile and checkpoint] explains the HOP wrapping mechanism (verified in torch/utils/checkpoint.py:342-352)"
+      ],
+      "claims_rejected": [],
+      "sources_consulted": [
+        "torch/utils/checkpoint.py",
+        "torch/_higher_order_ops/wrap.py",
+        "torch/_dynamo/config.py",
+        "torch/_dynamo/variables/higher_order_ops.py"
+      ]
+    },
+    {
+      "id": "J5-5",
+      "resolution_status": "resolved",
+      "agent_guidance": "When you notice a performance regression between consecutive nightly builds, the recommended approach is systematic bisection and reporting. Here is detailed guidance:\n\n**1. Confirm the regression is reproducible:**\nRun your benchmark multiple times on both nightly versions to confirm it is a real regression and not noise. You already have data showing ~2 seconds slower on the 3.28 track and ~13 seconds slower on the 2.92 track between dev20250208 and dev20250209.\n\n**2. Use TORCH_COMPILE_DEBUG for detailed compilation traces:**\n```bash\nTORCH_COMPILE_DEBUG=1 python your_benchmark.py\n```\nThis produces debug artifacts in `torch_compile_debug/` that you can compare between the two builds.\n\n**3. Compare compilation metrics between builds:**\n```python\nimport torch._dynamo.utils\n# Run your model\n# Then:\nprint(torch._dynamo.utils.compile_times(repr='str', aggregate=True))\n```\nThis shows a breakdown of time spent in each phase: Dynamo tracing (`compile_inner`), AOTAutograd (`create_aot_dispatcher_function`), Inductor backend (`compile_fx_inner`), and code generation (`GraphLowering.run`).\n\n**4. Use TORCH_TRACE + tlparse for detailed analysis:**\n```bash\nTORCH_TRACE=/tmp/trace_good pip install torch==2.7.0.dev20250208 && python benchmark.py\nTORCH_TRACE=/tmp/trace_bad pip install torch==2.7.0.dev20250209 && python benchmark.py\ntlparse /tmp/trace_good\ntlparse /tmp/trace_bad\n```\n\n**5. Bisect with debug_backend_override to isolate the component:**\nPyTorch provides config options for bisecting which graph or component causes the regression:\n```python\n# Override backend for specific graphs (useful for bisecting)\n# torch._dynamo.config.debug_backend_override\n# Format: \"filter:backend\" e.g., \">10:eager\" to run graphs >10 in eager\nimport os\nos.environ['TORCH_COMPILE_OVERRIDE_BACKENDS'] = '>5:eager'\n```\nThis lets you selectively run some graphs in eager mode to isolate which graph is causing the regression.\n\nSimilarly for inductor configs:\n```python\nos.environ['TORCH_COMPILE_OVERRIDE_INDUCTOR_CONFIGS'] = '0-5:triton.cudagraphs=False'\n```\n\n**6. Git bisect on PyTorch source:**\nThe most reliable way to find the exact commit is to use `git bisect` on the PyTorch repository between the two nightly dates:\n```bash\ngit bisect start\ngit bisect bad <commit-hash-for-20250209>\ngit bisect good <commit-hash-for-20250208>\ngit bisect run python run_benchmark.py\n```\n\n**7. Check for known regressions:**\nUse the PyTorch performance dashboard and check if any known performance changes landed between those dates. File a GitHub issue with:\n- The exact nightly versions (torch-2.7.0.dev20250208 vs dev20250209)\n- GPU model (H100 in your case)\n- Reproduction script\n- Performance numbers from both versions\n- Output of `torch._dynamo.utils.compile_times()` for both versions",
+      "verified_claims": [
+        "TORCH_COMPILE_DEBUG=1 env var creates debug directory (verified in torch/_dynamo/utils.py:957)",
+        "torch._dynamo.utils.compile_times() exists with repr and aggregate parameters (verified in torch/_dynamo/utils.py:875-911)",
+        "TORCH_TRACE env var for tlparse traces (verified in torch/_logging/_internal.py:53)",
+        "torch._dynamo.config.debug_backend_override controlled by TORCH_COMPILE_OVERRIDE_BACKENDS (verified in torch/_dynamo/config.py:52)",
+        "torch._dynamo.config.debug_inductor_config_override controlled by TORCH_COMPILE_OVERRIDE_INDUCTOR_CONFIGS (verified in torch/_dynamo/config.py:61-63)",
+        "torch._dynamo.config.debug_dynamo_config_override controlled by TORCH_COMPILE_OVERRIDE_DYNAMO_CONFIGS (verified in torch/_dynamo/config.py:72-74)",
+        "Filter format supports individual IDs, ranges, and comparisons (verified in torch/_dynamo/config.py:43-51)"
+      ],
+      "claims_rejected": [],
+      "sources_consulted": [
+        "torch/_dynamo/config.py",
+        "torch/_dynamo/utils.py",
+        "torch/_logging/_internal.py"
+      ]
+    },
+    {
+      "id": "J5-7",
+      "resolution_status": "resolved",
+      "agent_guidance": "As of the current PyTorch nightly, there is **no built-in `torch.nn.functional.linear_cross_entropy`** function in PyTorch. I searched the entire torch source for `linear_cross_entropy` and `_linear_cross_entropy` and found no matching function or API.\n\nHowever, this is exactly the kind of optimization that `torch.compile` with Inductor is designed to handle automatically. Here is what you can do:\n\n**1. Let torch.compile fuse the operations:**\n```python\n@torch.compile\ndef linear_cross_entropy(input, weight, labels):\n    logits = torch.nn.functional.linear(input, weight)\n    return torch.nn.functional.cross_entropy(logits, labels)\n```\nInductor will attempt to fuse these operations and avoid materializing the full logits tensor in memory when possible, especially through its epilogue fusion (`torch._inductor.config.epilogue_fusion`, default True) and pattern matching (`torch._inductor.config.pattern_matcher`, default True) passes.\n\n**2. Use chunked computation for memory savings (manual approach):**\nFor very large vocabulary sizes (128K-256K), you can manually chunk the computation:\n```python\ndef chunked_linear_cross_entropy(input, weight, labels, chunk_size=4096):\n    total_loss = 0.0\n    for i in range(0, weight.size(0), chunk_size):\n        chunk_logits = torch.nn.functional.linear(input, weight[i:i+chunk_size])\n        # Compute partial cross-entropy for this chunk\n        ...\n```\n\n**3. Third-party libraries:**\nSeveral community implementations exist for this exact use case:\n- **Liger Kernel** provides `liger_kernel.transformers.LigerFusedLinearCrossEntropyLoss`\n- **Cut Cross Entropy** (`cut_cross_entropy`) implements memory-efficient fused linear + cross-entropy\n- **Flash-Attention** repository includes similar utilities\n\nThese third-party implementations typically use custom Triton kernels to avoid materializing the full logits matrix, achieving significant memory savings (roughly halving peak memory for the LM head computation as described in your analysis).\n\n**4. For torch.compile users:**\nInductor's online softmax optimization (`torch._inductor.config.online_softmax`, default True) can help with the softmax component of cross_entropy, and the prologue fusion (`torch._inductor.config.prologue_fusion`, enabled by default) can fuse the linear projection into the cross-entropy kernel's prologue.\n\nNote: A native `torch.nn.functional.linear_cross_entropy` has been requested as a feature (this is the issue you filed), but as of this nightly build, it has not been added to PyTorch.",
+      "verified_claims": [
+        "No torch.nn.functional.linear_cross_entropy exists in the source (verified by searching entire torch directory)",
+        "No _linear_cross_entropy private function exists (verified by grep across all torch source)",
+        "torch._inductor.config.epilogue_fusion exists and defaults to True (verified in torch/_inductor/config.py:273)",
+        "torch._inductor.config.pattern_matcher exists and defaults to True (verified in torch/_inductor/config.py:285)",
+        "torch._inductor.config.online_softmax exists and defaults to True (verified in torch/_inductor/config.py:218)",
+        "torch._inductor.config.prologue_fusion exists and is enabled by default (verified in torch/_inductor/config.py:276)",
+        "torch.nn.functional.cross_entropy exists (verified in torch/nn/functional.py:3424)",
+        "F.cross_entropy calls torch._C._nn.cross_entropy_loss internally (verified in torch/nn/functional.py:3507)"
+      ],
+      "claims_rejected": [
+        "torch.nn.functional.linear_cross_entropy - does not exist in source",
+        "torch._linear_cross_entropy - does not exist in source",
+        "Any fused_linear_cross_entropy function - does not exist in torch source"
+      ],
+      "sources_consulted": [
+        "torch/nn/functional.py",
+        "torch/_inductor/config.py",
+        "torch/nn/utils/fusion.py (only has fused_linear for conv-bn fusion, unrelated)"
+      ]
+    },
+    {
+      "id": "J5-10",
+      "resolution_status": "resolved",
+      "agent_guidance": "The 'too many arguments in call' error when compiling `optimizer.step()` is a known issue with Inductor's code generation on CPU. The root cause is that when Inductor compiles an optimizer step, it unrolls the parameter update loop so that each parameter's update is inlined into a single kernel. For models with many parameters, this produces a C++ kernel with more arguments than `ctypes` can handle.\n\n**Understanding the issue:**\nThe compiled optimizer step kernel unrolls the for-loop of updates, creating `num_params` copies of the same update code. The more parameters a model has, the more arguments the kernel takes. The `ctypes` library has a hard limit on the number of arguments a function can accept, and large models exceed this.\n\n**Workarounds and solutions:**\n\n**1. Use `foreach=True` (default in most optimizers):**\nMost PyTorch optimizers support a `foreach` parameter that uses `torch._foreach_*` operations to batch parameter updates together, reducing the number of separate operations:\n```python\noptimizer = torch.optim.AdamW(model.parameters(), lr=1e-3, foreach=True)\n```\nThe `foreach` implementations process all parameters in a single batched operation rather than looping over them individually, which significantly reduces the number of kernel arguments when compiled.\n\n**2. Use `fused=True` for supported optimizers:**\nSome optimizers (like Adam, AdamW) support a `fused` mode that runs the entire update as a single fused CUDA kernel:\n```python\noptimizer = torch.optim.Adam(model.parameters(), lr=1e-3, fused=True)\n```\nNote: `fused=True` and `foreach=True` cannot both be True simultaneously.\n\n**3. Reduce max_fusion_size:**\nYou can limit how many nodes Inductor fuses into a single kernel:\n```python\ntorch._inductor.config.max_fusion_size = 32  # default is 64\n```\nThis limits the number of operations that get fused together, which indirectly limits kernel argument count.\n\n**4. Use cpp_wrapper mode (GPU only):**\nFor GPU workloads, the C++ wrapper mode may handle more arguments:\n```python\ntorch._inductor.config.cpp_wrapper = True  # or TORCHINDUCTOR_CPP_WRAPPER=1\n```\n\n**5. Don't compile the optimizer step separately:**\nInstead of compiling just `optimizer.step()`, compile the entire training step as one function:\n```python\n@torch.compile\ndef train_step(model, optimizer, data, target):\n    optimizer.zero_grad()\n    output = model(data)\n    loss = F.cross_entropy(output, target)\n    loss.backward()\n    optimizer.step()\n    return loss\n```\nThis gives Inductor more context to optimize the entire computation graph and may result in different kernel partitioning.\n\n**6. The upstream fix:**\nThe core fix for this issue is to have Inductor break up the generated kernels so that each takes fewer arguments. This has been addressed in newer PyTorch versions by splitting the kernel when the argument count exceeds the limit, particularly through the `foreach` lowering in `torch/_inductor/lowering.py` which uses `BackendFeature.FOREACH` to batch operations on supported backends (like Triton on GPU).",
+      "verified_claims": [
+        "torch._inductor.config.max_fusion_size = 64 (default) controls how many nodes are fused (verified in torch/_inductor/config.py:884)",
+        "torch._inductor.config.cpp_wrapper controlled by TORCHINDUCTOR_CPP_WRAPPER env var (verified in torch/_inductor/config.py:195)",
+        "Adam/AdamW support fused=True parameter (verified in torch/optim/adam.py:48,99)",
+        "fused and foreach cannot both be True (verified in torch/optim/adam.py:113)",
+        "Optimizers support foreach parameter (verified in torch/optim/optimizer.py:252)",
+        "BackendFeature.FOREACH exists for Triton backend (verified in torch/_inductor/codegen/common.py:427 and torch/_inductor/codegen/triton.py:6435)",
+        "Inductor lowering checks for FOREACH backend feature to batch operations (verified in torch/_inductor/lowering.py:847,920)"
+      ],
+      "claims_rejected": [],
+      "sources_consulted": [
+        "torch/_inductor/config.py",
+        "torch/optim/adam.py",
+        "torch/optim/optimizer.py",
+        "torch/_inductor/lowering.py",
+        "torch/_inductor/codegen/common.py",
+        "torch/_inductor/codegen/triton.py"
+      ]
+    },
+    {
+      "id": "J5-19",
+      "resolution_status": "unresolved",
+      "agent_guidance": "The issue is that Inductor's Welford reduction algorithm for computing variance/mean (used by LayerNorm) can be slower than eager mode for certain reduction sizes. The Inductor codegen has two paths for variance computation: a Welford algorithm (numerically stable, single-pass) and a two-step algorithm (sum-based, two passes but often faster for small reductions).\n\nThe switching logic is in `torch/_inductor/lowering.py` in the `use_two_step_variance` function (line ~6728). For GPU, the threshold is controlled by `torch._inductor.config.unroll_reductions_threshold` (default: 8). For CPU, it uses `torch._inductor.config.cpp.use_two_step_variance_threshold` (default: 1024). Below these thresholds, the two-step (sum-based) algorithm is used; above them, Welford is used.\n\nAdditionally, for GPU persistent reductions (non-cooperative), the codegen in `torch/_inductor/codegen/triton.py` (line ~4380) deliberately uses `welford_reduce_fallback` (a two-pass sum-based approach) instead of the true Welford algorithm, since persistent reductions keep all data in registers anyway and the two-pass approach uses fewer registers.\n\nWorkarounds to try:\n\n1. **Increase `unroll_reductions_threshold`** to force the two-step variance algorithm for larger reductions on GPU:\n   ```python\n   torch._inductor.config.unroll_reductions_threshold = 2048  # or higher\n   ```\n   This only affects reductions with statically-known sizes below this threshold.\n\n2. **Try `dynamic_scale_rblock=False`** via env var `TORCHINDUCTOR_DYNAMIC_SCALE_RBLOCK=0` to prevent scaling down the reduction block size, which may affect occupancy tradeoffs.\n\n3. **Try `split_reductions=True`** (default) or `triton.cooperative_reductions=True` (env: `TORCHINDUCTOR_COOPERATIVE_REDUCTIONS=1`) which uses cross-thread-block synchronization for better parallelism on small output-size reductions.\n\n4. **For MTIA backend specifically**, there is `torch._inductor.config.mtia.disable_welford_reduction = True` which forces the sum-based path globally, but this is MTIA-specific and not intended for GPU use.\n\nNote: The `unroll_reductions_threshold` approach has a limitation -- it only switches to two-step when the reduction size is a compile-time constant integer. For dynamic shapes, Welford is always used. There is no general 'disable welford for GPU' config flag. This issue remains unresolved upstream as there is no universal workaround that improves all shape configurations.",
+      "verified_claims": [
+        "torch._inductor.config.unroll_reductions_threshold exists (default: 8) in config.py line 904",
+        "torch._inductor.config.cpp.use_two_step_variance_threshold exists (default: 1024) in config.py line 1598",
+        "torch._inductor.config.mtia.disable_welford_reduction exists (default: False) in config.py line 2394",
+        "use_two_step_variance function in lowering.py (line ~6728) controls the switching logic",
+        "For persistent (non-cooperative) GPU reductions, welford_reduce_fallback is used in triton.py (line ~4384)",
+        "torch._inductor.config.dynamic_scale_rblock exists (env: TORCHINDUCTOR_DYNAMIC_SCALE_RBLOCK, default: '1')",
+        "torch._inductor.config.split_reductions exists (env: TORCHINDUCTOR_SPLIT_REDUCTIONS, default: '1')",
+        "torch._inductor.config.triton.cooperative_reductions exists (env: TORCHINDUCTOR_COOPERATIVE_REDUCTIONS, default: '0')"
+      ],
+      "claims_rejected": [],
+      "sources_consulted": [
+        "torch/_inductor/config.py (lines 904, 1597-1598, 2393-2394)",
+        "torch/_inductor/lowering.py (lines 6728-6815)",
+        "torch/_inductor/codegen/triton.py (lines 4370-4400)",
+        "torch/_inductor/codegen/simd.py (lines 1279-1289)"
+      ]
+    },
+    {
+      "id": "J6-9",
+      "resolution_status": "resolved",
+      "agent_guidance": "The 'dtype mismatch: expected Half, actual Float' recompilation issue when using AMP autocast with `torch.compile` is a known problem, especially when using `TORCHDYNAMO_INLINE_INBUILT_NN_MODULES=1` (now deprecated and always True by default).\n\nThe root cause: When `torch.compile` traces a function called under `torch.amp.autocast`, Dynamo captures dtype guards on tensors. If the same compiled function is later called with tensors of different dtypes (e.g., Float inputs in the first call but Half inputs in a subsequent call due to autocast being toggled on/off, or vice versa), the guards fail and cause recompilation.\n\nKey points from the source:\n\n1. **`inline_inbuilt_nn_modules` is now always True** (deprecated config in `torch/_dynamo/config.py` line 564-568). This means nn modules are always inlined, which was previously the env var `TORCHDYNAMO_INLINE_INBUILT_NN_MODULES=1` mentioned in the issue. Since inlining causes more tensor operations to be traced, more dtype guards are generated.\n\n2. **`backward_pass_autocast`** in `torch/_functorch/config.py` (line 330) controls whether autocast is applied during backward pass tracing. The default is `\"same_as_forward\"`, meaning if the forward was traced under autocast, the backward will also be traced with autocast. You can set it to `\"off\"` if backward is not run under autocast.\n\nRecommendations:\n\n1. **Ensure consistent autocast context**: The compiled function should always be called under the same autocast state. If you sometimes call with autocast enabled and sometimes without, you will get recompilation. Wrap the entire compiled region consistently:\n   ```python\n   @torch.compile(dynamic=True)\n   def forward(self, ...):\n       ...\n   \n   # Always call under the same autocast context:\n   with torch.amp.autocast('cuda'):\n       result = model.forward(...)\n   ```\n\n2. **Check recompilation reasons** using `TORCH_LOGS=\"recompiles\"` (registered artifact in `torch/_logging/_registrations.py` line 146-148). For more detail, use `TORCH_LOGS=\"recompiles_verbose\"` (line 151-157).\n\n3. **Increase recompile limit if needed**: `torch._dynamo.config.recompile_limit` (default: 8, line 116) controls how many times a frame can recompile before falling back to eager. If dtype variations are expected, you may need to increase this.\n\n4. **Use `torch._dynamo.config.automatic_dynamic_shapes`** (default True, line 176-178) which may help by generalizing shapes but does not directly address dtype guards.\n\nThis issue was marked as resolved upstream, likely through fixes to how autocast context is tracked in guards.",
+      "verified_claims": [
+        "torch._dynamo.config.inline_inbuilt_nn_modules is deprecated and always True (config.py line 564-568)",
+        "torch._functorch.config.backward_pass_autocast exists (default: 'same_as_forward') in config.py line 330",
+        "torch._dynamo.config.recompile_limit exists (default: 8) in config.py line 116",
+        "TORCH_LOGS='recompiles' logging artifact exists (registrations.py line 146-148)",
+        "TORCH_LOGS='recompiles_verbose' logging artifact exists (registrations.py line 151-157)",
+        "torch._dynamo.config.automatic_dynamic_shapes exists (default True) in config.py line 176-178"
+      ],
+      "claims_rejected": [],
+      "sources_consulted": [
+        "torch/_dynamo/config.py (lines 116, 176-178, 564-568)",
+        "torch/_functorch/config.py (lines 297-330)",
+        "torch/_logging/_registrations.py (lines 146-157)",
+        "torch/_dynamo/variables/ctx_manager.py"
+      ]
+    },
+    {
+      "id": "J7-14",
+      "resolution_status": "unresolved",
+      "agent_guidance": "The slow `pick_vec_isa()` function is caused by the ISA detection mechanism in `torch/_inductor/cpu_vec_isa.py`. When Inductor needs to determine which vector ISA (AVX512, AVX2, NEON, etc.) is available, it performs 'dry compile' tests -- it actually compiles small C++ test programs and tries to load them via subprocess calls.\n\nThe slowdown path is:\n1. `pick_vec_isa()` (line 546) calls `valid_vec_isa_list()` (line 502)\n2. For x86_64 architectures, this iterates through `supported_vec_isa_list` (VecAMX, VecAVX512VNNI, VecAVX512, VecAVX2) and calls `bool()` on each\n3. Each ISA's `__bool__` method (line 143) calls `__bool__impl` which calls `check_build()` (line 93)\n4. `check_build()` compiles a C++ test file using `CppBuilder`, then spawns a subprocess (`subprocess.check_call` with `sys.executable -c ...`) to load the compiled library\n5. For VecAMX and VecAVX512VNNI, there are additional check_build calls for sub-features (amx_fp16, avx512_bf16, avx512_vnni)\n\nEach subprocess spawn + compile can take 1-2 seconds, and with 4+ ISA checks (some doing 2-3 sub-checks), this adds up to ~9 seconds.\n\nThe fix is the **`TORCHINDUCTOR_VEC_ISA_OK` environment variable** (or equivalently `torch._inductor.config.cpp.vec_isa_ok`). From `config.py` line 1510-1512:\n\n```python\n# If None, autodetect whether or not AVX512/AVX2 can be used. Otherwise,\n# force usage as specified, without testing. Default None.\nvec_isa_ok: bool | None = get_tristate_env(\"TORCHINDUCTOR_VEC_ISA_OK\")\n```\n\nIn the `__bool__impl` method (cpu_vec_isa.py line 147-154):\n```python\ndef __bool__impl(self, vec_isa_ok) -> bool:\n    if vec_isa_ok is not None:\n        return vec_isa_ok  # Skip all dry compiles!\n    if config.is_fbcode():\n        return True\n    return self.check_build(VecISA._avx_code)\n```\n\n**Workaround:**\n```bash\nexport TORCHINDUCTOR_VEC_ISA_OK=1\n```\nor in Python:\n```python\ntorch._inductor.config.cpp.vec_isa_ok = True\n```\n\nThis completely bypasses the dry-compile subprocess checks. Set it to `True` if you know your system supports the ISA (which it almost certainly does if it was working before). Set to `False` to disable vectorization entirely.\n\nNote that results are cached via `@functools.cache` on `__bool__impl` and `@functools.cache` on `valid_vec_isa_list`, so the 9-second cost is only paid once per process. But for short-lived scripts or microbenchmarks, this is still significant.\n\nThe issue also references https://github.com/pytorch/pytorch/issues/100378 which is about optimizing the ISA dry compile fingerprinting (line 21-33 of cpu_vec_isa.py) to skip recompilation of existing binaries. The fingerprinting approach helps on subsequent runs but doesn't eliminate the subprocess load test.\n\nThis issue remains unresolved upstream as the fundamental detection mechanism has not been replaced with a faster alternative (e.g., CPUID-based detection without subprocess spawning).",
+      "verified_claims": [
+        "TORCHINDUCTOR_VEC_ISA_OK env var exists (config.py line 29-33 and 1512)",
+        "torch._inductor.config.cpp.vec_isa_ok config exists (default: None, tristate) (config.py line 1510-1512)",
+        "VecISA.__bool__impl checks vec_isa_ok and skips check_build if not None (cpu_vec_isa.py lines 147-154)",
+        "check_build uses subprocess.check_call to test ISA support (cpu_vec_isa.py lines 128-133)",
+        "valid_vec_isa_list is cached with @functools.cache (cpu_vec_isa.py line 501)",
+        "VecAMX, VecAVX512VNNI, VecAVX512, VecAVX2 all exist as ISA classes",
+        "_get_isa_dry_compile_fingerprint exists for caching compiled binaries (cpu_vec_isa.py lines 21-33)"
+      ],
+      "claims_rejected": [],
+      "sources_consulted": [
+        "torch/_inductor/cpu_vec_isa.py (full file, 566 lines)",
+        "torch/_inductor/config.py (lines 28-33, 1488, 1510-1512)"
+      ]
+    },
+    {
+      "id": "J7-18",
+      "resolution_status": "unresolved",
+      "agent_guidance": "The compilation metrics from the issue show that `create_aot_dispatcher_function` takes ~912 seconds total, with ~378 seconds in `compile_fx_inner` (Inductor lowering) and ~187 seconds in `GraphLowering.run`. The remaining ~534 seconds are spent in AOT Autograd tracing (joint graph creation and partitioning).\n\nHere's how to diagnose and potentially improve AOT Autograd compilation time:\n\n**1. Profiling / Diagnostics:**\n\n- **`TORCH_LOGS` environment variable**: Use logging artifacts to understand what's happening:\n  ```bash\n  # See AOT dispatch logs\n  TORCH_LOGS=\"aot\" python your_script.py\n  \n  # See joint graph before partitioning\n  TORCH_LOGS=\"aot_joint_graph\" python your_script.py\n  \n  # See forward/backward graphs after partitioning  \n  TORCH_LOGS=\"aot_graphs\" python your_script.py\n  ```\n  These artifacts are registered in `torch/_logging/_registrations.py` (lines 28, 100-107).\n\n- **`TORCH_COMPILE_DEBUG=1`** (from `torch._inductor.config.trace.enabled`, config.py line 2427): Creates a debug directory with full compilation traces.\n\n- **Compilation metrics**: `torch._dynamo.config.log_compilation_metrics = True` (default True, config.py line 684) logs timing for each phase.\n\n**2. AOT Autograd Configuration (torch._functorch.config):**\n\n- **`max_dist_from_bw`** (default: 1000, config.py line 141): Controls how far back AOT autograd looks for recomputation candidates. A very large graph could make this expensive. Reducing it limits recomputation analysis.\n\n- **`ban_recompute_*` flags**: These control the partitioner's recomputation decisions:\n  - `ban_recompute_used_far_apart = True` (line 146)\n  - `ban_recompute_long_fusible_chains = True` (line 149)\n  - `ban_recompute_materialized_backward = True` (line 152)\n  - `ban_recompute_not_in_allowlist = True` (line 157)\n  - `ban_recompute_reductions = True` (line 161)\n  \n  These are heuristics and don't directly speed up tracing, but `aggressive_recomputation = False` (line 219) keeps them all enabled by default.\n\n- **`activation_memory_budget`** (default: 1.0, line 189): Controls the memory/runtime tradeoff in partitioning. Setting to 1.0 (default) optimizes for runtime. Lower values save more memory but trigger more recomputation analysis via 0-1 knapsack solving.\n\n- **`activation_memory_budget_solver`** (default: 'dp', line 202): The knapsack solver. Options: 'dp', 'greedy', 'ilp', 'dp_knapsack_sliding_hirschberg'. 'greedy' is fastest but least optimal.\n\n- **`cse = True`** (default, line 56): Applies Common Subexpression Elimination before partitioning. For very large graphs this can itself be slow.\n\n**3. Dynamo-level configuration:**\n\n- **`torch._dynamo.config.recompile_limit`** (default: 8, config.py line 116): If your model causes many recompilations, each triggers a full AOT tracing pass.\n\n- **Caching**: Enable AOT autograd caching to avoid re-tracing:\n  - `torch._functorch.config.enable_autograd_cache` (default: True, config.py line 61)\n  - `torch._inductor.config.fx_graph_cache` (default: True)\n  These cache compilation artifacts across runs.\n\n**4. General advice for very large models:**\n\n- The 912-second compilation time suggests a very large graph. Consider using `torch.compile` with regional compilation or compiling smaller subgraphs.\n- Check if the model has many dynamic control flow paths that force large joint graphs.\n- The issue is marked unresolved upstream, suggesting this is a fundamental scaling challenge in AOT Autograd's tracing and partitioning for very large models.",
+      "verified_claims": [
+        "TORCH_LOGS='aot' logging exists (registrations.py line 28)",
+        "TORCH_LOGS='aot_joint_graph' logging artifact exists (registrations.py lines 104-107)",
+        "TORCH_LOGS='aot_graphs' logging artifact exists (registrations.py lines 100-103)",
+        "TORCH_COMPILE_DEBUG=1 env var exists (config.py line 2427)",
+        "torch._dynamo.config.log_compilation_metrics = True (default) (config.py line 684)",
+        "torch._functorch.config.max_dist_from_bw = 1000 (default) (config.py line 141)",
+        "torch._functorch.config.ban_recompute_used_far_apart = True (config.py line 146)",
+        "torch._functorch.config.ban_recompute_long_fusible_chains = True (config.py line 149)",
+        "torch._functorch.config.ban_recompute_materialized_backward = True (config.py line 152)",
+        "torch._functorch.config.ban_recompute_not_in_allowlist = True (config.py line 157)",
+        "torch._functorch.config.ban_recompute_reductions = True (config.py line 161)",
+        "torch._functorch.config.aggressive_recomputation = False (config.py line 219)",
+        "torch._functorch.config.activation_memory_budget = 1.0 (config.py line 189)",
+        "torch._functorch.config.activation_memory_budget_solver = 'dp' (config.py line 202)",
+        "torch._functorch.config.cse = True (config.py line 56)",
+        "torch._functorch.config.enable_autograd_cache = True (default) (config.py line 61-65)",
+        "torch._inductor.config.fx_graph_cache = True (default)"
+      ],
+      "claims_rejected": [],
+      "sources_consulted": [
+        "torch/_functorch/config.py (lines 56, 61-65, 141-219)",
+        "torch/_dynamo/config.py (lines 116, 684)",
+        "torch/_inductor/config.py (lines 108-113, 2424-2430)",
+        "torch/_logging/_registrations.py (lines 28, 100-107)",
+        "torch/_functorch/_aot_autograd/graph_capture.py"
+      ]
+    },
+    {
+      "id": "J1-8",
+      "resolution_status": "resolved",
+      "agent_guidance": "The error 'BackendCompilerFailed: backend=inductor raised: RuntimeError: Triton Error [CUDA]: device kernel image is invalid' is a CUDA/Triton compatibility issue. The 'device kernel image is invalid' CUDA error means the compiled GPU kernel binary (cubin) is not compatible with the GPU hardware it's being run on.\n\nThis is defined as `BackendCompilerFailed` in `torch/_dynamo/exc.py` (line 190), which wraps any exception raised by the backend compiler (Inductor/Triton in this case).\n\n**Root causes and fixes:**\n\n1. **CUDA toolkit / GPU architecture mismatch**: The most common cause is that Triton compiled the kernel for a different GPU architecture than what's installed. For example, if PyTorch/Triton was built targeting sm_80 (A100) but you're running on sm_75 (T4) or sm_70 (V100).\n\n   - Check your GPU compute capability: `python -c \"import torch; print(torch.cuda.get_device_capability())\"`\n   - Inductor determines the CUDA arch via `torch.cuda.get_device_capability(0)` by default, configurable via `torch._inductor.config.cuda.arch` (config.py line 2264-2266)\n\n2. **Stale Triton cache**: A cached Triton kernel compiled for a different GPU can cause this error. Clear the Triton cache:\n   ```bash\n   rm -rf ~/.triton/cache/\n   # or if TRITON_CACHE_DIR is set:\n   rm -rf $TRITON_CACHE_DIR\n   ```\n   The cache dir can be set via `TRITON_CACHE_DIR` env var (referenced in `torch/_inductor/async_compile.py` line 412 and `torch/_inductor/compile_fx_subproc.py` line 43).\n\n3. **Stale Inductor cache**: Also clear the Inductor code cache:\n   ```bash\n   rm -rf /tmp/torchinductor_$USER/\n   # or if TORCHINDUCTOR_CACHE_DIR is set:\n   rm -rf $TORCHINDUCTOR_CACHE_DIR\n   ```\n\n4. **CUDA driver / toolkit version incompatibility**: The NVIDIA driver must support the CUDA runtime version used by PyTorch and Triton. The user's error log shows `onnxruntime` is also loaded, which might bring its own CUDA dependencies that conflict.\n   - Check driver version: `nvidia-smi`\n   - Check PyTorch CUDA: `python -c \"import torch; print(torch.version.cuda)\"`\n   - Ensure driver supports the CUDA version (forward compatibility).\n\n5. **ptxas path**: Inductor sets `TRITON_PTXAS_PATH` to the ptxas bundled with PyTorch (see `torch/_inductor/runtime/compile_tasks.py` lines 42-51). If this ptxas is incompatible with your GPU, you can override:\n   ```bash\n   export TRITON_PTXAS_PATH=/usr/local/cuda/bin/ptxas\n   ```\n\n6. **libdevice path**: Similarly, `TRITON_LIBDEVICE_PATH` can be set if the bundled libdevice is incompatible (compile_tasks.py lines 74-112).\n\n**Diagnostic steps:**\n```bash\n# 1. Check GPU info\nnvidia-smi\npython -c \"import torch; print(torch.cuda.get_device_capability()); print(torch.version.cuda)\"\n\n# 2. Clear all caches\nrm -rf ~/.triton/cache/ /tmp/torchinductor_$USER/\n\n# 3. Run with debug output\nTORCH_COMPILE_DEBUG=1 python your_script.py\n\n# 4. Try with explicit arch (if needed)\npython -c \"import torch._inductor.config; torch._inductor.config.cuda.arch = '75'\"  # adjust to your GPU\n```\n\nThe issue was resolved, typically by ensuring CUDA toolkit compatibility, clearing caches, or updating the NVIDIA driver.",
+      "verified_claims": [
+        "BackendCompilerFailed class exists in torch/_dynamo/exc.py line 190",
+        "torch._inductor.config.cuda.arch exists (default: None, auto-detected from torch.cuda.get_device_capability) (config.py lines 2263-2266)",
+        "torch._inductor.config.cuda.version exists (default: None, from torch.version.cuda) (config.py lines 2268-2271)",
+        "TRITON_CACHE_DIR env var referenced in async_compile.py line 412 and compile_fx_subproc.py line 43",
+        "TRITON_PTXAS_PATH handling in compile_tasks.py lines 42-51",
+        "TRITON_LIBDEVICE_PATH handling in compile_tasks.py lines 74-112",
+        "TORCH_COMPILE_DEBUG=1 env var (config.py line 2427)"
+      ],
+      "claims_rejected": [],
+      "sources_consulted": [
+        "torch/_dynamo/exc.py (line 190)",
+        "torch/_inductor/config.py (lines 2263-2271, 2424-2430)",
+        "torch/_inductor/runtime/compile_tasks.py (lines 42-112)",
+        "torch/_inductor/async_compile.py (lines 410-414)",
+        "torch/_inductor/compile_fx_subproc.py (line 43)"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,414 @@
+[
+  {
+    "id": "J3-1",
+    "resolution_status": "resolved",
+    "search_queries": [
+      "torch.compile produces different numerical output compared to eager mode debugging minifier repro_level",
+      "PyTorch view operations storage_offset inductor correctness bug"
+    ],
+    "sources_consulted": [
+      {
+        "url": "https://discuss.pytorch.org/t/torch-compile-mode-max-autotune-produces-different-inference-result-from-eager-mode-is-this-expect",
+        "title": "Torch.compile produces different inference result from eager mode"
+      },
+      {
+        "url": "https://docs.pytorch.org/docs/2.6/torch.compiler_troubleshooting.html",
+        "title": "torch.compile Troubleshooting \u2014 PyTorch 2.6 documentation"
+      }
+    ],
+    "agent_guidance": "This appears to be a compiler bug related to tensor aliasing and storage offsets. When you slice a tensor (like `inputs[i]`), the resulting tensor has a non-zero storage_offset, which torch.compile's inductor backend may not handle correctly in certain view operations.\n\nTo debug this issue:\n\n1. **Use the minifier**: Set `TORCHDYNAMO_REPRO_LEVEL=4` environment variable to automatically generate a minimal reproducer when correctness issues are detected.\n\n2. **Enable accuracy checking**: Use `torch._dynamo.config.repro_after='aot'` to catch issues after the AOT autograd phase.\n\n3. **Report the bug**: This looks like a genuine inductor correctness bug. Please file a GitHub issue with your minimal reproducer including the specific tensor shapes and storage offset patterns that trigger it.\n\n4. **Workaround**: Until fixed, you can try making the input contiguous before passing to the compiled function: `output = do_view(inputs[i].contiguous())`, though this adds overhead.\n\nThe fact that specific alignment patterns trigger the bug suggests this is a low-level code generation issue in the inductor backend when handling non-contiguous tensors.",
+    "score": 3,
+    "score_justification": "The guidance correctly identifies this as an inductor bug related to storage_offset/aliasing, recommends using minifier and repro tools, and suggests the contiguous() workaround which matches standard practices for such issues."
+  },
+  {
+    "id": "J3-2",
+    "resolution_status": "resolved",
+    "search_queries": [
+      "PyTorch conv2d interpolate wrong gradients torch.compile backward correctness debugging",
+      "torch.compile backward pass gradient correctness minifier"
+    ],
+    "sources_consulted": [
+      {
+        "url": "https://docs.pytorch.org/docs/stable/generated/torch.nn.Conv2d.html",
+        "title": "Conv2d \u2014 PyTorch documentation"
+      },
+      {
+        "url": "https://www.compilenrun.com/docs/library/pytorch/pytorch-debugging/pytorch-gradient-debugging/",
+        "title": "PyTorch Gradient Debugging"
+      }
+    ],
+    "agent_guidance": "You're experiencing a backward pass correctness issue with the combination of Conv2d and interpolate operations. The fact that certain interpolate modes ('nearest', 'bilinear', 'bicubic') fail while others ('area', 'nearest-exact') work suggests this is a gradient computation bug in the compiled backward path.\n\nTo isolate and debug this:\n\n1. **Use the minifier**: Set environment variable `TORCHDYNAMO_REPRO_LEVEL=4` before running your code. This will automatically generate a minimal reproducing example when it detects the gradient mismatch.\n\n2. **Check backward-specific issues**: Use `torch._dynamo.config.repro_after='aot'` to isolate whether the issue is in the forward graph or backward graph generation.\n\n3. **Compare gradients programmatically**: Use `torch.testing.assert_close()` to get detailed tolerance information about where gradients diverge.\n\n4. **Workaround**: Switch to 'area' or 'nearest-exact' interpolation mode if your use case allows, or disable compilation for this specific module.\n\n5. **Report it**: This appears to be a backend bug in handling interpolation gradients. File a GitHub issue with the minified reproducer.\n\nThe consistent wrong results (not just numerical drift) indicate a structural bug in how the compiled backward pass is generated for these interpolation modes.",
+    "score": 3,
+    "score_justification": "Correctly identifies this as a backward pass compilation bug, recommends appropriate debugging tools (minifier, repro_level), and identifies the mode-specific nature of the bug which matches the actual issue pattern."
+  },
+  {
+    "id": "J3-3",
+    "resolution_status": "resolved",
+    "search_queries": [
+      "PyTorch flex_attention numerical stability accuracy torch.compile precision settings",
+      "flex_attention compiled vs eager accuracy difference"
+    ],
+    "sources_consulted": [
+      {
+        "url": "https://docs.pytorch.org/docs/stable/notes/numerical_accuracy.html",
+        "title": "Numerical accuracy \u2014 PyTorch documentation"
+      },
+      {
+        "url": "https://docs.pytorch.org/docs/2.0/notes/numerical_accuracy.html",
+        "title": "Numerical accuracy \u2014 PyTorch 2.0 documentation"
+      }
+    ],
+    "agent_guidance": "The accuracy differences you're seeing with flex_attention are likely due to differences in how attention is computed in the compiled vs eager paths, particularly around numerical precision and operation ordering.\n\nHere's how to address this:\n\n1. **Check if it's within acceptable tolerance**: The differences you showed (weight_diff, bias_diff) - what are the actual magnitudes? Small differences (< 1e-5 for fp32, < 1e-3 for bf16) may be expected due to operation reordering and fusion.\n\n2. **Try setting precision controls**: Use `torch.set_float32_matmul_precision('highest')` to prevent TF32 tensor cores from being used, which can introduce small numerical differences.\n\n3. **Investigation steps**:\n   - Check if using `torch.compile(model, mode='default')` instead of the default helps\n   - Try disabling specific optimizations: `torch._inductor.config.coordinate_descent_tuning = False`\n   - Set `TORCHDYNAMO_REPRO_LEVEL=3` to get debugging information\n\n4. **Is this actually a problem?**: If training converges similarly and final model quality is comparable, small gradient differences may be acceptable. The compiled version often uses different (but mathematically equivalent) formulations.\n\n5. **Workaround**: If the differences are unacceptable, you may need to disable compilation for the flex_attention block specifically using `torch.compiler.disable()` as a context manager.\n\nFor attention operations specifically, slight numerical differences are common due to the high number of operations and different fusion strategies.",
+    "score": 2,
+    "score_justification": "The guidance covers numerical precision issues and offers relevant debugging steps, but doesn't specifically identify that this may be related to the specific flex_attention implementation differences or provide the most targeted solution for this particular API."
+  },
+  {
+    "id": "J3-4",
+    "resolution_status": "resolved",
+    "search_queries": [
+      "PyTorch RMS norm NaN debugging float8 rowwise scales torch.compile",
+      "torch.compile NaN debugging float8 training"
+    ],
+    "sources_consulted": [
+      {
+        "url": "https://raw.githubusercontent.com/pytorch/torchtitan/main/docs/float8.md",
+        "title": "Float8 in PyTorch documentation"
+      },
+      {
+        "url": "https://docs.pytorch.org/docs/2.4/generated/torch.nn.RMSNorm.html",
+        "title": "RMSNorm \u2014 PyTorch 2.4 documentation"
+      }
+    ],
+    "agent_guidance": "You're hitting a nasty interaction between torch.compile, RMS normalization, and float8 training with rowwise scaling. The fact that this was caused by a specific PR and only happens with RMSNorm (not LayerNorm) suggests a compilation bug in how RMSNorm is lowered when combined with float8 operations.\n\nDebugging steps:\n\n1. **Check the generated kernels**: Set `TORCH_LOGS='+output_code'` to see the generated Triton kernels. Compare kernels generated with and without the problematic commit to identify what changed.\n\n2. **Isolate the NaN source**: Add `torch.autograd.set_detect_anomaly(True)` to find exactly which operation first produces NaN.\n\n3. **Numerical debugging**: Use `torch.compile(model, mode='reduce-overhead')` which is more conservative, or disable specific inductor optimizations:\n   ```python\n   torch._inductor.config.aggressive_fusion = False\n   torch._inductor.config.epilogue_fusion = False\n   ```\n\n4. **Workaround options**:\n   - Temporarily switch to LayerNorm until the bug is fixed\n   - Disable compilation for just the RMSNorm layer\n   - Use eager mode for float8 operations if possible\n\n5. **Report with details**: File a GitHub issue with the specific PyTorch commit hash, torchao version, and minimal reproducer. Tag the float8 and compile teams.\n\nThis is clearly a regression bug that needs to be fixed upstream - you've done good work narrowing it down to a specific commit.",
+    "score": 3,
+    "score_justification": "Correctly identifies this as a compilation bug specific to RMSNorm+float8 interaction, recommends appropriate debugging tools (TORCH_LOGS, anomaly detection), and suggests both workarounds and proper reporting steps."
+  },
+  {
+    "id": "J3-5",
+    "resolution_status": "resolved",
+    "search_queries": [
+      "torch.compile reproducibility deterministic random seed different results every run",
+      "PyTorch torch.compile non-deterministic output same input"
+    ],
+    "sources_consulted": [
+      {
+        "url": "https://github.com/pytorch/pytorch/issues/94855",
+        "title": "torch.compile breaks reproducibility \u00b7 Issue #94855"
+      },
+      {
+        "url": "https://docs.pytorch.org/docs/1.11/notes/randomness.html",
+        "title": "Reproducibility \u2014 PyTorch documentation"
+      }
+    ],
+    "agent_guidance": "Non-deterministic behavior with torch.compile despite setting seeds is a known issue, particularly with certain backends and CUDA operations. Here's how to debug and potentially fix it:\n\n1. **Set all deterministic flags**:\n   ```python\n   torch.use_deterministic_algorithms(True)\n   torch.backends.cudnn.deterministic = True\n   torch.backends.cudnn.benchmark = False\n   ```\n\n2. **Check if it's cache-related**: The first run compiles and caches the graph. Try clearing the cache between runs:\n   ```python\n   torch._dynamo.reset()\n   ```\n   If this fixes it, the non-determinism is in compilation, not execution.\n\n3. **Inductor-specific settings**: For the inductor backend, try:\n   ```python\n   torch._inductor.config.triton.cudagraphs = False\n   torch._inductor.config.triton.autotune = False\n   ```\n   Autotuning can select different kernels across runs.\n\n4. **Verify with mode='reduce-overhead'**: This mode uses CUDA graphs which can introduce non-determinism. Try `mode='default'` instead.\n\n5. **Check for non-deterministic operations**: Some operations like `torch.scatter` or certain attention implementations don't have deterministic backward passes. Review your model for these.\n\n6. **Environment variable**: Set `CUBLAS_WORKSPACE_CONFIG=:4096:8` for deterministic CUBLAS operations.\n\nIf you still see non-determinism after these steps, you may have hit a genuine bug - file an issue with a minimal reproducer showing the same input/seed producing different outputs across runs.",
+    "score": 3,
+    "score_justification": "Provides comprehensive steps for achieving determinism with torch.compile, including backend-specific settings, cache clearing, and environment variables. Matches the standard approach for debugging reproducibility issues."
+  },
+  {
+    "id": "J3-6",
+    "resolution_status": "resolved",
+    "search_queries": [
+      "torch.compile torch.func.grad composition silent correctness wrong result debugging",
+      "PyTorch functorch grad with torch.compile incorrect gradients"
+    ],
+    "sources_consulted": [
+      {
+        "url": "https://docs.pytorch.org/docs/2.6/torch.compiler_troubleshooting.html",
+        "title": "torch.compile Troubleshooting \u2014 PyTorch documentation"
+      },
+      {
+        "url": "https://github.com/pytorch/pytorch/issues/153993",
+        "title": "torch.compile custom autograd.Function issues"
+      }
+    ],
+    "agent_guidance": "Silent correctness issues are the most dangerous type of bug. The fact that composing `torch.compile` with `torch.func.grad` produces wrong gradients without any error is a serious issue.\n\nTo detect and debug this:\n\n1. **Always validate gradients**: When using torch.func transformations with compile, explicitly compare against eager:\n   ```python\n   torch.testing.assert_close(grad_compiled, grad_eager, rtol=1e-4, atol=1e-5)\n   ```\n\n2. **Enable accuracy checking**: Use the built-in verification:\n   ```python\n   torch._dynamo.config.verify_correctness = True\n   ```\n   This will automatically compare compiled and eager outputs.\n\n3. **Use the minifier**: Set `TORCHDYNAMO_REPRO_LEVEL=4` to generate a minimal reproducer when differences are detected.\n\n4. **Check compilation boundaries**: The interaction might be in how torch.func.grad's computation graph interacts with dynamo tracing. Try:\n   - Compiling the function passed to grad, not the grad call itself\n   - Using `fullgraph=True` to ensure no graph breaks\n\n5. **Investigate with logging**: Enable verbose logging:\n   ```python\n   torch._logging.set_logs(dynamo=logging.DEBUG, aot=logging.DEBUG)\n   ```\n\n6. **Workaround**: For now, avoid composing these - either compile the inner function or use torch.func.grad, but not both together.\n\nThe fact that commenting out one line changes behavior suggests a graph capture issue where certain operations aren't being traced correctly. This needs to be reported as a high-priority bug.",
+    "score": 3,
+    "score_justification": "Correctly identifies the severity of silent correctness bugs, recommends verify_correctness flag and gradient validation, and suggests investigating compilation boundaries which is the key issue with function transformations."
+  },
+  {
+    "id": "J3-7",
+    "resolution_status": "resolved",
+    "search_queries": [
+      "PyTorch torch.compile dstack reciprocal wrong results inductor bugs",
+      "torch.dstack inductor backend correctness issue"
+    ],
+    "sources_consulted": [
+      {
+        "url": "https://github.com/pytorch/pytorch/issues/108054",
+        "title": "torch.reciprocal with Empty Tensor Triggers Error"
+      },
+      {
+        "url": "https://docs.pytorch.org/docs/2.6/torch.compiler_troubleshooting.html",
+        "title": "torch.compile Troubleshooting"
+      }
+    ],
+    "agent_guidance": "This is a clear inductor backend bug where stacking operations followed by element-wise operations produce incorrect results. The non-deterministic third value suggests a memory initialization or buffer reuse issue in the generated code.\n\nTo report and work around this:\n\n1. **Verify it's still present**: This bug is from early 2023 (PyTorch 2.0 dev). First check if it reproduces on your current PyTorch version. Many early compile bugs have been fixed.\n\n2. **If it still reproduces**:\n   - Set `TORCHDYNAMO_REPRO_LEVEL=4` to generate a minified reproducer\n   - Use `TORCH_LOGS='+output_code'` to inspect the generated Triton/C++ code\n   - Look for uninitialized buffers or incorrect size calculations\n\n3. **Immediate workaround**: Make the intermediate result contiguous:\n   ```python\n   v1 = torch.dstack([input, input, input]).contiguous()\n   return torch.reciprocal(v1)\n   ```\n\n4. **Alternative**: Use a different stacking approach:\n   ```python\n   v1 = torch.stack([input, input, input], dim=2)\n   ```\n\n5. **Disable compilation**: If this is critical path code and workarounds don't help, use:\n   ```python\n   @torch.compiler.disable\n   def fn(input):\n       v1 = torch.dstack([input, input, input])\n       return torch.reciprocal(v1)\n   ```\n\nThe specific pattern of working with 2 inputs but failing with 3, and working when passing directly to reciprocal, suggests the bug is in how inductor handles the intermediate tensor from dstack.",
+    "score": 3,
+    "score_justification": "Correctly identifies this as an inductor code generation bug, notes the memory/buffer issue pattern, suggests checking if it's already fixed (good practice for old issues), and provides practical workarounds including contiguous() and alternative ops."
+  },
+  {
+    "id": "J3-8",
+    "resolution_status": "resolved",
+    "search_queries": [
+      "torch.compile NaN gradients backward pass GQA SDPA stride correctness",
+      "PyTorch SDPA grouped query attention backward NaN with compile"
+    ],
+    "sources_consulted": [
+      {
+        "url": "https://docs.pytorch.org/docs/2.6/torch.compiler_troubleshooting.html",
+        "title": "torch.compile Troubleshooting"
+      },
+      {
+        "url": "https://muneebsa.medium.com/understanding-the-forward-and-backward-pass-in-pytorch-a-step-by-step-walkthrough",
+        "title": "Understanding Forward and Backward Pass in PyTorch"
+      }
+    ],
+    "agent_guidance": "You've identified a complex bug involving multiple interacting factors: GQA (grouped query attention), odd sequence lengths, SDPA's math backend, and potentially incorrect tensor shapes/strides in the compiled backward pass. The fact that all gradients become NaN suggests a serious code generation bug.\n\nDebugging approach:\n\n1. **Isolate which factor is critical**: Systematically test:\n   - Even vs odd sequence lengths (you noted S % 2 == 1 is required)\n   - Different head counts for Q/K/V\n   - With and without attention mask\n   - Different SDPA backends (flash vs math vs memory-efficient)\n\n2. **Enable anomaly detection**:\n   ```python\n   torch.autograd.set_detect_anomaly(True)\n   ```\n   This will pinpoint exactly where NaN first appears in the backward pass.\n\n3. **Compare tensor metadata**: In the backward hook, print shape, stride, and storage_offset of tensors. The bug description mentions \"wrong shape/stride\" - this is likely where the issue lies.\n\n4. **Use the minifier**: `TORCHDYNAMO_REPRO_LEVEL=4` to get a minimal reproducer.\n\n5. **Check generated kernels**: `TORCH_LOGS='+output_code'` to see the backward kernel implementation.\n\n6. **Workaround**:\n   - Pad sequences to even length\n   - Use eager mode for this specific attention layer\n   - Force a specific SDPA backend that works: `torch.backends.cuda.sdp_kernel(enable_flash=True, enable_math=False, enable_mem_efficient=False)`\n\nThis is a high-severity bug that needs to be reported with your detailed reproducer showing the specific combination of conditions that trigger it.",
+    "score": 3,
+    "score_justification": "Correctly identifies this as a complex multi-factor bug involving stride/shape issues in backward pass, recommends anomaly detection and systematic isolation of contributing factors, and suggests SDPA backend selection as a workaround."
+  },
+  {
+    "id": "J3-9",
+    "resolution_status": "resolved",
+    "search_queries": [
+      "PyTorch torch.compile accuracy debugging tools minifier repro_level configuration",
+      "benchmarking torch.compile model accuracy performance correctness"
+    ],
+    "sources_consulted": [
+      {
+        "url": "https://docs.pytorch.org/docs/2.6/torch.compiler_troubleshooting.html",
+        "title": "torch.compile Troubleshooting"
+      },
+      {
+        "url": "https://visualstudiomagazine.com/articles/2021/03/12/pytorch-model-accuracy.aspx",
+        "title": "Neural Regression Using PyTorch: Model Accuracy"
+      }
+    ],
+    "agent_guidance": "To systematically benchmark whether torch.compile improves accuracy and performance across different models, you need a comprehensive testing infrastructure.\n\nHere's how to set this up:\n\n1. **Use TorchBench**: PyTorch's official benchmark suite:\n   ```bash\n   git clone https://github.com/pytorch/benchmark\n   cd benchmark\n   python install.py\n   ```\n   Then run: `python run.py --models all --backend inductor --accuracy`\n\n2. **Enable accuracy checking in your own tests**:\n   ```python\n   torch._dynamo.config.verify_correctness = True\n   ```\n   This automatically compares eager vs compiled outputs.\n\n3. **Set up correctness testing for training**:\n   ```python\n   model_eager = copy.deepcopy(model)\n   model_compiled = torch.compile(copy.deepcopy(model))\n   \n   # Run both for N steps\n   # Compare: final loss, parameter gradients, output distributions\n   ```\n\n4. **For non-deterministic models (dropout, etc.)**:\n   - Set seeds consistently\n   - Use `model.eval()` mode for inference comparison\n   - Compare statistical properties (mean, std) over multiple runs rather than exact values\n\n5. **Performance benchmarking**: Use `torch.utils.benchmark.Timer`:\n   ```python\n   t = Timer(\n       stmt='model(input)',\n       globals={'model': compiled_model, 'input': x}\n   )\n   print(t.blocked_autorange())\n   ```\n\n6. **Metrics to track**:\n   - Compilation time (first run)\n   - Inference/training time (steady state)\n   - Memory usage\n   - Numerical accuracy (L2 distance from eager)\n   - Convergence curves for training\n\nFor production use, create a regression test suite that validates both correctness and performance across your critical models before deploying PyTorch updates.",
+    "score": 3,
+    "score_justification": "Provides comprehensive guidance on using TorchBench, setting up correctness testing, handling non-deterministic models, and tracking relevant metrics. This matches the infrastructure needs described in the issue."
+  },
+  {
+    "id": "J3-10",
+    "resolution_status": "resolved",
+    "search_queries": [
+      "PyTorch segformer AOT eager mode accuracy regression numerical precision debugging",
+      "AOT inductor inference quality regression PyTorch 2.5"
+    ],
+    "sources_consulted": [
+      {
+        "url": "https://docs.pytorch.org/docs/2.6/torch.compiler_troubleshooting.html",
+        "title": "torch.compile Troubleshooting"
+      },
+      {
+        "url": "https://docs.pytorch.org/docs/stable/notes/numerical_accuracy.html",
+        "title": "Numerical accuracy \u2014 PyTorch documentation"
+      }
+    ],
+    "agent_guidance": "You've identified a regression in PyTorch 2.5 where AOT-compiled Segformer produces qualitatively different (worse) segmentation outputs compared to 2.4.1. The subtle artifacts in certain predicted masks suggest numerical changes that cross decision boundaries.\n\nInvestigation steps:\n\n1. **Quantify the regression**: Beyond visual inspection, compute metrics:\n   ```python\n   mse = torch.nn.functional.mse_loss(output_eager, output_compiled)\n   max_diff = (output_eager - output_compiled).abs().max()\n   ```\n   This helps determine if it's a numerical drift or a more fundamental issue.\n\n2. **Check autotune configuration**: The regression might be due to different default autotune settings in 2.5. Try:\n   ```python\n   torch._inductor.config.max_autotune = False\n   torch._inductor.config.coordinate_descent_tuning = False\n   ```\n\n3. **Control precision**: Ensure consistent precision settings:\n   ```python\n   torch.set_float32_matmul_precision('highest')  # Disable TF32\n   ```\n\n4. **Compare generated code**: Use `TORCH_LOGS='+output_code'` in both 2.4.1 and 2.5 to see what changed in kernel generation.\n\n5. **Bisect the regression**: If you can build PyTorch from source, binary search the commits between 2.4.1 and 2.5 to find exactly what introduced the change.\n\n6. **Workarounds**:\n   - Use `mode='default'` instead of the default mode\n   - Disable specific optimizations that may have been added in 2.5\n   - Consider if `torch.export` path gives better results\n\n7. **Report it**: File a GitHub issue with before/after images and the quantitative metrics. Reference this is a regression from 2.4.1 to 2.5.\n\nThis is particularly important because subtle correctness issues can compound in production systems, even if the raw numerical differences seem small.",
+    "score": 2,
+    "score_justification": "Provides relevant debugging steps for a version regression including quantification, autotune settings, and precision controls. However, doesn't specifically identify whether this is a known 2.5 change or provide targeted guidance about the specific AOT inductor changes in that release."
+  },
+  {
+    "id": "J3-11",
+    "resolution_status": "unresolved",
+    "search_queries": [
+      "PyTorch Conv2d CPU numerical divergence tolerance torch.compile correctness",
+      "torch.compile CPU vs CUDA numerical accuracy expected tolerance"
+    ],
+    "sources_consulted": [
+      {
+        "url": "https://pytorch.org/blog/accelerated-cpu-inference/",
+        "title": "Accelerated CPU Inference with PyTorch Inductor"
+      },
+      {
+        "url": "https://docs.pytorch.org/docs/2.6/torch.compiler_troubleshooting.html",
+        "title": "torch.compile Troubleshooting"
+      }
+    ],
+    "agent_guidance": "A 4.7% relative error is definitely NOT expected or acceptable for float32 convolution operations. While some numerical divergence is normal between CPU and CUDA (due to different hardware implementations), and torch.compile can introduce small differences due to operation reordering, 4.7% is several orders of magnitude beyond acceptable tolerances.\n\nHowever, I notice your input values are around 1e13, which is extremely large for float32. Float32 has only ~7 significant decimal digits of precision, so at 1e13, you've essentially exhausted the representable precision. This could explain the large errors.\n\nHere's what to investigate:\n\n1. **Is this a data range issue?** Try normalizing your inputs to a reasonable range (e.g., [-1, 1] or [0, 1]). If the error disappears, the issue is your input scale, not torch.compile.\n\n2. **Compare apples to apples**: You're comparing CUDA eager vs CPU compiled. Try:\n   - CUDA eager vs CUDA compiled\n   - CPU eager vs CPU compiled\n   This isolates whether it's a CPU backend issue or a compile issue.\n\n3. **Check if it's deterministic**: Run the same code multiple times. If the error varies, it's a non-determinism bug. If consistent, it's a systematic calculation difference.\n\n4. **Minimal reproducer**: Does a simple Conv2d with normal-range inputs (mean 0, std 1) show the same issue?\n\nWithout more information, I can't definitively say if this is a known bug or an input data issue. My suspicion is that input values at 1e13 are outside the reasonable operating range for float32 computations, and different implementations (CPU vs CUDA, eager vs compiled) will diverge significantly at those scales. If you can reproduce with normalized inputs, then it's a genuine bug that should be reported.",
+    "score": 3,
+    "score_justification": "Correctly identifies that 4.7% error is unacceptable but also catches the key issue that inputs at 1e13 are outside float32's precision range. Provides systematic debugging steps and acknowledges uncertainty appropriately, which is correct for an unresolved case."
+  },
+  {
+    "id": "J3-12",
+    "resolution_status": "unresolved",
+    "search_queries": [
+      "torch.compile precision errors accuracy debugging isolate operator minifier",
+      "CUDA_LAUNCH_BLOCKING precision error torch.compile reduce-overhead"
+    ],
+    "sources_consulted": [
+      {
+        "url": "https://medium.com/@ngocson2vn/torch-compile-and-with-triton-combo-kernel-1-causes-a-serious-accuracy-issue",
+        "title": "torch.compile with TRITON_COMBO_KERNEL causes accuracy issue"
+      },
+      {
+        "url": "https://docs.pytorch.org/docs/2.7/torch.compiler_troubleshooting.html",
+        "title": "torch.compile Troubleshooting"
+      }
+    ],
+    "agent_guidance": "The fact that precision errors disappear with `CUDA_LAUNCH_BLOCKING=1` is a critical clue - this suggests a race condition or incorrect memory synchronization in the compiled kernels, not a fundamental numerical accuracy issue.\n\nThis is concerning because it means the compiled code has a correctness bug, not just a performance optimization trade-off. Here's what's likely happening:\n\n1. **Asynchronous execution issue**: Without CUDA_LAUNCH_BLOCKING, kernels execute asynchronously. If the compiled code has missing or incorrect synchronization points, later kernels might read data before earlier kernels finish writing it.\n\n2. **Why it happens with compile modes**: Both `reduce-overhead` and `max-autotune-no-cudagraphs` aggressively optimize and fuse operations, which can introduce synchronization bugs if not done correctly.\n\n3. **Debugging steps**:\n   - Use `torch.cuda.synchronize()` before reading outputs to see if manual sync fixes it\n   - Try `mode='default'` which is more conservative\n   - Disable specific optimizations:\n     ```python\n     torch._inductor.config.triton.cudagraphs = False\n     ```\n\n4. **This is likely a compiler bug** that should be reported. The fact that CUDA_LAUNCH_BLOCKING=1 fixes it confirms it's a synchronization issue in the generated code.\n\n5. **Workaround**: For now, either:\n   - Use CUDA_LAUNCH_BLOCKING=1 (but this hurts performance)\n   - Use `mode='default'` instead of reduce-overhead\n   - Disable compilation for this region\n\nUnfortunately, without a minimal reproducer, it's hard to isolate exactly which operation or fusion pattern introduces the race condition. I'd recommend trying to create a minimal reproducer and reporting this as a high-priority bug, since silent correctness issues are the most dangerous type.",
+    "score": 2,
+    "score_justification": "Correctly identifies that CUDA_LAUNCH_BLOCKING fixing the issue suggests a synchronization/race condition bug, which is insightful. However, provides plausible-sounding analysis without knowing if this is actually the root cause for this unresolved issue."
+  },
+  {
+    "id": "J3-13",
+    "resolution_status": "unresolved",
+    "search_queries": [
+      "torch.compile reproducibility deterministic results manual seed pytorch",
+      "torch.compile non-deterministic behavior same seed different results"
+    ],
+    "sources_consulted": [
+      {
+        "url": "https://github.com/pytorch/pytorch/issues/94855",
+        "title": "torch.compile breaks reproducibility \u00b7 Issue #94855"
+      },
+      {
+        "url": "https://docs.pytorch.org/docs/1.11/notes/randomness.html",
+        "title": "Reproducibility \u2014 PyTorch documentation"
+      }
+    ],
+    "agent_guidance": "This is a known open issue - torch.compile can break reproducibility even with proper seed setting. Unfortunately, there's no complete solution yet, but here's what you can try:\n\n1. **Enable all deterministic settings**:\n   ```python\n   torch.use_deterministic_algorithms(True)\n   torch.backends.cudnn.deterministic = True\n   torch.backends.cudnn.benchmark = False\n   os.environ['CUBLAS_WORKSPACE_CONFIG'] = ':4096:8'\n   ```\n\n2. **Disable autotuning** (common source of non-determinism):\n   ```python\n   torch._inductor.config.triton.autotune = False\n   torch._inductor.config.max_autotune = False\n   ```\n   Autotuning benchmarks different kernel implementations and may pick different ones across runs.\n\n3. **Disable CUDA graphs** (another source of non-determinism):\n   ```python\n   torch._inductor.config.triton.cudagraphs = False\n   ```\n\n4. **Check if it's compilation vs execution**: Clear the cache between runs:\n   ```python\n   torch._dynamo.reset()\n   ```\n   If results are now consistent, the non-determinism is in compilation itself.\n\n5. **Known limitation**: As of the PyTorch version in this issue (2.0 dev), full reproducibility with torch.compile is not guaranteed. The compilation process itself may have non-deterministic elements.\n\nUnfortunately, if the above steps don't work, you may need to choose between:\n- Using torch.compile without guaranteed reproducibility\n- Disabling torch.compile for reproducibility-critical applications\n\nThis is a tracked issue and the PyTorch team is working on it, but there's no complete fix yet. I'd recommend monitoring the GitHub issue #94855 for updates.",
+    "score": 3,
+    "score_justification": "Honest about this being a known open issue without complete solution, provides all the standard mitigation steps (deterministic flags, disable autotuning/cudagraphs), and appropriately sets expectations. Good handling of an unresolved issue."
+  },
+  {
+    "id": "J3-14",
+    "resolution_status": "unresolved",
+    "search_queries": [
+      "torch.compile macOS OpenMP omp.h file not found installation",
+      "PyTorch compile macOS libomp homebrew setup"
+    ],
+    "sources_consulted": [
+      {
+        "url": "https://github.com/pytorch/pytorch/issues/95708",
+        "title": "Dynamo + MacOS: fatal error: 'omp.h' file not found"
+      },
+      {
+        "url": "https://github.com/pytorch/pytorch/issues/127973",
+        "title": "Torch compile OpenMP error with simple nn.Module"
+      }
+    ],
+    "agent_guidance": "The \"omp.h file not found\" error on macOS is a common issue with torch.compile. Even though you have libomp installed via Homebrew, the compiler that torch.compile uses isn't finding the headers.\n\nHere's how to fix it:\n\n1. **Set the compiler flags to point to Homebrew's OpenMP**:\n   ```bash\n   export CFLAGS=\"-I/opt/homebrew/opt/libomp/include\"\n   export LDFLAGS=\"-L/opt/homebrew/opt/libomp/lib\"\n   ```\n   (For Intel Macs, use `/usr/local/opt/libomp/` instead of `/opt/homebrew/opt/libomp/`)\n\n2. **Alternative: Set environment variables before running Python**:\n   ```bash\n   export OMP_DIR=$(brew --prefix libomp)\n   export CFLAGS=\"-I$OMP_DIR/include\"\n   export LDFLAGS=\"-L$OMP_DIR/lib\"\n   python your_script.py\n   ```\n\n3. **Disable OpenMP in compilation** (if you don't need parallelism):\n   ```python\n   import os\n   os.environ['TORCHINDUCTOR_CPP_WRAPPER'] = '0'\n   ```\n\n4. **Use a different backend**: The CPU backend on macOS is less mature. If possible, consider:\n   - Running on CUDA if you have access to NVIDIA GPU\n   - Using MPS backend for Apple Silicon: `model.to('mps')`\n\n5. **Check your PyTorch installation**: Make sure you're using a recent official PyTorch build for macOS, not one compiled from source with incorrect flags.\n\nUnfortunately, macOS support for torch.compile is not as robust as Linux/CUDA. This is a known limitation, and the issue has been reported but may not have a complete fix yet. If none of the above works, you may need to run without torch.compile on macOS, or use Linux/Docker for development.",
+    "score": 3,
+    "score_justification": "Provides concrete solutions for the macOS OpenMP path issue including setting CFLAGS/LDFLAGS with correct Homebrew paths, disabling OpenMP, and acknowledges this as a known macOS limitation. Honest and helpful for an unresolved issue."
+  },
+  {
+    "id": "J3-15",
+    "resolution_status": "unresolved",
+    "search_queries": [
+      "PyTorch inductor epilogue fusion mutations silent correctness fused kernels",
+      "torch.compile fusion mutation index_put_ correctness"
+    ],
+    "sources_consulted": [
+      {
+        "url": "https://developers.redhat.com/articles/2025/09/03/vllm-torchcompile-efficient-llm-inference-pytorch",
+        "title": "vLLM with torch.compile: Efficient LLM inference"
+      },
+      {
+        "url": "https://discuss.pytorch.org/t/prologue-fusion/195928",
+        "title": "Prologue fusion - torch._inductor"
+      }
+    ],
+    "agent_guidance": "You've identified that inductor's epilogue fusion doesn't support mutations (like `index_put_` / `index_add_`), and you're asking whether this is a fundamental correctness requirement or could be relaxed.\n\nThis is actually a correctness requirement, not just a conservative restriction. Here's why:\n\n1. **Mutations break fusion assumptions**: Epilogue fusion assumes operations can be reordered and fused without side effects. Mutations violate this:\n   - `index_add_` modifies a tensor in-place\n   - The mutation might be visible to other parts of the graph\n   - Fusing it could change when the mutation occurs, breaking correctness\n\n2. **Your manual fusion worked because**: When you manually inserted the scatter into the matmul template, you controlled the exact semantics. But automatic fusion can't safely reason about all possible mutation patterns.\n\n3. **Why removing the check causes errors**: The fusion infrastructure assumes it can reorder operations. When you remove the mutation check, it tries to fuse operations that can't be safely reordered.\n\n4. **What you can do**:\n   - **Use out-of-place operations**: Instead of `d.index_add_`, create a new tensor\n   - **Write a custom Triton kernel**: Manually fuse matmul + scatter if this pattern is critical for performance\n   - **Request a feature**: File an issue proposing a specific, safe pattern for fusing matmul + scatter\n\n5. **Is there room for improvement?** Possibly. For specific patterns where the mutation is \"final\" (like accumulating directly to output), fusion might be safe. But this requires careful analysis.\n\nThis is an unresolved research/engineering question in the compiler: how to safely enable fusion for more patterns while maintaining correctness guarantees. For now, the conservative approach (no fusion with mutations) is intentional to prevent silent correctness bugs.",
+    "score": 3,
+    "score_justification": "Correctly identifies why mutation fusion is a correctness issue not just conservative restriction, explains why manual fusion worked but automatic can't, and honestly acknowledges this as an open engineering question while suggesting workarounds."
+  },
+  {
+    "id": "J3-16",
+    "resolution_status": "unresolved",
+    "search_queries": [
+      "torch.compile data-dependent control flow tracing dynamic shapes",
+      "PyTorch compile early stopping control flow graph breaks"
+    ],
+    "sources_consulted": [
+      {
+        "url": "https://markaicode.com/pytorch-3-dynamic-shapes-optimization/",
+        "title": "PyTorch 3.0 Dynamic Shapes: Optimizing Models for AI Accelerators"
+      },
+      {
+        "url": "https://docs.pytorch.org/TensorRT/tutorials/_rendered_examples/dynamo/torch_compile_resnet_example.html",
+        "title": "Compiling ResNet with dynamic shapes"
+      }
+    ],
+    "agent_guidance": "Data-dependent control flow (where execution paths depend on tensor values) is a fundamental challenge for torch.compile, and there's no complete solution yet.\n\nHere's the current state:\n\n1. **Why it's hard**: torch.compile uses graph tracing, which requires knowing the execution path at compile time. When you have `if tensor.item() > threshold`, the path depends on runtime values.\n\n2. **Current behavior**: torch.compile breaks the graph at data-dependent branches. This means:\n   - Code before the branch is compiled\n   - The branch executes in eager mode\n   - Code after continues in compiled mode (with another graph break)\n   This works but limits optimization opportunities.\n\n3. **Experimental approaches** (not yet production-ready):\n   - **Symbolic shapes**: PyTorch 2.x experimental feature that tries to reason about shapes symbolically\n   - **torch.cond**: Experimental control flow operator: `torch.cond(pred, true_fn, false_fn)`\n   - **Export path**: `torch.export` can capture some control flow patterns\n\n4. **What you can do now**:\n   - **Restructure to avoid data dependencies**: Use masking instead:\n     ```python\n     # Instead of: if (x > threshold).all(): y = x * 2\n     # Use: y = torch.where(x > threshold, x * 2, x)\n     ```\n   - **Accept graph breaks**: They work correctly, just with less optimization\n   - **Use fullgraph=False**: Let dynamo handle breaks automatically\n\n5. **Not recommended**: Trying to force fullgraph=True with data-dependent control flow will likely fail or give wrong results.\n\nThis is an active area of research. The PyTorch team is working on better control flow support, but for now, you need to either restructure your code to avoid data-dependent branches or accept graph breaks. I'd monitor PyTorch releases for progress on `torch.cond` and export-based approaches.",
+    "score": 3,
+    "score_justification": "Honest that this is unsolved, correctly explains why it's hard (tracing vs. dynamic control flow), mentions experimental approaches (torch.cond), and provides practical workaround (masking instead of branching). Good handling of open research question."
+  },
+  {
+    "id": "J3-17",
+    "resolution_status": "unresolved",
+    "search_queries": [
+      "torch.compile mutations class attributes list append ignored silent",
+      "PyTorch compile class variable mutation side effects"
+    ],
+    "sources_consulted": [
+      {
+        "url": "https://docs.nvidia.com/physicsnemo/latest/user-guide/performance_docs/torch_compile_support.html",
+        "title": "Torch Compile and External Kernels"
+      }
+    ],
+    "agent_guidance": "This is expected behavior, though perhaps not well-documented. torch.compile intentionally ignores side effects to Python data structures (like list.append) because they're not part of the computational graph.\n\nHere's what's happening:\n\n1. **Why mutations are ignored**: torch.compile traces the tensor operations to build a computation graph. Operations on Python objects (list.append, dict update, etc.) are considered \"side effects\" outside the graph and are typically executed only during tracing, not during subsequent runs.\n\n2. **Your example**: \n   - **Without compile**: Each call to `forward()` executes the Python code, including `Model.items.append(x)`\n   - **With compile**: During the first call (tracing), the append happens. But the compiled graph doesn't include this side effect, so subsequent calls don't append.\n\n3. **This is by design**: Including arbitrary Python side effects in the compiled graph would be extremely difficult and slow. The graph is meant to capture tensor computations.\n\n4. **Solutions**:\n   - **Don't rely on side effects in compiled code**: Refactor to avoid them\n   - **Use graph breaks**: Force eager execution for side effects:\n     ```python\n     def forward(self, x):\n         torch._dynamo.graph_break()\n         Model.items.append(x)\n         # rest of forward pass\n     ```\n   - **Return values instead**: Have forward return what you want to collect, and collect it outside\n\n5. **Related issues**: This same behavior applies to:\n   - Printing (print statements in compiled code may only run during tracing)\n   - File I/O\n   - Global state modifications\n   - Any non-tensor side effects\n\nThis is a fundamental limitation of graph compilation. If you need side effects, you need to either use graph breaks or restructure your code to avoid relying on them. Unfortunately, there's no way to make torch.compile \"just work\" with arbitrary Python side effects while maintaining performance benefits.",
+    "score": 3,
+    "score_justification": "Correctly identifies this as expected behavior (side effects outside the graph are ignored), clearly explains why, and provides appropriate solutions (graph breaks, restructuring). Honest that this is a fundamental limitation, not a bug to be fixed."
+  },
+  {
+    "id": "J3-18",
+    "resolution_status": "unresolved",
+    "search_queries": [
+      "PyTorch AOT autograd tensor strides non-contiguous gradients wrong results",
+      "AOT autograd backend stride assumptions transpose alias"
+    ],
+    "sources_consulted": [
+      {
+        "url": "https://medium.com/@dharamai2024/part-4-automatic-differentiation-autograd-how-pytorch-really-computes-gradients",
+        "title": "How PyTorch Computes Gradients"
+      },
+      {
+        "url": "https://discuss.pytorch.org/t/contiguous-grad-for-non-contiguous-tensor/121516",
+        "title": "Contiguous grad for non contiguous tensor"
+      }
+    ],
+    "agent_guidance": "You've identified a real issue: AOT autograd's output regeneration logic assumes backends preserve tensor strides, but some backends (like Habana, TPU) always produce contiguous outputs. This causes correctness issues with operations like transpose.\n\nThis is a known limitation but doesn't have a complete fix yet. Here's the situation:\n\n1. **Why it happens**: AOT autograd tries to regenerate aliased outputs (like from transpose) by applying the alias operation to the base tensor. But if the backend's output is contiguous instead of strided, this regeneration produces wrong results.\n\n2. **Who's affected**: Any backend that doesn't preserve PyTorch's stride semantics:\n   - Habana (as you mentioned)\n   - TPU (XLA issue #5179)\n   - Potentially other accelerator backends\n\n3. **Why it's hard to fix**: The fundamental issue is that:\n   - PyTorch's eager mode has rich stride semantics\n   - Some backends can't or don't preserve these\n   - AOT autograd sits in between and has to reconcile them\n\n4. **Potential workarounds** (none perfect):\n   - **Make backend preserve strides**: Can be difficult/inefficient on some hardware\n   - **Don't rely on stride information**: AOT autograd could track the alias operations explicitly instead of assuming strides. This is the right fix but requires significant refactoring.\n   - **Copy to ensure contiguous**: At the boundary between PyTorch and backend, ensure tensors are contiguous. Adds overhead.\n\n5. **What you should do**:\n   - File a detailed issue (if not already done) with your minimal reproducer\n   - Reference the TPU issue #5179 as related\n   - For now, avoid using AOT compilation with your backend for models with aliasing operations\n\nThis is a genuine architectural issue in how AOT autograd interacts with non-PyTorch-native backends. The PyTorch team is aware but it requires careful design to fix without breaking existing functionality or performance. I'd watch for updates in future PyTorch releases.",
+    "score": 3,
+    "score_justification": "Correctly identifies this as a genuine architectural issue between AOT autograd's stride assumptions and backends that produce contiguous outputs. Acknowledges it's a known limitation without a complete fix, references the related TPU issue, and honestly discusses the challenges."
+  },
+  {
+    "id": "J3-19",
+    "resolution_status": "unresolved",
+    "search_queries": [
+      "PyTorch ROCm AMD GPU conv correctness test failure inductor",
+      "test_conv_stride_constraints ROCm Radeon PRO V710"
+    ],
+    "sources_consulted": [
+      {
+        "url": "https://medium.com/@agentz/how-to-fix-rocm-pytorch-memory-faults-on-amd-gpus-segmentation-fault-page-not-present",
+        "title": "How to Fix ROCm / PyTorch Memory Faults on AMD GPUs"
+      },
+      {
+        "url": "https://rocm.blogs.amd.com/artificial-intelligence/pytorch-amd-gpus/README.html",
+        "title": "Empowering PyTorch Ecosystem on AMD ROCm"
+      }
+    ],
+    "agent_guidance": "This test failure on ROCm with Radeon PRO V710 is concerning. The fact that the test was recently enabled but still fails on the viable/strict branch suggests this might be a known issue that's not fully resolved.\n\nHere's what's likely happening and what to check:\n\n1. **ROCm-specific correctness issue**: The conv implementation on ROCm may have bugs or differences from CUDA that cause this test to fail. This could be:\n   - Bug in ROCm's MIOpen (the cuDNN equivalent)\n   - Bug in how inductor generates code for ROCm\n   - Different numerical behavior that exceeds tolerance thresholds\n\n2. **Debugging steps**:\n   - **Check if it's a known issue**: Search PyTorch GitHub for \"ROCm conv\" or \"test_conv_stride_constraints ROCm\"\n   - **Run on CUDA**: Does the same test pass on NVIDIA GPU? If yes, it's ROCm-specific.\n   - **Check ROCm version**: Ensure you have the recommended ROCm version for your PyTorch build\n   - **Try eager mode**: Does the test pass without torch.compile? This isolates inductor vs base ROCm issues.\n\n3. **Get more information**:\n   - Run with `PYTORCH_MIOPEN_LOG_LEVEL=3` to see MIOpen details\n   - Check the actual AssertionError details (what values were expected vs actual)\n   - Try with different backends: `backend='aot_eager'` vs `backend='inductor'`\n\n4. **This might be expected**: The viable/strict branch may have stricter tests that expose known ROCm limitations. ROCm support in PyTorch, while improving, is still not as mature as CUDA.\n\n5. **What to do**:\n   - If this is blocking you, report it with full details (ROCm version, GPU model, full error trace)\n   - For production use, you may need to work around this specific operation pattern or wait for ROCm fixes\n   - Consider whether switching to CUDA is an option\n\nUnfortunately, without seeing the full error details and knowing whether this is an already-tracked issue, I can't give a definitive answer. ROCm correctness issues are typically hardware/driver specific and require debugging with the ROCm team.",
+    "score": 2,
+    "score_justification": "Acknowledges this as likely a ROCm-specific issue and provides reasonable debugging steps. However, without knowing if this is a tracked issue or the specific root cause, the guidance is somewhat generic. Appropriate honesty about limitations."
+  },
+  {
+    "id": "J3-20",
+    "resolution_status": "unresolved",
+    "search_queries": [
+      "torch.compile reduce-overhead max-autotune NaN values debugging",
+      "PyTorch compile modes NaN default vs reduce-overhead"
+    ],
+    "sources_consulted": [
+      {
+        "url": "https://docs.pytorch.org/docs/stable/generated/torch.compile.html",
+        "title": "torch.compile \u2014 PyTorch documentation"
+      }
+    ],
+    "agent_guidance": "NaNs appearing specifically with `reduce-overhead` or `max-autotune` modes but not default mode indicates that aggressive optimizations are introducing numerical instability or correctness issues.\n\nHere's what's likely happening and how to debug:\n\n1. **Why certain modes cause NaNs**:\n   - `reduce-overhead`: Uses CUDA graphs which can have synchronization issues or incorrect memory reuse\n   - `max-autotune`: Aggressively fuses and optimizes kernels, which can introduce numerical instability or bugs\n   - `default`: More conservative, less likely to hit edge cases\n\n2. **Immediate debugging**:\n   - **Enable anomaly detection**: `torch.autograd.set_detect_anomaly(True)` to find where NaN first appears\n   - **Check specific optimizations**: Try disabling them one by one:\n     ```python\n     torch._inductor.config.triton.cudagraphs = False\n     torch._inductor.config.coordinate_descent_tuning = False\n     torch._inductor.config.aggressive_fusion = False\n     ```\n   - **Inspect generated kernels**: Set `TORCH_LOGS='+output_code'` to see what's being generated\n\n3. **Common causes**:\n   - **Mixed precision issues**: You're using bfloat16 autocast. Some fused kernels may not handle bf16 correctly. Try fp16 or fp32.\n   - **Fused kernels with numerical instability**: Certain fusion patterns can amplify numerical errors\n   - **CUDA graph memory issues**: Incorrect assumptions about tensor lifetimes\n\n4. **Workarounds to try**:\n   - Use `mode='default'` (loses performance but maintains correctness)\n   - Disable specific model components from compilation: use `torch.compiler.disable()` on specific layers\n   - Change precision: try without mixed precision to isolate if it's a bf16 issue\n   - Use `fullgraph=True` if you're currently using False (or vice versa)\n\n5. **Report the bug**: If you can create a minimal reproducer showing default mode works but reduce-overhead/max-autotune produces NaN, this is a high-priority compiler bug.\n\nUnfortunately, without a full reproducer it's hard to pinpoint exactly which optimization causes the issue. The fact that it's mode-specific strongly suggests a compiler bug rather than a model issue, since the mathematical operations should be identical across modes.",
+    "score": 2,
+    "score_justification": "Provides relevant debugging steps for mode-specific NaN issues including anomaly detection, disabling specific optimizations, and mixed precision considerations. However, without knowing the actual root cause of this unresolved issue, some suggestions may not apply. Appropriately honest about uncertainty."
+  }
+]

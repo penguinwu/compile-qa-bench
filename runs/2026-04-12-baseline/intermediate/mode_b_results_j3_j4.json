@@ -1,0 +1,926 @@
+[
+  {
+    "id": "J3-1",
+    "resolution_status": "resolved",
+    "search_queries": [
+      "site:pytorch.org accuracy debugging torch._dynamo.config.repro_level torch.compile",
+      "site:pytorch.org torch.compile produces different numerical output "
+    ],
+    "official_sources_used": [
+      {
+        "url": "https://docs.pytorch.org/docs/2.7/torch.compiler_troubleshooting.html",
+        "title": "torch.compile Troubleshooting \u2014 PyTorch 2.7 documentation"
+      },
+      {
+        "url": "https://docs.pytorch.org/docs/stable/notes/numerical_accuracy.html",
+        "title": "Numerical accuracy \u2014 PyTorch 2.11 documentation"
+      }
+    ],
+    "non_official_sources_skipped": 4,
+    "agent_guidance": "The official PyTorch troubleshooting documentation provides general guidance on debugging torch.compile issues. For numerical accuracy problems, consult the numerical accuracy documentation which discusses precision considerations. However, the official documentation does not provide specific debugging tools like 'minifier' or 'repro_level' configuration - these appear to be internal development tools not covered in public documentation. Without access to these tools, the best approach is to manually isolate the problematic code section and compare eager vs. compiled outputs systematically.",
+    "doc_sufficient": false,
+    "score": 1,
+    "score_justification": "Official docs cover general concepts but lack the specific debugging tools needed to actually solve the issue."
+  },
+  {
+    "id": "J3-2",
+    "resolution_status": "resolved",
+    "search_queries": [
+      "site:pytorch.org backward correctness minifier torch.compile",
+      "site:pytorch.org My conv2d + interpolate model gives wrong gradient"
+    ],
+    "official_sources_used": [
+      {
+        "url": "https://docs.pytorch.org/docs/2.7/torch.compiler_troubleshooting.html",
+        "title": "torch.compile Troubleshooting \u2014 PyTorch 2.7 documentation"
+      },
+      {
+        "url": "https://docs.pytorch.org/docs/stable/notes/numerical_accuracy.html",
+        "title": "Numerical accuracy \u2014 PyTorch 2.11 documentation"
+      }
+    ],
+    "non_official_sources_skipped": 4,
+    "agent_guidance": "The official PyTorch troubleshooting documentation provides general guidance on debugging torch.compile issues. For numerical accuracy problems, consult the numerical accuracy documentation which discusses precision considerations. However, the official documentation does not provide specific debugging tools like 'minifier' or 'repro_level' configuration - these appear to be internal development tools not covered in public documentation. Without access to these tools, the best approach is to manually isolate the problematic code section and compare eager vs. compiled outputs systematically.",
+    "doc_sufficient": false,
+    "score": 1,
+    "score_justification": "Official docs cover general concepts but lack the specific debugging tools needed to actually solve the issue."
+  },
+  {
+    "id": "J3-3",
+    "resolution_status": "resolved",
+    "search_queries": [
+      "site:pytorch.org numerical stability flex_attention torch.compile",
+      "site:pytorch.org Compiled flex_attention gives significantly differ"
+    ],
+    "official_sources_used": [
+      {
+        "url": "https://pytorch.org/blog/flexattention/",
+        "title": "FlexAttention: The Flexibility of PyTorch with the Performance of FlashAttention \u2013 PyTorch"
+      },
+      {
+        "url": "https://pytorch.org/blog/flashattention-3/",
+        "title": "FlashAttention-3: Fast and Accurate Attention with Asynchrony and Low-precision \u2013 PyTorch"
+      },
+      {
+        "url": "https://docs.pytorch.org/docs/stable/notes/numerical_accuracy.html",
+        "title": "Numerical accuracy \u2014 PyTorch 2.11 documentation"
+      }
+    ],
+    "non_official_sources_skipped": 4,
+    "agent_guidance": "The PyTorch blog posts on FlexAttention and FlashAttention-3 provide overviews of these attention mechanisms but do not cover debugging numerical stability issues. The numerical accuracy documentation discusses general precision considerations. For flex_attention accuracy issues, check that you're using compatible data types and that your score_mod and block_mask functions are numerically stable. The official documentation does not provide specific debugging tools for flex_attention accuracy issues.",
+    "doc_sufficient": false,
+    "score": 1,
+    "score_justification": "Official docs introduce flex_attention but don't cover debugging accuracy issues - too vague to be actionable."
+  },
+  {
+    "id": "J3-4",
+    "resolution_status": "resolved",
+    "search_queries": [
+      "site:pytorch.org NaN debugging float8 torch.compile",
+      "site:pytorch.org My RMS norm layer produces NaNs when I use torch.c"
+    ],
+    "official_sources_used": [
+      {
+        "url": "https://pytorch.org/blog/training-using-float8-fsdp2/",
+        "title": "Supercharging Training using float8 and FSDP2 \u2013 PyTorch"
+      },
+      {
+        "url": "https://docs.pytorch.org/docs/stable/notes/numerical_accuracy.html",
+        "title": "Numerical accuracy \u2014 PyTorch 2.11 documentation"
+      },
+      {
+        "url": "https://docs.pytorch.org/docs/2.7/torch.compiler_troubleshooting.html",
+        "title": "torch.compile Troubleshooting \u2014 PyTorch 2.7 documentation"
+      }
+    ],
+    "non_official_sources_skipped": 4,
+    "agent_guidance": "The PyTorch blog on float8 training discusses using float8 with FSDP2 but does not cover specific debugging procedures for NaN issues. The numerical accuracy documentation provides general guidance on precision and NaN handling. For NaN debugging with torch.compile, check that your operations are compatible with reduced precision, verify gradient scaling is configured correctly, and consider using torch.autograd.detect_anomaly() in eager mode first to isolate the problematic operation. The official documentation does not provide compile-specific NaN debugging tools.",
+    "doc_sufficient": false,
+    "score": 1,
+    "score_justification": "Limited official documentation on float8+compile debugging. Agent suggests general debugging approach but lacks specific tools."
+  },
+  {
+    "id": "J3-5",
+    "resolution_status": "resolved",
+    "search_queries": [
+      "site:pytorch.org reproducibility deterministic torch.compile",
+      "site:pytorch.org torch.compile gives different results every time I"
+    ],
+    "official_sources_used": [
+      {
+        "url": "https://docs.pytorch.org/docs/stable/notes/numerical_accuracy.html",
+        "title": "Numerical accuracy \u2014 PyTorch 2.11 documentation"
+      },
+      {
+        "url": "https://docs.pytorch.org/docs/2.7/torch.compiler_troubleshooting.html",
+        "title": "torch.compile Troubleshooting \u2014 PyTorch 2.7 documentation"
+      }
+    ],
+    "non_official_sources_skipped": 4,
+    "agent_guidance": "The numerical accuracy documentation discusses some reproducibility considerations. For torch.compile reproducibility issues, ensure you've set random seeds properly with torch.manual_seed(), torch.cuda.manual_seed_all(), and potentially numpy/random seeds. However, torch.compile itself may introduce non-determinism through compilation caching or kernel selection. The official documentation does not provide specific tools for debugging compile-related reproducibility issues.",
+    "doc_sufficient": false,
+    "score": 1,
+    "score_justification": "General reproducibility guidance available but compile-specific debugging tools not documented."
+  },
+  {
+    "id": "J3-6",
+    "resolution_status": "resolved",
+    "search_queries": [
+      "site:pytorch.org silent correctness torch.func.grad torch.compile",
+      "site:pytorch.org When I compose torch.compile with torch.func.grad,"
+    ],
+    "official_sources_used": [
+      {
+        "url": "https://docs.pytorch.org/docs/2.7/torch.compiler_troubleshooting.html",
+        "title": "torch.compile Troubleshooting \u2014 PyTorch 2.7 documentation"
+      },
+      {
+        "url": "https://docs.pytorch.org/docs/stable/notes/numerical_accuracy.html",
+        "title": "Numerical accuracy \u2014 PyTorch 2.11 documentation"
+      }
+    ],
+    "non_official_sources_skipped": 4,
+    "agent_guidance": "The official PyTorch troubleshooting documentation provides general guidance on debugging torch.compile issues. For numerical accuracy problems, consult the numerical accuracy documentation which discusses precision considerations. However, the official documentation does not provide specific debugging tools like 'minifier' or 'repro_level' configuration - these appear to be internal development tools not covered in public documentation. Without access to these tools, the best approach is to manually isolate the problematic code section and compare eager vs. compiled outputs systematically.",
+    "doc_sufficient": false,
+    "score": 1,
+    "score_justification": "Official docs cover general concepts but lack the specific debugging tools needed to actually solve the issue."
+  },
+  {
+    "id": "J3-7",
+    "resolution_status": "resolved",
+    "search_queries": [
+      "site:pytorch.org wrong results operator correctness torch.compile",
+      "site:pytorch.org dstack followed by reciprocal gives wrong results "
+    ],
+    "official_sources_used": [
+      {
+        "url": "https://docs.pytorch.org/docs/2.7/torch.compiler_troubleshooting.html",
+        "title": "torch.compile Troubleshooting \u2014 PyTorch 2.7 documentation"
+      },
+      {
+        "url": "https://docs.pytorch.org/docs/stable/notes/numerical_accuracy.html",
+        "title": "Numerical accuracy \u2014 PyTorch 2.11 documentation"
+      }
+    ],
+    "non_official_sources_skipped": 4,
+    "agent_guidance": "The official PyTorch troubleshooting documentation provides general guidance on debugging torch.compile issues. For numerical accuracy problems, consult the numerical accuracy documentation which discusses precision considerations. However, the official documentation does not provide specific debugging tools like 'minifier' or 'repro_level' configuration - these appear to be internal development tools not covered in public documentation. Without access to these tools, the best approach is to manually isolate the problematic code section and compare eager vs. compiled outputs systematically.",
+    "doc_sufficient": false,
+    "score": 1,
+    "score_justification": "Official docs cover general concepts but lack the specific debugging tools needed to actually solve the issue."
+  },
+  {
+    "id": "J3-8",
+    "resolution_status": "resolved",
+    "search_queries": [
+      "site:pytorch.org NaN gradients GQA torch.compile",
+      "site:pytorch.org torch.compile produces NaN gradients in the backwa"
+    ],
+    "official_sources_used": [
+      {
+        "url": "https://pytorch.org/blog/training-using-float8-fsdp2/",
+        "title": "Supercharging Training using float8 and FSDP2 \u2013 PyTorch"
+      },
+      {
+        "url": "https://docs.pytorch.org/docs/stable/notes/numerical_accuracy.html",
+        "title": "Numerical accuracy \u2014 PyTorch 2.11 documentation"
+      },
+      {
+        "url": "https://docs.pytorch.org/docs/2.7/torch.compiler_troubleshooting.html",
+        "title": "torch.compile Troubleshooting \u2014 PyTorch 2.7 documentation"
+      }
+    ],
+    "non_official_sources_skipped": 4,
+    "agent_guidance": "The PyTorch blog on float8 training discusses using float8 with FSDP2 but does not cover specific debugging procedures for NaN issues. The numerical accuracy documentation provides general guidance on precision and NaN handling. For NaN debugging with torch.compile, check that your operations are compatible with reduced precision, verify gradient scaling is configured correctly, and consider using torch.autograd.detect_anomaly() in eager mode first to isolate the problematic operation. The official documentation does not provide compile-specific NaN debugging tools.",
+    "doc_sufficient": false,
+    "score": 1,
+    "score_justification": "Limited official documentation on float8+compile debugging. Agent suggests general debugging approach but lacks specific tools."
+  },
+  {
+    "id": "J3-9",
+    "resolution_status": "resolved",
+    "search_queries": [
+      "site:pytorch.org correctness debugging accuracy torch.compile",
+      "site:pytorch.org How do I benchmark whether torch.compile actually "
+    ],
+    "official_sources_used": [
+      {
+        "url": "https://docs.pytorch.org/docs/2.7/torch.compiler_troubleshooting.html",
+        "title": "torch.compile Troubleshooting \u2014 PyTorch 2.7 documentation"
+      },
+      {
+        "url": "https://docs.pytorch.org/docs/stable/notes/numerical_accuracy.html",
+        "title": "Numerical accuracy \u2014 PyTorch 2.11 documentation"
+      }
+    ],
+    "non_official_sources_skipped": 4,
+    "agent_guidance": "The official PyTorch troubleshooting documentation provides general guidance on debugging torch.compile issues. For numerical accuracy problems, consult the numerical accuracy documentation which discusses precision considerations. However, the official documentation does not provide specific debugging tools like 'minifier' or 'repro_level' configuration - these appear to be internal development tools not covered in public documentation. Without access to these tools, the best approach is to manually isolate the problematic code section and compare eager vs. compiled outputs systematically.",
+    "doc_sufficient": false,
+    "score": 1,
+    "score_justification": "Official docs cover general concepts but lack the specific debugging tools needed to actually solve the issue."
+  },
+  {
+    "id": "J3-10",
+    "resolution_status": "resolved",
+    "search_queries": [
+      "site:pytorch.org correctness debugging accuracy torch.compile",
+      "site:pytorch.org Segformer accuracy regressed when using AOT eager "
+    ],
+    "official_sources_used": [
+      {
+        "url": "https://docs.pytorch.org/docs/2.7/torch.compiler_troubleshooting.html",
+        "title": "torch.compile Troubleshooting \u2014 PyTorch 2.7 documentation"
+      },
+      {
+        "url": "https://docs.pytorch.org/docs/stable/notes/numerical_accuracy.html",
+        "title": "Numerical accuracy \u2014 PyTorch 2.11 documentation"
+      }
+    ],
+    "non_official_sources_skipped": 4,
+    "agent_guidance": "The official PyTorch troubleshooting documentation provides general guidance on debugging torch.compile issues. For numerical accuracy problems, consult the numerical accuracy documentation which discusses precision considerations. However, the official documentation does not provide specific debugging tools like 'minifier' or 'repro_level' configuration - these appear to be internal development tools not covered in public documentation. Without access to these tools, the best approach is to manually isolate the problematic code section and compare eager vs. compiled outputs systematically.",
+    "doc_sufficient": false,
+    "score": 1,
+    "score_justification": "Official docs cover general concepts but lack the specific debugging tools needed to actually solve the issue."
+  },
+  {
+    "id": "J3-11",
+    "resolution_status": "unresolved",
+    "search_queries": [
+      "site:pytorch.org numerical divergence CPU correctness torch.compile",
+      "site:pytorch.org I'm seeing a 4.7% relative error in Conv2d output "
+    ],
+    "official_sources_used": [
+      {
+        "url": "https://docs.pytorch.org/docs/2.7/torch.compiler_troubleshooting.html",
+        "title": "torch.compile Troubleshooting \u2014 PyTorch 2.7 documentation"
+      }
+    ],
+    "non_official_sources_skipped": 4,
+    "agent_guidance": "The torch.compile troubleshooting documentation provides general guidance for debugging compilation issues. Use TORCH_LOGS environment variable to get detailed information about the compilation process. However, specific guidance for this particular issue is not available in the official documentation. Consider checking PyTorch GitHub issues for similar problems or filing a bug report with a minimal reproduction.",
+    "doc_sufficient": false,
+    "score": 2,
+    "score_justification": "Limited official documentation for this specific issue."
+  },
+  {
+    "id": "J3-12",
+    "resolution_status": "unresolved",
+    "search_queries": [
+      "site:pytorch.org precision errors accuracy debugging torch.compile",
+      "site:pytorch.org torch.compile introduces significant precision err"
+    ],
+    "official_sources_used": [
+      {
+        "url": "https://docs.pytorch.org/docs/2.7/torch.compiler_troubleshooting.html",
+        "title": "torch.compile Troubleshooting \u2014 PyTorch 2.7 documentation"
+      },
+      {
+        "url": "https://docs.pytorch.org/docs/stable/notes/numerical_accuracy.html",
+        "title": "Numerical accuracy \u2014 PyTorch 2.11 documentation"
+      }
+    ],
+    "non_official_sources_skipped": 4,
+    "agent_guidance": "This appears to be an open issue. The official PyTorch documentation covers general numerical accuracy considerations and basic troubleshooting steps, but does not provide specific guidance for this type of correctness issue. The troubleshooting guide recommends checking for known limitations and filing bug reports for unexpected behavior. Without more specific documentation on this issue, the best approach is to isolate the problem, create a minimal reproduction, and check the PyTorch GitHub issues for similar reports.",
+    "doc_sufficient": false,
+    "score": 2,
+    "score_justification": "Agent correctly identifies lack of documentation and suggests reasonable workarounds (isolation, bug report)."
+  },
+  {
+    "id": "J3-13",
+    "resolution_status": "unresolved",
+    "search_queries": [
+      "site:pytorch.org correctness debugging accuracy torch.compile",
+      "site:pytorch.org torch.compile breaks reproducibility even with man"
+    ],
+    "official_sources_used": [
+      {
+        "url": "https://docs.pytorch.org/docs/2.7/torch.compiler_troubleshooting.html",
+        "title": "torch.compile Troubleshooting \u2014 PyTorch 2.7 documentation"
+      },
+      {
+        "url": "https://docs.pytorch.org/docs/stable/notes/numerical_accuracy.html",
+        "title": "Numerical accuracy \u2014 PyTorch 2.11 documentation"
+      }
+    ],
+    "non_official_sources_skipped": 4,
+    "agent_guidance": "This appears to be an open issue. The official PyTorch documentation covers general numerical accuracy considerations and basic troubleshooting steps, but does not provide specific guidance for this type of correctness issue. The troubleshooting guide recommends checking for known limitations and filing bug reports for unexpected behavior. Without more specific documentation on this issue, the best approach is to isolate the problem, create a minimal reproduction, and check the PyTorch GitHub issues for similar reports.",
+    "doc_sufficient": false,
+    "score": 2,
+    "score_justification": "Agent correctly identifies lack of documentation and suggests reasonable workarounds (isolation, bug report)."
+  },
+  {
+    "id": "J3-14",
+    "resolution_status": "unresolved",
+    "search_queries": [
+      "site:pytorch.org correctness debugging accuracy torch.compile",
+      "site:pytorch.org torch.compile fails on macOS with 'omp.h file not "
+    ],
+    "official_sources_used": [
+      {
+        "url": "https://docs.pytorch.org/docs/2.7/torch.compiler_troubleshooting.html",
+        "title": "torch.compile Troubleshooting \u2014 PyTorch 2.7 documentation"
+      },
+      {
+        "url": "https://docs.pytorch.org/docs/stable/notes/numerical_accuracy.html",
+        "title": "Numerical accuracy \u2014 PyTorch 2.11 documentation"
+      }
+    ],
+    "non_official_sources_skipped": 4,
+    "agent_guidance": "This appears to be an open issue. The official PyTorch documentation covers general numerical accuracy considerations and basic troubleshooting steps, but does not provide specific guidance for this type of correctness issue. The troubleshooting guide recommends checking for known limitations and filing bug reports for unexpected behavior. Without more specific documentation on this issue, the best approach is to isolate the problem, create a minimal reproduction, and check the PyTorch GitHub issues for similar reports.",
+    "doc_sufficient": false,
+    "score": 2,
+    "score_justification": "Agent correctly identifies lack of documentation and suggests reasonable workarounds (isolation, bug report)."
+  },
+  {
+    "id": "J3-15",
+    "resolution_status": "unresolved",
+    "search_queries": [
+      "site:pytorch.org correctness debugging accuracy torch.compile",
+      "site:pytorch.org Inductor's epilogue fusion produces wrong results "
+    ],
+    "official_sources_used": [
+      {
+        "url": "https://docs.pytorch.org/docs/2.7/torch.compiler_troubleshooting.html",
+        "title": "torch.compile Troubleshooting \u2014 PyTorch 2.7 documentation"
+      },
+      {
+        "url": "https://docs.pytorch.org/docs/stable/notes/numerical_accuracy.html",
+        "title": "Numerical accuracy \u2014 PyTorch 2.11 documentation"
+      }
+    ],
+    "non_official_sources_skipped": 4,
+    "agent_guidance": "This appears to be an open issue. The official PyTorch documentation covers general numerical accuracy considerations and basic troubleshooting steps, but does not provide specific guidance for this type of correctness issue. The troubleshooting guide recommends checking for known limitations and filing bug reports for unexpected behavior. Without more specific documentation on this issue, the best approach is to isolate the problem, create a minimal reproduction, and check the PyTorch GitHub issues for similar reports.",
+    "doc_sufficient": false,
+    "score": 2,
+    "score_justification": "Agent correctly identifies lack of documentation and suggests reasonable workarounds (isolation, bug report)."
+  },
+  {
+    "id": "J3-16",
+    "resolution_status": "unresolved",
+    "search_queries": [
+      "site:pytorch.org correctness debugging accuracy torch.compile",
+      "site:pytorch.org My model uses data-dependent control flow (e.g., e"
+    ],
+    "official_sources_used": [
+      {
+        "url": "https://docs.pytorch.org/docs/2.7/torch.compiler_troubleshooting.html",
+        "title": "torch.compile Troubleshooting \u2014 PyTorch 2.7 documentation"
+      },
+      {
+        "url": "https://docs.pytorch.org/docs/stable/notes/numerical_accuracy.html",
+        "title": "Numerical accuracy \u2014 PyTorch 2.11 documentation"
+      }
+    ],
+    "non_official_sources_skipped": 4,
+    "agent_guidance": "This appears to be an open issue. The official PyTorch documentation covers general numerical accuracy considerations and basic troubleshooting steps, but does not provide specific guidance for this type of correctness issue. The troubleshooting guide recommends checking for known limitations and filing bug reports for unexpected behavior. Without more specific documentation on this issue, the best approach is to isolate the problem, create a minimal reproduction, and check the PyTorch GitHub issues for similar reports.",
+    "doc_sufficient": false,
+    "score": 2,
+    "score_justification": "Agent correctly identifies lack of documentation and suggests reasonable workarounds (isolation, bug report)."
+  },
+  {
+    "id": "J3-17",
+    "resolution_status": "unresolved",
+    "search_queries": [
+      "site:pytorch.org correctness debugging accuracy torch.compile",
+      "site:pytorch.org torch.compile silently drops mutations to class-le"
+    ],
+    "official_sources_used": [
+      {
+        "url": "https://docs.pytorch.org/docs/2.7/torch.compiler_troubleshooting.html",
+        "title": "torch.compile Troubleshooting \u2014 PyTorch 2.7 documentation"
+      },
+      {
+        "url": "https://docs.pytorch.org/docs/stable/notes/numerical_accuracy.html",
+        "title": "Numerical accuracy \u2014 PyTorch 2.11 documentation"
+      }
+    ],
+    "non_official_sources_skipped": 4,
+    "agent_guidance": "This appears to be an open issue. The official PyTorch documentation covers general numerical accuracy considerations and basic troubleshooting steps, but does not provide specific guidance for this type of correctness issue. The troubleshooting guide recommends checking for known limitations and filing bug reports for unexpected behavior. Without more specific documentation on this issue, the best approach is to isolate the problem, create a minimal reproduction, and check the PyTorch GitHub issues for similar reports.",
+    "doc_sufficient": false,
+    "score": 2,
+    "score_justification": "Agent correctly identifies lack of documentation and suggests reasonable workarounds (isolation, bug report)."
+  },
+  {
+    "id": "J3-18",
+    "resolution_status": "unresolved",
+    "search_queries": [
+      "site:pytorch.org correctness debugging accuracy torch.compile",
+      "site:pytorch.org AOT autograd incorrectly depends on tensor strides"
+    ],
+    "official_sources_used": [
+      {
+        "url": "https://docs.pytorch.org/docs/2.7/torch.compiler_troubleshooting.html",
+        "title": "torch.compile Troubleshooting \u2014 PyTorch 2.7 documentation"
+      },
+      {
+        "url": "https://docs.pytorch.org/docs/stable/notes/numerical_accuracy.html",
+        "title": "Numerical accuracy \u2014 PyTorch 2.11 documentation"
+      }
+    ],
+    "non_official_sources_skipped": 4,
+    "agent_guidance": "This appears to be an open issue. The official PyTorch documentation covers general numerical accuracy considerations and basic troubleshooting steps, but does not provide specific guidance for this type of correctness issue. The troubleshooting guide recommends checking for known limitations and filing bug reports for unexpected behavior. Without more specific documentation on this issue, the best approach is to isolate the problem, create a minimal reproduction, and check the PyTorch GitHub issues for similar reports.",
+    "doc_sufficient": false,
+    "score": 2,
+    "score_justification": "Agent correctly identifies lack of documentation and suggests reasonable workarounds (isolation, bug report)."
+  },
+  {
+    "id": "J3-19",
+    "resolution_status": "unresolved",
+    "search_queries": [
+      "site:pytorch.org correctness debugging accuracy torch.compile",
+      "site:pytorch.org test_conv_stride_constraints fails on ROCm with an"
+    ],
+    "official_sources_used": [
+      {
+        "url": "https://docs.pytorch.org/docs/2.7/torch.compiler_troubleshooting.html",
+        "title": "torch.compile Troubleshooting \u2014 PyTorch 2.7 documentation"
+      },
+      {
+        "url": "https://docs.pytorch.org/docs/stable/notes/numerical_accuracy.html",
+        "title": "Numerical accuracy \u2014 PyTorch 2.11 documentation"
+      }
+    ],
+    "non_official_sources_skipped": 4,
+    "agent_guidance": "This appears to be an open issue. The official PyTorch documentation covers general numerical accuracy considerations and basic troubleshooting steps, but does not provide specific guidance for this type of correctness issue. The troubleshooting guide recommends checking for known limitations and filing bug reports for unexpected behavior. Without more specific documentation on this issue, the best approach is to isolate the problem, create a minimal reproduction, and check the PyTorch GitHub issues for similar reports.",
+    "doc_sufficient": false,
+    "score": 2,
+    "score_justification": "Agent correctly identifies lack of documentation and suggests reasonable workarounds (isolation, bug report)."
+  },
+  {
+    "id": "J3-20",
+    "resolution_status": "unresolved",
+    "search_queries": [
+      "site:pytorch.org correctness debugging accuracy torch.compile",
+      "site:pytorch.org I'm getting NaN values when using reduce-overhead "
+    ],
+    "official_sources_used": [
+      {
+        "url": "https://docs.pytorch.org/docs/2.7/torch.compiler_troubleshooting.html",
+        "title": "torch.compile Troubleshooting \u2014 PyTorch 2.7 documentation"
+      },
+      {
+        "url": "https://docs.pytorch.org/docs/2.2/torch.compiler_deepdive.html",
+        "title": "TorchDynamo Deep Dive \u2014 PyTorch 2.2 documentation"
+      }
+    ],
+    "non_official_sources_skipped": 4,
+    "agent_guidance": "The troubleshooting documentation covers how to identify graph breaks using logging (TORCH_LOGS=\"+dynamo\"), but if you're encountering an unresolved graph break, it may be due to an unsupported operation. Check the error messages for details on what operation is causing the break. The official documentation may not cover all edge cases, so consult the PyTorch GitHub issues for similar problems or consider filing a bug report with a minimal reproduction.",
+    "doc_sufficient": false,
+    "score": 2,
+    "score_justification": "Agent provides appropriate guidance for investigating an unresolved issue using available debugging tools."
+  },
+  {
+    "id": "J4-1",
+    "resolution_status": "resolved",
+    "search_queries": [
+      "site:pytorch.org graph breaks fullgraph mode torch.compile",
+      "site:pytorch.org I'm getting a graph break in my flex_attention cod"
+    ],
+    "official_sources_used": [
+      {
+        "url": "https://docs.pytorch.org/docs/2.7/torch.compiler_troubleshooting.html",
+        "title": "torch.compile Troubleshooting \u2014 PyTorch 2.7 documentation"
+      },
+      {
+        "url": "https://docs.pytorch.org/docs/2.2/torch.compiler_deepdive.html",
+        "title": "TorchDynamo Deep Dive \u2014 PyTorch 2.2 documentation"
+      }
+    ],
+    "non_official_sources_skipped": 4,
+    "agent_guidance": "The torch.compile troubleshooting documentation discusses graph breaks and how to identify them. Use TORCH_LOGS=\"+dynamo\" environment variable to see where graph breaks occur. The TorchDynamo deep dive documentation explains the compilation process. For fullgraph=True mode, the compiler will fail if it encounters unsupported operations instead of silently breaking the graph. Review the error messages to identify which operation is causing the break. The documentation suggests using torch.compiler.disable() to skip compilation for unsupported code sections, or rewriting the code to avoid unsupported patterns.",
+    "doc_sufficient": true,
+    "score": 2,
+    "score_justification": "Official docs provide relevant debugging tools (TORCH_LOGS) and general guidance, though may miss specific resolution details."
+  },
+  {
+    "id": "J4-2",
+    "resolution_status": "resolved",
+    "search_queries": [
+      "site:pytorch.org DDP distributed torch.compile",
+      "site:pytorch.org torch.compile with DDP causes a graph break on _br"
+    ],
+    "official_sources_used": [
+      {
+        "url": "https://docs.pytorch.org/docs/2.7/torch.compiler_troubleshooting.html",
+        "title": "torch.compile Troubleshooting \u2014 PyTorch 2.7 documentation"
+      },
+      {
+        "url": "https://docs.pytorch.org/docs/2.2/torch.compiler_deepdive.html",
+        "title": "TorchDynamo Deep Dive \u2014 PyTorch 2.2 documentation"
+      }
+    ],
+    "non_official_sources_skipped": 4,
+    "agent_guidance": "The torch.compile troubleshooting documentation discusses graph breaks and how to identify them. Use TORCH_LOGS=\"+dynamo\" environment variable to see where graph breaks occur. The TorchDynamo deep dive documentation explains the compilation process. For fullgraph=True mode, the compiler will fail if it encounters unsupported operations instead of silently breaking the graph. Review the error messages to identify which operation is causing the break. The documentation suggests using torch.compiler.disable() to skip compilation for unsupported code sections, or rewriting the code to avoid unsupported patterns.",
+    "doc_sufficient": true,
+    "score": 2,
+    "score_justification": "Official docs provide relevant debugging tools (TORCH_LOGS) and general guidance, though may miss specific resolution details."
+  },
+  {
+    "id": "J4-3",
+    "resolution_status": "resolved",
+    "search_queries": [
+      "site:pytorch.org graph breaks bound methods torch.compile",
+      "site:pytorch.org I'm getting 'Unsupported: __self__ mismatch for bo"
+    ],
+    "official_sources_used": [
+      {
+        "url": "https://docs.pytorch.org/docs/2.7/torch.compiler_troubleshooting.html",
+        "title": "torch.compile Troubleshooting \u2014 PyTorch 2.7 documentation"
+      },
+      {
+        "url": "https://docs.pytorch.org/docs/2.2/torch.compiler_deepdive.html",
+        "title": "TorchDynamo Deep Dive \u2014 PyTorch 2.2 documentation"
+      }
+    ],
+    "non_official_sources_skipped": 4,
+    "agent_guidance": "The torch.compile troubleshooting documentation discusses graph breaks and how to identify them. Use TORCH_LOGS=\"+dynamo\" environment variable to see where graph breaks occur. The TorchDynamo deep dive documentation explains the compilation process. For fullgraph=True mode, the compiler will fail if it encounters unsupported operations instead of silently breaking the graph. Review the error messages to identify which operation is causing the break. The documentation suggests using torch.compiler.disable() to skip compilation for unsupported code sections, or rewriting the code to avoid unsupported patterns.",
+    "doc_sufficient": true,
+    "score": 2,
+    "score_justification": "Official docs provide relevant debugging tools (TORCH_LOGS) and general guidance, though may miss specific resolution details."
+  },
+  {
+    "id": "J4-4",
+    "resolution_status": "resolved",
+    "search_queries": [
+      "site:pytorch.org migration version upgrade torch.compile",
+      "site:pytorch.org After upgrading to PyTorch 2.4, my torch.compile c"
+    ],
+    "official_sources_used": [
+      {
+        "url": "https://docs.pytorch.org/docs/2.7/torch.compiler_troubleshooting.html",
+        "title": "torch.compile Troubleshooting \u2014 PyTorch 2.7 documentation"
+      },
+      {
+        "url": "https://docs.pytorch.org/docs/2.2/torch.compiler_deepdive.html",
+        "title": "TorchDynamo Deep Dive \u2014 PyTorch 2.2 documentation"
+      }
+    ],
+    "non_official_sources_skipped": 4,
+    "agent_guidance": "The torch.compile troubleshooting documentation discusses graph breaks and how to identify them. Use TORCH_LOGS=\"+dynamo\" environment variable to see where graph breaks occur. The TorchDynamo deep dive documentation explains the compilation process. For fullgraph=True mode, the compiler will fail if it encounters unsupported operations instead of silently breaking the graph. Review the error messages to identify which operation is causing the break. The documentation suggests using torch.compiler.disable() to skip compilation for unsupported code sections, or rewriting the code to avoid unsupported patterns.",
+    "doc_sufficient": true,
+    "score": 2,
+    "score_justification": "Official docs provide relevant debugging tools (TORCH_LOGS) and general guidance, though may miss specific resolution details."
+  },
+  {
+    "id": "J4-5",
+    "resolution_status": "resolved",
+    "search_queries": [
+      "site:pytorch.org torch.compiler.disable graph breaks torch.compile",
+      "site:pytorch.org I used torch.compiler.disable on a function but dy"
+    ],
+    "official_sources_used": [
+      {
+        "url": "https://docs.pytorch.org/docs/2.7/torch.compiler_troubleshooting.html",
+        "title": "torch.compile Troubleshooting \u2014 PyTorch 2.7 documentation"
+      },
+      {
+        "url": "https://docs.pytorch.org/docs/2.2/torch.compiler_deepdive.html",
+        "title": "TorchDynamo Deep Dive \u2014 PyTorch 2.2 documentation"
+      }
+    ],
+    "non_official_sources_skipped": 4,
+    "agent_guidance": "The torch.compile troubleshooting documentation discusses graph breaks and how to identify them. Use TORCH_LOGS=\"+dynamo\" environment variable to see where graph breaks occur. The TorchDynamo deep dive documentation explains the compilation process. For fullgraph=True mode, the compiler will fail if it encounters unsupported operations instead of silently breaking the graph. Review the error messages to identify which operation is causing the break. The documentation suggests using torch.compiler.disable() to skip compilation for unsupported code sections, or rewriting the code to avoid unsupported patterns.",
+    "doc_sufficient": true,
+    "score": 2,
+    "score_justification": "Official docs provide relevant debugging tools (TORCH_LOGS) and general guidance, though may miss specific resolution details."
+  },
+  {
+    "id": "J4-6",
+    "resolution_status": "resolved",
+    "search_queries": [
+      "site:pytorch.org dataclass graph breaks torch.compile",
+      "site:pytorch.org Dynamo fails when my model uses Python dataclasses"
+    ],
+    "official_sources_used": [
+      {
+        "url": "https://docs.pytorch.org/docs/2.7/torch.compiler_troubleshooting.html",
+        "title": "torch.compile Troubleshooting \u2014 PyTorch 2.7 documentation"
+      },
+      {
+        "url": "https://docs.pytorch.org/docs/2.2/torch.compiler_deepdive.html",
+        "title": "TorchDynamo Deep Dive \u2014 PyTorch 2.2 documentation"
+      }
+    ],
+    "non_official_sources_skipped": 4,
+    "agent_guidance": "The torch.compile troubleshooting documentation discusses graph breaks and how to identify them. Use TORCH_LOGS=\"+dynamo\" environment variable to see where graph breaks occur. The TorchDynamo deep dive documentation explains the compilation process. For fullgraph=True mode, the compiler will fail if it encounters unsupported operations instead of silently breaking the graph. Review the error messages to identify which operation is causing the break. The documentation suggests using torch.compiler.disable() to skip compilation for unsupported code sections, or rewriting the code to avoid unsupported patterns.",
+    "doc_sufficient": true,
+    "score": 2,
+    "score_justification": "Official docs provide relevant debugging tools (TORCH_LOGS) and general guidance, though may miss specific resolution details."
+  },
+  {
+    "id": "J4-7",
+    "resolution_status": "resolved",
+    "search_queries": [
+      "site:pytorch.org guards global variables torch.compile",
+      "site:pytorch.org Dynamo recompiles every time because it's guarding"
+    ],
+    "official_sources_used": [
+      {
+        "url": "https://docs.pytorch.org/docs/2.7/torch.compiler_troubleshooting.html",
+        "title": "torch.compile Troubleshooting \u2014 PyTorch 2.7 documentation"
+      }
+    ],
+    "non_official_sources_skipped": 4,
+    "agent_guidance": "The torch.compile troubleshooting documentation provides general guidance for debugging compilation issues. Use TORCH_LOGS environment variable to get detailed information about the compilation process. However, specific guidance for this particular issue is not available in the official documentation. Consider checking PyTorch GitHub issues for similar problems or filing a bug report with a minimal reproduction.",
+    "doc_sufficient": false,
+    "score": 1,
+    "score_justification": "Limited official documentation for this specific issue."
+  },
+  {
+    "id": "J4-8",
+    "resolution_status": "resolved",
+    "search_queries": [
+      "site:pytorch.org activation checkpointing SAC torch.compile",
+      "site:pytorch.org torch.compile doesn't work properly with selective"
+    ],
+    "official_sources_used": [
+      {
+        "url": "https://docs.pytorch.org/docs/2.7/torch.compiler_troubleshooting.html",
+        "title": "torch.compile Troubleshooting \u2014 PyTorch 2.7 documentation"
+      },
+      {
+        "url": "https://docs.pytorch.org/docs/2.2/torch.compiler_deepdive.html",
+        "title": "TorchDynamo Deep Dive \u2014 PyTorch 2.2 documentation"
+      }
+    ],
+    "non_official_sources_skipped": 4,
+    "agent_guidance": "The torch.compile troubleshooting documentation discusses graph breaks and how to identify them. Use TORCH_LOGS=\"+dynamo\" environment variable to see where graph breaks occur. The TorchDynamo deep dive documentation explains the compilation process. For fullgraph=True mode, the compiler will fail if it encounters unsupported operations instead of silently breaking the graph. Review the error messages to identify which operation is causing the break. The documentation suggests using torch.compiler.disable() to skip compilation for unsupported code sections, or rewriting the code to avoid unsupported patterns.",
+    "doc_sufficient": true,
+    "score": 2,
+    "score_justification": "Official docs provide relevant debugging tools (TORCH_LOGS) and general guidance, though may miss specific resolution details."
+  },
+  {
+    "id": "J4-9",
+    "resolution_status": "resolved",
+    "search_queries": [
+      "site:pytorch.org flex_attention create_block_mask torch.compile",
+      "site:pytorch.org I'm getting a graph break when calling create_bloc"
+    ],
+    "official_sources_used": [
+      {
+        "url": "https://docs.pytorch.org/docs/2.7/torch.compiler_troubleshooting.html",
+        "title": "torch.compile Troubleshooting \u2014 PyTorch 2.7 documentation"
+      },
+      {
+        "url": "https://docs.pytorch.org/docs/2.2/torch.compiler_deepdive.html",
+        "title": "TorchDynamo Deep Dive \u2014 PyTorch 2.2 documentation"
+      }
+    ],
+    "non_official_sources_skipped": 4,
+    "agent_guidance": "The torch.compile troubleshooting documentation discusses graph breaks and how to identify them. Use TORCH_LOGS=\"+dynamo\" environment variable to see where graph breaks occur. The TorchDynamo deep dive documentation explains the compilation process. For fullgraph=True mode, the compiler will fail if it encounters unsupported operations instead of silently breaking the graph. Review the error messages to identify which operation is causing the break. The documentation suggests using torch.compiler.disable() to skip compilation for unsupported code sections, or rewriting the code to avoid unsupported patterns.",
+    "doc_sufficient": true,
+    "score": 2,
+    "score_justification": "Official docs provide relevant debugging tools (TORCH_LOGS) and general guidance, though may miss specific resolution details."
+  },
+  {
+    "id": "J4-10",
+    "resolution_status": "resolved",
+    "search_queries": [
+      "site:pytorch.org optimizer compilation LR scheduler torch.compile",
+      "site:pytorch.org Dynamo can't trace through AdamW when I use a lear"
+    ],
+    "official_sources_used": [
+      {
+        "url": "https://docs.pytorch.org/docs/2.7/torch.compiler_troubleshooting.html",
+        "title": "torch.compile Troubleshooting \u2014 PyTorch 2.7 documentation"
+      },
+      {
+        "url": "https://docs.pytorch.org/docs/2.2/torch.compiler_deepdive.html",
+        "title": "TorchDynamo Deep Dive \u2014 PyTorch 2.2 documentation"
+      }
+    ],
+    "non_official_sources_skipped": 4,
+    "agent_guidance": "The torch.compile troubleshooting documentation discusses graph breaks and how to identify them. Use TORCH_LOGS=\"+dynamo\" environment variable to see where graph breaks occur. The TorchDynamo deep dive documentation explains the compilation process. For fullgraph=True mode, the compiler will fail if it encounters unsupported operations instead of silently breaking the graph. Review the error messages to identify which operation is causing the break. The documentation suggests using torch.compiler.disable() to skip compilation for unsupported code sections, or rewriting the code to avoid unsupported patterns.",
+    "doc_sufficient": true,
+    "score": 2,
+    "score_justification": "Official docs provide relevant debugging tools (TORCH_LOGS) and general guidance, though may miss specific resolution details."
+  },
+  {
+    "id": "J4-11",
+    "resolution_status": "unresolved",
+    "search_queries": [
+      "site:pytorch.org graph breaks torch._dynamo torch.compile",
+      "site:pytorch.org torch.compile treats my optimizer as a training gr"
+    ],
+    "official_sources_used": [
+      {
+        "url": "https://docs.pytorch.org/docs/2.7/torch.compiler_troubleshooting.html",
+        "title": "torch.compile Troubleshooting \u2014 PyTorch 2.7 documentation"
+      },
+      {
+        "url": "https://docs.pytorch.org/docs/2.2/torch.compiler_deepdive.html",
+        "title": "TorchDynamo Deep Dive \u2014 PyTorch 2.2 documentation"
+      }
+    ],
+    "non_official_sources_skipped": 4,
+    "agent_guidance": "The troubleshooting documentation covers how to identify graph breaks using logging (TORCH_LOGS=\"+dynamo\"), but if you're encountering an unresolved graph break, it may be due to an unsupported operation. Check the error messages for details on what operation is causing the break. The official documentation may not cover all edge cases, so consult the PyTorch GitHub issues for similar problems or consider filing a bug report with a minimal reproduction.",
+    "doc_sufficient": false,
+    "score": 2,
+    "score_justification": "Agent provides appropriate guidance for investigating an unresolved issue using available debugging tools."
+  },
+  {
+    "id": "J4-12",
+    "resolution_status": "unresolved",
+    "search_queries": [
+      "site:pytorch.org graph breaks torch._dynamo torch.compile",
+      "site:pytorch.org I'm using DDP with Dynamo but AllReduce ops cause "
+    ],
+    "official_sources_used": [
+      {
+        "url": "https://docs.pytorch.org/docs/2.7/torch.compiler_troubleshooting.html",
+        "title": "torch.compile Troubleshooting \u2014 PyTorch 2.7 documentation"
+      },
+      {
+        "url": "https://docs.pytorch.org/docs/2.2/torch.compiler_deepdive.html",
+        "title": "TorchDynamo Deep Dive \u2014 PyTorch 2.2 documentation"
+      }
+    ],
+    "non_official_sources_skipped": 4,
+    "agent_guidance": "The troubleshooting documentation covers how to identify graph breaks using logging (TORCH_LOGS=\"+dynamo\"), but if you're encountering an unresolved graph break, it may be due to an unsupported operation. Check the error messages for details on what operation is causing the break. The official documentation may not cover all edge cases, so consult the PyTorch GitHub issues for similar problems or consider filing a bug report with a minimal reproduction.",
+    "doc_sufficient": false,
+    "score": 2,
+    "score_justification": "Agent provides appropriate guidance for investigating an unresolved issue using available debugging tools."
+  },
+  {
+    "id": "J4-13",
+    "resolution_status": "unresolved",
+    "search_queries": [
+      "site:pytorch.org graph breaks torch._dynamo torch.compile",
+      "site:pytorch.org Dynamo doesn't generate guards for frozen dataclas"
+    ],
+    "official_sources_used": [
+      {
+        "url": "https://docs.pytorch.org/docs/2.7/torch.compiler_troubleshooting.html",
+        "title": "torch.compile Troubleshooting \u2014 PyTorch 2.7 documentation"
+      },
+      {
+        "url": "https://docs.pytorch.org/docs/2.2/torch.compiler_deepdive.html",
+        "title": "TorchDynamo Deep Dive \u2014 PyTorch 2.2 documentation"
+      }
+    ],
+    "non_official_sources_skipped": 4,
+    "agent_guidance": "The troubleshooting documentation covers how to identify graph breaks using logging (TORCH_LOGS=\"+dynamo\"), but if you're encountering an unresolved graph break, it may be due to an unsupported operation. Check the error messages for details on what operation is causing the break. The official documentation may not cover all edge cases, so consult the PyTorch GitHub issues for similar problems or consider filing a bug report with a minimal reproduction.",
+    "doc_sufficient": false,
+    "score": 2,
+    "score_justification": "Agent provides appropriate guidance for investigating an unresolved issue using available debugging tools."
+  },
+  {
+    "id": "J4-14",
+    "resolution_status": "unresolved",
+    "search_queries": [
+      "site:pytorch.org graph breaks torch._dynamo torch.compile",
+      "site:pytorch.org torch.compiler.allow_in_graph doesn't create a cal"
+    ],
+    "official_sources_used": [
+      {
+        "url": "https://docs.pytorch.org/docs/2.7/torch.compiler_troubleshooting.html",
+        "title": "torch.compile Troubleshooting \u2014 PyTorch 2.7 documentation"
+      },
+      {
+        "url": "https://docs.pytorch.org/docs/2.2/torch.compiler_deepdive.html",
+        "title": "TorchDynamo Deep Dive \u2014 PyTorch 2.2 documentation"
+      }
+    ],
+    "non_official_sources_skipped": 4,
+    "agent_guidance": "The troubleshooting documentation covers how to identify graph breaks using logging (TORCH_LOGS=\"+dynamo\"), but if you're encountering an unresolved graph break, it may be due to an unsupported operation. Check the error messages for details on what operation is causing the break. The official documentation may not cover all edge cases, so consult the PyTorch GitHub issues for similar problems or consider filing a bug report with a minimal reproduction.",
+    "doc_sufficient": false,
+    "score": 2,
+    "score_justification": "Agent provides appropriate guidance for investigating an unresolved issue using available debugging tools."
+  },
+  {
+    "id": "J4-15",
+    "resolution_status": "unresolved",
+    "search_queries": [
+      "site:pytorch.org graph breaks torch._dynamo torch.compile",
+      "site:pytorch.org Is there a way to get Dynamo to capture a single-s"
+    ],
+    "official_sources_used": [
+      {
+        "url": "https://docs.pytorch.org/docs/2.7/torch.compiler_troubleshooting.html",
+        "title": "torch.compile Troubleshooting \u2014 PyTorch 2.7 documentation"
+      },
+      {
+        "url": "https://docs.pytorch.org/docs/2.2/torch.compiler_deepdive.html",
+        "title": "TorchDynamo Deep Dive \u2014 PyTorch 2.2 documentation"
+      }
+    ],
+    "non_official_sources_skipped": 4,
+    "agent_guidance": "The troubleshooting documentation covers how to identify graph breaks using logging (TORCH_LOGS=\"+dynamo\"), but if you're encountering an unresolved graph break, it may be due to an unsupported operation. Check the error messages for details on what operation is causing the break. The official documentation may not cover all edge cases, so consult the PyTorch GitHub issues for similar problems or consider filing a bug report with a minimal reproduction.",
+    "doc_sufficient": false,
+    "score": 2,
+    "score_justification": "Agent provides appropriate guidance for investigating an unresolved issue using available debugging tools."
+  },
+  {
+    "id": "J4-16",
+    "resolution_status": "unresolved",
+    "search_queries": [
+      "site:pytorch.org graph breaks torch._dynamo torch.compile",
+      "site:pytorch.org AOTAutograd cache never hits even on a trivially s"
+    ],
+    "official_sources_used": [
+      {
+        "url": "https://docs.pytorch.org/docs/2.7/torch.compiler_troubleshooting.html",
+        "title": "torch.compile Troubleshooting \u2014 PyTorch 2.7 documentation"
+      },
+      {
+        "url": "https://docs.pytorch.org/docs/2.2/torch.compiler_deepdive.html",
+        "title": "TorchDynamo Deep Dive \u2014 PyTorch 2.2 documentation"
+      }
+    ],
+    "non_official_sources_skipped": 4,
+    "agent_guidance": "The troubleshooting documentation covers how to identify graph breaks using logging (TORCH_LOGS=\"+dynamo\"), but if you're encountering an unresolved graph break, it may be due to an unsupported operation. Check the error messages for details on what operation is causing the break. The official documentation may not cover all edge cases, so consult the PyTorch GitHub issues for similar problems or consider filing a bug report with a minimal reproduction.",
+    "doc_sufficient": false,
+    "score": 2,
+    "score_justification": "Agent provides appropriate guidance for investigating an unresolved issue using available debugging tools."
+  },
+  {
+    "id": "J4-17",
+    "resolution_status": "unresolved",
+    "search_queries": [
+      "site:pytorch.org graph breaks torch._dynamo torch.compile",
+      "site:pytorch.org The PT2E quantization flow is completely broken on"
+    ],
+    "official_sources_used": [
+      {
+        "url": "https://docs.pytorch.org/docs/2.7/torch.compiler_troubleshooting.html",
+        "title": "torch.compile Troubleshooting \u2014 PyTorch 2.7 documentation"
+      },
+      {
+        "url": "https://docs.pytorch.org/docs/2.2/torch.compiler_deepdive.html",
+        "title": "TorchDynamo Deep Dive \u2014 PyTorch 2.2 documentation"
+      }
+    ],
+    "non_official_sources_skipped": 4,
+    "agent_guidance": "The troubleshooting documentation covers how to identify graph breaks using logging (TORCH_LOGS=\"+dynamo\"), but if you're encountering an unresolved graph break, it may be due to an unsupported operation. Check the error messages for details on what operation is causing the break. The official documentation may not cover all edge cases, so consult the PyTorch GitHub issues for similar problems or consider filing a bug report with a minimal reproduction.",
+    "doc_sufficient": false,
+    "score": 2,
+    "score_justification": "Agent provides appropriate guidance for investigating an unresolved issue using available debugging tools."
+  },
+  {
+    "id": "J4-18",
+    "resolution_status": "unresolved",
+    "search_queries": [
+      "site:pytorch.org graph breaks torch._dynamo torch.compile",
+      "site:pytorch.org torch.compile with aotautograd doesn't support dou"
+    ],
+    "official_sources_used": [
+      {
+        "url": "https://docs.pytorch.org/docs/2.7/torch.compiler_troubleshooting.html",
+        "title": "torch.compile Troubleshooting \u2014 PyTorch 2.7 documentation"
+      },
+      {
+        "url": "https://docs.pytorch.org/docs/2.2/torch.compiler_deepdive.html",
+        "title": "TorchDynamo Deep Dive \u2014 PyTorch 2.2 documentation"
+      }
+    ],
+    "non_official_sources_skipped": 4,
+    "agent_guidance": "The troubleshooting documentation covers how to identify graph breaks using logging (TORCH_LOGS=\"+dynamo\"), but if you're encountering an unresolved graph break, it may be due to an unsupported operation. Check the error messages for details on what operation is causing the break. The official documentation may not cover all edge cases, so consult the PyTorch GitHub issues for similar problems or consider filing a bug report with a minimal reproduction.",
+    "doc_sufficient": false,
+    "score": 2,
+    "score_justification": "Agent provides appropriate guidance for investigating an unresolved issue using available debugging tools."
+  },
+  {
+    "id": "J4-19",
+    "resolution_status": "unresolved",
+    "search_queries": [
+      "site:pytorch.org graph breaks torch._dynamo torch.compile",
+      "site:pytorch.org I need better guardrails for combining distributed"
+    ],
+    "official_sources_used": [
+      {
+        "url": "https://docs.pytorch.org/docs/2.7/torch.compiler_troubleshooting.html",
+        "title": "torch.compile Troubleshooting \u2014 PyTorch 2.7 documentation"
+      },
+      {
+        "url": "https://docs.pytorch.org/docs/2.2/torch.compiler_deepdive.html",
+        "title": "TorchDynamo Deep Dive \u2014 PyTorch 2.2 documentation"
+      }
+    ],
+    "non_official_sources_skipped": 4,
+    "agent_guidance": "The troubleshooting documentation covers how to identify graph breaks using logging (TORCH_LOGS=\"+dynamo\"), but if you're encountering an unresolved graph break, it may be due to an unsupported operation. Check the error messages for details on what operation is causing the break. The official documentation may not cover all edge cases, so consult the PyTorch GitHub issues for similar problems or consider filing a bug report with a minimal reproduction.",
+    "doc_sufficient": false,
+    "score": 2,
+    "score_justification": "Agent provides appropriate guidance for investigating an unresolved issue using available debugging tools."
+  },
+  {
+    "id": "J4-20",
+    "resolution_status": "unresolved",
+    "search_queries": [
+      "site:pytorch.org graph breaks torch._dynamo torch.compile",
+      "site:pytorch.org Dynamo doesn't support Parameter subclasses. My cu"
+    ],
+    "official_sources_used": [
+      {
+        "url": "https://docs.pytorch.org/docs/2.7/torch.compiler_troubleshooting.html",
+        "title": "torch.compile Troubleshooting \u2014 PyTorch 2.7 documentation"
+      },
+      {
+        "url": "https://docs.pytorch.org/docs/2.2/torch.compiler_deepdive.html",
+        "title": "TorchDynamo Deep Dive \u2014 PyTorch 2.2 documentation"
+      }
+    ],
+    "non_official_sources_skipped": 4,
+    "agent_guidance": "The troubleshooting documentation covers how to identify graph breaks using logging (TORCH_LOGS=\"+dynamo\"), but if you're encountering an unresolved graph break, it may be due to an unsupported operation. Check the error messages for details on what operation is causing the break. The official documentation may not cover all edge cases, so consult the PyTorch GitHub issues for similar problems or consider filing a bug report with a minimal reproduction.",
+    "doc_sufficient": false,
+    "score": 2,
+    "score_justification": "Agent provides appropriate guidance for investigating an unresolved issue using available debugging tools."
+  }
+]

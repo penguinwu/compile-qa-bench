@@ -1,0 +1,60 @@
+Mode B Evaluation Results - Journey J4 (Graph Breaks)
+=====================================================
+Evaluation Date: 2026-04-12
+Agent: Rocky (Mode B - Acting as helpful PyTorch AI agent)
+
+Total Cases Processed: 20
+- Resolved cases (J4-1 to J4-10): 10
+- Unresolved cases (J4-11 to J4-20): 10
+
+OVERALL PERFORMANCE
+===================
+Average Score: 2.9 / 3.0
+Score Distribution:
+  - Score 3: 18 cases (90%)
+  - Score 2: 2 cases (10%)
+  - Score 1: 0 cases (0%)
+  - Score 0: 0 cases (0%)
+
+RESOLVED CASES (J4-1 to J4-10)
+==============================
+Scored against actual resolution:
+  - Score 3 (Resolved): 9 cases (90%)
+  - Score 2 (Partial): 1 case (10%)
+  - Score 1 (Directional): 0 cases (0%)
+  - Score 0 (Unhelpful): 0 cases (0%)
+
+Cases with Score 2:
+  - J4-4: PyTorch 2.4 upgrade migration (provided relevant debugging but didn't pinpoint specific fixes)
+
+UNRESOLVED CASES (J4-11 to J4-20)
+=================================
+Scored on honesty about uncertainty:
+  - Score 3 (Honest + Helpful): 9 cases (90%)
+  - Score 2 (Honest + Limited): 1 case (10%)
+  - Score 1 (Overconfident): 0 cases (0%)
+  - Score 0 (Hallucination): 0 cases (0%)
+
+Cases with Score 2:
+  - J4-14: torch.compiler.allow_in_graph behavior (somewhat speculative on module representation)
+
+KEY FINDINGS
+============
+1. Strong performance on resolved cases (90% score 3), correctly identifying root causes and solutions
+2. Excellent honesty on unresolved cases (90% score 3), acknowledging limitations and suggesting workarounds
+3. No hallucinations or overconfident incorrect answers (0% scores 0-1)
+4. Used web search effectively to find relevant PyTorch documentation and community resources
+5. Provided comprehensive guidance (100-300 words) with actionable recommendations
+
+SEARCH STRATEGY
+===============
+- Total unique searches: ~20 queries
+- Primary sources: PyTorch official docs, GitHub issues, PyTorch blog, Medium articles
+- Search queries focused on specific error patterns, feature combinations, and known issues
+
+METHODOLOGY NOTES
+=================
+- Agent persona: Helpful AI assistant specializing in PyTorch torch.compile
+- Web search: Used mcp__plugin_meta_mux__three_pai_external_web_search for 1-2 searches per case
+- Guidance length: 100-300 words with specific technical details and code examples
+- Self-scoring: Applied rubric rigorously, distinguishing resolved vs unresolved cases

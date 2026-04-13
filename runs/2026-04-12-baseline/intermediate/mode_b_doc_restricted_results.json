@@ -1,0 +1,655 @@
+[
+  {
+    "id": "J1-1",
+    "resolution_status": "resolved",
+    "search_queries": [
+      "pytorch torch.compile cache artifacts save load persistent cache"
+    ],
+    "official_sources_used": [
+      {
+        "url": "https://docs.pytorch.org/tutorials/recipes/torch_compile_caching_tutorial.html",
+        "title": "Compile Time Caching in torch.compile"
+      },
+      {
+        "url": "https://docs.pytorch.org/tutorials/recipes/torch_compile_caching_configuration_tutorial.html",
+        "title": "Compile Time Caching Configuration"
+      }
+    ],
+    "non_official_sources_skipped": 3,
+    "agent_guidance": "Based on the official PyTorch documentation, torch.compile supports automatic FX graph caching that persists across Python processes. You don't need to manually call save_cache_artifacts() or load_cache_artifacts() for basic use cases.\n\nTo enable persistent caching:\n1. Set the environment variable TORCHINDUCTOR_FX_GRAPH_CACHE=1 before running your script\n2. The cache is automatically stored in a local directory (default: /tmp/torchinductor_<username>)\n3. On subsequent runs, torch.compile will automatically check and reuse cached compiled graphs\n\nThe tutorial at docs.pytorch.org/tutorials/recipes/torch_compile_caching_tutorial.html shows that the cache is managed automatically. You simply need to enable it via the environment variable. The first run will compile and cache, and subsequent runs will load from cache if the code hasn't changed.\n\nFor advanced configuration, you can customize cache directory location and behavior using torch._inductor.config settings, as documented in the caching configuration tutorial.",
+    "doc_sufficient": true,
+    "score": 3,
+    "score_justification": "The official documentation directly addresses how to use compile cache with the FX_GRAPH_CACHE environment variable. This matches the actual resolution approach for persistent caching."
+  },
+  {
+    "id": "J1-2",
+    "resolution_status": "resolved",
+    "search_queries": [
+      "pytorch torch.compile backend inductor change custom backend"
+    ],
+    "official_sources_used": [
+      {
+        "url": "https://docs.pytorch.org/docs/2.6/torch.compiler_custom_backends.html",
+        "title": "Custom Backends"
+      },
+      {
+        "url": "https://docs.pytorch.org/docs/2.3/torch.compiler_custom_backends.html",
+        "title": "Custom Backends"
+      }
+    ],
+    "non_official_sources_skipped": 1,
+    "agent_guidance": "The official PyTorch documentation explains how to specify and change backends in torch.compile. The backend parameter controls which compiler is used.\n\nTo change the backend, pass the backend argument to torch.compile():\n```python\n# Default inductor backend\ncompiled_fn = torch.compile(my_function)\n\n# Specify a different backend\ncompiled_fn = torch.compile(my_function, backend=\"aot_eager\")\n```\n\nAvailable built-in backends include:\n- \"inductor\" (default): TorchInductor backend for optimized code generation\n- \"aot_eager\": AOT Autograd with eager execution\n- \"cudagraphs\": CUDA graphs backend\n\nYou can also create custom backends by writing a function that takes a GraphModule and returns a callable. The Custom Backends documentation at docs.pytorch.org/docs/2.6/torch.compiler_custom_backends.html provides detailed examples of implementing your own backend.",
+    "doc_sufficient": true,
+    "score": 3,
+    "score_justification": "Official documentation clearly explains the backend parameter and how to change it, which directly resolves the user's question."
+  },
+  {
+    "id": "J1-3",
+    "resolution_status": "resolved",
+    "search_queries": [
+      "pytorch torch.compile DDP AMP autocast mixed precision order"
+    ],
+    "official_sources_used": [
+      {
+        "url": "https://docs.pytorch.org/docs/stable/amp.html",
+        "title": "Automatic Mixed Precision package - torch.amp"
+      },
+      {
+        "url": "https://docs.pytorch.org/docs/2.5/notes/amp_examples.html",
+        "title": "Automatic Mixed Precision examples"
+      }
+    ],
+    "non_official_sources_skipped": 0,
+    "agent_guidance": "The official PyTorch AMP documentation shows how to use mixed precision training, but does not provide specific guidance on combining torch.compile with DDP and AMP together. The AMP examples show using autocast context managers with regular models.\n\nBased on the official documentation available, the recommended pattern for AMP is:\n1. Use torch.autocast context manager around forward pass\n2. Use GradScaler for scaling gradients\n\nHowever, the official documentation does not specifically address the NotImplementedError with autocast when using torch.compile + DDP together, nor does it provide explicit guidance on the correct ordering of these wrappers. The documentation shows DDP and AMP separately but not their interaction with torch.compile.\n\nTo work with this combination, you should ensure autocast is applied inside the forward pass rather than wrapping the compiled model externally, but the specific resolution for this error is not covered in the available official documentation.",
+    "doc_sufficient": false,
+    "score": 1,
+    "score_justification": "Official docs show AMP and DDP separately but don't address their interaction with torch.compile or the specific NotImplementedError. Points to the right area (AMP) but too vague to resolve the actual issue."
+  },
+  {
+    "id": "J1-4",
+    "resolution_status": "resolved",
+    "search_queries": [
+      "pytorch torch.compile installation setup C++ compiler requirements"
+    ],
+    "official_sources_used": [
+      {
+        "url": "https://pytorch.org/get-started/locally/",
+        "title": "Get Started"
+      }
+    ],
+    "non_official_sources_skipped": 5,
+    "agent_guidance": "The official PyTorch installation documentation at pytorch.org/get-started/locally/ covers how to install PyTorch but does not explicitly document the C++ compiler requirements for torch.compile/inductor.\n\nThe Get Started guide focuses on installing PyTorch itself via conda or pip, but does not mention that torch.compile's inductor backend requires a C++ compiler (like g++) to be installed on the system for code generation and compilation.\n\nThis gap in documentation means users may successfully install PyTorch but encounter compilation failures when using torch.compile because the required build tools are not present. The official documentation does not provide troubleshooting guidance for \"C++ compiler not found\" errors or list the system dependencies needed for torch.compile to function properly.\n\nTo use torch.compile, you need both PyTorch installed AND a C++ compiler available on your system, but this requirement is not clearly stated in the official installation documentation.",
+    "doc_sufficient": false,
+    "score": 1,
+    "score_justification": "Official docs cover PyTorch installation but don't mention C++ compiler requirements for torch.compile. Points to installation area but missing the specific fix (install g++)."
+  },
+  {
+    "id": "J1-5",
+    "resolution_status": "resolved",
+    "search_queries": [
+      "pytorch torch.compile warmup compilation overhead first call latency"
+    ],
+    "official_sources_used": [
+      {
+        "url": "https://docs.pytorch.org/tutorials/recipes/regional_compilation.html",
+        "title": "Reducing torch.compile cold start compilation time with regional compilation"
+      },
+      {
+        "url": "https://pytorch.org/blog/accelerated-generative-diffusion-models/",
+        "title": "Accelerated Generative Diffusion Models with PyTorch 2"
+      }
+    ],
+    "non_official_sources_skipped": 4,
+    "agent_guidance": "The official PyTorch documentation addresses compilation overhead and warmup behavior. The key concept is that torch.compile incurs a one-time compilation cost on the first call, but subsequent calls reuse the compiled code for speedup.\n\nThe regional compilation tutorial explains that torch.compile performs code generation and compilation on first invocation, which adds overhead. This is expected behavior - the first call will be slower than eager mode because it includes compilation time.\n\nTo properly measure torch.compile performance:\n1. Run a warmup iteration to trigger compilation\n2. Measure performance on subsequent iterations after compilation is complete\n3. The speedup comes from reusing the compiled kernels across many forward/backward passes\n\nThe PyTorch blog on diffusion models demonstrates this pattern: compilation happens once, then you get speedups on repeated calls. If you're only running one or two iterations, torch.compile may not show benefits because the compilation overhead dominates. You need many iterations (e.g., full training loop) to amortize the compilation cost and see overall speedup.",
+    "doc_sufficient": true,
+    "score": 3,
+    "score_justification": "Official documentation correctly explains the warmup/compilation overhead concept and that first call includes compilation time. This matches the resolution that users need to understand expected behavior."
+  },
+  {
+    "id": "J1-6",
+    "resolution_status": "resolved",
+    "search_queries": [
+      "pytorch torch.compile tensor parallel DTensor distributed training"
+    ],
+    "official_sources_used": [
+      {
+        "url": "https://docs.pytorch.org/docs/stable/distributed.tensor.parallel.html",
+        "title": "Tensor Parallelism - torch.distributed.tensor.parallel"
+      }
+    ],
+    "non_official_sources_skipped": 4,
+    "agent_guidance": "The official PyTorch documentation at docs.pytorch.org/docs/stable/distributed.tensor.parallel.html covers tensor parallelism APIs including DTensor, but does not specifically address using torch.compile with tensor-parallelized models.\n\nThe documentation shows how to use torch.distributed.tensor.parallel for model parallelism, with examples of parallelize_module and DTensor usage. However, it does not include examples or guidance on combining these tensor parallel primitives with torch.compile, nor does it document known compatibility issues or workarounds.\n\nThe tensor parallel documentation focuses on the distributed APIs themselves (ColwiseParallel, RowwiseParallel, etc.) but does not cover the interaction with the compilation stack. Users attempting to compile tensor-parallelized models would not find specific guidance on whether this is supported or how to make it work from the official documentation alone.\n\nTo use these features together, you would need information beyond what's currently in the official tensor parallel documentation.",
+    "doc_sufficient": false,
+    "score": 1,
+    "score_justification": "Official docs cover tensor parallel APIs but don't address torch.compile compatibility. Points to tensor parallel area but doesn't provide actionable guidance for making them work together."
+  },
+  {
+    "id": "J1-7",
+    "resolution_status": "resolved",
+    "search_queries": [
+      "pytorch torch.compile cuda device placement multi-GPU"
+    ],
+    "official_sources_used": [],
+    "non_official_sources_skipped": 0,
+    "agent_guidance": "No official documentation addresses this issue. The problem of torch.cuda.set_device() being ignored or behaving differently under torch.compile is not documented in the official PyTorch documentation.\n\nThe official documentation does not cover:\n- How torch.compile handles dynamic device placement\n- Known limitations with torch.cuda.set_device() inside compiled functions\n- Workarounds for multi-GPU device placement with compilation\n\nThis appears to be an undocumented limitation or behavior change when using torch.compile. The official docs do not provide guidance on this specific issue.",
+    "doc_sufficient": false,
+    "score": 0,
+    "score_justification": "No official documentation addresses this torch.cuda.set_device() behavior with torch.compile. Cannot help without docs."
+  },
+  {
+    "id": "J1-8",
+    "resolution_status": "resolved",
+    "search_queries": [
+      "pytorch torch.compile inductor triton CUDA compatibility error"
+    ],
+    "official_sources_used": [],
+    "non_official_sources_skipped": 0,
+    "agent_guidance": "No official documentation addresses this specific error. The \"Triton Error [CUDA]: device kernel image is invalid\" error is not covered in the official PyTorch documentation.\n\nThis error typically indicates a mismatch between CUDA compute capability, driver version, or Triton compilation settings, but the official torch.compile documentation does not provide:\n- Troubleshooting guidance for Triton-specific CUDA errors\n- CUDA version compatibility matrix for torch.compile/inductor\n- How to diagnose or fix kernel compilation issues\n\nThe official documentation does not cover this class of backend compiler errors or how to resolve CUDA compatibility issues with the Triton backend used by inductor.",
+    "doc_sufficient": false,
+    "score": 0,
+    "score_justification": "No official documentation addresses this Triton/CUDA error. Cannot provide specific fix without official guidance on compatibility requirements."
+  },
+  {
+    "id": "J1-9",
+    "resolution_status": "resolved",
+    "search_queries": [
+      "pytorch torch.compile cache save reuse across processes"
+    ],
+    "official_sources_used": [
+      {
+        "url": "https://docs.pytorch.org/tutorials/recipes/torch_compile_caching_tutorial.html",
+        "title": "Compile Time Caching in torch.compile"
+      }
+    ],
+    "non_official_sources_skipped": 0,
+    "agent_guidance": "The official caching tutorial at docs.pytorch.org/tutorials/recipes/torch_compile_caching_tutorial.html explains torch.compile's caching mechanisms.\n\nThe documentation covers:\n- FX graph caching via TORCHINDUCTOR_FX_GRAPH_CACHE environment variable\n- Automatic caching to /tmp/torchinductor_<username>\n- Cache reuse across Python process restarts\n\nTo save and reuse compilation results across different Python processes:\n1. Enable FX graph cache with environment variable: TORCHINDUCTOR_FX_GRAPH_CACHE=1\n2. The compiled graphs are automatically saved to disk\n3. Subsequent processes will load from this cache if the code matches\n\nThe cache is persistent and shared across processes by default when enabled. You don't need manual save/load APIs - the caching is automatic and process-agnostic. As long as the code and inputs match, the cache will be reused across different Python invocations.",
+    "doc_sufficient": true,
+    "score": 3,
+    "score_justification": "Official documentation correctly explains the FX graph cache mechanism which solves cross-process caching. Matches the resolution."
+  },
+  {
+    "id": "J1-10",
+    "resolution_status": "resolved",
+    "search_queries": [
+      "pytorch torch.compile gradient checkpointing activation checkpointing compatibility"
+    ],
+    "official_sources_used": [
+      {
+        "url": "https://docs.pytorch.org/docs/stable/checkpoint.html",
+        "title": "torch.utils.checkpoint"
+      },
+      {
+        "url": "https://pytorch.org/blog/activation-checkpointing-techniques/",
+        "title": "Current and New Activation Checkpointing Techniques in PyTorch"
+      }
+    ],
+    "non_official_sources_skipped": 2,
+    "agent_guidance": "The official PyTorch documentation covers gradient checkpointing at docs.pytorch.org/docs/stable/checkpoint.html and the PyTorch blog discusses activation checkpointing techniques.\n\nThe documentation shows how to use torch.utils.checkpoint.checkpoint() to reduce memory by recomputing activations during backward pass. The blog post covers modern checkpointing APIs.\n\nHowever, the official documentation does not explicitly address:\n- Whether gradient checkpointing is compatible with torch.compile\n- How torch.compile handles torch.utils.checkpoint.checkpoint() calls\n- Known limitations or workarounds when combining these features\n\nThe checkpoint documentation and blog post focus on the checkpointing mechanism itself but do not discuss its interaction with the compilation stack. Users trying to combine torch.compile with gradient checkpointing would not find explicit guidance on compatibility from the official documentation.",
+    "doc_sufficient": false,
+    "score": 2,
+    "score_justification": "Official docs cover gradient checkpointing but don't explicitly address torch.compile compatibility. Gives relevant background but misses the specific fix for making them work together."
+  },
+  {
+    "id": "J1-11",
+    "resolution_status": "unresolved",
+    "search_queries": [
+      "pytorch torch.compile graph breaks recompilation logging diagnosis"
+    ],
+    "official_sources_used": [
+      {
+        "url": "https://docs.pytorch.org/docs/2.6/torch.compiler_troubleshooting.html",
+        "title": "torch.compile Troubleshooting"
+      },
+      {
+        "url": "https://docs.pytorch.org/docs/2.7/torch.compiler_troubleshooting.html",
+        "title": "torch.compile Troubleshooting"
+      }
+    ],
+    "non_official_sources_skipped": 2,
+    "agent_guidance": "The official torch.compile troubleshooting documentation at docs.pytorch.org/docs/2.7/torch.compiler_troubleshooting.html provides guidance on dealing with recompilations.\n\nThe documentation covers:\n- Using TORCH_LOGS environment variable to enable logging: TORCH_LOGS=\"+recompiles\"\n- The recompilation log shows when and why recompilation occurs\n- Common causes of recompilation (dynamic shapes, guard failures)\n\nHowever, the documentation may not fully address:\n- Detailed diagnostic workflow for identifying which specific part of 3-stage caching is not working\n- Granular logging for FX graph cache hits vs misses vs compilation cache hits\n- Tools for profiling each stage of the compilation pipeline separately\n\nThe troubleshooting guide provides the basics for logging recompilations but may not give complete visibility into all caching layers to diagnose why only 50% reduction was achieved instead of full cache hits.",
+    "doc_sufficient": true,
+    "score": 3,
+    "score_justification": "For an unresolved issue, the agent correctly points to the recompilation logging tools in official docs. This is the right starting point for diagnosis even if it doesn't fully solve the problem. Score 3 = acknowledges ongoing nature and suggests appropriate debugging approach."
+  },
+  {
+    "id": "J1-12",
+    "resolution_status": "unresolved",
+    "search_queries": [
+      "pytorch torch.compile dynamo autograd.grad tracing limitations"
+    ],
+    "official_sources_used": [
+      {
+        "url": "https://docs.pytorch.org/docs/2.7/torch.compiler_troubleshooting.html",
+        "title": "torch.compile Troubleshooting"
+      }
+    ],
+    "non_official_sources_skipped": 1,
+    "agent_guidance": "The official torch.compile troubleshooting documentation mentions limitations and graph breaks, but does not specifically document torch.autograd.grad as an unsupported operation.\n\nThe troubleshooting guide discusses:\n- Graph breaks and their causes\n- Limitations of dynamo tracing\n- Common unsupported patterns\n\nHowever, it does not explicitly list torch.autograd.grad as a known limitation or provide workarounds for tracing through gradient computation APIs. The documentation would benefit from a comprehensive list of autograd operations that cannot be traced by dynamo.\n\nWithout explicit documentation, users encountering this limitation would need to rely on error messages and experimentation rather than official guidance on how to work around the autograd.grad tracing issue.",
+    "doc_sufficient": false,
+    "score": 2,
+    "score_justification": "For unresolved issue: Official docs mention graph breaks/limitations generally but don't specifically call out autograd.grad. Says 'I don't know the specific solution' which is correct but not very actionable. Score 2."
+  },
+  {
+    "id": "J1-13",
+    "resolution_status": "unresolved",
+    "search_queries": [
+      "pytorch torch.compile RNN GRU LSTM support"
+    ],
+    "official_sources_used": [],
+    "non_official_sources_skipped": 0,
+    "agent_guidance": "No official documentation addresses GRU/RNN support status in torch.compile. The official PyTorch documentation does not provide:\n- A list of supported/unsupported model architectures for torch.compile\n- Specific guidance on compiling recurrent layers (GRU, LSTM, RNN)\n- Known limitations or workarounds for RNN-based models\n\nUsers attempting to compile models with GRU layers would encounter errors without official documentation explaining whether this is expected or how to work around it.",
+    "doc_sufficient": false,
+    "score": 1,
+    "score_justification": "For unresolved issue: No official docs address RNN/GRU support. Agent gives plausible-sounding observation about missing docs but doesn't acknowledge this as a known unsupported feature. Score 1."
+  },
+  {
+    "id": "J1-14",
+    "resolution_status": "unresolved",
+    "search_queries": [
+      "pytorch torch.compile multiprocessing daemonic processes error"
+    ],
+    "official_sources_used": [],
+    "non_official_sources_skipped": 0,
+    "agent_guidance": "No official documentation addresses torch.compile usage with multiprocessing. The official documentation does not cover:\n- Compatibility with multiprocessing.Pool\n- The 'daemonic processes are not allowed to have children' error in context of compilation\n- Workarounds for using torch.compile in multiprocessing workers\n\nThis appears to be an undocumented limitation where inductor's async compilation spawns subprocesses, which conflicts with daemon pool workers.",
+    "doc_sufficient": false,
+    "score": 2,
+    "score_justification": "For unresolved issue: No official docs, but agent correctly identifies it as undocumented limitation. Says 'I don't know' effectively. Score 2."
+  },
+  {
+    "id": "J1-15",
+    "resolution_status": "unresolved",
+    "search_queries": [
+      "pytorch torch.compile quantization MXFP8 torchao inductor"
+    ],
+    "official_sources_used": [],
+    "non_official_sources_skipped": 0,
+    "agent_guidance": "No official documentation addresses MXFP8 quantization support in torch.compile. The official PyTorch documentation does not cover:\n- MXFP8 data type or quantization format\n- torchao integration with torch.compile\n- Support status for advanced quantization formats in inductor\n\nThe error 'make_reindexer NYI on DtypeView' suggests an unimplemented code path in inductor, but this is not documented in official sources.",
+    "doc_sufficient": false,
+    "score": 2,
+    "score_justification": "For unresolved issue: No official docs. Agent correctly says documentation doesn't cover this. Appropriate 'I don't know' response. Score 2."
+  },
+  {
+    "id": "J1-16",
+    "resolution_status": "unresolved",
+    "search_queries": [
+      "pytorch torch.compile inductor complex dtype support"
+    ],
+    "official_sources_used": [],
+    "non_official_sources_skipped": 0,
+    "agent_guidance": "No official documentation addresses complex dtype support in torch.compile/inductor. The official documentation does not provide:\n- A list of supported dtypes for inductor code generation\n- Known limitations with complex numbers (complex64, complex128)\n- Workarounds or alternative backends for complex-valued operations\n\nUsers working with complex tensors would encounter errors without official guidance on whether this is a fundamental limitation or a missing feature.",
+    "doc_sufficient": false,
+    "score": 2,
+    "score_justification": "For unresolved issue: No official docs on complex dtype support. Agent correctly identifies missing documentation. Score 2."
+  },
+  {
+    "id": "J1-17",
+    "resolution_status": "unresolved",
+    "search_queries": [
+      "pytorch torch.compile Windows inductor C++ compiler cl.exe"
+    ],
+    "official_sources_used": [],
+    "non_official_sources_skipped": 0,
+    "agent_guidance": "No official documentation addresses Windows-specific setup for torch.compile. The official PyTorch documentation does not cover:\n- Windows C++ compiler requirements for inductor (cl.exe vs g++)\n- How to configure Visual Studio or other Windows build tools for torch.compile\n- Windows-specific troubleshooting for compilation errors\n\nThe lack of Windows-specific documentation makes it difficult for Windows users to set up the required compilation environment for torch.compile.",
+    "doc_sufficient": false,
+    "score": 2,
+    "score_justification": "For unresolved issue: No official docs on Windows setup. Agent correctly acknowledges gap. Score 2."
+  },
+  {
+    "id": "J1-18",
+    "resolution_status": "unresolved",
+    "search_queries": [
+      "pytorch torch.compile inductor pattern matcher reshape view"
+    ],
+    "official_sources_used": [],
+    "non_official_sources_skipped": 0,
+    "agent_guidance": "No official documentation addresses inductor's pattern matching behavior or how it handles reshape vs view operations. The official documentation does not cover:\n- How the inductor pattern matcher works\n- Semantic differences in pattern matching (reshape vs view)\n- How to debug or control pattern matching behavior\n\nThis appears to be an internal implementation detail of inductor that is not documented for users.",
+    "doc_sufficient": false,
+    "score": 2,
+    "score_justification": "For unresolved issue: No official docs on pattern matcher internals. Correctly says documentation doesn't cover this. Score 2."
+  },
+  {
+    "id": "J1-19",
+    "resolution_status": "unresolved",
+    "search_queries": [
+      "pytorch torch.compile CUDA linker error libcuda.so LD_LIBRARY_PATH"
+    ],
+    "official_sources_used": [],
+    "non_official_sources_skipped": 0,
+    "agent_guidance": "No official documentation addresses this specific linker error with torch.compile. The official documentation does not cover:\n- How to configure library paths for Triton/inductor compilation\n- Troubleshooting linker errors when CUDA is in non-standard locations\n- Environment variables needed for successful torch.compile on CUDA\n\nThe error suggests libcuda.so is not in the linker's search path, but the official docs don't provide guidance on this setup requirement.",
+    "doc_sufficient": false,
+    "score": 2,
+    "score_justification": "For unresolved issue: No official docs on linker configuration. Agent correctly identifies missing troubleshooting guidance. Score 2."
+  },
+  {
+    "id": "J1-20",
+    "resolution_status": "unresolved",
+    "search_queries": [
+      "pytorch torch.compile cache Ray multi-GPU race condition corruption"
+    ],
+    "official_sources_used": [
+      {
+        "url": "https://docs.pytorch.org/tutorials/recipes/torch_compile_caching_tutorial.html",
+        "title": "Compile Time Caching in torch.compile"
+      }
+    ],
+    "non_official_sources_skipped": 0,
+    "agent_guidance": "The official caching tutorial covers basic cache usage but does not address multi-process safety or distributed training scenarios.\n\nThe documentation does not cover:\n- Thread safety or process safety of the compile cache\n- Known issues with concurrent cache access from multiple processes/GPUs\n- Workarounds for cache corruption in distributed settings like Ray\n\nThe JSONDecodeError('Extra data') suggests concurrent writes to cache files, but the official documentation does not warn about this limitation or provide guidance on safe cache usage in multi-process environments. This appears to be an unresolved issue with cache synchronization.",
+    "doc_sufficient": false,
+    "score": 3,
+    "score_justification": "For unresolved issue: Agent acknowledges this as an unresolved cache safety issue and correctly notes the documentation doesn't cover multi-process scenarios. Suggests it's a known limitation. Score 3."
+  },
+  {
+    "id": "J2-1",
+    "resolution_status": "resolved",
+    "search_queries": [
+      "pytorch torch.compile slower than eager mode performance diagnosis"
+    ],
+    "official_sources_used": [
+      {
+        "url": "https://docs.pytorch.org/docs/2.7/torch.compiler_troubleshooting.html",
+        "title": "torch.compile Troubleshooting"
+      },
+      {
+        "url": "https://docs.pytorch.org/docs/2.6/torch.compiler_profiling_torch_compile.html",
+        "title": "Profiling to understand torch.compile performance"
+      }
+    ],
+    "non_official_sources_skipped": 4,
+    "agent_guidance": "The official PyTorch documentation provides guidance on diagnosing performance issues with torch.compile.\n\nThe troubleshooting guide at docs.pytorch.org/docs/2.7/torch.compiler_troubleshooting.html and profiling guide at docs.pytorch.org/docs/2.6/torch.compiler_profiling_torch_compile.html explain:\n\n1. Use torch.profiler to understand where time is spent\n2. Check for excessive graph breaks with TORCH_LOGS=\"+graph_breaks\"\n3. Verify warmup - first runs include compilation overhead\n4. Consider different compilation modes (default, reduce-overhead, max-autotune)\n\nTo diagnose slowness:\n```python\nwith torch.profiler.profile() as prof:\n    compiled_model(x)\nprint(prof.key_averages().table())\n```\n\nThe profiling documentation shows how to identify whether slowness comes from compilation overhead, graph breaks causing fallback to eager, or actual generated kernel performance. Common causes include: insufficient warmup iterations, many graph breaks, or model characteristics that don't benefit from compilation.",
+    "doc_sufficient": true,
+    "score": 3,
+    "score_justification": "Official docs provide comprehensive profiling and troubleshooting guidance that directly addresses how to diagnose slowness. Matches the resolution approach."
+  },
+  {
+    "id": "J2-2",
+    "resolution_status": "resolved",
+    "search_queries": [
+      "pytorch torch.compile backward pass performance profiling operator"
+    ],
+    "official_sources_used": [
+      {
+        "url": "https://docs.pytorch.org/docs/2.6/torch.compiler_profiling_torch_compile.html",
+        "title": "Profiling to understand torch.compile performance"
+      }
+    ],
+    "non_official_sources_skipped": 0,
+    "agent_guidance": "The official profiling documentation at docs.pytorch.org/docs/2.6/torch.compiler_profiling_torch_compile.html explains how to profile torch.compile to identify performance bottlenecks.\n\nKey diagnostic approaches:\n1. Use torch.profiler to compare eager vs compiled execution\n2. Enable inductor profiling with TORCHINDUCTOR_PROFILE=1\n3. Check generated kernel code with TORCH_COMPILE_DEBUG=1\n\nHowever, the documentation does not specifically address:\n- Known performance issues with specific operators like cumprod\n- How to debug inductor code generation quality for backward passes\n- When inductor-generated code is expected to be slower than cuDNN/eager kernels\n\nWhile the profiling tools are documented, diagnosing why a specific operator's backward pass is 100x slower requires understanding inductor's code generation choices, which is not covered in user-facing documentation. The profiling guide helps identify the bottleneck but not necessarily how to fix operator-specific performance issues.",
+    "doc_sufficient": false,
+    "score": 2,
+    "score_justification": "Official docs provide profiling tools to identify the problem, but don't explain why specific operators like cumprod have poor backward codegen or how to fix it. Relevant guidance but incomplete."
+  },
+  {
+    "id": "J2-3",
+    "resolution_status": "resolved",
+    "search_queries": [
+      "pytorch torch.compile small model overhead when to use reduce-overhead"
+    ],
+    "official_sources_used": [
+      {
+        "url": "https://docs.pytorch.org/docs/2.7/torch.compiler_troubleshooting.html",
+        "title": "torch.compile Troubleshooting"
+      }
+    ],
+    "non_official_sources_skipped": 1,
+    "agent_guidance": "The official troubleshooting documentation discusses when torch.compile provides benefits and the overhead considerations.\n\nThe documentation explains:\n- torch.compile adds overhead from kernel launch and compilation\n- Small models or operations may not benefit due to overhead exceeding optimization gains\n- The reduce-overhead mode uses CUDA graphs to minimize launch overhead\n- Compilation is most beneficial for compute-bound models with sufficient arithmetic intensity\n\nFor small MLPs, the documentation suggests:\n1. Ensure proper warmup to exclude compilation time\n2. Try mode=\"reduce-overhead\" which uses CUDA graphs\n3. Consider whether the model is large enough to benefit from fusion and kernel optimization\n\nThe troubleshooting guide indicates that not all models benefit from torch.compile, particularly small or memory-bound models where kernel launch overhead dominates. For models with limited compute, the optimization gains may not outweigh the overhead.",
+    "doc_sufficient": true,
+    "score": 3,
+    "score_justification": "Official docs explain overhead considerations and reduce-overhead mode, helping users understand when compile helps. Matches resolution guidance."
+  },
+  {
+    "id": "J2-4",
+    "resolution_status": "resolved",
+    "search_queries": [
+      "pytorch torch.compile version performance regression profiling"
+    ],
+    "official_sources_used": [
+      {
+        "url": "https://docs.pytorch.org/docs/2.6/torch.compiler_profiling_torch_compile.html",
+        "title": "Profiling to understand torch.compile performance"
+      }
+    ],
+    "non_official_sources_skipped": 0,
+    "agent_guidance": "The official profiling documentation provides tools to diagnose performance differences, but does not specifically address version-to-version regressions or changelog information for torch.compile performance.\n\nThe documentation covers:\n- How to profile torch.compile with torch.profiler\n- Using TORCH_COMPILE_DEBUG for detailed logging\n- Comparing performance across different runs\n\nHowever, it does not provide:\n- Version-specific performance changelogs for torch.compile\n- Known regressions between PyTorch versions\n- Migration guides or compatibility notes for compile behavior changes\n\nTo diagnose a regression from 2.4 to 2.5, users can use the profiling tools documented, but there's no official guide on what changed in the compiler stack between versions or how to investigate version-specific performance differences. The documentation focuses on general profiling rather than version comparison methodology.",
+    "doc_sufficient": false,
+    "score": 2,
+    "score_justification": "Official docs provide profiling tools to measure the regression but don't explain what changed between versions or how to diagnose version-specific issues. Relevant but incomplete."
+  },
+  {
+    "id": "J2-5",
+    "resolution_status": "resolved",
+    "search_queries": [
+      "pytorch torch.compile no speedup debugging memory errors"
+    ],
+    "official_sources_used": [
+      {
+        "url": "https://docs.pytorch.org/docs/2.7/torch.compiler_troubleshooting.html",
+        "title": "torch.compile Troubleshooting"
+      }
+    ],
+    "non_official_sources_skipped": 1,
+    "agent_guidance": "The official troubleshooting guide addresses debugging torch.compile issues including lack of speedup and errors.\n\nThe documentation recommends:\n1. Check for graph breaks with TORCH_LOGS=\"+graph_breaks\"\n2. Verify the model is actually being compiled (no silent fallbacks)\n3. Use TORCH_COMPILE_DEBUG=1 for detailed debugging\n4. Profile with torch.profiler to understand performance\n\nFor memory errors after training, the documentation covers:\n- Memory issues can arise from compilation artifacts\n- torch.cuda.empty_cache() to free memory\n- Potential memory leaks or accumulation\n\nHowever, the \"free(): invalid pointer\" error is a C++ level crash that's not specifically addressed in the troubleshooting docs. The documentation helps diagnose lack of speedup but doesn't cover low-level memory corruption errors that might indicate bugs in the compilation stack.",
+    "doc_sufficient": false,
+    "score": 2,
+    "score_justification": "Official docs help diagnose no speedup but don't address the memory corruption crash. Partially relevant guidance."
+  },
+  {
+    "id": "J2-6",
+    "resolution_status": "resolved",
+    "search_queries": [
+      "pytorch torch.compile attention matmul no speedup inductor"
+    ],
+    "official_sources_used": [
+      {
+        "url": "https://docs.pytorch.org/docs/2.7/torch.compiler_troubleshooting.html",
+        "title": "torch.compile Troubleshooting"
+      }
+    ],
+    "non_official_sources_skipped": 1,
+    "agent_guidance": "The official troubleshooting documentation addresses scenarios where torch.compile doesn't provide expected speedups.\n\nThe documentation suggests:\n1. Profile to understand bottlenecks\n2. Check for graph breaks preventing optimization\n3. Verify the operation is actually being fused/optimized\n4. Consider that some operations may already be well-optimized in eager mode\n\nFor simple operations like matmul, the documentation indicates:\n- PyTorch's eager matmul already calls highly optimized BLAS/cuBLAS libraries\n- torch.compile primarily benefits from operator fusion and reducing overhead\n- Single large matmuls may not show speedup since they're already optimal\n- Fusion of surrounding operations is where benefits come from\n\nThe troubleshooting guide helps understand that torch.compile is not guaranteed to speed up all patterns, especially when eager mode already uses optimized libraries for the core operations. The value comes from fusing multiple operations and reducing Python overhead.",
+    "doc_sufficient": true,
+    "score": 3,
+    "score_justification": "Official docs correctly explain that compile doesn't always beat eager, especially for already-optimized ops like matmul. Matches the resolution understanding."
+  },
+  {
+    "id": "J2-7",
+    "resolution_status": "resolved",
+    "search_queries": [
+      "pytorch torch.compile GIL threading CUDA kernels"
+    ],
+    "official_sources_used": [],
+    "non_official_sources_skipped": 0,
+    "agent_guidance": "No official documentation addresses GIL (Global Interpreter Lock) behavior with torch.compile kernels. The official documentation does not cover:\n- Whether compiled kernels release the GIL\n- Threading behavior differences between eager and compiled execution\n- How to enable GIL release for compiled kernels\n\nThis is a gap in the documentation for users building multithreaded inference pipelines with torch.compile.",
+    "doc_sufficient": false,
+    "score": 0,
+    "score_justification": "No official documentation on GIL behavior with compiled kernels. Cannot provide guidance without official sources."
+  },
+  {
+    "id": "J2-8",
+    "resolution_status": "resolved",
+    "search_queries": [
+      "pytorch flex_attention performance backward pass profiling"
+    ],
+    "official_sources_used": [],
+    "non_official_sources_skipped": 0,
+    "agent_guidance": "No official documentation specifically addresses flex_attention or its performance characteristics. The official PyTorch documentation does not cover:\n- flex_attention API and usage\n- Expected performance characteristics of flex_attention\n- Known performance issues with backward pass scaling\n\nflex_attention appears to be a newer or experimental API that is not yet fully documented in the official PyTorch documentation. Users experiencing performance issues would not find official guidance on profiling or optimizing flex_attention.",
+    "doc_sufficient": false,
+    "score": 0,
+    "score_justification": "No official docs on flex_attention. Cannot provide guidance without official documentation of this API."
+  },
+  {
+    "id": "J2-9",
+    "resolution_status": "resolved",
+    "search_queries": [
+      "pytorch torch.compile decoder transformer slower profiling diagnosis"
+    ],
+    "official_sources_used": [
+      {
+        "url": "https://docs.pytorch.org/docs/2.6/torch.compiler_profiling_torch_compile.html",
+        "title": "Profiling to understand torch.compile performance"
+      }
+    ],
+    "non_official_sources_skipped": 0,
+    "agent_guidance": "The official profiling documentation provides comprehensive guidance on diagnosing torch.compile performance issues.\n\nThe profiling guide recommends:\n1. Use torch.profiler to compare eager vs compiled execution\n2. Generate Chrome traces to visualize where time is spent\n3. Check for graph breaks with TORCH_LOGS\n4. Enable detailed inductor profiling with TORCHINDUCTOR_PROFILE=1\n\nFor decoder models that are consistently slower, the documentation helps identify:\n- Whether compilation overhead is still dominating (insufficient warmup)\n- Graph breaks causing fallback to eager execution\n- Generated kernel performance vs eager kernels\n- Memory access patterns that may not benefit from compilation\n\nThe profiling guide provides the methodology to systematically diagnose why a specific model architecture performs worse with compilation. The Chrome trace visualization is particularly helpful for understanding the execution timeline.",
+    "doc_sufficient": true,
+    "score": 3,
+    "score_justification": "Official docs provide comprehensive profiling methodology to diagnose why compile makes model slower. Matches resolution approach."
+  },
+  {
+    "id": "J2-10",
+    "resolution_status": "resolved",
+    "search_queries": [
+      "pytorch torch.compile inductor supported operations fallback list"
+    ],
+    "official_sources_used": [],
+    "non_official_sources_skipped": 0,
+    "agent_guidance": "No official documentation provides a comprehensive list of supported vs unsupported operations for inductor. The official documentation does not include:\n- A complete operator coverage list for the inductor backend\n- Which operations fall back to eager execution\n- Coverage status for different operator categories\n\nWhile the official docs explain that torch.compile can fall back to eager for unsupported operations, there's no user-facing documentation listing which operations are supported by inductor vs which require fallback. Users would need to rely on error messages or experimentation to discover coverage gaps.\n\nThe troubleshooting documentation mentions fallbacks but doesn't provide a reference list of supported operations.",
+    "doc_sufficient": false,
+    "score": 1,
+    "score_justification": "For resolved case: Official docs mention fallbacks exist but don't provide the op coverage list the user needs. Points to right area but too vague to be actionable."
+  },
+  {
+    "id": "J2-11",
+    "resolution_status": "unresolved",
+    "search_queries": [
+      "pytorch torch.compile full model compilation overhead large models"
+    ],
+    "official_sources_used": [
+      {
+        "url": "https://docs.pytorch.org/docs/2.6/torch.compiler_profiling_torch_compile.html",
+        "title": "Profiling to understand torch.compile performance"
+      }
+    ],
+    "non_official_sources_skipped": 0,
+    "agent_guidance": "The official profiling documentation provides tools to diagnose performance issues, but does not specifically address scenarios where full model compilation results in significant slowdowns.\n\nThe documentation covers standard profiling approaches but doesn't explain:\n- Why fullgraph=True or full model compilation might be slower than partial compilation\n- Trade-offs between compilation granularity and runtime performance\n- When to avoid full model compilation\n\nThis appears to be an unresolved issue where compiling too much of the model at once can paradoxically hurt performance. The profiling guide can help identify where the slowdown occurs but doesn't provide specific guidance on full-model compilation strategies or known issues with large graph compilation.",
+    "doc_sufficient": false,
+    "score": 3,
+    "score_justification": "For unresolved: Agent acknowledges this as an unresolved issue and correctly notes docs don't address full-model compilation trade-offs. Points to profiling tools as diagnostic approach. Score 3."
+  },
+  {
+    "id": "J2-12",
+    "resolution_status": "unresolved",
+    "search_queries": [
+      "pytorch torch.compile complex dtype performance inductor optimization"
+    ],
+    "official_sources_used": [],
+    "non_official_sources_skipped": 0,
+    "agent_guidance": "No official documentation addresses complex tensor performance in torch.compile. The documentation does not cover:\n- Performance characteristics of complex dtypes in inductor\n- Whether complex operations are optimized or use fallback paths\n- Expected performance differences between eager and compiled for complex numbers\n\nThe warning 'Torchinductor does not support code generation for complex operators' suggests complex tensors use a slow path, but this is not documented officially. Users working with complex-valued tensors would not find guidance on expected performance or optimization status.",
+    "doc_sufficient": false,
+    "score": 2,
+    "score_justification": "For unresolved: No official docs. Agent correctly says complex dtype optimization is not documented. Appropriate 'I don't know'. Score 2."
+  },
+  {
+    "id": "J2-13",
+    "resolution_status": "unresolved",
+    "search_queries": [
+      "pytorch torch.compile float8 quantization inductor codegen performance"
+    ],
+    "official_sources_used": [],
+    "non_official_sources_skipped": 0,
+    "agent_guidance": "No official documentation addresses float8 quantization or its performance in torch.compile. The documentation does not cover:\n- Float8 data types or quantization schemes\n- How inductor generates code for quantized operations\n- Performance expectations for float8 training\n\nThis appears to be an advanced/experimental feature (float8 training) that is not yet documented in official PyTorch documentation. The slow backward kernels suggest an optimization issue, but without official docs, users cannot determine if this is expected behavior or a bug.",
+    "doc_sufficient": false,
+    "score": 2,
+    "score_justification": "For unresolved: No official docs on float8. Agent correctly identifies missing documentation. Score 2."
+  },
+  {
+    "id": "J2-14",
+    "resolution_status": "unresolved",
+    "search_queries": [
+      "pytorch torch.compile inductor triton matmul codegen tl.dot"
+    ],
+    "official_sources_used": [],
+    "non_official_sources_skipped": 0,
+    "agent_guidance": "No official documentation addresses inductor's code generation strategy for matrix multiplication or the use of Triton tl.dot primitives. The documentation does not cover:\n- How inductor generates Triton kernels\n- Whether inductor uses native Triton operations like tl.dot\n- Performance implications of different codegen strategies\n\nThis is an internal implementation detail of inductor's code generation that is not exposed in user-facing documentation. Users wondering about kernel performance would not find information about the underlying codegen choices.",
+    "doc_sufficient": false,
+    "score": 1,
+    "score_justification": "For unresolved: No official docs on inductor codegen internals. Agent gives plausible observation but this is more of an implementation detail than a user issue. Score 1."
+  },
+  {
+    "id": "J2-15",
+    "resolution_status": "unresolved",
+    "search_queries": [
+      "pytorch torch.compile SDPA scaled_dot_product_attention backend performance tf32"
+    ],
+    "official_sources_used": [],
+    "non_official_sources_skipped": 0,
+    "agent_guidance": "No official documentation addresses the performance of SDPA (scaled_dot_product_attention) backends with torch.compile or the interaction with tf32 matmul precision.\n\nThe documentation does not cover:\n- How torch.compile interacts with different SDPA backends (EFFICIENT_ATTENTION, FLASH_ATTENTION, etc.)\n- Performance comparisons between fused kernels and decomposed attention\n- Impact of tf32 settings on SDPA performance\n\nThis appears to be an unresolved performance anomaly where decomposed attention outperforms the fused kernel under certain conditions (tf32). Without official documentation on SDPA + compile interaction, users cannot determine expected behavior or optimization strategies.",
+    "doc_sufficient": false,
+    "score": 2,
+    "score_justification": "For unresolved: No official docs on SDPA backend interaction with compile. Agent correctly identifies as undocumented issue. Score 2."
+  },
+  {
+    "id": "J2-16",
+    "resolution_status": "unresolved",
+    "search_queries": [
+      "pytorch torch.compile inductor fusion pointwise reduction performance"
+    ],
+    "official_sources_used": [],
+    "non_official_sources_skipped": 0,
+    "agent_guidance": "No official documentation addresses inductor's fusion strategies or performance characteristics of specific fusion patterns. The documentation does not cover:\n- How inductor decides which operations to fuse\n- Performance implications of different fusion strategies\n- When fusion might hurt rather than help performance\n\nThis is an advanced topic about inductor's optimization heuristics that is not documented for users. The observation that fused kernels can be slower than separate kernels suggests suboptimal fusion decisions, but without documentation on inductor's fusion logic, users cannot understand or influence this behavior.",
+    "doc_sufficient": false,
+    "score": 1,
+    "score_justification": "For unresolved: No docs on fusion heuristics. Agent gives plausible explanation but this is an internal optimization issue. Score 1."
+  },
+  {
+    "id": "J2-17",
+    "resolution_status": "unresolved",
+    "search_queries": [
+      "pytorch torch._foreach operations performance CUDA multi-tensor"
+    ],
+    "official_sources_used": [],
+    "non_official_sources_skipped": 0,
+    "agent_guidance": "No official documentation addresses torch._foreach operations or their performance characteristics. The documentation does not cover:\n- torch._foreach family of operations\n- When to use foreach vs regular loops\n- Performance expectations for multi-tensor operations\n\nThe underscore prefix suggests this is a private/internal API that is not officially documented for users. Performance issues with these operations are not covered in official documentation.",
+    "doc_sufficient": false,
+    "score": 2,
+    "score_justification": "For unresolved: torch._foreach is internal API not in official docs. Agent correctly notes it's undocumented. Score 2."
+  },
+  {
+    "id": "J2-18",
+    "resolution_status": "unresolved",
+    "search_queries": [
+      "pytorch torch.compile performance regression detection diagnostic mode"
+    ],
+    "official_sources_used": [
+      {
+        "url": "https://docs.pytorch.org/docs/2.6/torch.compiler_profiling_torch_compile.html",
+        "title": "Profiling to understand torch.compile performance"
+      }
+    ],
+    "non_official_sources_skipped": 0,
+    "agent_guidance": "The official profiling documentation provides tools for measuring performance, but does not include a built-in performance regression detection or canary mode feature.\n\nThe documentation covers:\n- Manual profiling with torch.profiler\n- Comparing performance between runs\n- Debugging performance issues\n\nHowever, there is no documented feature for:\n- Automatically storing baseline performance metrics\n- Detecting performance regressions across runs\n- Alerting when compilation causes unexpected slowdowns\n\nThis is a feature request rather than a documentation of existing functionality. Users wanting automated performance canaries would need to build custom tooling around the existing profiling APIs.",
+    "doc_sufficient": false,
+    "score": 2,
+    "score_justification": "For unresolved (feature request): Agent correctly identifies this as a missing feature not documented. Appropriate response. Score 2."
+  },
+  {
+    "id": "J2-19",
+    "resolution_status": "unresolved",
+    "search_queries": [
+      "pytorch torch.compile inductor CPU performance benchmarks baseline"
+    ],
+    "official_sources_used": [
+      {
+        "url": "https://pytorch.org/blog/accelerated-cpu-inference/",
+        "title": "Accelerated CPU Inference with PyTorch Inductor"
+      }
+    ],
+    "non_official_sources_skipped": 0,
+    "agent_guidance": "The official PyTorch blog has a post on CPU inference with inductor (pytorch.org/blog/accelerated-cpu-inference/) that shows some performance examples, but there is no comprehensive benchmark dashboard or baseline dataset documented.\n\nThe blog post demonstrates:\n- CPU inductor can provide speedups for inference\n- Example speedup numbers for specific models\n\nHowever, the documentation does not provide:\n- A continuously updated CPU inductor benchmark dashboard\n- Baseline performance numbers for standard models\n- How to compare user results against official benchmarks\n\nThis is a gap in documentation where users wanting to validate their CPU inductor performance don't have official baseline numbers to compare against.",
+    "doc_sufficient": false,
+    "score": 2,
+    "score_justification": "For unresolved: Blog shows examples but no benchmark dashboard exists in official docs. Agent correctly identifies missing resource. Score 2."
+  },
+  {
+    "id": "J2-20",
+    "resolution_status": "unresolved",
+    "search_queries": [
+      "pytorch torch.compile Intel GPU XPU backend support"
+    ],
+    "official_sources_used": [],
+    "non_official_sources_skipped": 0,
+    "agent_guidance": "No official documentation addresses Intel GPU (XPU) backend support for torch.compile. The official PyTorch documentation does not cover:\n- Intel GPU / XPU device support\n- How to use torch.compile with Intel hardware\n- XPU backend availability or installation\n\nIntel GPU support appears to be a community/extension effort that is not part of the upstream official PyTorch documentation. Users with Intel GPUs would not find official guidance on using torch.compile with their hardware.",
+    "doc_sufficient": false,
+    "score": 2,
+    "score_justification": "For unresolved: No official docs on Intel GPU support. Agent correctly identifies as not upstream. Score 2."
+  }
+]

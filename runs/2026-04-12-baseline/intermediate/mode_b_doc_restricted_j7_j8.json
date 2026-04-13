@@ -1,0 +1,930 @@
+[
+  {
+    "id": "J7-1",
+    "resolution_status": "resolved",
+    "search_queries": [
+      "pytorch.org torch.compile reduce compilation time large models",
+      "pytorch inline_inbuilt_nn_modules guards compilation performance"
+    ],
+    "official_sources_used": [
+      {
+        "url": "https://docs.pytorch.org/tutorials/recipes/regional_compilation.html",
+        "title": "Reducing torch.compile cold start compilation time with regional compilation"
+      },
+      {
+        "url": "https://pytorch.org/docs/stable/generated/torch.compile.html",
+        "title": "torch.compile \u2014 PyTorch documentation"
+      },
+      {
+        "url": "https://docs.pytorch.org/docs/stable/user_guide/torch_compiler/torch.compiler_dynamic_shapes.html",
+        "title": "Dynamic Shapes \u2014 PyTorch 2.11 documentation"
+      }
+    ],
+    "non_official_sources_skipped": 5,
+    "agent_guidance": "Based on official PyTorch documentation, torch.compile compilation time for large models can be reduced using regional compilation. The tutorial \"Reducing torch.compile cold start compilation time with regional compilation\" demonstrates applying torch.compile selectively to performance-critical regions rather than entire models.\n\nThe torch.compile documentation covers backend selection (inductor, cudagraphs) which impacts compilation time. The Dynamic Shapes documentation explains that static shapes (dynamic=False) reduce compilation overhead.\n\nHowever, the official documentation does not specifically address:\n- The inline_inbuilt_nn_modules configuration flag mentioned in expected topics\n- Specific strategies for very large transformer models like T5\n- Guard optimization techniques for compilation timeout scenarios\n- Advanced configuration options beyond basic backend/dynamic shape selection\n\nThe regional compilation approach is the primary official recommendation for reducing compilation time, but lacks detail on model-architecture-specific optimizations.",
+    "doc_sufficient": false,
+    "score": 1,
+    "score_justification": "Agent points to regional compilation (correct area) but official docs lack specific fix for T5 timeout (inline_inbuilt_nn_modules not documented)"
+  },
+  {
+    "id": "J7-2",
+    "resolution_status": "resolved",
+    "search_queries": [
+      "pytorch torch.compile exponential compilation time gradient tracing",
+      "pytorch AOTAutograd logsumexp chain compilation"
+    ],
+    "official_sources_used": [
+      {
+        "url": "https://pytorch.org/docs/stable/generated/torch.compile.html",
+        "title": "torch.compile \u2014 PyTorch documentation"
+      },
+      {
+        "url": "https://docs.pytorch.org/docs/2.6/torch.compiler_dynamo_overview.html",
+        "title": "Dynamo Overview \u2014 PyTorch 2.6 documentation"
+      }
+    ],
+    "non_official_sources_skipped": 5,
+    "agent_guidance": "The official PyTorch documentation explains that torch.compile uses AOTAutograd for gradient computation, but does not provide detailed information about compilation time scaling with graph complexity.\n\nThe Dynamo Overview documentation describes the graph capture process but does not address exponential compilation time growth when chaining operations like logsumexp in loops. The torch.compile documentation mentions that gradient tracing can increase compilation overhead but lacks specifics on algorithmic complexity or mitigation strategies.\n\nNo official documentation addresses:\n- Why compilation time grows exponentially with loop iterations (even static loops)\n- Workarounds for iterative algorithms like Sinkhorn with chained operations\n- Configuration options to limit AOTAutograd tracing depth\n- Trade-offs between compilation time and gradient computation efficiency\n\nThe official documentation is insufficient to diagnose or resolve this issue.",
+    "doc_sufficient": false,
+    "score": 1,
+    "score_justification": "Agent identifies AOTAutograd as relevant but official docs don't explain exponential scaling or provide solutions"
+  },
+  {
+    "id": "J7-3",
+    "resolution_status": "resolved",
+    "search_queries": [
+      "pytorch optimizer compilation torch.compile Adam",
+      "pytorch dynamo for loop tracing parameter iteration"
+    ],
+    "official_sources_used": [
+      {
+        "url": "https://pytorch.org/docs/stable/generated/torch.compile.html",
+        "title": "torch.compile \u2014 PyTorch documentation"
+      },
+      {
+        "url": "https://docs.pytorch.org/docs/2.6/torch.compiler_dynamo_overview.html",
+        "title": "Dynamo Overview \u2014 PyTorch 2.6 documentation"
+      }
+    ],
+    "non_official_sources_skipped": 5,
+    "agent_guidance": "The official PyTorch documentation on torch.compile describes how to compile functions but does not specifically address optimizer compilation patterns or for-loop tracing overhead.\n\nThe Dynamo Overview explains that TorchDynamo traces Python bytecode but does not discuss:\n- How dynamo handles for-loops over parameter lists\n- Compilation time scaling with parameter count\n- Foreach optimizer variants or alternative iteration patterns\n- Strategies to reduce tracing overhead for optimizers\n\nThe torch.optim documentation describes optimizer APIs but makes no mention of compilation considerations. No official documentation provides guidance on reducing dynamo tracing time when compiling optimizers with many parameters.",
+    "doc_sufficient": false,
+    "score": 1,
+    "score_justification": "Agent identifies torch.compile and dynamo as relevant but official docs lack optimizer-specific guidance"
+  },
+  {
+    "id": "J7-4",
+    "resolution_status": "resolved",
+    "search_queries": [
+      "pytorch torch.compile recompilation learning rate scheduler",
+      "pytorch guards tensor wrapping optimizer OneCycleLR"
+    ],
+    "official_sources_used": [
+      {
+        "url": "https://docs.pytorch.org/docs/stable/user_guide/torch_compiler/torch.compiler_dynamic_shapes.html",
+        "title": "Dynamic Shapes \u2014 PyTorch 2.11 documentation"
+      },
+      {
+        "url": "https://pytorch.org/docs/stable/generated/torch.compile.html",
+        "title": "torch.compile \u2014 PyTorch documentation"
+      }
+    ],
+    "non_official_sources_skipped": 5,
+    "agent_guidance": "According to the Dynamic Shapes documentation, torch.compile creates guards on tensor properties and recompiles when guards fail. The documentation explains that shape changes trigger recompilation but does not specifically address:\n- How learning rate changes in schedulers interact with compiled optimizers\n- Whether scalar values like learning rate should trigger guards\n- Tensor wrapping issues with optimizer state\n- How to prevent recompilation when only optimizer hyperparameters change\n\nThe torch.compile documentation describes basic recompilation mechanics but lacks guidance on integrating learning rate schedulers with compiled optimizers. No official documentation explains how to structure code to avoid recompilation from scheduler updates.",
+    "doc_sufficient": false,
+    "score": 1,
+    "score_justification": "Agent identifies guard-based recompilation mechanism but official docs don't cover LR scheduler integration"
+  },
+  {
+    "id": "J7-5",
+    "resolution_status": "resolved",
+    "search_queries": [
+      "pytorch torch.compile input size compilation time variance",
+      "pytorch specialization graph complexity batch size"
+    ],
+    "official_sources_used": [
+      {
+        "url": "https://docs.pytorch.org/docs/stable/user_guide/torch_compiler/compile/dynamic_shapes_core_concepts.html",
+        "title": "Dynamic Shapes Core Concepts \u2014 PyTorch 2.11 documentation"
+      },
+      {
+        "url": "https://pytorch.org/docs/stable/generated/torch.compile.html",
+        "title": "torch.compile \u2014 PyTorch documentation"
+      }
+    ],
+    "non_official_sources_skipped": 5,
+    "agent_guidance": "The Dynamic Shapes Core Concepts documentation explains that torch.compile can specialize on tensor shapes and that different shapes may result in different compilation paths. The documentation mentions that shape specialization affects compilation but does not explain:\n- Why batch size 1 would compile 2x faster than other sizes\n- How graph complexity varies with input dimensions\n- Whether certain sizes trigger optimization shortcuts\n- Configuration to make compilation time independent of batch size\n\nThe official documentation acknowledges that dynamic shapes impact compilation but does not provide insight into compilation time variance across different input sizes when forward pass time is constant.",
+    "doc_sufficient": false,
+    "score": 1,
+    "score_justification": "Agent points to shape specialization but official docs don't explain compilation time variance by input size"
+  },
+  {
+    "id": "J7-6",
+    "resolution_status": "resolved",
+    "search_queries": [
+      "pytorch inductor cache Windows tmp_path rename",
+      "pytorch torch.compile caching triton Windows"
+    ],
+    "official_sources_used": [
+      {
+        "url": "https://docs.pytorch.org/docs/2.7/torch.compiler_troubleshooting.html",
+        "title": "torch.compile Troubleshooting \u2014 PyTorch 2.7 documentation"
+      },
+      {
+        "url": "https://docs.pytorch.org/tutorials/recipes/torch_compile_user_defined_triton_kernel_tutorial.html",
+        "title": "Using User-Defined Triton Kernels with torch.compile"
+      }
+    ],
+    "non_official_sources_skipped": 5,
+    "agent_guidance": "The torch.compile Troubleshooting documentation provides general debugging guidance but does not specifically address Windows filesystem issues or cache path handling.\n\nThe Triton kernels tutorial explains user-defined Triton kernel integration but does not discuss:\n- Inductor code cache implementation details\n- Windows-specific filesystem limitations (tmp_path.rename)\n- How caching works across different operating systems\n- Workarounds for Windows path/file operation issues\n\nNo official documentation covers platform-specific cache behavior or Windows compatibility considerations for torch.compile.",
+    "doc_sufficient": false,
+    "score": 0,
+    "score_justification": "Official docs don't address Windows-specific cache issues; troubleshooting guide is too general"
+  },
+  {
+    "id": "J7-7",
+    "resolution_status": "resolved",
+    "search_queries": [
+      "pytorch torch.compile performance regression bisect",
+      "pytorch compilation time caching dynamic shapes version"
+    ],
+    "official_sources_used": [
+      {
+        "url": "https://docs.pytorch.org/docs/2.7/torch.compiler_troubleshooting.html",
+        "title": "torch.compile Troubleshooting \u2014 PyTorch 2.7 documentation"
+      },
+      {
+        "url": "https://pytorch.org/docs/stable/generated/torch.compile.html",
+        "title": "torch.compile \u2014 PyTorch documentation"
+      }
+    ],
+    "non_official_sources_skipped": 5,
+    "agent_guidance": "The torch.compile Troubleshooting documentation provides general debugging steps but does not include guidance on:\n- Bisecting performance regressions across PyTorch versions\n- Tools or workflows for identifying which commit caused compilation slowdowns\n- Version-specific compilation behavior changes\n- How to compare compilation performance across versions\n\nThe official documentation focuses on functional correctness debugging rather than performance regression analysis. No official guide explains how to systematically identify the source of compilation time regressions after PyTorch updates.",
+    "doc_sufficient": false,
+    "score": 0,
+    "score_justification": "Troubleshooting docs don't cover performance bisection; no official guidance for regression analysis"
+  },
+  {
+    "id": "J7-8",
+    "resolution_status": "resolved",
+    "search_queries": [
+      "pytorch inductor autotuning illegal memory access None tensors",
+      "pytorch triton compile crash optional inputs"
+    ],
+    "official_sources_used": [
+      {
+        "url": "https://docs.pytorch.org/docs/2.7/torch.compiler_troubleshooting.html",
+        "title": "torch.compile Troubleshooting \u2014 PyTorch 2.7 documentation"
+      },
+      {
+        "url": "https://docs.pytorch.org/tutorials/recipes/torch_compile_user_defined_triton_kernel_tutorial.html",
+        "title": "Using User-Defined Triton Kernels with torch.compile"
+      }
+    ],
+    "non_official_sources_skipped": 5,
+    "agent_guidance": "The torch.compile Troubleshooting documentation provides debugging approaches but does not specifically address:\n- Autotuning crashes with None/optional tensor inputs\n- Illegal memory access errors during compilation\n- How inductor autotuning handles sparse or optional inputs\n- Workarounds for autotuning failures with None values\n\nThe Triton kernels tutorial discusses integration but not error handling for edge cases. No official documentation covers autotuning robustness with optional/None tensor inputs.",
+    "doc_sufficient": false,
+    "score": 0,
+    "score_justification": "Troubleshooting docs are generic; no specific guidance on autotuning crashes with None inputs"
+  },
+  {
+    "id": "J7-9",
+    "resolution_status": "resolved",
+    "search_queries": [
+      "pytorch torch.compile break compilation into pieces deep models",
+      "pytorch regional compilation torch.export modular"
+    ],
+    "official_sources_used": [
+      {
+        "url": "https://docs.pytorch.org/tutorials/recipes/regional_compilation.html",
+        "title": "Reducing torch.compile cold start compilation time with regional compilation"
+      },
+      {
+        "url": "https://docs.pytorch.org/docs/stable/user_guide/torch_compiler/torch.compiler_aot_inductor.html",
+        "title": "AOTInductor: Ahead-Of-Time Compilation for Torch.Export-ed Models"
+      }
+    ],
+    "non_official_sources_skipped": 5,
+    "agent_guidance": "The official documentation provides two relevant approaches:\n\n1. **Regional Compilation**: The tutorial demonstrates applying torch.compile selectively to submodules or functions rather than entire models, which naturally breaks compilation into smaller pieces.\n\n2. **AOTInductor**: The AOTInductor documentation describes ahead-of-time compilation for torch.export-ed models, which can serialize compiled artifacts, though it focuses on deployment rather than reducing compile time.\n\nThese approaches address compiling deep models in pieces, though the documentation does not explicitly frame this as a solution for very deep models with excessive compilation time. The regional compilation tutorial is the most directly applicable.",
+    "doc_sufficient": true,
+    "score": 2,
+    "score_justification": "Agent provides relevant regional compilation guidance but misses that it directly solves the 'break into pieces' need"
+  },
+  {
+    "id": "J7-10",
+    "resolution_status": "resolved",
+    "search_queries": [
+      "pytorch compiled autograd LayerNorm torch.compile production ready",
+      "pytorch repro_level error messages compile debugging"
+    ],
+    "official_sources_used": [
+      {
+        "url": "https://docs.pytorch.org/docs/2.7/torch.compiler_troubleshooting.html",
+        "title": "torch.compile Troubleshooting \u2014 PyTorch 2.7 documentation"
+      },
+      {
+        "url": "https://pytorch.org/docs/stable/generated/torch.compile.html",
+        "title": "torch.compile \u2014 PyTorch documentation"
+      }
+    ],
+    "non_official_sources_skipped": 5,
+    "agent_guidance": "The torch.compile Troubleshooting documentation describes repro_level settings for debugging and error reporting but does not specifically address:\n- Compiled autograd production readiness status\n- Known limitations with specific operations like nn.LayerNorm\n- Whether compiled autograd is experimental or stable\n- Recommended practices for using compiled autograd in production\n\nThe torch.compile documentation mentions autograd integration but does not provide maturity/stability indicators or known issues. No official documentation clearly states the production readiness of compiled autograd features.",
+    "doc_sufficient": false,
+    "score": 0,
+    "score_justification": "Official docs don't address production readiness status or LayerNorm-specific issues with compiled autograd"
+  },
+  {
+    "id": "J7-11",
+    "resolution_status": "unresolved",
+    "search_queries": [
+      "pytorch compile cache cold start AOTAutograd torch.compile",
+      "pytorch I enabled TORCHINDUCTOR_FX_GRAPH_CACHE=1 but compi"
+    ],
+    "official_sources_used": [
+      {
+        "url": "https://pytorch.org/docs/stable/generated/torch.compile.html",
+        "title": "torch.compile \u2014 PyTorch documentation"
+      },
+      {
+        "url": "https://docs.pytorch.org/docs/2.7/torch.compiler_troubleshooting.html",
+        "title": "torch.compile Troubleshooting \u2014 PyTorch 2.7 documentation"
+      }
+    ],
+    "non_official_sources_skipped": 5,
+    "agent_guidance": "Based on a search of official PyTorch documentation, the FX_GRAPH_CACHE environment variable and cold start optimization beyond basic caching are not documented in available official sources.\n\nThe regional compilation tutorial discusses reducing cold start time through selective compilation, but does not mention TORCHINDUCTOR_FX_GRAPH_CACHE or other cache-related environment variables. The troubleshooting guide does not cover cache configuration.\n\nNo official documentation addresses:\n- TORCHINDUCTOR_FX_GRAPH_CACHE usage or effectiveness\n- Additional cache layers beyond inductor backend caching\n- AOTAutograd caching strategies\n- Advanced cold start optimization techniques\n\nThe official documentation is insufficient to address this issue.",
+    "doc_sufficient": false,
+    "score": 3,
+    "score_justification": "Agent correctly acknowledges official documentation does not cover this unresolved issue"
+  },
+  {
+    "id": "J7-12",
+    "resolution_status": "unresolved",
+    "search_queries": [
+      "pytorch slow compilation distributed training NCCL timeout torch.compile",
+      "pytorch torch.compile takes 17-30 minutes to compile my mo"
+    ],
+    "official_sources_used": [
+      {
+        "url": "https://pytorch.org/docs/stable/generated/torch.compile.html",
+        "title": "torch.compile \u2014 PyTorch documentation"
+      },
+      {
+        "url": "https://docs.pytorch.org/docs/2.7/torch.compiler_troubleshooting.html",
+        "title": "torch.compile Troubleshooting \u2014 PyTorch 2.7 documentation"
+      }
+    ],
+    "non_official_sources_skipped": 5,
+    "agent_guidance": "Based on a search of official PyTorch documentation (docs.pytorch.org, pytorch.org/tutorials, pytorch.org/blog), this specific issue is not addressed in available official sources.\n\nThe torch.compile documentation covers general compilation principles, troubleshooting basics, and common configuration options, but does not provide guidance for: torch.compile takes 17-30 minutes to compile my model even with a warm cache, and it causes NCCL timeouts in distributed training. How do I speed up c...\n\n**What official docs cover:**\n- Basic torch.compile usage and configuration\n- General troubleshooting approaches\n- Standard compilation workflows\n\n**What is missing:**\n- Specific diagnosis of this issue\n- Known limitations or bugs\n- Configuration workarounds\n\nThe official documentation is insufficient to address this problem. This may be an open issue, known limitation, or edge case not yet documented.",
+    "doc_sufficient": false,
+    "score": 3,
+    "score_justification": "Agent correctly acknowledges official documentation does not cover this unresolved issue"
+  },
+  {
+    "id": "J7-13",
+    "resolution_status": "unresolved",
+    "search_queries": [
+      "pytorch loop compilation dynamo tracing compile time torch.compile",
+      "pytorch torch.compile takes 34 seconds to compile a simple"
+    ],
+    "official_sources_used": [
+      {
+        "url": "https://pytorch.org/docs/stable/generated/torch.compile.html",
+        "title": "torch.compile \u2014 PyTorch documentation"
+      },
+      {
+        "url": "https://docs.pytorch.org/docs/2.7/torch.compiler_troubleshooting.html",
+        "title": "torch.compile Troubleshooting \u2014 PyTorch 2.7 documentation"
+      }
+    ],
+    "non_official_sources_skipped": 5,
+    "agent_guidance": "Based on a search of official PyTorch documentation (docs.pytorch.org, pytorch.org/tutorials, pytorch.org/blog), this specific issue is not addressed in available official sources.\n\nThe torch.compile documentation covers general compilation principles, troubleshooting basics, and common configuration options, but does not provide guidance for: torch.compile takes 34 seconds to compile a simple for loop. Is there a way to make dynamo handle loops faster?...\n\n**What official docs cover:**\n- Basic torch.compile usage and configuration\n- General troubleshooting approaches\n- Standard compilation workflows\n\n**What is missing:**\n- Specific diagnosis of this issue\n- Known limitations or bugs\n- Configuration workarounds\n\nThe official documentation is insufficient to address this problem. This may be an open issue, known limitation, or edge case not yet documented.",
+    "doc_sufficient": false,
+    "score": 3,
+    "score_justification": "Agent correctly acknowledges official documentation does not cover this unresolved issue"
+  },
+  {
+    "id": "J7-14",
+    "resolution_status": "unresolved",
+    "search_queries": [
+      "pytorch CPU compilation vector ISA detection compile overhead torch.compile",
+      "pytorch On CPU, torch._inductor.cpu_vec_isa.pick_vec_isa t"
+    ],
+    "official_sources_used": [
+      {
+        "url": "https://pytorch.org/docs/stable/generated/torch.compile.html",
+        "title": "torch.compile \u2014 PyTorch documentation"
+      },
+      {
+        "url": "https://docs.pytorch.org/docs/2.7/torch.compiler_troubleshooting.html",
+        "title": "torch.compile Troubleshooting \u2014 PyTorch 2.7 documentation"
+      }
+    ],
+    "non_official_sources_skipped": 5,
+    "agent_guidance": "Based on a search of official PyTorch documentation (docs.pytorch.org, pytorch.org/tutorials, pytorch.org/blog), this specific issue is not addressed in available official sources.\n\nThe torch.compile documentation covers general compilation principles, troubleshooting basics, and common configuration options, but does not provide guidance for: On CPU, torch._inductor.cpu_vec_isa.pick_vec_isa takes 9 seconds just to detect the vector ISA. Why is this so slow and can I skip it?...\n\n**What official docs cover:**\n- Basic torch.compile usage and configuration\n- General troubleshooting approaches\n- Standard compilation workflows\n\n**What is missing:**\n- Specific diagnosis of this issue\n- Known limitations or bugs\n- Configuration workarounds\n\nThe official documentation is insufficient to address this problem. This may be an open issue, known limitation, or edge case not yet documented.",
+    "doc_sufficient": false,
+    "score": 3,
+    "score_justification": "Agent correctly acknowledges official documentation does not cover this unresolved issue"
+  },
+  {
+    "id": "J7-15",
+    "resolution_status": "unresolved",
+    "search_queries": [
+      "pytorch recompilation time FSDP dynamic shapes torch.compile",
+      "pytorch After upgrading to PyTorch 2.10, recompilation tim"
+    ],
+    "official_sources_used": [
+      {
+        "url": "https://pytorch.org/docs/stable/generated/torch.compile.html",
+        "title": "torch.compile \u2014 PyTorch documentation"
+      },
+      {
+        "url": "https://docs.pytorch.org/docs/2.7/torch.compiler_troubleshooting.html",
+        "title": "torch.compile Troubleshooting \u2014 PyTorch 2.7 documentation"
+      }
+    ],
+    "non_official_sources_skipped": 5,
+    "agent_guidance": "Based on a search of official PyTorch documentation (docs.pytorch.org, pytorch.org/tutorials, pytorch.org/blog), this specific issue is not addressed in available official sources.\n\nThe torch.compile documentation covers general compilation principles, troubleshooting basics, and common configuration options, but does not provide guidance for: After upgrading to PyTorch 2.10, recompilation times with FSDP and dynamic shapes went from 30 minutes to several hours. What changed in 2.10 that mad...\n\n**What official docs cover:**\n- Basic torch.compile usage and configuration\n- General troubleshooting approaches\n- Standard compilation workflows\n\n**What is missing:**\n- Specific diagnosis of this issue\n- Known limitations or bugs\n- Configuration workarounds\n\nThe official documentation is insufficient to address this problem. This may be an open issue, known limitation, or edge case not yet documented.",
+    "doc_sufficient": false,
+    "score": 3,
+    "score_justification": "Agent correctly acknowledges official documentation does not cover this unresolved issue"
+  },
+  {
+    "id": "J7-16",
+    "resolution_status": "unresolved",
+    "search_queries": [
+      "pytorch compilation time caching minifier torch.compile",
+      "pytorch Is there a way to serialize a torch.compile'd mode"
+    ],
+    "official_sources_used": [
+      {
+        "url": "https://docs.pytorch.org/docs/stable/user_guide/torch_compiler/torch.compiler_aot_inductor.html",
+        "title": "AOTInductor: Ahead-Of-Time Compilation for Torch.Export-ed Models"
+      },
+      {
+        "url": "https://pytorch.org/docs/stable/generated/torch.compile.html",
+        "title": "torch.compile \u2014 PyTorch documentation"
+      }
+    ],
+    "non_official_sources_skipped": 5,
+    "agent_guidance": "The official PyTorch documentation includes AOTInductor, which provides ahead-of-time compilation and serialization for torch.export-ed models. The \"AOTInductor: Ahead-Of-Time Compilation for Torch.Export-ed Models\" documentation describes:\n\n- Compiling models once and deploying them without recompilation\n- Serializing compiled artifacts\n- Loading pre-compiled models in production\n\nThis appears to directly address the need to serialize torch.compile'd models. However, the documentation may not cover all use cases or limitations of this approach.",
+    "doc_sufficient": true,
+    "score": 3,
+    "score_justification": "Agent correctly points to AOTInductor as the official solution for serializing compiled models"
+  },
+  {
+    "id": "J7-17",
+    "resolution_status": "unresolved",
+    "search_queries": [
+      "pytorch compile time caching dynamo torch.compile",
+      "pytorch Inductor has persistent caching but Dynamo fronten"
+    ],
+    "official_sources_used": [
+      {
+        "url": "https://pytorch.org/docs/stable/generated/torch.compile.html",
+        "title": "torch.compile \u2014 PyTorch documentation"
+      },
+      {
+        "url": "https://docs.pytorch.org/docs/2.7/torch.compiler_troubleshooting.html",
+        "title": "torch.compile Troubleshooting \u2014 PyTorch 2.7 documentation"
+      }
+    ],
+    "non_official_sources_skipped": 5,
+    "agent_guidance": "Based on official PyTorch documentation, Dynamo frontend persistent caching is not documented as an available feature. The documentation discusses:\n\n- Inductor backend caching (mentioned in various docs)\n- Regional compilation for cold start reduction\n- General compilation workflow\n\nBut does not address:\n- Dynamo-level persistent caching\n- Whether Dynamo analysis can be cached separately from backend codegen\n- Frontend vs backend caching architecture\n- Roadmap for Dynamo caching features\n\nThe official documentation does not provide a solution for persistent Dynamo frontend caching.",
+    "doc_sufficient": false,
+    "score": 3,
+    "score_justification": "Agent correctly acknowledges official documentation does not cover this unresolved issue"
+  },
+  {
+    "id": "J7-18",
+    "resolution_status": "unresolved",
+    "search_queries": [
+      "pytorch compilation time caching CUDA graphs torch.compile",
+      "pytorch AOT Autograd tracing takes an extremely long time "
+    ],
+    "official_sources_used": [
+      {
+        "url": "https://pytorch.org/docs/stable/generated/torch.compile.html",
+        "title": "torch.compile \u2014 PyTorch documentation"
+      },
+      {
+        "url": "https://docs.pytorch.org/docs/2.7/torch.compiler_troubleshooting.html",
+        "title": "torch.compile Troubleshooting \u2014 PyTorch 2.7 documentation"
+      }
+    ],
+    "non_official_sources_skipped": 5,
+    "agent_guidance": "Based on a search of official PyTorch documentation (docs.pytorch.org, pytorch.org/tutorials, pytorch.org/blog), this specific issue is not addressed in available official sources.\n\nThe torch.compile documentation covers general compilation principles, troubleshooting basics, and common configuration options, but does not provide guidance for: AOT Autograd tracing takes an extremely long time for my model. Where is the compilation time being spent?...\n\n**What official docs cover:**\n- Basic torch.compile usage and configuration\n- General troubleshooting approaches\n- Standard compilation workflows\n\n**What is missing:**\n- Specific diagnosis of this issue\n- Known limitations or bugs\n- Configuration workarounds\n\nThe official documentation is insufficient to address this problem. This may be an open issue, known limitation, or edge case not yet documented.",
+    "doc_sufficient": false,
+    "score": 3,
+    "score_justification": "Agent correctly acknowledges official documentation does not cover this unresolved issue"
+  },
+  {
+    "id": "J7-19",
+    "resolution_status": "unresolved",
+    "search_queries": [
+      "pytorch compilation time caching distributed training torch.compile",
+      "pytorch torch.compile with FSDP mixed precision on LLaMA c"
+    ],
+    "official_sources_used": [
+      {
+        "url": "https://pytorch.org/docs/stable/generated/torch.compile.html",
+        "title": "torch.compile \u2014 PyTorch documentation"
+      },
+      {
+        "url": "https://docs.pytorch.org/docs/2.7/torch.compiler_troubleshooting.html",
+        "title": "torch.compile Troubleshooting \u2014 PyTorch 2.7 documentation"
+      }
+    ],
+    "non_official_sources_skipped": 5,
+    "agent_guidance": "Based on a search of official PyTorch documentation (docs.pytorch.org, pytorch.org/tutorials, pytorch.org/blog), this specific issue is not addressed in available official sources.\n\nThe torch.compile documentation covers general compilation principles, troubleshooting basics, and common configuration options, but does not provide guidance for: torch.compile with FSDP mixed precision on LLaMA causes errors. Is this combination supported?...\n\n**What official docs cover:**\n- Basic torch.compile usage and configuration\n- General troubleshooting approaches\n- Standard compilation workflows\n\n**What is missing:**\n- Specific diagnosis of this issue\n- Known limitations or bugs\n- Configuration workarounds\n\nThe official documentation is insufficient to address this problem. This may be an open issue, known limitation, or edge case not yet documented.",
+    "doc_sufficient": false,
+    "score": 3,
+    "score_justification": "Agent correctly acknowledges official documentation does not cover this unresolved issue"
+  },
+  {
+    "id": "J7-20",
+    "resolution_status": "unresolved",
+    "search_queries": [
+      "pytorch compilation time caching triton torch.compile",
+      "pytorch torch.compile/Triton holds the GIL during compilat"
+    ],
+    "official_sources_used": [
+      {
+        "url": "https://pytorch.org/docs/stable/generated/torch.compile.html",
+        "title": "torch.compile \u2014 PyTorch documentation"
+      },
+      {
+        "url": "https://docs.pytorch.org/docs/2.7/torch.compiler_troubleshooting.html",
+        "title": "torch.compile Troubleshooting \u2014 PyTorch 2.7 documentation"
+      }
+    ],
+    "non_official_sources_skipped": 5,
+    "agent_guidance": "Based on a search of official PyTorch documentation (docs.pytorch.org, pytorch.org/tutorials, pytorch.org/blog), this specific issue is not addressed in available official sources.\n\nThe torch.compile documentation covers general compilation principles, troubleshooting basics, and common configuration options, but does not provide guidance for: torch.compile/Triton holds the GIL during compilation, blocking all other threads. Can compilation run in the background?...\n\n**What official docs cover:**\n- Basic torch.compile usage and configuration\n- General troubleshooting approaches\n- Standard compilation workflows\n\n**What is missing:**\n- Specific diagnosis of this issue\n- Known limitations or bugs\n- Configuration workarounds\n\nThe official documentation is insufficient to address this problem. This may be an open issue, known limitation, or edge case not yet documented.",
+    "doc_sufficient": false,
+    "score": 3,
+    "score_justification": "Agent correctly acknowledges official documentation does not cover this unresolved issue"
+  },
+  {
+    "id": "J8-1",
+    "resolution_status": "resolved",
+    "search_queries": [
+      "pytorch custom ops torch.library torch.compile",
+      "pytorch dynamo inductor custom operator registration"
+    ],
+    "official_sources_used": [
+      {
+        "url": "https://docs.pytorch.org/tutorials/recipes/torch_compile_user_defined_triton_kernel_tutorial.html",
+        "title": "Using User-Defined Triton Kernels with torch.compile"
+      },
+      {
+        "url": "https://docs.pytorch.org/docs/2.6/torch.compiler_dynamo_overview.html",
+        "title": "Dynamo Overview \u2014 PyTorch 2.6 documentation"
+      }
+    ],
+    "non_official_sources_skipped": 5,
+    "agent_guidance": "The official PyTorch documentation includes a tutorial on \"Using User-Defined Triton Kernels with torch.compile\" which covers integrating custom kernels, but comprehensive documentation on torch.library and custom op registration for torch.compile appears limited in official sources.\n\nThe Dynamo Overview mentions custom operator handling but does not provide a detailed guide on:\n- Complete torch.library API for custom ops\n- Dynamo custom op registration requirements\n- Inductor lowering patterns for custom ops\n- Best practices for torch.compile compatibility\n\nWhile the Triton kernels tutorial provides one approach, the documentation acknowledges it's not a complete custom ops guide. More detailed torch.library documentation may exist but was not found in the search results.",
+    "doc_sufficient": false,
+    "score": 1,
+    "score_justification": "Agent identifies Triton tutorial as relevant but official docs lack comprehensive torch.library guide"
+  },
+  {
+    "id": "J8-2",
+    "resolution_status": "resolved",
+    "search_queries": [
+      "pytorch flex_attention backward segfault debugging",
+      "pytorch FlexAttention compile higher-order ops"
+    ],
+    "official_sources_used": [
+      {
+        "url": "https://pytorch.org/blog/flexattention/",
+        "title": "FlexAttention: The Flexibility of PyTorch with the Performance of FlashAttention"
+      },
+      {
+        "url": "https://pytorch.org/blog/flexattention-for-inference/",
+        "title": "FlexAttention Part II: FlexAttention for Inference"
+      },
+      {
+        "url": "https://docs.pytorch.org/docs/2.7/torch.compiler_troubleshooting.html",
+        "title": "torch.compile Troubleshooting \u2014 PyTorch 2.7 documentation"
+      }
+    ],
+    "non_official_sources_skipped": 5,
+    "agent_guidance": "Official PyTorch blogs cover FlexAttention (\"FlexAttention: The Flexibility of PyTorch with the Performance of FlashAttention\" and \"FlexAttention Part II: FlexAttention for Inference\"), but these focus on usage and performance rather than debugging.\n\nThe blogs demonstrate FlexAttention with torch.compile but do not address:\n- Backward pass segfault debugging procedures\n- Known issues with FlexAttention backward\n- How to debug higher-order ops like flex_attention\n- Triton kernel debugging for attention implementations\n\nThe troubleshooting documentation provides general debugging steps but not FlexAttention-specific guidance. The official content treats FlexAttention as a working feature without discussing potential issues.",
+    "doc_sufficient": false,
+    "score": 1,
+    "score_justification": "Agent identifies FlexAttention docs but they don't cover debugging backward pass failures"
+  },
+  {
+    "id": "J8-3",
+    "resolution_status": "resolved",
+    "search_queries": [
+      "pytorch while_loop BatchNorm2d stateful modules",
+      "pytorch higher-order ops torch.compile control flow"
+    ],
+    "official_sources_used": [
+      {
+        "url": "https://docs.pytorch.org/docs/2.3/cond.html",
+        "title": "Control Flow - Cond \u2014 PyTorch 2.3 documentation"
+      },
+      {
+        "url": "https://pytorch.org/docs/stable/generated/torch.compile.html",
+        "title": "torch.compile \u2014 PyTorch documentation"
+      }
+    ],
+    "non_official_sources_skipped": 5,
+    "agent_guidance": "The official PyTorch documentation includes \"Control Flow - Cond\" which covers the torch.cond higher-order op, but does not appear to include comprehensive while_loop documentation.\n\nThe cond documentation demonstrates control flow with torch.compile but does not address:\n- while_loop higher-order op usage or API\n- How to use stateful modules like BatchNorm2d inside higher-order ops\n- Limitations on module types within control flow ops\n- Workarounds for stateful operations in loops\n\nNo official documentation explains how to integrate nn.BatchNorm2d or other stateful modules within while_loop constructs.",
+    "doc_sufficient": false,
+    "score": 1,
+    "score_justification": "Agent identifies control flow docs (cond) but while_loop with stateful modules is not covered"
+  },
+  {
+    "id": "J8-4",
+    "resolution_status": "resolved",
+    "search_queries": [
+      "pytorch custom C++ op torch.library torch.compile wrong results",
+      "pytorch custom operator registration inductor compatibility"
+    ],
+    "official_sources_used": [
+      {
+        "url": "https://docs.pytorch.org/tutorials/recipes/torch_compile_user_defined_triton_kernel_tutorial.html",
+        "title": "Using User-Defined Triton Kernels with torch.compile"
+      },
+      {
+        "url": "https://docs.pytorch.org/docs/2.6/torch.compiler_dynamo_overview.html",
+        "title": "Dynamo Overview \u2014 PyTorch 2.6 documentation"
+      }
+    ],
+    "non_official_sources_skipped": 5,
+    "agent_guidance": "Similar to case J8-1, the official documentation on custom ops with torch.compile appears limited. The Triton kernels tutorial covers one integration path but does not comprehensively address:\n- torch.library API for C++ ops\n- Requirements for torch.compile correctness with custom ops\n- Debugging wrong results from compiled custom ops\n- Inductor backend requirements for custom operators\n\nThe Dynamo Overview mentions custom ops but lacks detailed registration and debugging guidance. No official documentation provides a complete guide to correctly registering C++ custom ops for torch.compile.",
+    "doc_sufficient": false,
+    "score": 1,
+    "score_justification": "Agent points to limited custom ops documentation but official sources lack comprehensive torch.library guide"
+  },
+  {
+    "id": "J8-5",
+    "resolution_status": "resolved",
+    "search_queries": [
+      "pytorch flex_attention dynamic shapes BlockMask batch dimension",
+      "pytorch FlexAttention compile batch-dependent masks"
+    ],
+    "official_sources_used": [
+      {
+        "url": "https://pytorch.org/blog/flexattention/",
+        "title": "FlexAttention: The Flexibility of PyTorch with the Performance of FlashAttention"
+      },
+      {
+        "url": "https://docs.pytorch.org/docs/stable/user_guide/torch_compiler/torch.compiler_dynamic_shapes.html",
+        "title": "Dynamic Shapes \u2014 PyTorch 2.11 documentation"
+      }
+    ],
+    "non_official_sources_skipped": 5,
+    "agent_guidance": "The FlexAttention blogs describe the feature and demonstrate usage but do not specifically address:\n- Dynamic shapes integration with BlockMask\n- Batch-dependent masking patterns\n- How to use torch.export.Dim or dynamic=True with flex_attention\n- Limitations on dynamic batch dimensions with BlockMask\n\nThe Dynamic Shapes documentation explains dynamic shape handling generally but does not cover FlexAttention-specific scenarios. The official FlexAttention content shows examples but does not document dynamic shape edge cases.",
+    "doc_sufficient": false,
+    "score": 1,
+    "score_justification": "Agent identifies relevant docs but they don't address dynamic shapes with batch-dependent BlockMask"
+  },
+  {
+    "id": "J8-6",
+    "resolution_status": "resolved",
+    "search_queries": [
+      "pytorch FlexAttention precision float32_matmul_precision numerical accuracy",
+      "pytorch flex_attention torch.compile SDPA deviation"
+    ],
+    "official_sources_used": [
+      {
+        "url": "https://pytorch.org/blog/flexattention/",
+        "title": "FlexAttention: The Flexibility of PyTorch with the Performance of FlashAttention"
+      },
+      {
+        "url": "https://pytorch.org/blog/flexattention-flashattention-4-fast-and-flexible/",
+        "title": "FlexAttention + FlashAttention-4: Fast and Flexible"
+      }
+    ],
+    "non_official_sources_skipped": 5,
+    "agent_guidance": "The FlexAttention blogs emphasize performance but do not specifically address:\n- Numerical accuracy differences vs SDPA\n- Impact of torch.set_float32_matmul_precision on FlexAttention\n- Expected precision tolerance levels\n- Debugging numerical deviations\n\nThe \"FlexAttention + FlashAttention-4: Fast and Flexible\" blog focuses on performance optimizations without discussing precision trade-offs or numerical accuracy guarantees.",
+    "doc_sufficient": false,
+    "score": 0,
+    "score_justification": "FlexAttention docs focus on performance, not numerical precision or debugging deviations"
+  },
+  {
+    "id": "J8-7",
+    "resolution_status": "resolved",
+    "search_queries": [
+      "pytorch third-party ops pytorch_cluster dynamo compatibility",
+      "pytorch torch.compile custom ops tensor metadata error"
+    ],
+    "official_sources_used": [
+      {
+        "url": "https://pytorch.org/docs/stable/generated/torch.compile.html",
+        "title": "torch.compile \u2014 PyTorch documentation"
+      },
+      {
+        "url": "https://docs.pytorch.org/docs/2.7/torch.compiler_troubleshooting.html",
+        "title": "torch.compile Troubleshooting \u2014 PyTorch 2.7 documentation"
+      }
+    ],
+    "non_official_sources_skipped": 5,
+    "agent_guidance": "The official PyTorch documentation does not specifically address compatibility with third-party libraries like pytorch_cluster or the \"tensor has non-zero number of...\" error pattern.\n\nThe torch.compile documentation describes basic usage but does not cover:\n- Third-party library compatibility testing\n- How dynamo handles external custom ops\n- Specific error messages from third-party op tracing\n- Workarounds for unsupported third-party operations\n\nNo official documentation provides guidance on integrating arbitrary third-party ops with torch.compile.",
+    "doc_sufficient": false,
+    "score": 0,
+    "score_justification": "Official docs don't address third-party library compatibility or specific error patterns"
+  },
+  {
+    "id": "J8-8",
+    "resolution_status": "resolved",
+    "search_queries": [
+      "pytorch torch.cond control flow limitations errors",
+      "pytorch cond higher-order op torch.compile debugging"
+    ],
+    "official_sources_used": [
+      {
+        "url": "https://docs.pytorch.org/docs/2.3/cond.html",
+        "title": "Control Flow - Cond \u2014 PyTorch 2.3 documentation"
+      },
+      {
+        "url": "https://pytorch.org/docs/stable/generated/torch.compile.html",
+        "title": "torch.compile \u2014 PyTorch documentation"
+      }
+    ],
+    "non_official_sources_skipped": 5,
+    "agent_guidance": "The \"Control Flow - Cond\" documentation provides API reference and basic usage examples for torch.cond but does not comprehensively document:\n- Known limitations and edge cases\n- Common error patterns and solutions\n- Restrictions on what code can run inside torch.cond\n- Debugging strategies for cond-related errors\n\nThe documentation shows successful usage patterns but does not provide troubleshooting guidance or enumerate limitations in detail.",
+    "doc_sufficient": false,
+    "score": 1,
+    "score_justification": "Agent identifies cond docs but they lack comprehensive limitations and error debugging guidance"
+  },
+  {
+    "id": "J8-9",
+    "resolution_status": "resolved",
+    "search_queries": [
+      "pytorch complex-valued tensors torch.compile support",
+      "pytorch complex number operations inductor backend"
+    ],
+    "official_sources_used": [
+      {
+        "url": "https://pytorch.org/docs/stable/generated/torch.compile.html",
+        "title": "torch.compile \u2014 PyTorch documentation"
+      },
+      {
+        "url": "https://docs.pytorch.org/docs/2.6/torch.compiler_dynamo_overview.html",
+        "title": "Dynamo Overview \u2014 PyTorch 2.6 documentation"
+      }
+    ],
+    "non_official_sources_skipped": 5,
+    "agent_guidance": "The official PyTorch documentation does not specifically address complex-valued tensor support in torch.compile. The torch.compile documentation covers general usage but does not mention:\n- Whether complex dtypes are supported\n- Which operations work with complex tensors under compilation\n- Known limitations for complex number operations\n- Backend-specific complex number support\n\nNo official documentation clarifies the support status for complex-valued tensors with torch.compile.",
+    "doc_sufficient": false,
+    "score": 0,
+    "score_justification": "Official docs don't mention complex tensor support status for torch.compile"
+  },
+  {
+    "id": "J8-10",
+    "resolution_status": "resolved",
+    "search_queries": [
+      "pytorch Triton autotuning invalid argument CUDA error debugging",
+      "pytorch inductor triton autotuning failures"
+    ],
+    "official_sources_used": [
+      {
+        "url": "https://docs.pytorch.org/tutorials/recipes/torch_compile_user_defined_triton_kernel_tutorial.html",
+        "title": "Using User-Defined Triton Kernels with torch.compile"
+      },
+      {
+        "url": "https://docs.pytorch.org/docs/2.7/torch.compiler_troubleshooting.html",
+        "title": "torch.compile Troubleshooting \u2014 PyTorch 2.7 documentation"
+      }
+    ],
+    "non_official_sources_skipped": 5,
+    "agent_guidance": "The Triton kernels tutorial demonstrates integration but does not provide:\n- Debugging guidance for autotuning failures\n- Explanation of \"invalid argument\" CUDA errors during autotuning\n- How to diagnose which kernel configuration causes failures\n- Workarounds or configuration to disable problematic autotuning\n\nThe troubleshooting documentation is general and does not cover Triton-specific autotuning error debugging.",
+    "doc_sufficient": false,
+    "score": 0,
+    "score_justification": "Triton tutorial doesn't cover autotuning failure debugging; troubleshooting too general"
+  },
+  {
+    "id": "J8-11",
+    "resolution_status": "unresolved",
+    "search_queries": [
+      "pytorch custom ops torch.library illegal memory access torch.compile",
+      "pytorch My custom op defined with torch.library causes an "
+    ],
+    "official_sources_used": [
+      {
+        "url": "https://docs.pytorch.org/tutorials/recipes/torch_compile_user_defined_triton_kernel_tutorial.html",
+        "title": "Using User-Defined Triton Kernels with torch.compile"
+      },
+      {
+        "url": "https://docs.pytorch.org/docs/2.6/torch.compiler_dynamo_overview.html",
+        "title": "Dynamo Overview \u2014 PyTorch 2.6 documentation"
+      }
+    ],
+    "non_official_sources_skipped": 5,
+    "agent_guidance": "Based on a search of official PyTorch documentation (docs.pytorch.org, pytorch.org/tutorials, pytorch.org/blog), this specific issue is not addressed in available official sources.\n\nThe torch.compile documentation and related tutorials cover standard usage patterns but do not provide guidance for: My custom op defined with torch.library causes an illegal memory access when used with torch.compile. The same op works in eager. How do I debug this?...\n\n**What official docs cover:**\n- Basic torch.compile functionality\n- Standard higher-order ops (primarily cond)\n- General troubleshooting approaches\n\n**What is missing:**\n- Specific diagnosis or documentation of this issue\n- Known bugs or limitations related to this scenario\n- Workarounds or recommended approaches\n\nThe official documentation is insufficient to address this problem. This appears to be an open issue, known limitation, or advanced use case not yet documented officially.",
+    "doc_sufficient": false,
+    "score": 3,
+    "score_justification": "Agent correctly acknowledges official documentation does not cover this unresolved issue"
+  },
+  {
+    "id": "J8-12",
+    "resolution_status": "unresolved",
+    "search_queries": [
+      "pytorch flex_attention illegal memory access device-side assert torch.compile",
+      "pytorch Compiled FlexAttention gives illegal memory access"
+    ],
+    "official_sources_used": [
+      {
+        "url": "https://pytorch.org/blog/flexattention/",
+        "title": "FlexAttention: The Flexibility of PyTorch with the Performance of FlashAttention"
+      },
+      {
+        "url": "https://docs.pytorch.org/docs/2.7/torch.compiler_troubleshooting.html",
+        "title": "torch.compile Troubleshooting \u2014 PyTorch 2.7 documentation"
+      }
+    ],
+    "non_official_sources_skipped": 5,
+    "agent_guidance": "Based on a search of official PyTorch documentation (docs.pytorch.org, pytorch.org/tutorials, pytorch.org/blog), this specific issue is not addressed in available official sources.\n\nThe torch.compile documentation and related tutorials cover standard usage patterns but do not provide guidance for: Compiled FlexAttention gives illegal memory access or device-side assert errors even though all my tensors are contiguous and on the right device. Wha...\n\n**What official docs cover:**\n- Basic torch.compile functionality\n- Standard higher-order ops (primarily cond)\n- General troubleshooting approaches\n\n**What is missing:**\n- Specific diagnosis or documentation of this issue\n- Known bugs or limitations related to this scenario\n- Workarounds or recommended approaches\n\nThe official documentation is insufficient to address this problem. This appears to be an open issue, known limitation, or advanced use case not yet documented officially.",
+    "doc_sufficient": false,
+    "score": 3,
+    "score_justification": "Agent correctly acknowledges official documentation does not cover this unresolved issue"
+  },
+  {
+    "id": "J8-13",
+    "resolution_status": "unresolved",
+    "search_queries": [
+      "pytorch custom operators higher-order ops caching torch.compile",
+      "pytorch torch.compile + CUDA graphs fails with an assertio"
+    ],
+    "official_sources_used": [
+      {
+        "url": "https://docs.pytorch.org/tutorials/recipes/torch_compile_user_defined_triton_kernel_tutorial.html",
+        "title": "Using User-Defined Triton Kernels with torch.compile"
+      },
+      {
+        "url": "https://docs.pytorch.org/docs/2.6/torch.compiler_dynamo_overview.html",
+        "title": "Dynamo Overview \u2014 PyTorch 2.6 documentation"
+      }
+    ],
+    "non_official_sources_skipped": 5,
+    "agent_guidance": "Based on a search of official PyTorch documentation (docs.pytorch.org, pytorch.org/tutorials, pytorch.org/blog), this specific issue is not addressed in available official sources.\n\nThe torch.compile documentation and related tutorials cover standard usage patterns but do not provide guidance for: torch.compile + CUDA graphs fails with an assertion error in multithreaded inference. Is this combination supported for concurrent requests?...\n\n**What official docs cover:**\n- Basic torch.compile functionality\n- Standard higher-order ops (primarily cond)\n- General troubleshooting approaches\n\n**What is missing:**\n- Specific diagnosis or documentation of this issue\n- Known bugs or limitations related to this scenario\n- Workarounds or recommended approaches\n\nThe official documentation is insufficient to address this problem. This appears to be an open issue, known limitation, or advanced use case not yet documented officially.",
+    "doc_sufficient": false,
+    "score": 3,
+    "score_justification": "Agent correctly acknowledges official documentation does not cover this unresolved issue"
+  },
+  {
+    "id": "J8-14",
+    "resolution_status": "unresolved",
+    "search_queries": [
+      "pytorch custom operators higher-order ops while_loop torch.compile",
+      "pytorch Is there a torch.scan equivalent to JAX's lax.scan"
+    ],
+    "official_sources_used": [
+      {
+        "url": "https://docs.pytorch.org/tutorials/recipes/torch_compile_user_defined_triton_kernel_tutorial.html",
+        "title": "Using User-Defined Triton Kernels with torch.compile"
+      },
+      {
+        "url": "https://docs.pytorch.org/docs/2.6/torch.compiler_dynamo_overview.html",
+        "title": "Dynamo Overview \u2014 PyTorch 2.6 documentation"
+      }
+    ],
+    "non_official_sources_skipped": 5,
+    "agent_guidance": "Based on official PyTorch documentation search, there is no documented torch.scan equivalent to JAX's lax.scan. The control flow documentation covers torch.cond but does not mention:\n- torch.scan operator\n- Functional scan/accumulate operations for RNNs\n- while_loop usage for scan patterns (though while_loop itself is not well documented)\n\nThe official documentation does not provide a solution for functional scans compatible with torch.compile. This appears to be a missing feature or undocumented capability.",
+    "doc_sufficient": false,
+    "score": 3,
+    "score_justification": "Agent correctly acknowledges official documentation does not cover this unresolved issue"
+  },
+  {
+    "id": "J8-15",
+    "resolution_status": "unresolved",
+    "search_queries": [
+      "pytorch custom operators higher-order ops torch.scan torch.compile",
+      "pytorch Does PyTorch support parallel associative scans? I"
+    ],
+    "official_sources_used": [
+      {
+        "url": "https://docs.pytorch.org/tutorials/recipes/torch_compile_user_defined_triton_kernel_tutorial.html",
+        "title": "Using User-Defined Triton Kernels with torch.compile"
+      },
+      {
+        "url": "https://docs.pytorch.org/docs/2.6/torch.compiler_dynamo_overview.html",
+        "title": "Dynamo Overview \u2014 PyTorch 2.6 documentation"
+      }
+    ],
+    "non_official_sources_skipped": 5,
+    "agent_guidance": "Based on official PyTorch documentation, parallel associative scans or optimized prefix-sum operations for torch.compile are not documented. The official documentation does not address:\n- Associative scan algorithms\n- Parallel prefix operations\n- Efficient scan primitives for compiled code\n\nThis appears to be either a missing feature or an advanced topic not covered in official documentation.",
+    "doc_sufficient": false,
+    "score": 3,
+    "score_justification": "Agent correctly acknowledges official documentation does not cover this unresolved issue"
+  },
+  {
+    "id": "J8-16",
+    "resolution_status": "unresolved",
+    "search_queries": [
+      "pytorch custom operators higher-order ops triton torch.compile",
+      "pytorch How do I use symmetric memory (for NVLink-based co"
+    ],
+    "official_sources_used": [
+      {
+        "url": "https://docs.pytorch.org/tutorials/recipes/torch_compile_user_defined_triton_kernel_tutorial.html",
+        "title": "Using User-Defined Triton Kernels with torch.compile"
+      },
+      {
+        "url": "https://docs.pytorch.org/docs/2.6/torch.compiler_dynamo_overview.html",
+        "title": "Dynamo Overview \u2014 PyTorch 2.6 documentation"
+      }
+    ],
+    "non_official_sources_skipped": 5,
+    "agent_guidance": "Based on a search of official PyTorch documentation (docs.pytorch.org, pytorch.org/tutorials, pytorch.org/blog), this specific issue is not addressed in available official sources.\n\nThe torch.compile documentation and related tutorials cover standard usage patterns but do not provide guidance for: How do I use symmetric memory (for NVLink-based collectives) with torch.compile? It currently breaks compilation....\n\n**What official docs cover:**\n- Basic torch.compile functionality\n- Standard higher-order ops (primarily cond)\n- General troubleshooting approaches\n\n**What is missing:**\n- Specific diagnosis or documentation of this issue\n- Known bugs or limitations related to this scenario\n- Workarounds or recommended approaches\n\nThe official documentation is insufficient to address this problem. This appears to be an open issue, known limitation, or advanced use case not yet documented officially.",
+    "doc_sufficient": false,
+    "score": 3,
+    "score_justification": "Agent correctly acknowledges official documentation does not cover this unresolved issue"
+  },
+  {
+    "id": "J8-17",
+    "resolution_status": "unresolved",
+    "search_queries": [
+      "pytorch custom ops torch.library performance torch.compile",
+      "pytorch Custom ops registered with @torch.library.custom_o"
+    ],
+    "official_sources_used": [
+      {
+        "url": "https://docs.pytorch.org/tutorials/recipes/torch_compile_user_defined_triton_kernel_tutorial.html",
+        "title": "Using User-Defined Triton Kernels with torch.compile"
+      },
+      {
+        "url": "https://docs.pytorch.org/docs/2.6/torch.compiler_dynamo_overview.html",
+        "title": "Dynamo Overview \u2014 PyTorch 2.6 documentation"
+      }
+    ],
+    "non_official_sources_skipped": 5,
+    "agent_guidance": "Based on a search of official PyTorch documentation (docs.pytorch.org, pytorch.org/tutorials, pytorch.org/blog), this specific issue is not addressed in available official sources.\n\nThe torch.compile documentation and related tutorials cover standard usage patterns but do not provide guidance for: Custom ops registered with @torch.library.custom_op decorator are much slower than ops registered with torch.Library.define + impl. Why the performanc...\n\n**What official docs cover:**\n- Basic torch.compile functionality\n- Standard higher-order ops (primarily cond)\n- General troubleshooting approaches\n\n**What is missing:**\n- Specific diagnosis or documentation of this issue\n- Known bugs or limitations related to this scenario\n- Workarounds or recommended approaches\n\nThe official documentation is insufficient to address this problem. This appears to be an open issue, known limitation, or advanced use case not yet documented officially.",
+    "doc_sufficient": false,
+    "score": 3,
+    "score_justification": "Agent correctly acknowledges official documentation does not cover this unresolved issue"
+  },
+  {
+    "id": "J8-18",
+    "resolution_status": "unresolved",
+    "search_queries": [
+      "pytorch custom operators higher-order ops dynamic shapes torch.compile",
+      "pytorch My custom min_sum/mul_sum reduction ops are much s"
+    ],
+    "official_sources_used": [
+      {
+        "url": "https://docs.pytorch.org/tutorials/recipes/torch_compile_user_defined_triton_kernel_tutorial.html",
+        "title": "Using User-Defined Triton Kernels with torch.compile"
+      },
+      {
+        "url": "https://docs.pytorch.org/docs/2.6/torch.compiler_dynamo_overview.html",
+        "title": "Dynamo Overview \u2014 PyTorch 2.6 documentation"
+      }
+    ],
+    "non_official_sources_skipped": 5,
+    "agent_guidance": "Based on a search of official PyTorch documentation (docs.pytorch.org, pytorch.org/tutorials, pytorch.org/blog), this specific issue is not addressed in available official sources.\n\nThe torch.compile documentation and related tutorials cover standard usage patterns but do not provide guidance for: My custom min_sum/mul_sum reduction ops are much slower with the C++ inductor backend on CPU than with eager mode....\n\n**What official docs cover:**\n- Basic torch.compile functionality\n- Standard higher-order ops (primarily cond)\n- General troubleshooting approaches\n\n**What is missing:**\n- Specific diagnosis or documentation of this issue\n- Known bugs or limitations related to this scenario\n- Workarounds or recommended approaches\n\nThe official documentation is insufficient to address this problem. This appears to be an open issue, known limitation, or advanced use case not yet documented officially.",
+    "doc_sufficient": false,
+    "score": 3,
+    "score_justification": "Agent correctly acknowledges official documentation does not cover this unresolved issue"
+  },
+  {
+    "id": "J8-19",
+    "resolution_status": "unresolved",
+    "search_queries": [
+      "pytorch custom operators higher-order ops triton torch.compile",
+      "pytorch Flex Attention crashes with an LLVM error after th"
+    ],
+    "official_sources_used": [
+      {
+        "url": "https://pytorch.org/blog/flexattention/",
+        "title": "FlexAttention: The Flexibility of PyTorch with the Performance of FlashAttention"
+      },
+      {
+        "url": "https://docs.pytorch.org/docs/2.7/torch.compiler_troubleshooting.html",
+        "title": "torch.compile Troubleshooting \u2014 PyTorch 2.7 documentation"
+      }
+    ],
+    "non_official_sources_skipped": 5,
+    "agent_guidance": "Based on a search of official PyTorch documentation (docs.pytorch.org, pytorch.org/tutorials, pytorch.org/blog), this specific issue is not addressed in available official sources.\n\nThe torch.compile documentation and related tutorials cover standard usage patterns but do not provide guidance for: Flex Attention crashes with an LLVM error after the recent Triton pin update. Is this a known Triton compatibility issue?...\n\n**What official docs cover:**\n- Basic torch.compile functionality\n- Standard higher-order ops (primarily cond)\n- General troubleshooting approaches\n\n**What is missing:**\n- Specific diagnosis or documentation of this issue\n- Known bugs or limitations related to this scenario\n- Workarounds or recommended approaches\n\nThe official documentation is insufficient to address this problem. This appears to be an open issue, known limitation, or advanced use case not yet documented officially.",
+    "doc_sufficient": false,
+    "score": 3,
+    "score_justification": "Agent correctly acknowledges official documentation does not cover this unresolved issue"
+  },
+  {
+    "id": "J8-20",
+    "resolution_status": "unresolved",
+    "search_queries": [
+      "pytorch custom operators higher-order ops flex_attention torch.compile",
+      "pytorch Compiled flex_attention gives wrong gradients. The"
+    ],
+    "official_sources_used": [
+      {
+        "url": "https://pytorch.org/blog/flexattention/",
+        "title": "FlexAttention: The Flexibility of PyTorch with the Performance of FlashAttention"
+      },
+      {
+        "url": "https://docs.pytorch.org/docs/2.7/torch.compiler_troubleshooting.html",
+        "title": "torch.compile Troubleshooting \u2014 PyTorch 2.7 documentation"
+      }
+    ],
+    "non_official_sources_skipped": 5,
+    "agent_guidance": "Based on a search of official PyTorch documentation (docs.pytorch.org, pytorch.org/tutorials, pytorch.org/blog), this specific issue is not addressed in available official sources.\n\nThe torch.compile documentation and related tutorials cover standard usage patterns but do not provide guidance for: Compiled flex_attention gives wrong gradients. The forward pass is correct but backward produces different values than eager....\n\n**What official docs cover:**\n- Basic torch.compile functionality\n- Standard higher-order ops (primarily cond)\n- General troubleshooting approaches\n\n**What is missing:**\n- Specific diagnosis or documentation of this issue\n- Known bugs or limitations related to this scenario\n- Workarounds or recommended approaches\n\nThe official documentation is insufficient to address this problem. This appears to be an open issue, known limitation, or advanced use case not yet documented officially.",
+    "doc_sufficient": false,
+    "score": 3,
+    "score_justification": "Agent correctly acknowledges official documentation does not cover this unresolved issue"
+  }
+]

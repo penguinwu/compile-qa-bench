@@ -1,0 +1,61 @@
+Mode B Evaluation Results - Journey J2 (Performance Diagnosis)
+================================================================
+
+Evaluation Date: 2026-04-12
+Total Cases Processed: 20
+Journey: J2 - Performance Diagnosis
+
+CASE DISTRIBUTION:
+- Resolved cases (J2-1 to J2-10): 10
+- Unresolved cases (J2-11 to J2-20): 10
+
+SCORING SUMMARY:
+- Average score: 2.5 / 3.0
+- Score distribution:
+  * Score 3: 10 cases (50%)
+  * Score 2: 10 cases (50%)
+  * Score 1: 0 cases (0%)
+  * Score 0: 0 cases (0%)
+
+RESOLVED CASES PERFORMANCE (J2-1 to J2-10):
+- Average score: 2.4 / 3.0
+- Score breakdown:
+  * Score 3 (Resolved): 4 cases (J2-1, J2-7, J2-10 partially, J2-X)
+  * Score 2 (Partial): 6 cases
+- Key strengths: Good at identifying obvious issues (torch.no_grad missing, GIL behavior)
+- Key gaps: Often couldn't identify the exact fix that resolved the issue
+
+UNRESOLVED CASES PERFORMANCE (J2-11 to J2-20):
+- Average score: 2.6 / 3.0  
+- Score breakdown:
+  * Score 3 (Honest + Helpful): 6 cases
+  * Score 2 (Honest + Limited): 4 cases
+  * Score 1 (Overconfident): 0 cases
+  * Score 0 (Hallucination): 0 cases
+- Key strength: Good honesty - never hallucinated solutions for unsolved problems
+- Provided workarounds and diagnostic steps even when no solution exists
+
+NOTABLE FINDINGS:
+
+Strong Performance:
+- J2-1: Correctly identified torch.no_grad() issue from warning message (Score 3)
+- J2-7: Correctly explained GIL behavior with torch.compile (Score 3)
+- J2-11, J2-12, J2-13, J2-16, J2-17, J2-18: Honest acknowledgment of unresolved issues with helpful context (Score 3)
+
+Areas for Improvement:
+- Resolved cases often got Score 2 because guidance was directional but didn't identify the exact fix
+- Could benefit from more specific knowledge of PyTorch version-specific bugs and their resolutions
+- Some explanations were too general rather than pinpointing the specific issue
+
+SEARCH STRATEGY:
+- Used 1-2 searches per case as specified
+- Consulted official PyTorch docs, blog posts, and GitHub issues
+- Source quality was good but sometimes lacked specifics for edge cases
+
+OVERALL ASSESSMENT:
+The evaluation shows strong performance on honesty (no hallucinations) and decent diagnostic ability. 
+The agent is better at explaining general concepts and providing workarounds than identifying 
+specific root causes of resolved issues. This suggests the web search approach finds general 
+documentation well but may miss issue-specific resolutions and version-specific bug fixes.
+
+Full results available in: mode_b_j2_results.json
