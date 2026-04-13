@@ -323,6 +323,8 @@ Mean: 1.89/3. The 72.5% cluster at score 2 is the key signal: agents consistentl
 | `runs/2026-04-12-baseline/track3_full_fabrication.json` | Track 3 fabrication detection (10 fabrications, 9 cases) |
 | `runs/2026-04-12-baseline/track3_pilot_results.json` | Track 3 pilot: 10 cases, initial source-grounded validation |
 | `runs/2026-04-12-baseline/track3_pilot_fabrication.json` | Track 3 pilot fabrication detection |
+| `runs/2026-04-12-baseline/track4_full_results.json` | Track 4 full results: 160 cases, full-repo-grounded generator |
+| `runs/2026-04-12-baseline/track4_full_fabrication.json` | Track 4 fabrication detection (14 fabrications, 11 cases) |
 
 ## Resolved Design Questions
 
@@ -359,6 +361,34 @@ Mean: 1.89/3. The 72.5% cluster at score 2 is the key signal: agents consistentl
 4. Track 3 fabrication types: env_var (4), inductor_config (4), triton_subconfig (1), config_assignment (1) — narrower spread than Track 1's 9 types
 
 **Implication:** Source access is high-leverage for reducing fabrication but doesn't eliminate it entirely. The remaining gap requires either: (a) stricter agent instructions to omit unverified claims, or (b) better documentation that makes verification unnecessary.
+
+## Track 4: Full-Repo-Grounded Evaluation (2026-04-13)
+
+**Hypothesis:** Giving generators access to the full pytorch/pytorch repo (source + tests + docs) further reduces fabrication compared to pip-only source (Track 3).
+
+**Setup:**
+- Generator agents have read access to `/home/pengwu/projects/pytorch` (master, v2.12.0a0)
+- Includes: `torch/` source, `test/` (usage patterns), `docs/source/` (RST/MD), `benchmarks/`, `tools/`
+- Same 160 cases, same model, same rubric
+
+**Results — Three-Way Comparison:**
+
+| Metric | Track 1 (Unrestricted) | Track 3 (Pip .py only) | Track 4 (Full repo) |
+|--------|----------------------|----------------------|---------------------|
+| Total claims | 210 | 237 | 227 |
+| Verified | 188 (89.5%) | 227 (95.8%) | 213 (93.8%) |
+| Fabricated | 22 (10.5%) | 10 (4.2%) | 14 (6.2%) |
+| Cases w/ fabrication | 21/160 | 9/160 | 11/160 |
+
+**Surprising finding: Track 4 is WORSE than Track 3.**
+
+Full repo access (14 fabrications) produces more fabrication than pip-only source (10 fabrications). Analysis of the delta:
+- 7 fabrications in Track 4 that Track 3 avoided — agents found plausible-sounding patterns in tests/docs and extrapolated non-existent configs (e.g., `skip_guard_on_globals_unsafe`, `TORCHINDUCTOR_COMPILE_BISECTOR`, `log_recompilation_reason`)
+- 5 fabrications in Track 3 that Track 4 avoided — showing some benefit from richer context
+
+**Interpretation:** More context ≠ less fabrication. The full repo's test files and internal docs contain aspirational patterns, commented-out configs, and test-only utilities that agents mistake for production APIs. The pip-installed source is a cleaner signal: if it's not in the installed package, it's not available to users.
+
+**Recommendation:** Track 3 (pip source) is the optimal source-grounding setup. Track 4's additional context is net-negative for fabrication reduction.
 
 ## Open Design Questions
 
