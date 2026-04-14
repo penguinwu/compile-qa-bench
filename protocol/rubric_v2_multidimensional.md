@@ -106,6 +106,8 @@ Diagnosis scoring MUST account for the agent's access constraints. What counts a
 
 **Why this matters:** v2 calibration round 1 produced Diagnosis κ=0.015 because one scorer (Raven) applied Track 1 standards to Track 2 data. All 16 disagreement cases followed this pattern: Rocky scored Diagnosis=3 (accurate gap identification under doc constraint), Raven scored Diagnosis=1 (no technical analysis). Both readings were defensible under the old rubric text — this section removes the ambiguity.
 
+**IMPORTANT: Track-aware scoring applies to UNRESOLVED issues only.** For resolved issues, Diagnosis is always scored against the actual fix, regardless of track. If a resolved issue has a known root cause and the agent says "not documented" instead of identifying that root cause, score Diagnosis=1 (tangential), not 3 — even in Track 2. The agent may be constrained, but the ground truth still exists and the diagnosis is still wrong.
+
 ---
 
 ## Dimension 2: Actionability (0-3)
@@ -399,3 +401,5 @@ Before scoring the full 160-case dataset:
 *Rubric v2.0 -- 2026-04-13. Motivated by IAA analysis showing kappa=0.077 on single-score rubric (see `analysis/iaa_doc_restricted.md`). Splits into Diagnosis, Actionability, and Fabrication to eliminate the gap-acknowledgment ambiguity and the fabrication-penalty inconsistency.*
 
 *Rubric v2.1 -- 2026-04-13. Added track-aware Diagnosis scoring rules after calibration round 1 showed Diagnosis κ=0.015. Root cause: Raven applied unrestricted standards to doc-restricted data. Also corrected save_cache_artifacts/load_cache_artifacts fabrication example (they are real APIs in torch.compiler). See `analysis/iaa_v2_calibration.md`.*
+
+*Rubric v2.2 -- 2026-04-13. Clarified that track-aware scoring (gap ID = Diag 3) applies to unresolved issues only. For resolved issues, always score against the actual fix regardless of track. Resolves J5-10 disagreement from v2.1 calibration. Rubric validated: within-1 agreement 95%, systematic bias eliminated. Ready for full 160-case deployment.*
