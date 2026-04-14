@@ -1,0 +1,218 @@
+[
+  {
+    "actionability": 1,
+    "actionability_rationale": "Imperative: 'ensure you have fully registered your backend following the tutorial.' Generic PrivateUse1 advice \u2014 interchangeable with any custom backend issue.",
+    "diagnosis": 1,
+    "diagnosis_rationale": "Reports FakeTensor and PrivateUse1 doc areas but no case-specific causal chain. 'Fix was likely an internal code change' is speculation without explaining the mechanism.",
+    "fabrication": false,
+    "fabrication_detail": "n/a",
+    "id": "J1-H1"
+  },
+  {
+    "actionability": 1,
+    "actionability_rationale": "Imperative: 'consider wrapping stream-dependent code in torch.compiler.disable().' Interchangeable \u2014 any compile+streams issue gets the same workaround.",
+    "diagnosis": 2,
+    "diagnosis_rationale": "Case-specific causal chain: 'stream operations involve querying runtime state not captured during symbolic tracing' \u2014 references THIS user's current_stream().cuda_stream. Right subsystem but doesn't name the specific fix mechanism.",
+    "fabrication": false,
+    "fabrication_detail": "n/a",
+    "id": "J1-H2"
+  },
+  {
+    "actionability": 0,
+    "actionability_rationale": "No imperative. Says 'The official documentation does not provide a workaround' \u2014 descriptive.",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Accurate gap ID. Names specific failing interaction: 'select-algorithm path for int8 weight-only quantized matmul on Neoverse-N1.' Verifiable from issue.",
+    "fabrication": false,
+    "fabrication_detail": "n/a",
+    "id": "J1-H3"
+  },
+  {
+    "actionability": 1,
+    "actionability_rationale": "Imperative: 'try setting torch.backends.cuda.enable_flash_sdp(False).' Diagnostic step, interchangeable with any SDPA issue.",
+    "diagnosis": 1,
+    "diagnosis_rationale": "Generic speculation: 'compatibility gap between transformers SDPA usage and nightly change.' No case-specific causal chain naming the mechanism the fix addresses.",
+    "fabrication": false,
+    "fabrication_detail": "n/a",
+    "id": "J2-H1"
+  },
+  {
+    "actionability": 3,
+    "actionability_rationale": "Standalone fix: 'The correct order is (1) capture graph, (2) AOTAutograd, (3) fusion passes, (4) make_boxed_func.' User can directly reorder operations to fix.",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Names the specific mechanism: operation ordering \u2014 fusion passes must run before make_boxed_func wraps the graph. Developer could write the fix from this diagnosis alone.",
+    "fabrication": false,
+    "fabrication_detail": "n/a",
+    "id": "J2-H2"
+  },
+  {
+    "actionability": 2,
+    "actionability_rationale": "Imperative: 'use the Helion kernel directly as a custom operator.' Case-specific \u2014 user gains a concrete alternative they couldn't identify without reading. Information-gain test passed.",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Accurate gap ID. Names specific failing interaction: 'Inductor codegen not handling transposed input memory patterns on Blackwell.' Verifiable.",
+    "fabrication": false,
+    "fabrication_detail": "n/a",
+    "id": "J2-H3"
+  },
+  {
+    "actionability": 1,
+    "actionability_rationale": "Imperatives: 'use torch._dynamo.explain()', 'check for graph breaks.' Interchangeable \u2014 any Dynamo tracing issue gets explain + graph breaks advice.",
+    "diagnosis": 1,
+    "diagnosis_rationale": "Generic causal truth: 'Dynamo must resolve attribute lookups at trace time.' Doesn't explain WHY autocast+getattr specifically causes correctness divergence.",
+    "fabrication": false,
+    "fabrication_detail": "n/a",
+    "id": "J3-H1"
+  },
+  {
+    "actionability": 3,
+    "actionability_rationale": "Standalone fix: 'convert the tensor to contiguous format before applying as_strided.' User can directly apply this workaround.",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Case-specific mechanism: 'channels_last strides differ from contiguous, so hardcoded strides produce incorrect views.' Developer could write the fix (ensure correct strides or convert to contiguous).",
+    "fabrication": false,
+    "fabrication_detail": "n/a",
+    "id": "J3-H2"
+  },
+  {
+    "actionability": 1,
+    "actionability_rationale": "Imperative: 'always validate model correctness in eager mode first.' Interchangeable \u2014 generic advice for any compile correctness issue.",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Accurate gap ID. Names specific interaction: torch.compile silently accepts code that violates documented API (torch.full with Tensor fill_value). Verifiable correctness gap.",
+    "fabrication": false,
+    "fabrication_detail": "n/a",
+    "id": "J3-H3"
+  },
+  {
+    "actionability": 3,
+    "actionability_rationale": "Standalone fix: 'replace it with a plain Python variable or a tensor-based counter.' User can directly apply.",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Names specific mechanism: 'itertools.count is a C-implemented iterator with mutable state that Dynamo cannot trace.' Developer could write the fix.",
+    "fabrication": false,
+    "fabrication_detail": "n/a",
+    "id": "J4-H1"
+  },
+  {
+    "actionability": 1,
+    "actionability_rationale": "Imperatives: 'pin to a known-good nightly build', 'file a GitHub issue.' Interchangeable \u2014 generic advice for any compiler regression.",
+    "diagnosis": 1,
+    "diagnosis_rationale": "Correctly identifies as internal compiler regression but doesn't name the specific mechanism the fix addresses. Restates the error location (wrap_values/fn) without explaining WHY it occurs.",
+    "fabrication": false,
+    "fabrication_detail": "n/a",
+    "id": "J4-H2"
+  },
+  {
+    "actionability": 1,
+    "actionability_rationale": "Imperatives: 'use allow_in_graph() or wrap in custom operator via torch.library.' Interchangeable \u2014 any pybind11 function graph break gets the same workaround pattern.",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Accurate gap ID. Names specific mechanism: 'dist.record_comm calls torch._C._distributed_c10d which crosses Python-C++ boundary, untraceable by Dynamo.' Verifiable.",
+    "fabrication": false,
+    "fabrication_detail": "n/a",
+    "id": "J4-H3"
+  },
+  {
+    "actionability": 1,
+    "actionability_rationale": "Imperative: 'falling back to the default C++ CPU backend.' Interchangeable \u2014 any CPU Triton failure gets the same fallback advice.",
+    "diagnosis": 1,
+    "diagnosis_rationale": "Reports gap. No case-specific causal chain about combo kernel argument limits. 'CPU Triton backend is experimental' is generic context.",
+    "fabrication": false,
+    "fabrication_detail": "n/a",
+    "id": "J5-H1"
+  },
+  {
+    "actionability": 0,
+    "actionability_rationale": "Descriptive: 'recommends comparing outputs systematically.' No explicit imperative directed at user.",
+    "diagnosis": 2,
+    "diagnosis_rationale": "Case-specific causal claim: 'stochastic pooling region selection means computation reordering affects which max values are selected at boundaries.' References THIS operator's semantics. But doesn't name the specific codegen fix.",
+    "fabrication": false,
+    "fabrication_detail": "n/a",
+    "id": "J5-H2"
+  },
+  {
+    "actionability": 0,
+    "actionability_rationale": "Descriptive: 'You would need to manage streams externally' \u2014 'would need to' is descriptive language, not explicit imperative. v2.8 \u2192 Act=0.",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Accurate gap ID. Identifies specific missing feature: CUDA stream support in AOTInductor-compiled artifacts. Verifiable.",
+    "fabrication": false,
+    "fabrication_detail": "n/a",
+    "id": "J5-H3"
+  },
+  {
+    "actionability": 3,
+    "actionability_rationale": "Standalone fix: 'Wrapping the print in if not torch.compiler.is_compiling().' User can directly apply this one-line fix.",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Names exact mechanism: 'printing tensor-data-dependent boolean forces symbolic value resolution.' Points to the exact troubleshooting page. Developer could write the fix.",
+    "fabrication": false,
+    "fabrication_detail": "n/a",
+    "id": "J6-H1"
+  },
+  {
+    "actionability": 1,
+    "actionability_rationale": "Imperative: 'use TORCH_LOGS=output_code', 'ensuring tensors are contiguous via .contiguous().' Interchangeable \u2014 any Inductor config+layout issue gets contiguous() advice.",
+    "diagnosis": 1,
+    "diagnosis_rationale": "Reports gap. 'Cache optimization hints naturally interact with memory layout' is generic truth, not case-specific causal chain.",
+    "fabrication": false,
+    "fabrication_detail": "n/a",
+    "id": "J6-H2"
+  },
+  {
+    "actionability": 1,
+    "actionability_rationale": "Imperatives: 'try compiling with fullgraph=False', 'use TORCH_LOGS=graph_breaks', 'use mark_static().' Interchangeable \u2014 any dynamic+fullgraph issue gets this diagnostic workflow.",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Accurate gap ID with case-specific explanation: 'dynamic shapes trigger additional graph breaks, fullgraph=True turns them into errors.' Names the specific interaction.",
+    "fabrication": false,
+    "fabrication_detail": "n/a",
+    "id": "J6-H3"
+  },
+  {
+    "actionability": 1,
+    "actionability_rationale": "Imperatives: 'ensure consistent dtypes, add .to(dtype)', 'consider rewriting using torch.library.custom_op.' Interchangeable \u2014 any autograd.Function + compile dtype issue gets the same advice.",
+    "diagnosis": 2,
+    "diagnosis_rationale": "Case-specific causal claim: 'custom autograd function changing dtypes implicitly causes compiler type inference failure.' References THIS user's scenario. But 'fix likely involved dtype consistency' is speculative, not the specific mechanism.",
+    "fabrication": false,
+    "fabrication_detail": "n/a",
+    "id": "J7-H1"
+  },
+  {
+    "actionability": 3,
+    "actionability_rationale": "Standalone fix: 'move the share_memory_() call outside the compiled region.' Directly applicable workaround the user can implement immediately.",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Names exact mechanism: 'share_memory_() mutates storage-level properties, fundamentally incompatible with FakeTensor tracing (no real storage).' Developer could write the fix.",
+    "fabrication": false,
+    "fabrication_detail": "n/a",
+    "id": "J7-H2"
+  },
+  {
+    "actionability": 2,
+    "actionability_rationale": "Imperative: 'apply rotary embeddings using real-valued arithmetic rather than complex multiplication.' Case-specific workaround \u2014 user gains concrete alternative approach they couldn't identify without reading.",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Names specific failing interaction: 'view_as_complex fused into attention kernel causes Inductor codegen failure due to limited complex support.' Verifiable.",
+    "fabrication": false,
+    "fabrication_detail": "n/a",
+    "id": "J7-H3"
+  },
+  {
+    "actionability": 1,
+    "actionability_rationale": "Imperative: 'compare eager-mode and compiled-mode outputs', 'use torch._dynamo.config.verbose = True.' Interchangeable \u2014 generic debugging advice for any silent correctness issue.",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Names exact mechanism: 'function.__defaults__ not guarded \u2192 Dynamo silently reuses compiled graph with stale default values when defaults change.' Developer could write the fix (add guard on __defaults__).",
+    "fabrication": false,
+    "fabrication_detail": "n/a",
+    "id": "J8-H1"
+  },
+  {
+    "actionability": 3,
+    "actionability_rationale": "Standalone fix: 'avoid regional compilation with HOPs, use full-graph torch.compile instead.' User can directly switch compilation strategy.",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Names exact mechanism: 'regional compilation processes subgraphs independently, but HOPs span multiple subgraphs \u2014 inner callable context is lost.' Developer could write the fix.",
+    "fabrication": false,
+    "fabrication_detail": "n/a",
+    "id": "J8-H2"
+  },
+  {
+    "actionability": 3,
+    "actionability_rationale": "Standalone fix: 'remove the unused jvp method from your autograd.Function subclass.' User can directly apply this one-line fix.",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Names specific mechanism: 'compiler sees jvp method \u2192 sets up forward-mode AD tracing infrastructure with tangent tensors \u2192 shape mismatch when jvp implementation doesn't match shapes.' Verifiable.",
+    "fabrication": false,
+    "fabrication_detail": "n/a",
+    "id": "J8-H3"
+  }
+]
