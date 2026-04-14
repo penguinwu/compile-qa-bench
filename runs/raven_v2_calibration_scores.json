@@ -1,0 +1,182 @@
+[
+  {
+    "actionability": 2,
+    "actionability_rationale": "Gives actionable steps (set env var, cache auto-stored). But fabrication of save_cache_artifacts/load_cache_artifacts muddies the guidance. User could waste time looking for those functions.",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Correctly identifies the root cause: FX graph caching is the mechanism for persisting compilations across processes. Points to correct tutorial and env var (TORCHINDUCTOR_FX_GRAPH_CACHE=1).",
+    "fabrication": true,
+    "fabrication_detail": "Implies save_cache_artifacts() and load_cache_artifacts() exist as callable functions. These do not exist in the PyTorch API.",
+    "id": "J1-1"
+  },
+  {
+    "actionability": 0,
+    "actionability_rationale": "No actionable guidance at all — just lists what's missing from docs. User gets zero steps toward a fix or workaround.",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Correctly identifies root cause: concurrent writes to cache files causing JSONDecodeError. Correctly notes docs don't cover multi-process safety.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J1-20"
+  },
+  {
+    "actionability": 1,
+    "actionability_rationale": "Suggests profiling guide 'can help identify where the slowdown occurs' but provides no specific diagnostic steps or workarounds. Generic.",
+    "diagnosis": 2,
+    "diagnosis_rationale": "Right area — identifies that full model compilation can be slower than partial. Mentions profiling tools. But doesn't identify specific mechanisms (graph size blowup, fusion decisions, memory pressure).",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J2-11"
+  },
+  {
+    "actionability": 2,
+    "actionability_rationale": "'Compile training step function, not optimizer directly' is a real and useful workaround. But incomplete — no code example, no explanation of what wrapper pattern to use.",
+    "diagnosis": 2,
+    "diagnosis_rationale": "Right area — identifies signature mismatch as cause. Correctly notes optimizer docs don't cover compilation. But doesn't explain WHY the signature mismatch happens (optimizer step() internals).",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J5-10"
+  },
+  {
+    "actionability": 0,
+    "actionability_rationale": "No actionable guidance. Just lists missing doc topics. Doesn't even suggest trying the env var it mentions.",
+    "diagnosis": 2,
+    "diagnosis_rationale": "Correctly identifies advanced cold start optimization gap. But wrongly claims TORCHINDUCTOR_FX_GRAPH_CACHE is 'not documented' — it IS covered in the caching tutorial (which the agent even mentions). Contradicts itself.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J7-11"
+  },
+  {
+    "actionability": 0,
+    "actionability_rationale": "Zero actionable guidance. Template response listing 'what official docs cover' vs 'what is missing.'",
+    "diagnosis": 1,
+    "diagnosis_rationale": "Doesn't identify any root cause. Just echoes the question back and says 'not addressed in official sources.' No analysis of what could cause 17-30 min compile time.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J7-12"
+  },
+  {
+    "actionability": 0,
+    "actionability_rationale": "Zero actionable guidance. Same generic template as J7-12.",
+    "diagnosis": 1,
+    "diagnosis_rationale": "No diagnosis of why loops are slow to compile. Doesn't mention loop unrolling, graph break behavior, or dynamo tracing overhead for loops.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J7-13"
+  },
+  {
+    "actionability": 0,
+    "actionability_rationale": "Zero actionable guidance. Same template.",
+    "diagnosis": 1,
+    "diagnosis_rationale": "No diagnosis. Doesn't explain what pick_vec_isa does (probes CPU ISA support by compiling test binaries) or why it's slow. Just says 'not addressed.'",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J7-14"
+  },
+  {
+    "actionability": 0,
+    "actionability_rationale": "Zero actionable guidance. Same template.",
+    "diagnosis": 1,
+    "diagnosis_rationale": "No diagnosis of what changed in 2.10. Doesn't mention guard changes, symbolic shape changes, or FSDP wrapper interaction. Just says 'not addressed.'",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J7-15"
+  },
+  {
+    "actionability": 0,
+    "actionability_rationale": "No actionable guidance. Accurately reports the gap but offers no workaround (e.g., regional compilation, inductor caching as partial substitute).",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Correctly identifies the architectural distinction: Dynamo frontend caching is separate from Inductor backend caching. Accurately states Dynamo-level persistent caching is not an available feature.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J7-17"
+  },
+  {
+    "actionability": 0,
+    "actionability_rationale": "Zero actionable guidance. Same template.",
+    "diagnosis": 1,
+    "diagnosis_rationale": "No diagnosis. Doesn't explain AOT Autograd tracing phases, what makes them slow, or how to profile them. Just 'not addressed.'",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J7-18"
+  },
+  {
+    "actionability": 0,
+    "actionability_rationale": "Zero actionable guidance. Same template.",
+    "diagnosis": 1,
+    "diagnosis_rationale": "No diagnosis. Doesn't identify potential causes (dtype mismatch, wrapper ordering, FSDP param_dtype interaction). Just 'not addressed.'",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J7-19"
+  },
+  {
+    "actionability": 0,
+    "actionability_rationale": "Zero actionable guidance. Same template.",
+    "diagnosis": 1,
+    "diagnosis_rationale": "No diagnosis. Doesn't mention fake tensor mode issues, meta function correctness, or aliasing problems — the common causes of custom op memory errors under compile.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J8-11"
+  },
+  {
+    "actionability": 0,
+    "actionability_rationale": "Zero actionable guidance. Same template.",
+    "diagnosis": 1,
+    "diagnosis_rationale": "No diagnosis. Doesn't identify potential causes (head dim alignment, Triton shared memory limits, score_mod issues). Just 'not addressed.'",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J8-12"
+  },
+  {
+    "actionability": 0,
+    "actionability_rationale": "Zero actionable guidance. Same template.",
+    "diagnosis": 1,
+    "diagnosis_rationale": "No diagnosis. Doesn't mention CUDA graphs being inherently single-stream, thread-unsafe replay, or the need for per-stream graph instances.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J8-13"
+  },
+  {
+    "actionability": 0,
+    "actionability_rationale": "Zero actionable guidance. Same template.",
+    "diagnosis": 1,
+    "diagnosis_rationale": "No diagnosis. Doesn't identify what symmetric memory is (NVLink-based collectives), why it breaks compile (custom C++/CUDA ops not traceable by Dynamo), or known workarounds.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J8-16"
+  },
+  {
+    "actionability": 0,
+    "actionability_rationale": "Zero actionable guidance. Same template.",
+    "diagnosis": 1,
+    "diagnosis_rationale": "No diagnosis. Doesn't identify potential causes (decorator overhead, different dispatch paths, tracing behavior differences between registration methods).",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J8-17"
+  },
+  {
+    "actionability": 0,
+    "actionability_rationale": "Zero actionable guidance. Same template.",
+    "diagnosis": 1,
+    "diagnosis_rationale": "No diagnosis. Doesn't mention CPU codegen limitations, vectorization issues, or fallback to scalar loops for custom reductions.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J8-18"
+  },
+  {
+    "actionability": 0,
+    "actionability_rationale": "Zero actionable guidance. Same template.",
+    "diagnosis": 1,
+    "diagnosis_rationale": "No diagnosis. Doesn't identify that Triton version pins can break LLVM IR generation, or that this is likely a Triton compatibility bug.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J8-19"
+  },
+  {
+    "actionability": 0,
+    "actionability_rationale": "Zero actionable guidance. Same template.",
+    "diagnosis": 1,
+    "diagnosis_rationale": "No diagnosis. Doesn't mention backward kernel bugs, score_mod gradient propagation issues, or debugging strategies (compare with SDPA, check grad numerics).",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J8-20"
+  }
+]
