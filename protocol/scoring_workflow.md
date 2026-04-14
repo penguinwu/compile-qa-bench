@@ -14,10 +14,12 @@ How to run a Mode B scoring round from start to finish. This document is the ope
 | Role | Who | Rules |
 |------|-----|-------|
 | **Generator** | Dedicated agent (not a scorer) | Produces agent guidance. Does NOT score. |
-| **Scorer 1** | Any agent with rubric access | Scores independently. Must not be the generator or the doc author. |
-| **Scorer 2** | Different agent from Scorer 1 | Scores independently. Same restrictions. |
+| **Scorer 1** | Owl | Scores independently. Must not be the generator or the doc author. |
+| **Scorer 2** | Raven (`spaces/AAQAVvPoEqg`) | Scores independently. Same restrictions. |
 
 **Critical:** Self-scoring is invalid (+0.79 inflation bias). The generator cannot detect its own fabrications. See `decisions.md` D1 and D6.
+
+**History:** Rocky was the original Scorer 1 during rubric development (v2.0–v2.8). Owl replaced Rocky as Scorer 1 starting with the holdout validation set, to free Rocky for other projects.
 
 ## Step 1: Generate Agent Guidance
 
@@ -176,7 +178,7 @@ From `skills/eval-lessons.md`:
 
 These are known gaps in the current framework. See `decisions.md` for full rationale.
 
-- **No held-out validation set** (D2) — κ may not generalize to new cases
-- **No third scorer** (D1, D6) — κ validated between Rocky/Raven pair only
-- **Track 1 IAA untested** (D5) — rubric includes Track 1 rules never empirically validated
-- **Mode A × Mode B cross-reference not computed** (D7) — the data exists
+- ~~**No held-out validation set** (D2)~~ — ✅ Resolved: Holdout IAA computed (Act κ=0.853, Diag κ=0.705). See `analysis/holdout_iaa.md`.
+- **No third scorer** (D1, D6) — κ validated between Owl/Raven pair only. Prof's ontology as external ground truth in progress.
+- **Track 1 IAA in progress** (D5) — Owl scored Track 1 as Scorer 1; awaiting Raven's Scorer 2 scores.
+- ~~**Mode A × Mode B cross-reference not computed** (D7)~~ — ✅ Resolved. See `analysis/cross_reference.md`.
