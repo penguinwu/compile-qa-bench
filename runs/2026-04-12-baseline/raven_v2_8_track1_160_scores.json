@@ -1,0 +1,1442 @@
+[
+  {
+    "actionability": 3,
+    "actionability_rationale": "Standalone fix: set TORCHINDUCTOR_FX_GRAPH_CACHE=1. User can apply immediately.",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Correctly identifies FX Graph Cache env var as the mechanism for persistent caching across restarts. Matches actual fix.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J1-1"
+  },
+  {
+    "actionability": 3,
+    "actionability_rationale": "Standalone fix: torch.compile(model, backend='aot_eager') or install Xcode. User can apply directly.",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Correctly identifies backend= parameter for changing compiler and notes macOS Xcode dependency for inductor.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J1-2"
+  },
+  {
+    "actionability": 3,
+    "actionability_rationale": "Standalone fix: provides correct wrapping order with full code example. User can restructure immediately.",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Correctly identifies the wrapping order (Model\u2192DDP\u2192compile) and autocast usage pattern as the fix.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J1-3"
+  },
+  {
+    "actionability": 3,
+    "actionability_rationale": "Standalone fix: apt-get install g++, set LD_LIBRARY_PATH, provides Dockerfile. Complete.",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Correctly identifies missing g++ compiler and CUDA library path in nightly Docker image.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J1-4"
+  },
+  {
+    "actionability": 3,
+    "actionability_rationale": "Standalone fix: provides correct benchmarking pattern with warmup iterations. User can verify immediately.",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Correctly identifies first-call compilation overhead as expected behavior, not a bug.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J1-5"
+  },
+  {
+    "actionability": 2,
+    "actionability_rationale": "Partial: correct ordering guidance (parallelize \u2192 compile) but doesn't address the specific crash the user saw. User knows the right order but may still need to debug.",
+    "diagnosis": 2,
+    "diagnosis_rationale": "Right area: correctly identifies TP + compile ordering and DTensor interaction, but doesn't pinpoint the specific crash mechanism from the user's version.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J1-6"
+  },
+  {
+    "actionability": 3,
+    "actionability_rationale": "Standalone fix: use explicit device arguments instead of set_device(). Multiple concrete workarounds provided.",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Correctly identifies that torch.cuda.set_device() is not part of the traced graph \u2014 device placement baked into compiled code metadata.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J1-7"
+  },
+  {
+    "actionability": 2,
+    "actionability_rationale": "Partial: provides several debugging steps (version check, cache clear, driver update) but user must investigate which applies. Not a standalone fix.",
+    "diagnosis": 2,
+    "diagnosis_rationale": "Right area: identifies CUDA/Triton compatibility as the issue, but lists multiple generic causes without pinpointing which specific mismatch triggers 'device kernel image is invalid'.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J1-8"
+  },
+  {
+    "actionability": 3,
+    "actionability_rationale": "Standalone fix: env var for FX graph cache, configure cache directory. User can apply immediately.",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Correctly identifies TORCHINDUCTOR_FX_GRAPH_CACHE=1 as the mechanism for persistent cross-process caching.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J1-9"
+  },
+  {
+    "actionability": 1,
+    "actionability_rationale": "Generic: suggests trying mode='default' and using use_reentrant=False \u2014 standard advice for any checkpoint+compile issue. Interchangeable across cases.",
+    "diagnosis": 2,
+    "diagnosis_rationale": "Right area: correctly says checkpointing and compile are compatible, mentions mode-specific issues, but doesn't identify the specific interaction causing the user's problem.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J1-10"
+  },
+  {
+    "actionability": 1,
+    "actionability_rationale": "Generic: TORCH_LOGS=recompiles and log_recompilation are standard debugging advice for any recompilation question. Interchangeable.",
+    "diagnosis": 2,
+    "diagnosis_rationale": "Identifies recompilation/caching mechanism and notes per-stage cache hit/miss reporting is still developing. Right subsystem, but doesn't name the specific cache stage causing the user's 50% reduction.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J1-11"
+  },
+  {
+    "actionability": 2,
+    "actionability_rationale": "Partial: suggests torch.func.vmap/grad as alternative pattern specific to per-sample gradients. User knows what to restructure to, but needs to implement.",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Correctly identifies that torch.autograd.grad causes graph breaks in compiled functions, and correctly points to torch.func as the compile-friendly alternative.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J1-12"
+  },
+  {
+    "actionability": 1,
+    "actionability_rationale": "Generic: fullgraph=False, try aot_eager, or reimplement manually \u2014 standard advice for any unsupported-op-in-compile scenario. Interchangeable.",
+    "diagnosis": 2,
+    "diagnosis_rationale": "Right area: correctly notes RNN/GRU limited support in compile, mentions cudnn tracing difficulty, but doesn't identify the specific mechanism causing the user's error.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J1-13"
+  },
+  {
+    "actionability": 3,
+    "actionability_rationale": "Standalone fix: set config.compile_threads=1 or TORCHINDUCTOR_COMPILE_THREADS=1 to disable async compilation. User can apply immediately.",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Correctly identifies that inductor's async compilation spawns subprocesses which conflicts with multiprocessing.Pool's daemon process restriction.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J1-14"
+  },
+  {
+    "actionability": 1,
+    "actionability_rationale": "Generic: update torchao, disable compilation for quantized layers, try different quantization \u2014 standard advice for any unsupported-quantization-in-compile issue.",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Correctly identifies this as a not-yet-implemented code path in inductor for MXFP8 DtypeView operations \u2014 a known gap in float8 support.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J1-15"
+  },
+  {
+    "actionability": 2,
+    "actionability_rationale": "Partial: suggests decomposing into real/imaginary parts \u2014 specific to complex tensor problems, gives user a concrete restructuring approach.",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Correctly identifies that inductor's C++ codegen lacks mappings for complex dtypes (DTYPE_TO_CPP), which is the specific mechanism causing the KeyError.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J1-16"
+  },
+  {
+    "actionability": 2,
+    "actionability_rationale": "Partial: provides specific steps (install VS Build Tools, run from Developer Command Prompt, set PATH). User has a concrete path but may need to adapt.",
+    "diagnosis": 2,
+    "diagnosis_rationale": "Right area: correctly identifies need for MSVC compiler on Windows for inductor, but doesn't pinpoint the specific build configuration issue. Generic Windows setup guidance.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J1-17"
+  },
+  {
+    "actionability": 2,
+    "actionability_rationale": "Partial: suggests using .contiguous() before reshape and checking graph representation. Specific to this pattern-matcher issue, but doesn't fully resolve it.",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Correctly identifies that inductor's pattern matcher incorrectly records reshape as view operations, changing semantics for non-contiguous tensors.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J1-18"
+  },
+  {
+    "actionability": 3,
+    "actionability_rationale": "Standalone fix: set LD_LIBRARY_PATH, create symlink, or use extra_ldflags config. Multiple concrete fixes user can apply immediately.",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Correctly identifies that libcuda.so is in a non-standard location the linker doesn't know about, with driver/CUDA separate installation as root cause.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J1-19"
+  },
+  {
+    "actionability": 3,
+    "actionability_rationale": "Standalone fix: set per-process cache directories via TORCHINDUCTOR_CACHE_DIR with rank suffix. User can apply immediately.",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Correctly identifies race condition in cache writes when multiple Ray processes write to same cache files simultaneously, causing JSON corruption.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J1-20"
+  },
+  {
+    "actionability": 3,
+    "actionability_rationale": "Standalone fix: wrap inference in torch.no_grad(). User can apply immediately.",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Correctly identifies missing torch.no_grad() context causing 'pending uninvoked backwards' warning, preventing CUDAGraphs optimization.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J2-1"
+  },
+  {
+    "actionability": 2,
+    "actionability_rationale": "Partial: suggests profiling, max-autotune, or disabling compilation for cumprod op. User knows the bottleneck but needs to choose workaround.",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Correctly identifies that inductor generates inefficient backward code for cumprod that doesn't match eager's hand-optimized CUDA kernels.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J2-2"
+  },
+  {
+    "actionability": 3,
+    "actionability_rationale": "Standalone fix: torch.compile(model, mode='reduce-overhead'). Directly addresses the small-model performance issue.",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Correctly identifies that small MLP (10 layers) has kernel launch overhead exceeding fusion benefits, and suggests reduce-overhead mode for CUDA graphs.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J2-3"
+  },
+  {
+    "actionability": 2,
+    "actionability_rationale": "Partial: suggests TORCH_LOGS=output_code comparison, profiling, and bisecting nightlies. User has concrete debugging path but no fix.",
+    "diagnosis": 2,
+    "diagnosis_rationale": "Right area: correctly points to inductor codegen/triton kernel changes between versions, but doesn't identify the specific regression mechanism.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J2-4"
+  },
+  {
+    "actionability": 3,
+    "actionability_rationale": "Standalone fix: upgrade to stable PyTorch 2.1+. User can apply immediately.",
+    "diagnosis": 2,
+    "diagnosis_rationale": "Right area: correctly identifies old nightly build (2.0.0.dev20230202) as problematic, but doesn't explain the specific 'invalid pointer' mechanism.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J2-5"
+  },
+  {
+    "actionability": 3,
+    "actionability_rationale": "Standalone fix: provides correct benchmarking pattern with warmup and synchronization. User can re-measure properly.",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Correctly identifies multiple issues: compilation time included in benchmark, missing torch.cuda.synchronize(), and matmul+bias too simple for compile benefit.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J2-6"
+  },
+  {
+    "actionability": 2,
+    "actionability_rationale": "Partial: suggests multiprocessing instead of multithreading, batch inference. User knows the approach but needs to restructure their serving architecture.",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Correctly identifies that Triton kernel invocations through Python interfaces hold the GIL, blocking multithreaded inference.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J2-7"
+  },
+  {
+    "actionability": 1,
+    "actionability_rationale": "Generic: profile with torch.profiler, check block mask efficiency, try different block sizes \u2014 standard performance debugging advice. Interchangeable.",
+    "diagnosis": 2,
+    "diagnosis_rationale": "Right area: correctly notes FlexAttention backward pass scaling issue at 32K seq length, but doesn't identify the specific kernel optimization gap.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J2-8"
+  },
+  {
+    "actionability": 3,
+    "actionability_rationale": "Standalone fix: torch.compile(model, dynamic=True) and/or mode='reduce-overhead'. User can apply directly.",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Correctly identifies that autoregressive decoder's changing sequence lengths trigger recompilation, and correctly recommends dynamic=True and reduce-overhead mode.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J2-9"
+  },
+  {
+    "actionability": 2,
+    "actionability_rationale": "Partial: several concrete diagnostic approaches (check lowering.py, TORCH_LOGS, decompositions.py) give user a path to answer their question.",
+    "diagnosis": 2,
+    "diagnosis_rationale": "Right area: correctly points to lowering.py and TORCH_LOGS for checking operator support, but doesn't provide a definitive list or direct answer about specific ops.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J2-10"
+  },
+  {
+    "actionability": 1,
+    "actionability_rationale": "Generic: TORCH_LOGS=graph_breaks, TORCH_LOGS=recompiles, selective compilation \u2014 standard debugging for any slow-compile scenario. Interchangeable.",
+    "diagnosis": 2,
+    "diagnosis_rationale": "Right area: lists plausible causes (graph breaks, recompilation, memory pressure) but doesn't identify the specific Qwen3/torchtune compilation issue.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J2-11"
+  },
+  {
+    "actionability": 1,
+    "actionability_rationale": "Generic: don't use torch.compile for complex ops, reformulate with real-valued ops \u2014 standard advice for any unsupported-dtype-in-compile. Interchangeable.",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Correctly identifies that inductor falls back to eager for complex operations and the _conj() backward tracing is incomplete \u2014 matching the known limitation.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J2-12"
+  },
+  {
+    "actionability": 2,
+    "actionability_rationale": "Partial: suggests TORCH_LOGS=output_code to inspect kernels, max-autotune, and torch.compiler.disable for quant ops. Specific to float8 performance issue.",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Correctly identifies that inductor-generated Triton kernels for float8 dynamic quantization backward are inefficient compared to hand-written kernels.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J2-13"
+  },
+  {
+    "actionability": 1,
+    "actionability_rationale": "Generic: use existing fusion, write custom Triton kernels, wait for improvements \u2014 no concrete path to achieving the requested feature. Interchangeable.",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Correctly identifies that inductor uses pre-written templates for matmul rather than generating native Triton code with tl.dot, limiting fusion opportunities.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J2-14"
+  },
+  {
+    "actionability": 2,
+    "actionability_rationale": "Partial: check TF32 settings, profile both paths, compare precisions \u2014 gives user concrete investigation steps specific to this SDPA comparison.",
+    "diagnosis": 2,
+    "diagnosis_rationale": "Right area: plausibly attributes the performance difference to TF32 precision paths differing between SDPA backends, but this is speculative without confirming the actual mechanism.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J2-15"
+  },
+  {
+    "actionability": 2,
+    "actionability_rationale": "Partial: suggests TORCHINDUCTOR_PROFILE=1, max-autotune, and manually preventing fusion. Gives user concrete debugging and workaround paths.",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Correctly identifies that inductor's fusion of pointwise ops feeding into reductions creates suboptimal memory access patterns, matching the linked issue #128063.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J2-16"
+  },
+  {
+    "actionability": 1,
+    "actionability_rationale": "Generic: use manual loops, group by dtype \u2014 the user already discovered manual loops are faster. Agent adds no new actionable information. Interchangeable.",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Correctly identifies that _foreach_copy_ falls back to sequential cudaMemcpyAsync for mixed-dtype tensors, explaining why manual loop is faster.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J2-17"
+  },
+  {
+    "actionability": 1,
+    "actionability_rationale": "Generic: provides manual benchmarking template \u2014 standard eager-vs-compiled comparison any user could write. Interchangeable.",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Correctly identifies that automatic performance regression detection (canary mode) is not implemented in PyTorch \u2014 matching the feature request.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J2-18"
+  },
+  {
+    "actionability": 1,
+    "actionability_rationale": "Generic: run your own benchmarks with TorchBench, check release notes \u2014 standard advice for any performance-data-seeking user. Interchangeable.",
+    "diagnosis": 2,
+    "diagnosis_rationale": "Right area: correctly notes limited public CPU performance dashboards, mentions TorchBench and hud.pytorch.org, but doesn't identify whether specific baselines exist in the referenced issue.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J2-19"
+  },
+  {
+    "actionability": 3,
+    "actionability_rationale": "Standalone fix: pip install torch with XPU index URL, use model.to('xpu') + torch.compile. User can set up immediately.",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Correctly identifies that Intel GPU (XPU) support was upstreamed in PyTorch 2.5 as Beta, matching the actual status.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J2-20"
+  },
+  {
+    "actionability": 2,
+    "actionability_rationale": "Partial: suggests .contiguous() workaround and TORCHDYNAMO_REPRO_LEVEL=4 for minifier. User has a workaround but it adds overhead.",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Correctly identifies non-zero storage_offset from tensor slicing causing inductor view operation correctness issues.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J3-1"
+  },
+  {
+    "actionability": 2,
+    "actionability_rationale": "Partial: switch to 'area'/'nearest-exact' mode as workaround, or disable compilation for this module. Specific to the user's issue.",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Correctly identifies backward gradient computation bug in compiled path for 'nearest', 'bilinear', 'bicubic' interpolate modes.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J3-2"
+  },
+  {
+    "actionability": 2,
+    "actionability_rationale": "Partial: set_float32_matmul_precision('highest'), disable coordinate_descent_tuning. Specific precision controls for this scenario.",
+    "diagnosis": 2,
+    "diagnosis_rationale": "Right area: correctly identifies numerical precision as the issue and mentions TF32/operation reordering, but doesn't determine if differences are within acceptable tolerance.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J3-3"
+  },
+  {
+    "actionability": 2,
+    "actionability_rationale": "Partial: suggests disabling aggressive_fusion and epilogue_fusion, or switching to LayerNorm. User has concrete workarounds but they're temporary.",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Correctly identifies the specific interaction between RMSNorm, float8 rowwise scaling, and compilation causing NaN, noting it was introduced by a specific PR.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J3-4"
+  },
+  {
+    "actionability": 3,
+    "actionability_rationale": "Standalone fix: set use_deterministic_algorithms(True), disable cudagraphs, disable autotune, set CUBLAS_WORKSPACE_CONFIG. Complete recipe.",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Correctly identifies autotuning and CUDA graphs as sources of non-determinism in compiled code, provides comprehensive deterministic settings.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J3-5"
+  },
+  {
+    "actionability": 2,
+    "actionability_rationale": "Partial: suggests verifying with assert_close, enabling verify_correctness, avoiding composition. User has validation and workaround approaches.",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Correctly identifies silent correctness bug when composing torch.compile with torch.func.grad, attributing it to graph capture issues.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J3-6"
+  },
+  {
+    "actionability": 2,
+    "actionability_rationale": "Partial: suggests .contiguous(), alternative stacking, torch.compiler.disable. Specific workarounds for this pattern.",
+    "diagnosis": 2,
+    "diagnosis_rationale": "Right area: identifies a memory/buffer issue in inductor-generated code for dstack+reciprocal, but notes this was from PyTorch 2.0 dev and may be fixed.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J3-7"
+  },
+  {
+    "actionability": 3,
+    "actionability_rationale": "Standalone fix: pad sequences to even length, or force specific SDPA backend. User can apply immediately.",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Correctly identifies the complex interaction between GQA, odd sequence lengths, and SDPA math backend causing NaN in compiled backward, noting wrong shape/stride as root cause.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J3-8"
+  },
+  {
+    "actionability": 2,
+    "actionability_rationale": "Partial: torch._dynamo.config.verify_correctness=True and TorchBench usage. User has concrete tools but needs to implement their testing framework.",
+    "diagnosis": 2,
+    "diagnosis_rationale": "Right area: points to TorchBench and verify_correctness config, but doesn't address the user's specific accuracy testing needs beyond general methodology.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J3-9"
+  },
+  {
+    "actionability": 2,
+    "actionability_rationale": "Partial: set_float32_matmul_precision('highest'), disable autotune, compare output_code. User has concrete diagnostic steps.",
+    "diagnosis": 2,
+    "diagnosis_rationale": "Right area: correctly identifies version regression in AOT compilation, suggests autotune and precision settings, but doesn't pinpoint the specific commit or mechanism.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J3-10"
+  },
+  {
+    "actionability": 2,
+    "actionability_rationale": "Partial: normalize inputs, compare same-device eager-vs-compiled, create minimal reproducer. Gives user specific diagnostic steps for this case.",
+    "diagnosis": 2,
+    "diagnosis_rationale": "Right area: correctly identifies that inputs at 1e13 are near float32 precision limits, but doesn't determine if this is the actual cause vs a compile bug. Notes need to compare CPU-vs-CPU and CUDA-vs-CUDA.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J3-11"
+  },
+  {
+    "actionability": 2,
+    "actionability_rationale": "Partial: try mode='default', disable cudagraphs, or use CUDA_LAUNCH_BLOCKING=1 as workaround. Specific to this synchronization issue.",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Correctly identifies that CUDA_LAUNCH_BLOCKING=1 fixing precision errors implies a race condition/missing synchronization in compiled kernels \u2014 not a numerical issue.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J3-12"
+  },
+  {
+    "actionability": 2,
+    "actionability_rationale": "Partial: disable autotuning, disable CUDA graphs, clear cache between runs. Specific to this reproducibility problem, but user must test each.",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Correctly identifies this as a known issue (references #94855), names autotuning and CUDA graphs as specific sources of non-determinism.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J3-13"
+  },
+  {
+    "actionability": 3,
+    "actionability_rationale": "Standalone fix: export CFLAGS='-I/opt/homebrew/opt/libomp/include'. User can apply immediately.",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Correctly identifies that macOS compiler can't find omp.h because it's in Homebrew's non-standard include path.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J3-14"
+  },
+  {
+    "actionability": 2,
+    "actionability_rationale": "Partial: use out-of-place operations or write custom Triton kernel. Specific alternatives for this fusion limitation.",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Correctly identifies that epilogue fusion's mutation restriction is a correctness requirement (mutations can be reordered by fusion), not just a conservative check.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J3-15"
+  },
+  {
+    "actionability": 2,
+    "actionability_rationale": "Partial: restructure with torch.where masking, accept graph breaks, consider torch.cond. Gives user specific restructuring approach for this pattern.",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Correctly identifies that data-dependent control flow fundamentally conflicts with graph tracing, explains graph break behavior, and mentions torch.cond as experimental alternative.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J3-16"
+  },
+  {
+    "actionability": 3,
+    "actionability_rationale": "Standalone fix: use torch._dynamo.graph_break() before side effects, or restructure to return values. User can apply immediately.",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Correctly identifies that Python side effects like list.append are executed only during tracing, not in subsequent compiled runs \u2014 this is by design.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J3-17"
+  },
+  {
+    "actionability": 1,
+    "actionability_rationale": "Generic: avoid aliasing operations, ensure contiguous tensors, file an issue \u2014 standard advice for backend compatibility. No concrete fix offered.",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Correctly identifies that AOT autograd's output regeneration assumes backends preserve tensor strides, which Habana/TPU backends don't do.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J3-18"
+  },
+  {
+    "actionability": 1,
+    "actionability_rationale": "Generic: check ROCm version, try without compile, report bug \u2014 standard ROCm debugging advice. Interchangeable.",
+    "diagnosis": 1,
+    "diagnosis_rationale": "Tangential: discusses general ROCm compatibility issues without identifying the specific conv correctness problem. Mostly asks the user to investigate further.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J3-19"
+  },
+  {
+    "actionability": 2,
+    "actionability_rationale": "Partial: disable cudagraphs, disable coordinate_descent_tuning, disable aggressive_fusion one-by-one. User has a concrete bisection approach.",
+    "diagnosis": 2,
+    "diagnosis_rationale": "Right area: correctly identifies that reduce-overhead (CUDA graphs) and max-autotune introduce NaN-causing optimizations, but doesn't identify which specific optimization is the culprit.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J3-20"
+  },
+  {
+    "actionability": 2,
+    "actionability_rationale": "Partial: suggests restructuring mask_mod to avoid captures, using _compile=False, upgrading to 2.5+. Multiple approaches but user needs to choose.",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Correctly identifies that capturing external tensors in mask_mod closure creates dependencies that break fullgraph compilation.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J4-1"
+  },
+  {
+    "actionability": 3,
+    "actionability_rationale": "Standalone fix: use DDPOptimizer for overlap, or switch to FSDP for better compile integration. Concrete alternatives.",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Correctly identifies that DDP's _broadcast_coalesced is a C++ extension Dynamo can't trace, causing graph breaks.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J4-2"
+  },
+  {
+    "actionability": 3,
+    "actionability_rationale": "Standalone fix: rebind method using func_unbound.__get__(cls_instance). Complete code provided.",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Correctly identifies that copying bound methods between instances causes __self__ mismatch in Dynamo (stricter behavior in 2.5+), and explains the rebinding fix.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J4-3"
+  },
+  {
+    "actionability": 2,
+    "actionability_rationale": "Partial: use_orig_params=True, verbose logging, suppress_errors for migration. User has debugging path but no specific fix.",
+    "diagnosis": 2,
+    "diagnosis_rationale": "Right area: correctly identifies that 2.4's improved tracing exposes previously hidden issues, but doesn't pinpoint the specific NaN/CUDA error mechanisms.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J4-4"
+  },
+  {
+    "actionability": 3,
+    "actionability_rationale": "Standalone fix: use torch._dynamo.disable() context manager or remove decorator from f. Clear solutions provided.",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Correctly identifies that torch.compiler.disable on g doesn't affect f's own @torch.compile decorator \u2014 decorators are independent on nested functions.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J4-5"
+  },
+  {
+    "actionability": 3,
+    "actionability_rationale": "Standalone fix: use regular class or NamedTuple instead of @dataclass. User can apply immediately.",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Correctly identifies that Dynamo uses object.__new__ without calling dataclass __init__, so fields aren't populated during tracing.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J4-6"
+  },
+  {
+    "actionability": 2,
+    "actionability_rationale": "Partial: torch._dynamo.reset(), pass config as args, create separate compiled versions. Concrete but user must determine which applies.",
+    "diagnosis": 2,
+    "diagnosis_rationale": "Right area: discusses guarding on config values, but the explanation conflates two separate issues (no guards vs wrong cache location) without clearly distinguishing them.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J4-7"
+  },
+  {
+    "actionability": 3,
+    "actionability_rationale": "Standalone fix: compile inner function not wrapper, or use CompiledAutograd (2.4+). Concrete approaches provided.",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Correctly identifies that selective activation checkpointing's context_fn creates graph breaks preventing Triton kernel generation.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J4-8"
+  },
+  {
+    "actionability": 3,
+    "actionability_rationale": "Standalone fix: upgrade to PyTorch 2.5+ where _signature_from_code fixes this, or create mask outside compiled region.",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Correctly identifies that create_block_mask uses inspect.signature internally which Dynamo can't trace, causing graph breaks.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J4-9"
+  },
+  {
+    "actionability": 3,
+    "actionability_rationale": "Standalone fix: torch.optim.AdamW(params, lr=torch.tensor(0.001)). User can apply immediately.",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Correctly identifies that Python float LR values trigger Dynamo guards, and tensor-based LR avoids recompilation.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J4-10"
+  },
+  {
+    "actionability": 1,
+    "actionability_rationale": "Generic: acknowledges no user-facing workaround exists, mentions compiled backwards as future fix. User has no actionable path. Interchangeable.",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Correctly identifies that AOTAutograd misclassifies optimizer step as training graph because no_grad context exits before backend receives graph, causing memory overhead.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J4-11"
+  },
+  {
+    "actionability": 2,
+    "actionability_rationale": "Partial: use DDPOptimizer for partial overlap, or switch to FSDP. Specific alternatives for this DDP+compile limitation.",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Correctly identifies that DDP's C++ Reducer and gradient hooks can't be traced by CompiledAutograd, eliminating communication/computation overlap.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J4-12"
+  },
+  {
+    "actionability": 1,
+    "actionability_rationale": "Generic: use constants, pass values directly, use NamedTuple \u2014 standard alternatives for any dataclass-in-compile issue. Interchangeable.",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Correctly identifies that Dynamo creates redundant guards on frozen dataclass fields despite immutability guarantees, increasing compilation overhead.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J4-13"
+  },
+  {
+    "actionability": 1,
+    "actionability_rationale": "Generic: try torch.fx.wrap, restructure code, check PyTorch version \u2014 standard debugging for graph representation issues. Interchangeable.",
+    "diagnosis": 2,
+    "diagnosis_rationale": "Right area: correctly identifies the ambiguity in how allow_in_graph represents modules in FX graph (call_module vs inlining), but can't determine the expected behavior definitively.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J4-14"
+  },
+  {
+    "actionability": 2,
+    "actionability_rationale": "Partial: enable compiled_autograd=True, use torch.export for static graphs. User has concrete experimental path.",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Correctly identifies that capturing forward+backward in a single graph requires CompiledAutograd to convert C++ backward into FX IR, which is still experimental.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J4-15"
+  },
+  {
+    "actionability": 1,
+    "actionability_rationale": "Generic: check cache directory, try FX graph cache instead, test within single process \u2014 standard cache debugging. Interchangeable.",
+    "diagnosis": 2,
+    "diagnosis_rationale": "Right area: correctly notes cache may not persist between processes and identifies potential cache invalidation bugs, but can't determine the specific cause.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J4-16"
+  },
+  {
+    "actionability": 3,
+    "actionability_rationale": "Standalone fix: downgrade to PyTorch 2.8.0 + torchao 0.13.0. User can apply immediately.",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Correctly identifies this as a regression between PyTorch 2.8.0 and 2.9.1, noting the Python evaluator assertion failure as a critical bug affecting multiple CPU architectures.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J4-17"
+  },
+  {
+    "actionability": 2,
+    "actionability_rationale": "Partial: don't compile code needing double backwards, separate first/second derivative computations. Specific to this limitation, but requires code restructuring.",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Correctly identifies that AOTAutograd's backward Function is marked once_differentiable, silently producing incorrect second-order gradients instead of erroring.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J4-18"
+  },
+  {
+    "actionability": 3,
+    "actionability_rationale": "Standalone fix: set bucket_all_gathers_fx=False or use fullgraph=False. User can apply immediately.",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Correctly identifies the deadlock from combining SimpleFSDP, fullgraph=True, and bucket_all_gathers_fx='only_fsdp' \u2014 CUDA graph recording locks in bad communication pattern.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J4-19"
+  },
+  {
+    "actionability": 2,
+    "actionability_rationale": "Partial: store metadata separately, use .data to extract tensor, use composition over inheritance. Specific restructuring approaches.",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Correctly identifies that Parameter subclasses with __torch_function__ overrides aren't supported by Dynamo's UserDefinedObjectVariable handling.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J4-20"
+  },
+  {
+    "actionability": 3,
+    "actionability_rationale": "Standalone fix: torch.backends.cuda.matmul.allow_tf32=False. User can apply immediately.",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Correctly identifies that max-autotune enables TF32 (19-bit vs 23-bit precision), causing numerical differences and loss spikes.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J5-1"
+  },
+  {
+    "actionability": 3,
+    "actionability_rationale": "Standalone fix: torch._inductor.config.triton.cudagraph_trees=False, or pin to PyTorch 2.9. User can apply immediately.",
+    "diagnosis": 2,
+    "diagnosis_rationale": "Right area: correctly suspects CUDA graph implementation regression in 2.10, mentions cudagraph_trees, but doesn't identify the specific commit or mechanism.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J5-2"
+  },
+  {
+    "actionability": 2,
+    "actionability_rationale": "Partial: precompute combined mask, use create_mask to materialize ahead of time. Specific to mask composition problem.",
+    "diagnosis": 2,
+    "diagnosis_rationale": "Right area: identifies branching logic in combined masks as the issue, but doesn't explain the specific kernel generation failure.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J5-3"
+  },
+  {
+    "actionability": 3,
+    "actionability_rationale": "Standalone fix: torch._inductor.config.split_cat_fx_passes=False. User can apply immediately.",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Correctly identifies the bug: UnbindCatRemover expects dim in kwargs but torch.unbind passes it positionally. Names the exact pass and the fix (dict.get with default).",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J5-4"
+  },
+  {
+    "actionability": 2,
+    "actionability_rationale": "Partial: git bisect approach with specific log settings, kernel comparison. User has a concrete investigation path.",
+    "diagnosis": 2,
+    "diagnosis_rationale": "Right area: provides bisection methodology and logging tools, but doesn't identify the specific regression between the two nightlies.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J5-5"
+  },
+  {
+    "actionability": 3,
+    "actionability_rationale": "Standalone fix: torch._inductor.config.max_autotune_gemm_backends='TRITON' to avoid CUTLASS templates. User can apply immediately.",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Correctly identifies that autotuner picks template assuming alignment requirements that empty_strided with stride (1, 50304) doesn't meet for bfloat16.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J5-6"
+  },
+  {
+    "actionability": 3,
+    "actionability_rationale": "Standalone fix: torch._inductor.config.fuse_cross_entropy_linear=True with torch.compile. User can apply immediately.",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Correctly identifies PyTorch's fused linear+cross-entropy optimization via config.fuse_cross_entropy_linear=True for chunked computation.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J5-7"
+  },
+  {
+    "actionability": 2,
+    "actionability_rationale": "Partial: selective compilation (only MLP layers), disable cudagraphs, disable max_autotune. User has concrete options but must test which works.",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Correctly identifies that inductor's memory planning allocates large intermediate buffers (5.87 GB) that conflict with vLLM's PagedAttention memory management.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J5-8"
+  },
+  {
+    "actionability": 2,
+    "actionability_rationale": "Partial: install VS Build Tools, configure CUDA_HOME, or use WSL2. User has multiple approaches to try.",
+    "diagnosis": 2,
+    "diagnosis_rationale": "Right area: correctly identifies MSVC and CUDA toolkit requirements for Windows inductor, but doesn't address the specific linker error the user encountered.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J5-9"
+  },
+  {
+    "actionability": 3,
+    "actionability_rationale": "Standalone fix: don't compile optimizer for large models \u2014 compile model forward/backward only. Or upgrade to PyTorch 2.2+ with split_large_kernels.",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Correctly identifies that inductor unrolls parameter update loop, hitting CPython ctypes' ~1024 argument limit for large models.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J5-10"
+  },
+  {
+    "actionability": 3,
+    "actionability_rationale": "Standalone fix: use mode='max-autotune-no-cudagraphs' instead of combining modes. User already found this works.",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Correctly identifies that max-autotune's kernel selection process interferes with reduce-overhead's CUDA graph caching, causing re-instantiation every iteration.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J5-11"
+  },
+  {
+    "actionability": 3,
+    "actionability_rationale": "Standalone fix: don't compile flex_attention on RTX 4090, use eager mode. User can apply immediately.",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Correctly identifies that compiled flex_attention kernel requests 131074 bytes of shared memory, exceeding RTX 4090's 101376 bytes per SM.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J5-12"
+  },
+  {
+    "actionability": 3,
+    "actionability_rationale": "Standalone fix: torch.compiler.disable(model.embedding) to keep embeddings in eager mode. User can apply immediately.",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Correctly identifies that inductor generates a generic gather kernel for embeddings that's slower than ATen's hand-optimized CUDA kernels.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J5-13"
+  },
+  {
+    "actionability": 2,
+    "actionability_rationale": "Partial: remove pointers from divisible_by_16. User already found this workaround \u2014 agent confirms but doesn't add new information.",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Correctly identifies that specialization triggers different Triton memory layout choices causing bank conflicts, making vectorized version slower than scalar.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J5-14"
+  },
+  {
+    "actionability": 2,
+    "actionability_rationale": "Partial: provides complete custom_op registration template with register_fake. User has the correct pattern but needs to adapt to their case.",
+    "diagnosis": 2,
+    "diagnosis_rationale": "Right area: provides correct torch.library custom_op registration pattern, but doesn't identify the user's specific error or what went wrong in their registration.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J5-15"
+  },
+  {
+    "actionability": 2,
+    "actionability_rationale": "Partial: suggests starting with torch.library custom ops as more maintainable approach. User has a recommended starting point.",
+    "diagnosis": 2,
+    "diagnosis_rationale": "Right area: correctly points to register_lowering and select_algorithm APIs for custom backend integration, but notes these are unstable and limited in documentation.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J5-16"
+  },
+  {
+    "actionability": 1,
+    "actionability_rationale": "Generic: pin to CUDA 12.4, skip failing test, disable max_autotune \u2014 standard CI workaround advice. Interchangeable.",
+    "diagnosis": 1,
+    "diagnosis_rationale": "Tangential: discusses generic CUDA version compatibility without identifying the specific test_select_algorithm failure mechanism. Mostly asks user to investigate.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J5-17"
+  },
+  {
+    "actionability": 2,
+    "actionability_rationale": "Partial: don't pad (user already knows this works), or manually set reduce_block_size. Limited new actionable info beyond confirming the user's finding.",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Correctly identifies that padding changes Triton's kernel generation (different block sizes, reduction strategies) in a way that hurts performance for this specific shape.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J5-18"
+  },
+  {
+    "actionability": 3,
+    "actionability_rationale": "Standalone fix: torch._inductor.config.triton.use_welford_reduction=False. User can apply immediately and benchmark.",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Correctly identifies that Welford reduction is numerically stable but slower than naive two-pass reduction for certain tensor shapes in LayerNorm.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J5-19"
+  },
+  {
+    "actionability": 1,
+    "actionability_rationale": "Generic: explicitly choose mode based on benchmarking \u2014 standard advice for any mode-selection question. Interchangeable.",
+    "diagnosis": 2,
+    "diagnosis_rationale": "Right area: correctly discusses memory overhead, compatibility, and error mode concerns, but this is an open design question rather than a bug to diagnose.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J5-20"
+  },
+  {
+    "actionability": 3,
+    "actionability_rationale": "Standalone fix: torch._dynamo.mark_dynamic(input_tensor, 0). User can apply immediately.",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Correctly identifies that dynamic=True doesn't guarantee all dims are dynamic, and mark_dynamic(tensor, 0) is needed for the batch dimension in LayerNorm backward.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J6-1"
+  },
+  {
+    "actionability": 2,
+    "actionability_rationale": "Partial: add early exit for empty tensors, downgrade to previous version. Workaround exists but requires code changes.",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Correctly identifies the division by zero in Triton grid calculation when tensor has 0-dimension under dynamic compilation, naming the specific grid type.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J6-2"
+  },
+  {
+    "actionability": 3,
+    "actionability_rationale": "Standalone fix: convert to concrete tuple with tuple(int(d) for d in dim), or hardcode dim. User can apply immediately.",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Correctly identifies that dynamic shapes creates symbolic integers wrapped in tuples that torch.sum's dim argument doesn't accept.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J6-3"
+  },
+  {
+    "actionability": 3,
+    "actionability_rationale": "Standalone fix: torch.compile(model, dynamic=True) with mark_dynamic on node (dim 0) and edge_index (dim 1). Complete pattern.",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Correctly identifies that neighbor sampling creates variable-size subgraphs requiring dynamic shapes, and provides the mark_dynamic pattern for node/edge dimensions.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J6-4"
+  },
+  {
+    "actionability": 3,
+    "actionability_rationale": "Standalone fix: torch._dynamo.mark_dynamic(q, 1) for sequence dimension. User can apply immediately.",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Correctly identifies that dynamic=True alone may not prevent specialization on spatial dimensions, and mark_dynamic is needed for height/width.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J6-5"
+  },
+  {
+    "actionability": 3,
+    "actionability_rationale": "Standalone fix: mark_dynamic(images, 2) and mark_dynamic(images, 3) for height/width. User can apply immediately.",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Correctly identifies that dynamic=True doesn't automatically handle all dimensions, and mark_dynamic on dims 2,3 prevents height/width specialization.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J6-6"
+  },
+  {
+    "actionability": 3,
+    "actionability_rationale": "Standalone fix: torch._dynamo.mark_dynamic(input_tensor, 0). User can apply immediately.",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Correctly identifies that dynamic=True is a hint, not guarantee, and mark_dynamic(input_tensor, 0) is needed for the varying timestep dimension in RNNs.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J6-7"
+  },
+  {
+    "actionability": 2,
+    "actionability_rationale": "Partial: convert with .item() (but causes recompilation), use masking instead of slicing. User has options but each has tradeoffs.",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Correctly identifies that x[:img_size] with tensor-derived img_size creates data-dependent slicing that compile can't trace.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J6-8"
+  },
+  {
+    "actionability": 3,
+    "actionability_rationale": "Standalone fix: apply autocast inside compiled function, or use explicit dtype (model.half()). User can apply immediately.",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Correctly identifies that AMP autocast dynamically changes dtypes between float16 and float32, causing dtype guard failures and recompilation.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J6-9"
+  },
+  {
+    "actionability": 3,
+    "actionability_rationale": "Standalone fix: dynamic=True + mark_dynamic(audio, 1) + torch.no_grad(). Complete pattern provided.",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Correctly identifies that variable audio lengths need mark_dynamic on the time dimension, and torch.no_grad() is more compatible than inference_mode().",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J6-10"
+  },
+  {
+    "actionability": 2,
+    "actionability_rationale": "Partial: use .clone() instead of t[:], or avoid compilation for DTensor ops. Specific workarounds for this as_strided limitation.",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Correctly identifies that aten.as_strided doesn't have a registered sharding strategy in DTensor, causing the error with compile + dynamic shapes.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J6-11"
+  },
+  {
+    "actionability": 1,
+    "actionability_rationale": "Generic: squeeze dimensions, use buffers instead \u2014 workarounds aren't specific to mark_dynamic's limitations. Interchangeable.",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Correctly identifies two separate limitations: mark_dynamic doesn't affect nn.Parameter tensors, and small shapes like (1,1) trigger automatic specialization.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J6-12"
+  },
+  {
+    "actionability": 1,
+    "actionability_rationale": "Generic: use TORCH_LOGS=dynamic, process of elimination, instrument code \u2014 standard debugging for any shape tracing question. Interchangeable.",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Correctly identifies that PyTorch's logging infrastructure doesn't track WHY symbolic shapes are created (automatic detection vs mark_dynamic vs constraints).",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J6-13"
+  },
+  {
+    "actionability": 2,
+    "actionability_rationale": "Partial: verify with assert_close, try backend='aot_eager', check graph_breaks logging. Gives user a concrete diagnostic path for this specific problem.",
+    "diagnosis": 2,
+    "diagnosis_rationale": "Right area: lists plausible causes (fusion changing precision, RNG state, autograd differences, guard failures) but can't identify which applies to this specific case.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J6-14"
+  },
+  {
+    "actionability": 2,
+    "actionability_rationale": "Partial: manually control dynamism with mark_dynamic, set assume_static_by_default=True. Specific to this guard-accumulation pattern.",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Correctly identifies that automatic dynamic shapes accumulates guards unboundedly without a complexity budget, causing recompilation storms.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J6-15"
+  },
+  {
+    "actionability": 2,
+    "actionability_rationale": "Partial: disable capture_scalar_outputs, use built-in split_with_sizes, update abstract implementation. User has specific approaches to try.",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Correctly identifies that capture_scalar_outputs=True creates symbolic unbacked integers wrapped in immutable_list, which custom op's int[] schema doesn't accept.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J6-16"
+  },
+  {
+    "actionability": 2,
+    "actionability_rationale": "Partial: use torch._dynamo.disable() around DeepSpeed code, try eager backend, simplify DeepSpeed config. User has concrete investigation steps.",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Correctly identifies that Dynamo's guard codegen creates guards referencing torch.bfloat16 in DeepSpeed-modified structures, but torch namespace isn't available in guard evaluation context.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J6-17"
+  },
+  {
+    "actionability": 1,
+    "actionability_rationale": "Generic: TORCH_LOGS=recompiles, mark_dynamic, assume_static_by_default \u2014 standard recompilation debugging. Interchangeable.",
+    "diagnosis": 2,
+    "diagnosis_rationale": "Right area: identifies dynamic shapes and dispatch key guard failures as causes, but doesn't determine which specific guards are failing in the ChatTTS model.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J6-18"
+  },
+  {
+    "actionability": 2,
+    "actionability_rationale": "Partial: return fixed-size with masking, disable compilation for this op, avoid requires_grad on variable outputs. Specific restructuring approaches.",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Correctly identifies that custom autograd functions with data-dependent output shapes and requires_grad can't be compiled because AOT Autograd can't reason about dynamic output shapes for gradient allocation.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J6-19"
+  },
+  {
+    "actionability": 2,
+    "actionability_rationale": "Partial: disable compilation for combinations with torch._dynamo.disable(), or use static shapes. Specific workarounds for this operation.",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Correctly identifies that torch.combinations internally calls numel() which is forbidden with symbolic sizes because output size is combinatorial and data-dependent.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J6-20"
+  },
+  {
+    "actionability": 3,
+    "actionability_rationale": "Standalone fix: inline_inbuilt_nn_modules=False + TORCHINDUCTOR_FX_GRAPH_CACHE=1. User can apply immediately.",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Correctly identifies module inlining and excessive guard creation as the cause of 1600+ second compilation for T5. Names inline_inbuilt_nn_modules config.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J7-1"
+  },
+  {
+    "actionability": 3,
+    "actionability_rationale": "Standalone fix: torch.no_grad() if gradients not needed, or compile just inner computation. User can apply immediately.",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Correctly identifies AOTAutograd unrolling static loop and creating exponential backward graph nodes for chained logsumexp.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J7-2"
+  },
+  {
+    "actionability": 3,
+    "actionability_rationale": "Standalone fix: torch.optim.Adam(params, foreach=True) or fused=True. User can apply immediately.",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Correctly identifies Dynamo tracing each iteration of 200+ parameter update loop. Names foreach=True/fused=True as the fix.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J7-3"
+  },
+  {
+    "actionability": 3,
+    "actionability_rationale": "Standalone fix: lr=torch.tensor(0.001) in optimizer constructor. User can apply immediately.",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Correctly identifies scalar hyperparameters triggering Dynamo guards, with tensor wrapping as fix.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J7-4"
+  },
+  {
+    "actionability": 2,
+    "actionability_rationale": "Partial: use dynamic=True and TORCHINDUCTOR_FX_GRAPH_CACHE=1. Standard dynamic shapes advice for compilation time.",
+    "diagnosis": 2,
+    "diagnosis_rationale": "Right area: identifies shape specialization for size-1 dimensions, but doesn't explain the specific optimization difference causing the 2x gap.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J7-5"
+  },
+  {
+    "actionability": 3,
+    "actionability_rationale": "Standalone fix: patch codecache.py changing rename to replace, or clear cache first. User can apply immediately.",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Correctly identifies that Windows rename() can't overwrite existing files unlike Unix, and the fix is using replace() instead.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J7-6"
+  },
+  {
+    "actionability": 2,
+    "actionability_rationale": "Partial: TORCH_LOGS settings, automatic_dynamic_shapes=False, git bisect. User has investigation tools.",
+    "diagnosis": 2,
+    "diagnosis_rationale": "Right area: provides logging and bisection approach, but doesn't identify the specific regression between the two nightlies.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J7-7"
+  },
+  {
+    "actionability": 3,
+    "actionability_rationale": "Standalone fix: remove @triton.autotune, replace None with torch.empty(0), or add guards. User can apply immediately.",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Correctly identifies that Triton autotuner benchmarks configurations without proper None handling, causing illegal memory access.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J7-8"
+  },
+  {
+    "actionability": 2,
+    "actionability_rationale": "Partial: reduce optimization level, use regional compilation, or compile for CUDA instead. User has alternatives but no direct fix for the C++ compilation time.",
+    "diagnosis": 2,
+    "diagnosis_rationale": "Right area: identifies the large C++ file as the bottleneck, but notes PyTorch doesn't parallelize C++ compilation or split translation units.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J7-9"
+  },
+  {
+    "actionability": 3,
+    "actionability_rationale": "Standalone fix: use standard autograd (not compiled_autograd), or switch to FSDP instead of ZeRO-3. User can apply immediately.",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Correctly identifies that compiled_autograd is not production-ready for ZeRO-3, with fake tensor tracing failing on partitioned (empty) parameters.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J7-10"
+  },
+  {
+    "actionability": 2,
+    "actionability_rationale": "Partial: torch.export for deployment, keep processes warm, regional compilation. Specific strategies for cold start mitigation.",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Correctly identifies that only inductor has persistent caching \u2014 Dynamo and AOTAutograd rerun from scratch every cold start, contributing ~70% of overhead.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J7-11"
+  },
+  {
+    "actionability": 2,
+    "actionability_rationale": "Partial: verify cache hits with logging, synchronize compilation, increase NCCL timeout. Concrete debugging steps for this specific scenario.",
+    "diagnosis": 2,
+    "diagnosis_rationale": "Right area: identifies possible cache miss and memory issues, but can't determine the specific cause of extreme compilation times.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J7-12"
+  },
+  {
+    "actionability": 2,
+    "actionability_rationale": "Partial: vectorize the loop or compile just loop body separately. Specific restructuring approaches for this loop pattern.",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Correctly identifies that Dynamo unrolls Python for loops with constant iteration counts, tracing each iteration separately.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J7-13"
+  },
+  {
+    "actionability": 3,
+    "actionability_rationale": "Standalone fix: torch._inductor.config.cpp.vec_isa='avx2' to bypass detection entirely. User can apply immediately.",
+    "diagnosis": 2,
+    "diagnosis_rationale": "Right area: suspects ISA detection is doing more than reading CPU flags, but can't confirm the specific cause of the 9-second overhead.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J7-14"
+  },
+  {
+    "actionability": 2,
+    "actionability_rationale": "Partial: try automatic_dynamic_shapes=False, enable TORCH_LOGS=recompiles, bisect with 2.9. User has concrete investigation path.",
+    "diagnosis": 2,
+    "diagnosis_rationale": "Right area: suspects automatic_dynamic_shapes default change in 2.10, but can't confirm without checking the specific release changes.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J7-15"
+  },
+  {
+    "actionability": 2,
+    "actionability_rationale": "Partial: use torch.export for deployment, FX graph caching for faster recompilation, keep process alive. Specific alternatives to serialization.",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Correctly identifies that compiled models can't be serialized (artifacts tied to Python runtime) and torch.export is the alternative for deployment.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J7-16"
+  },
+  {
+    "actionability": 2,
+    "actionability_rationale": "Partial: torch.export for deployment, keep processes warm. Same as J7-11 \u2014 specific strategies but no direct fix.",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Correctly identifies the architectural gap: inductor caches persist but Dynamo's bytecode tracing and guard construction have no persistent cache.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J7-17"
+  },
+  {
+    "actionability": 1,
+    "actionability_rationale": "Generic: enable metrics logging, check graph complexity, try torch.no_grad() \u2014 standard profiling advice for any compilation time issue. Interchangeable.",
+    "diagnosis": 2,
+    "diagnosis_rationale": "Right area: provides logging and profiling tools but can't determine the specific cause of slow tracing without seeing the model.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J7-18"
+  },
+  {
+    "actionability": 2,
+    "actionability_rationale": "Partial: set use_orig_params=True, ensure consistent MixedPrecision config, try different versions. Specific to FSDP+compile mixed precision.",
+    "diagnosis": 2,
+    "diagnosis_rationale": "Right area: correctly identifies use_orig_params=True and consistent MixedPrecision config as critical, but can't determine the specific gradient dtype mismatch mechanism.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J7-19"
+  },
+  {
+    "actionability": 2,
+    "actionability_rationale": "Partial: pre-compile with warmup before distributed training, increase NCCL timeout. Specific to this GIL+distributed interaction.",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Correctly identifies that Triton compilation involves Python code generation requiring GIL, and when CUDA is stuck, compilation and other threads can't proceed.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J7-20"
+  },
+  {
+    "actionability": 3,
+    "actionability_rationale": "Standalone fix: provides complete custom_op code pattern with @torch.library.custom_op decorator and register_fake. User can implement immediately.",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Correctly explains the full torch.library.custom_op workflow: define, implement, register_fake, optional register_decomposition.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J8-1"
+  },
+  {
+    "actionability": 3,
+    "actionability_rationale": "Standalone fix: torch._inductor.config.fx_graph_cache=False. User can apply immediately.",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Correctly identifies that FX graph caching doesn't support HigherOrderOperators (like flex_attention), and the segfault relates to backward pass cache interaction.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J8-2"
+  },
+  {
+    "actionability": 3,
+    "actionability_rationale": "Standalone fix: use F.batch_norm with explicit running_mean/var as inputs/outputs. Complete functional pattern provided.",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Correctly identifies that while_loop requires pure functions, and BatchNorm's running statistics mutations violate this requirement.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J8-3"
+  },
+  {
+    "actionability": 2,
+    "actionability_rationale": "Partial: provides checklist of common issues and debugging approach. User has concrete investigation path.",
+    "diagnosis": 2,
+    "diagnosis_rationale": "Right area: correctly identifies missing/incorrect register_fake, autograd registration, and memory layout as common issues, but can't diagnose without seeing the specific error.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J8-4"
+  },
+  {
+    "actionability": 2,
+    "actionability_rationale": "Partial: create mask outside @torch.compile, consider sequence-length masking. User has alternatives but needs to restructure.",
+    "diagnosis": 2,
+    "diagnosis_rationale": "Right area: identifies batch-dependent mask patterns causing recompilation, but doesn't provide a definitive solution for document packing use case.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J8-5"
+  },
+  {
+    "actionability": 3,
+    "actionability_rationale": "Standalone fix: torch.set_float32_matmul_precision('highest') for exact match. User can apply immediately.",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Correctly identifies that set_float32_matmul_precision('high') enables TF32 which affects FlexAttention and SDPA differently due to different code paths.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J8-6"
+  },
+  {
+    "actionability": 3,
+    "actionability_rationale": "Standalone fix: @torch._dynamo.disable decorator on the function calling the custom op. User can apply immediately.",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Correctly identifies that third-party ops like pytorch_cluster's radius lack torch.compile integration (no fake implementation registered).",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J8-7"
+  },
+  {
+    "actionability": 2,
+    "actionability_rationale": "Partial: refactor to pass weights explicitly, ensure scalar predicate. User has restructuring approach but needs to verify.",
+    "diagnosis": 2,
+    "diagnosis_rationale": "Right area: identifies constraints on cond branches (same signature, pure functions, no module state) but doesn't pinpoint the specific Functionalize dispatch error.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J8-8"
+  },
+  {
+    "actionability": 2,
+    "actionability_rationale": "Partial: upgrade PyTorch, try complex64, decompose to real/imaginary. User has multiple approaches.",
+    "diagnosis": 2,
+    "diagnosis_rationale": "Right area: confirms complex number support exists but was limited in early versions. The KeyError suggests missing lowering for complex dtype.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J8-9"
+  },
+  {
+    "actionability": 3,
+    "actionability_rationale": "Standalone fix: torch._inductor.config.max_autotune=False, or use working nightly. User can apply immediately.",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Correctly identifies this as a regression in PyTorch 2.6.0 release (works in nightly), specifically in Triton autotuning configuration validation.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J8-10"
+  },
+  {
+    "actionability": 2,
+    "actionability_rationale": "Partial: use compute-sanitizer for debugging, avoid aliased inputs, use eager mode for this pattern. Specific to aliased-tensor custom op issue.",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Correctly identifies that the illegal memory access stems from inductor's handling of aliased tensor inputs to mutating custom ops, where mutation semantics and memory planning conflict.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J8-11"
+  },
+  {
+    "actionability": 2,
+    "actionability_rationale": "Partial: simplify score_mod, use standard attention for relative position. Specific to this FlexAttention indexing pattern.",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Correctly identifies that complex score_mod with dependent indexing (q_idx - kv_idx) creates kernel generation issues at specific tile sizes.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J8-12"
+  },
+  {
+    "actionability": 3,
+    "actionability_rationale": "Standalone fix: pre-compile in single thread before spawning workers, or disable CUDA graphs. User can apply immediately.",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Correctly identifies that CUDA graphs + max-autotune have thread-safety limitations for concurrent compilation and execution.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J8-13"
+  },
+  {
+    "actionability": 1,
+    "actionability_rationale": "Generic: use for loops, torch.jit.script, or consider JAX \u2014 standard advice for any user looking for missing PyTorch functionality. Interchangeable.",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Correctly identifies that PyTorch has no native torch.scan equivalent to JAX's lax.scan, referencing open issue #50688.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J8-14"
+  },
+  {
+    "actionability": 1,
+    "actionability_rationale": "Generic: use sequential scan, torch.cumsum for prefix sum, or custom CUDA kernels \u2014 standard alternatives for missing operations. Interchangeable.",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Correctly identifies that PyTorch lacks native parallel associative scan, referencing issue #95408 and third-party prefix_sum implementation.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J8-15"
+  },
+  {
+    "actionability": 1,
+    "actionability_rationale": "Generic: allocate symmetric memory explicitly, avoid compile for these collectives. Standard workaround for any compile-incompatible feature.",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Correctly identifies that symmetric memory for NVLink peer-to-peer communication isn't integrated with torch.compile's memory planning, referencing issue #162859.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J8-16"
+  },
+  {
+    "actionability": 2,
+    "actionability_rationale": "Partial: use lower-level torch.Library API for performance-critical ops. Specific alternative that addresses the performance gap.",
+    "diagnosis": 2,
+    "diagnosis_rationale": "Right area: identifies additional dispatch overhead and boxing/unboxing as potential causes, but can't confirm the specific mechanism without profiling data.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J8-17"
+  },
+  {
+    "actionability": 2,
+    "actionability_rationale": "Partial: use dynamic=False, check generated code, consider CUDA. Specific to CPU inductor custom reduction performance.",
+    "diagnosis": 2,
+    "diagnosis_rationale": "Right area: identifies missing loop unrolling, vectorization, and dynamic shapes overhead as potential causes, but can't confirm which applies.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J8-18"
+  },
+  {
+    "actionability": 3,
+    "actionability_rationale": "Standalone fix: DISABLE_LLVM_OPT=1 to bypass the problematic optimization pass. User can apply immediately.",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Correctly identifies the LLVM SLP vectorizer assertion as a Triton/LLVM version compatibility bug triggered by specific kernel configurations.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J8-19"
+  },
+  {
+    "actionability": 2,
+    "actionability_rationale": "Partial: simplify mask pattern, use uncompiled flex_attention or standard SDPA. Specific workarounds for this mask complexity issue.",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Correctly identifies backward gradient codegen bug for complex mask patterns with multiple conditional branches and modulo operations.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J8-20"
+  }
+]
