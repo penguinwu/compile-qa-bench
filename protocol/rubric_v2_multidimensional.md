@@ -90,6 +90,22 @@ For resolved issues, compare against the actual resolution from the GitHub issue
 - Speculating about a plausible root cause that is consistent with the error = score 2.
 - Confidently naming a wrong cause = score 0.
 
+### CRITICAL: Track-Aware Diagnosis Scoring
+
+Diagnosis scoring MUST account for the agent's access constraints. What counts as "correct diagnosis" depends on what the agent was allowed to use.
+
+**Track 2 (doc-restricted):** The agent can ONLY use official pytorch.org documentation. If the docs genuinely don't cover the user's problem, then "this is not covered in official documentation" IS a correct diagnosis (score 3) — it is the most accurate statement the agent can make within its constraints. Do NOT score this as Diagnosis=1 on the grounds that the agent "didn't explain the technical mechanism." The agent had no access to source code, GitHub issues, or forums where that mechanism might be described.
+
+**Track 1 (unrestricted):** The agent has full access to web, GitHub, forums, source code. In this context, "docs don't cover this" is NOT sufficient for Diagnosis=3 — the agent had other sources and should have investigated further. Score 1-2 depending on how much the agent engaged with the problem.
+
+| Agent response | Track 2 (doc-restricted) | Track 1 (unrestricted) |
+|---------------|--------------------------|----------------------|
+| "Not covered in official docs" (accurate) | Diagnosis=3 | Diagnosis=1 |
+| "Not covered in docs" + explains WHY from source code | n/a (can't access source) | Diagnosis=3 |
+| "Not covered in docs" + links to GitHub issue | n/a (can't access GitHub) | Diagnosis=2-3 |
+
+**Why this matters:** v2 calibration round 1 produced Diagnosis κ=0.015 because one scorer (Raven) applied Track 1 standards to Track 2 data. All 16 disagreement cases followed this pattern: Rocky scored Diagnosis=3 (accurate gap identification under doc constraint), Raven scored Diagnosis=1 (no technical analysis). Both readings were defensible under the old rubric text — this section removes the ambiguity.
+
 ---
 
 ## Dimension 2: Actionability (0-3)
@@ -176,7 +192,7 @@ This decomposition eliminates the ambiguity. Rocky's "the agent got it right" an
 **Fabricated (mark Yes):**
 - Invented config flags: `torch._inductor.config.skip_guard_on_globals_unsafe` (doesn't exist)
 - Invented env vars: `TORCHINDUCTOR_COMPILE_BISECTOR` (doesn't exist)
-- Invented API methods: `save_cache_artifacts()`, `load_cache_artifacts()` (don't exist)
+- Invented API methods: `torch._dynamo.utils.compile_profiler.reset()` (doesn't exist)
 - Invented function signatures: `torch.compile(skip_warmup=True)` (no such parameter)
 - Invented modules: `from torch._dynamo.utils import compile_profiler` (no such module)
 
@@ -381,3 +397,5 @@ Before scoring the full 160-case dataset:
 ---
 
 *Rubric v2.0 -- 2026-04-13. Motivated by IAA analysis showing kappa=0.077 on single-score rubric (see `analysis/iaa_doc_restricted.md`). Splits into Diagnosis, Actionability, and Fabrication to eliminate the gap-acknowledgment ambiguity and the fabrication-penalty inconsistency.*
+
+*Rubric v2.1 -- 2026-04-13. Added track-aware Diagnosis scoring rules after calibration round 1 showed Diagnosis κ=0.015. Root cause: Raven applied unrestricted standards to doc-restricted data. Also corrected save_cache_artifacts/load_cache_artifacts fabrication example (they are real APIs in torch.compiler). See `analysis/iaa_v2_calibration.md`.*
