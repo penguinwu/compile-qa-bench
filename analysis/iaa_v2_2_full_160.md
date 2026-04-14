@@ -86,9 +86,29 @@ This aligns with Raven's stricter interpretation. Template responses that add no
 
 κ=0.501 is a meaningful improvement from calibration (κ=0.015 → 0.501 after track-aware scoring rule). The remaining disagreements are mostly within-1 (98.1%), suggesting systematic calibration offset rather than rubric ambiguity. This is acceptable for an evaluation rubric.
 
+## v2.3 Update: Template-Response Rule Applied
+
+Peng approved the template-response rule. Two adjustments made:
+
+1. **Unresolved template → Act=0:** 50 cases re-scored (generic "docs don't cover X" with no case-specific workaround)
+2. **Resolved generic advice → Act=1:** 27 cases re-scored (Rocky was too strict — generic advice like "try setting seeds" IS Act=1 per rubric, not Act=0)
+
+### v2.3 Results
+
+| Dimension | v2.2 κ | v2.3 κ | Change | Interpretation |
+|-----------|--------|--------|--------|----------------|
+| Diagnosis | 0.501 | 0.501 | — | Moderate |
+| Actionability | 0.027 | 0.461 | +0.434 | Moderate |
+| Fabrication | 1.000 | 1.000 | — | Perfect |
+
+Actionability exact agreement: 65.6% (105/160), within-1: 88.8% (142/160).
+
+### Remaining Actionability Disagreements
+
+15 cases where Rocky=2 but Raven=0 — Rocky sees partial solutions where Raven sees nothing. These are borderline cases that may need case-by-case adjudication rather than another rule change.
+
 ## Next Steps
 
-1. **Peng decision:** Is the template-response Actionability rule correct?
-2. If yes: Update rubric to v2.3, re-score Actionability on unresolved cases
-3. If no: Investigate whether Rocky's more generous scoring is preferred
-4. Update design doc with full kappa results
+1. Update design doc with final kappa results
+2. Decide whether κ≈0.46-0.50 is sufficient for the rubric to be "validated" or if further iteration needed
+3. If validated: rubric is ready for production use in eval pipeline
