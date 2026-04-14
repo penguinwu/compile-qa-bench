@@ -1,6 +1,6 @@
 # Scoring Rubric v2: Multi-Dimensional Agent Guidance Quality
 
-**Version:** 2.0
+**Version:** 2.3
 **Date:** 2026-04-13
 **Replaces:** Single-score 0-3 rubric in `methodology.md` (Sections "Scoring for resolved issues" and "Scoring for unresolved issues")
 **Applies to:** Mode B evaluation (full-context agent guidance), both Track 1 (unrestricted) and Track 2 (doc-restricted)
@@ -157,6 +157,19 @@ This dimension measures practical value to the user, regardless of whether the d
 - Score 2: Suggests useful debugging steps or points the user to the right issue tracker / PR. The user knows where to look next.
 - Score 1: Generic debugging advice not tailored to this specific problem.
 - Score 0: "This is not documented" or "this may be a bug" with nothing further. The gap acknowledgment has zero actionable value, regardless of how accurate the diagnosis is.
+
+### CRITICAL: Template Response Rule for Actionability
+
+When the agent's response follows a generic template pattern — "docs don't cover X" followed by listing general doc topics that appear identically across many unresolved responses — score Actionability=0. This applies regardless of whether the template mentions real APIs or tutorials by name.
+
+**The test:** Would this exact Actionability section appear nearly verbatim in the agent's response to a *different* unresolved issue? If yes → Act=0 (template, not case-specific).
+
+**Score Act≥1 only when the agent provides case-specific guidance:**
+- A workaround or debugging step specific to THIS problem (not generic "enable logging")
+- A pointer to a specific GitHub issue, PR, or known upstream fix
+- A concrete API call or config change tailored to the user's error
+
+**Why this rule exists:** v2.2 full 160-case scoring showed Actionability κ collapsed from 0.897 (calibration) to 0.027. Root cause: 90% of unresolved doc-restricted responses use the same template ("docs don't cover X, here's what docs DO cover: [general topics]"). One scorer gave credit for mentioning general topics (Act=1-2), the other did not (Act=0). Template responses add no case-specific value and should not receive Actionability credit.
 
 ### The Gap Acknowledgment Pattern (Key Disambiguation)
 
@@ -403,3 +416,5 @@ Before scoring the full 160-case dataset:
 *Rubric v2.1 -- 2026-04-13. Added track-aware Diagnosis scoring rules after calibration round 1 showed Diagnosis κ=0.015. Root cause: Raven applied unrestricted standards to doc-restricted data. Also corrected save_cache_artifacts/load_cache_artifacts fabrication example (they are real APIs in torch.compiler). See `analysis/iaa_v2_calibration.md`.*
 
 *Rubric v2.2 -- 2026-04-13. Clarified that track-aware scoring (gap ID = Diag 3) applies to unresolved issues only. For resolved issues, always score against the actual fix regardless of track. Resolves J5-10 disagreement from v2.1 calibration. Rubric validated: within-1 agreement 95%, systematic bias eliminated. Ready for full 160-case deployment.*
+
+*Rubric v2.3 -- 2026-04-14. Added Template Response Rule for Actionability. Full 160-case scoring revealed κ=0.027 on Actionability (down from 0.897 on calibration). Root cause: 90% of unresolved doc-restricted responses use generic template ("docs don't cover X + general topics"). Rocky scored Act=1-2 (relevant background), Raven scored Act=0 (no actionable guidance). Raven's interpretation is correct — template responses that appear identically across cases add no case-specific value. New rule: template = Act=0; only case-specific workarounds/pointers get credit.*
