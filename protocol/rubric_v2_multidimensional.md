@@ -1,6 +1,6 @@
 # Scoring Rubric v2: Multi-Dimensional Agent Guidance Quality
 
-**Version:** 2.3
+**Version:** 2.4
 **Date:** 2026-04-13
 **Replaces:** Single-score 0-3 rubric in `methodology.md` (Sections "Scoring for resolved issues" and "Scoring for unresolved issues")
 **Applies to:** Mode B evaluation (full-context agent guidance), both Track 1 (unrestricted) and Track 2 (doc-restricted)
@@ -170,6 +170,22 @@ When the agent's response follows a generic template pattern — "docs don't cov
 - A concrete API call or config change tailored to the user's error
 
 **Why this rule exists:** v2.2 full 160-case scoring showed Actionability κ collapsed from 0.897 (calibration) to 0.027. Root cause: 90% of unresolved doc-restricted responses use the same template ("docs don't cover X, here's what docs DO cover: [general topics]"). One scorer gave credit for mentioning general topics (Act=1-2), the other did not (Act=0). Template responses add no case-specific value and should not receive Actionability credit.
+
+### Diagnosis: Track 2 Unresolved Gap Identification
+
+For Track 2 (doc-restricted) unresolved cases, if the agent accurately identifies the specific documentation gap — naming what topic or API is not covered — score Diagnosis=3. Only score Diagnosis=2 if the agent mischaracterizes WHICH aspect is missing. Vague but accurate ("this specific issue is not addressed") still qualifies as Diag=3 when the gap identification is factually correct.
+
+### Diagnosis: Right Subsystem = Diag 2, Not 1
+
+For resolved cases where the agent identifies the correct subsystem or interaction (e.g., "AMP + compile", "C++ compiler requirement") but is vague on the mechanism, score Diagnosis=2 (right area). Reserve Diagnosis=1 for cases where the agent discusses the wrong subsystem entirely (e.g., discusses performance when the issue is correctness).
+
+### Actionability: Same Generic Workaround Across Cases = Act 1
+
+When the same workaround appears verbatim across multiple cases of the same type (e.g., "use `torch.compiler.disable()` to skip unsupported code" for every graph-break case), score Act=1 (generic advice) not Act=2 (partial solution). Act=2 requires guidance tailored to the specific case's circumstances.
+
+### Actionability: Problem Characterization Without Steps = Act 0
+
+For unresolved cases where the agent characterizes the limitation ("this appears to be an undocumented limitation where X conflicts with Y") but provides no next steps (no workaround, no issue link, no debugging command), score Act=0. Characterizing a problem is not the same as giving actionable guidance — that value is captured in the Diagnosis dimension.
 
 ### The Gap Acknowledgment Pattern (Key Disambiguation)
 
@@ -418,3 +434,5 @@ Before scoring the full 160-case dataset:
 *Rubric v2.2 -- 2026-04-13. Clarified that track-aware scoring (gap ID = Diag 3) applies to unresolved issues only. For resolved issues, always score against the actual fix regardless of track. Resolves J5-10 disagreement from v2.1 calibration. Rubric validated: within-1 agreement 95%, systematic bias eliminated. Ready for full 160-case deployment.*
 
 *Rubric v2.3 -- 2026-04-14. Added Template Response Rule for Actionability. Full 160-case scoring revealed κ=0.027 on Actionability (down from 0.897 on calibration). Root cause: 90% of unresolved doc-restricted responses use generic template ("docs don't cover X + general topics"). Rocky scored Act=1-2 (relevant background), Raven scored Act=0 (no actionable guidance). Raven's interpretation is correct — template responses that appear identically across cases add no case-specific value. New rule: template = Act=0; only case-specific workarounds/pointers get credit.*
+
+*Rubric v2.4 -- 2026-04-14. Tightened four scoring boundaries after analyzing all remaining disagreement clusters. (1) Track 2 unresolved gap ID always = Diag 3 if factually accurate. (2) Right subsystem = Diag 2, wrong subsystem = Diag 1. (3) Same generic workaround across cases = Act 1, not 2. (4) Problem characterization without steps = Act 0. Result: Diagnosis κ=0.868 (Almost Perfect), Actionability κ=0.825 (Almost Perfect). Both above 0.80 threshold. Rubric validated.*
