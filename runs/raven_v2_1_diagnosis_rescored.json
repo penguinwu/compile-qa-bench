@@ -1,0 +1,122 @@
+[
+  {
+    "diagnosis_rationale": "Correctly identifies FX graph caching mechanism, points to real caching tutorial and TORCHINDUCTOR_FX_GRAPH_CACHE env var. Correct root cause. (Fabrication corrected: save_cache_artifacts/load_cache_artifacts ARE real APIs per torch.compiler.__init__.py.)",
+    "diagnosis_v2_1": 3,
+    "id": "J1-1",
+    "track": 2
+  },
+  {
+    "diagnosis_rationale": "Correctly diagnoses concurrent writes to cache files as root cause of JSONDecodeError. Accurately identifies multi-process cache safety as undocumented.",
+    "diagnosis_v2_1": 3,
+    "id": "J1-20",
+    "track": 2
+  },
+  {
+    "diagnosis_rationale": "Accurately identifies doc gap: profiling tools are documented but compilation granularity trade-offs (why fullgraph can be slower) are not. Correct gap identification under Track 2 constraints.",
+    "diagnosis_v2_1": 3,
+    "id": "J2-11",
+    "track": 2
+  },
+  {
+    "diagnosis_rationale": "Accurately identifies that torch.optim docs cover APIs but not optimizer compilation support/issues. Correctly diagnoses the 'too many arguments' as signature mismatch. Accurate gap identification.",
+    "diagnosis_v2_1": 3,
+    "id": "J5-10",
+    "track": 2
+  },
+  {
+    "diagnosis_rationale": "Partially inaccurate: claims 'No official documentation addresses TORCHINDUCTOR_FX_GRAPH_CACHE usage' — but the caching tutorial DOES document it. Correctly identifies advanced cold start gaps (AOTAutograd caching, additional cache layers) but misses existing basic coverage.",
+    "diagnosis_v2_1": 2,
+    "id": "J7-11",
+    "track": 2
+  },
+  {
+    "diagnosis_rationale": "Accurately identifies that compile timeout + NCCL timeout interaction is not addressed in docs. Correctly distinguishes what docs cover (basic compile, general troubleshooting) vs the specific gap.",
+    "diagnosis_v2_1": 3,
+    "id": "J7-12",
+    "track": 2
+  },
+  {
+    "diagnosis_rationale": "Accurately identifies that loop compilation overhead / dynamo loop handling is not addressed in docs. Correct gap identification.",
+    "diagnosis_v2_1": 3,
+    "id": "J7-13",
+    "track": 2
+  },
+  {
+    "diagnosis_rationale": "Accurately identifies that pick_vec_isa behavior and CPU ISA detection overhead are not documented. Correct gap identification for an internal implementation detail.",
+    "diagnosis_v2_1": 3,
+    "id": "J7-14",
+    "track": 2
+  },
+  {
+    "diagnosis_rationale": "Accurately identifies that version-specific regression analysis (2.10 FSDP + dynamic shapes) is not documented. Correct gap identification.",
+    "diagnosis_v2_1": 3,
+    "id": "J7-15",
+    "track": 2
+  },
+  {
+    "diagnosis_rationale": "Accurately distinguishes Dynamo frontend caching from Inductor backend caching. Correctly identifies Dynamo-level persistent caching as unavailable/undocumented. Strong diagnosis.",
+    "diagnosis_v2_1": 3,
+    "id": "J7-17",
+    "track": 2
+  },
+  {
+    "diagnosis_rationale": "Accurately identifies that AOT Autograd tracing time diagnosis is not addressed in docs. Correct gap identification.",
+    "diagnosis_v2_1": 3,
+    "id": "J7-18",
+    "track": 2
+  },
+  {
+    "diagnosis_rationale": "Accurately identifies that FSDP mixed precision + compile combination is not addressed in docs. Correct gap identification.",
+    "diagnosis_v2_1": 3,
+    "id": "J7-19",
+    "track": 2
+  },
+  {
+    "diagnosis_rationale": "Accurately identifies that custom op memory access errors under compile are not addressed in docs. Correctly notes torch.library docs exist but don't cover this failure mode.",
+    "diagnosis_v2_1": 3,
+    "id": "J8-11",
+    "track": 2
+  },
+  {
+    "diagnosis_rationale": "Accurately identifies that FlexAttention memory access errors are not addressed in docs. Correctly notes FlexAttention blogs focus on usage, not debugging.",
+    "diagnosis_v2_1": 3,
+    "id": "J8-12",
+    "track": 2
+  },
+  {
+    "diagnosis_rationale": "Accurately identifies that CUDA graphs + multithreaded inference is not addressed in docs. Correct gap identification.",
+    "diagnosis_v2_1": 3,
+    "id": "J8-13",
+    "track": 2
+  },
+  {
+    "diagnosis_rationale": "Accurately identifies that symmetric memory + compile interaction is not documented. Correct gap identification for an advanced/experimental feature.",
+    "diagnosis_v2_1": 3,
+    "id": "J8-16",
+    "track": 2
+  },
+  {
+    "diagnosis_rationale": "Accurately identifies that @custom_op vs Library.define performance comparison is not documented. Correct gap identification.",
+    "diagnosis_v2_1": 3,
+    "id": "J8-17",
+    "track": 2
+  },
+  {
+    "diagnosis_rationale": "Accurately identifies that custom reduction op CPU inductor performance is not documented. Correct gap identification.",
+    "diagnosis_v2_1": 3,
+    "id": "J8-18",
+    "track": 2
+  },
+  {
+    "diagnosis_rationale": "Accurately identifies that Triton pin compatibility issues with FlexAttention are not documented. Correct gap identification.",
+    "diagnosis_v2_1": 3,
+    "id": "J8-19",
+    "track": 2
+  },
+  {
+    "diagnosis_rationale": "Accurately identifies that FlexAttention backward gradient correctness issues are not documented. Correct gap identification.",
+    "diagnosis_v2_1": 3,
+    "id": "J8-20",
+    "track": 2
+  }
+]
