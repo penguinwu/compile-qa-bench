@@ -84,11 +84,18 @@ Captures WHY key design choices were made, not just WHAT. These decisions were r
 
 ## D7: Mode A × Mode B Cross-Reference
 
-**Decision:** Designed conceptually but not computed.
+**Decision:** ~~Designed conceptually but not computed.~~ Computed (2026-04-14).
 
-**Rationale:** The cross-reference matrix (Coverage × Discoverability → Agent Quality) is described in methodology.md as the key actionable output. Mode A scores exist; Mode B scores exist. The join analysis was deferred in favor of finishing rubric validation.
+**Rationale:** The cross-reference matrix (Coverage × Discoverability → Agent Quality) is described in methodology.md as the key actionable output.
 
-**Status:** Open item. The data exists to compute it.
+**Key findings (see `analysis/cross_reference.md`):**
+- **Diagnosis is doc-independent** (Spearman ρ=0.043) — agents diagnose equally well without docs
+- **Actionability is doc-dependent** (Spearman ρ=0.450) — Full coverage → 0.86 mean act vs None → 0.12
+- **Partial coverage is the fabrication danger zone** (5.4% fab rate vs 0% Full, 2.3% None)
+- **J3 (Correctness) has 30% fabrication rate** with zero Full coverage — highest-risk journey
+- **J8 (Custom Ops) has zero actionability** despite 5 Full coverage docs — doc quality, not discoverability
+
+**Status:** ✅ Resolved.
 
 ---
 

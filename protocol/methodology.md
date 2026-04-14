@@ -408,7 +408,7 @@ Full repo access (14 fabrications) produces more fabrication than pip-only sourc
 
 5. **Track 1 IAA**: ⚠️ **OPEN** — All IAA validation used Track 2 (doc-restricted) data only. The rubric includes Track 1 scoring rules that have never been empirically tested. See `decisions.md` D5.
 
-6. **Mode A × Mode B cross-reference**: ⚠️ **OPEN** — The Coverage × Discoverability → Agent Quality matrix is designed but not computed. Both Mode A and Mode B scores exist. See `decisions.md` D7.
+6. **Mode A × Mode B cross-reference**: ✅ **RESOLVED** — See `analysis/cross_reference.md`. Key finding: discoverability predicts actionability (ρ=0.450) but not diagnosis (ρ=0.043). Agents diagnose without docs but can't provide fixes without them.
 
 ## Automated Fabrication Detection
 
