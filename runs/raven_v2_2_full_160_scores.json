@@ -1,0 +1,1442 @@
+[
+  {
+    "actionability": 2,
+    "actionability_rationale": "Gives actionable steps (env var, auto cache dir) but leaves user guessing about advanced config details.",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Correct root cause: FX graph caching with TORCHINDUCTOR_FX_GRAPH_CACHE=1 enables persistent compilation across processes. Points to real tutorial.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J1-1"
+  },
+  {
+    "actionability": 2,
+    "actionability_rationale": "Correct but incomplete — no mention of all available backends or how to list them programmatically.",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Correctly identifies backend parameter and lists real backends (inductor, aot_eager). Points to Custom Backends doc.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J1-2"
+  },
+  {
+    "actionability": 2,
+    "actionability_rationale": "'Apply autocast inside forward' is reasonable advice. Incomplete without wrapper ordering specifics.",
+    "diagnosis": 2,
+    "diagnosis_rationale": "Right area — identifies AMP + compile interaction and suggests autocast inside forward. But doesn't pinpoint the specific NotImplementedError cause.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J1-3"
+  },
+  {
+    "actionability": 1,
+    "actionability_rationale": "Just restates the problem ('you need a C++ compiler') without install instructions or specific compiler names.",
+    "diagnosis": 2,
+    "diagnosis_rationale": "Right area — identifies C++ compiler requirement. But doesn't specify which compilers work or how to check/install.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J1-4"
+  },
+  {
+    "actionability": 2,
+    "actionability_rationale": "Explains warmup concept and measurement approach. No code example but methodology is sound.",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Correct root cause: first call includes compilation overhead, subsequent calls reuse compiled code. Points to real regional compilation tutorial.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J1-5"
+  },
+  {
+    "actionability": 1,
+    "actionability_rationale": "Just says 'not documented.' No workaround or approach.",
+    "diagnosis": 2,
+    "diagnosis_rationale": "Correctly identifies tensor parallel + compile as the relevant intersection. No analysis of what specifically fails.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J1-6"
+  },
+  {
+    "actionability": 0,
+    "actionability_rationale": "No actionable guidance.",
+    "diagnosis": 1,
+    "diagnosis_rationale": "No analysis of why set_device is ignored under compile. Just reports doc gap.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J1-7"
+  },
+  {
+    "actionability": 0,
+    "actionability_rationale": "No actionable guidance.",
+    "diagnosis": 1,
+    "diagnosis_rationale": "No analysis of Triton/CUDA compatibility. Just reports doc gap.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J1-8"
+  },
+  {
+    "actionability": 3,
+    "actionability_rationale": "Complete solution: enable env var, cache is automatic and persistent. User can apply immediately.",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Correct root cause: FX graph cache with env var, auto-persistence, process-agnostic when enabled.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J1-9"
+  },
+  {
+    "actionability": 1,
+    "actionability_rationale": "Generic 'not documented' without any approach.",
+    "diagnosis": 1,
+    "diagnosis_rationale": "No analysis of checkpoint+compile compatibility. Just reports gap.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J1-10"
+  },
+  {
+    "actionability": 2,
+    "actionability_rationale": "TORCH_LOGS='+recompiles' is real and useful as a starting point, though incomplete for full cache diagnostic.",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Accurately identifies that troubleshooting docs cover recompilation logging but not 3-stage caching diagnostics.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J1-11"
+  },
+  {
+    "actionability": 0,
+    "actionability_rationale": "No workaround or alternative approach.",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Accurately identifies that autograd.grad tracing is not documented as a limitation.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J1-12"
+  },
+  {
+    "actionability": 0,
+    "actionability_rationale": "No guidance.",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Accurately identifies no GRU compile support docs.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J1-13"
+  },
+  {
+    "actionability": 0,
+    "actionability_rationale": "No guidance.",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Accurately identifies multiprocessing+compile daemon conflict not documented.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J1-14"
+  },
+  {
+    "actionability": 0,
+    "actionability_rationale": "No guidance.",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Accurately identifies MXFP8+compile not documented.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J1-15"
+  },
+  {
+    "actionability": 0,
+    "actionability_rationale": "No guidance.",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Accurately identifies complex dtype support not documented.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J1-16"
+  },
+  {
+    "actionability": 0,
+    "actionability_rationale": "No guidance.",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Accurately identifies Windows-specific compile setup not documented.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J1-17"
+  },
+  {
+    "actionability": 0,
+    "actionability_rationale": "No guidance.",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Accurately identifies inductor pattern matching not documented.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J1-18"
+  },
+  {
+    "actionability": 0,
+    "actionability_rationale": "No guidance.",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Accurately identifies linker path issues not documented.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J1-19"
+  },
+  {
+    "actionability": 0,
+    "actionability_rationale": "No workaround provided.",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Correctly identifies concurrent writes as probable cause of JSONDecodeError. Accurately identifies multi-process cache safety gap.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J1-20"
+  },
+  {
+    "actionability": 3,
+    "actionability_rationale": "Complete: code example for profiling, real env vars, systematic diagnosis checklist. User can apply immediately.",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Correct diagnostic approach: profiler, TORCH_LOGS='+graph_breaks', compilation modes. Systematic methodology.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J2-1"
+  },
+  {
+    "actionability": 2,
+    "actionability_rationale": "TORCHINDUCTOR_PROFILE=1 and TORCH_COMPILE_DEBUG=1 are real and useful starting points.",
+    "diagnosis": 2,
+    "diagnosis_rationale": "Right area — identifies profiling as needed. But doesn't identify operator-specific codegen quality as root cause.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J2-2"
+  },
+  {
+    "actionability": 2,
+    "actionability_rationale": "Correctly explains why and suggests reduce-overhead mode. But no specific threshold or sizing guidance.",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Correct root cause: small models don't benefit because overhead exceeds optimization gains.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J2-3"
+  },
+  {
+    "actionability": 1,
+    "actionability_rationale": "Mentions profiling tools but doesn't explain how to use them for version comparison.",
+    "diagnosis": 1,
+    "diagnosis_rationale": "No investigation of version-specific changes. Just says no changelog exists.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J2-4"
+  },
+  {
+    "actionability": 2,
+    "actionability_rationale": "TORCH_LOGS and TORCH_COMPILE_DEBUG are useful starting points for isolating the issue.",
+    "diagnosis": 2,
+    "diagnosis_rationale": "Correctly identifies C++ crash is beyond typical debug scope. Mentions real debug tools.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J2-5"
+  },
+  {
+    "actionability": 2,
+    "actionability_rationale": "Good explanation of why. No alternative approach for improving matmul performance.",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Correct root cause: matmul already uses cuBLAS, compile benefits come from fusion not single ops.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J2-6"
+  },
+  {
+    "actionability": 0,
+    "actionability_rationale": "No guidance.",
+    "diagnosis": 1,
+    "diagnosis_rationale": "No analysis of GIL behavior. Just reports gap.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J2-7"
+  },
+  {
+    "actionability": 0,
+    "actionability_rationale": "No guidance.",
+    "diagnosis": 1,
+    "diagnosis_rationale": "No analysis of flex_attention. Just reports gap.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J2-8"
+  },
+  {
+    "actionability": 2,
+    "actionability_rationale": "Chrome trace and profiling approach is sound and actionable.",
+    "diagnosis": 2,
+    "diagnosis_rationale": "Right area — profiling methodology. But doesn't explain decoder-specific compilation challenges.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J2-9"
+  },
+  {
+    "actionability": 0,
+    "actionability_rationale": "No guidance.",
+    "diagnosis": 1,
+    "diagnosis_rationale": "No analysis of operator coverage. Just reports no list exists.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J2-10"
+  },
+  {
+    "actionability": 1,
+    "actionability_rationale": "Mentions profiling guide can help identify slowdown location. Minimal but non-zero.",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Accurately identifies that full-model compilation perf trade-offs are not documented.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J2-11"
+  },
+  {
+    "actionability": 0,
+    "actionability_rationale": "No guidance.",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Accurately identifies complex tensor performance gap.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J2-12"
+  },
+  {
+    "actionability": 0,
+    "actionability_rationale": "No guidance.",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Accurately identifies float8 performance gap.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J2-13"
+  },
+  {
+    "actionability": 0,
+    "actionability_rationale": "No guidance.",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Accurately identifies inductor codegen strategy gap.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J2-14"
+  },
+  {
+    "actionability": 0,
+    "actionability_rationale": "No guidance.",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Accurately identifies SDPA+compile+tf32 interaction gap.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J2-15"
+  },
+  {
+    "actionability": 0,
+    "actionability_rationale": "No guidance.",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Accurately identifies inductor fusion strategy gap.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J2-16"
+  },
+  {
+    "actionability": 0,
+    "actionability_rationale": "No guidance.",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Accurately identifies torch._foreach ops gap.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J2-17"
+  },
+  {
+    "actionability": 1,
+    "actionability_rationale": "Mentions existing profiling APIs as starting point for building custom tooling.",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Accurately identifies no perf canary feature exists. Points to profiling APIs as building blocks.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J2-18"
+  },
+  {
+    "actionability": 1,
+    "actionability_rationale": "Blog link has some reference numbers, though not a dashboard.",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Accurately identifies no CPU benchmark dashboard. Points to blog with some numbers.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J2-19"
+  },
+  {
+    "actionability": 0,
+    "actionability_rationale": "No guidance and based on incorrect premise.",
+    "diagnosis": 2,
+    "diagnosis_rationale": "Claims no XPU docs exist — but Intel GPU/XPU documentation IS on pytorch.org. Partially inaccurate gap identification.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J2-20"
+  },
+  {
+    "actionability": 1,
+    "actionability_rationale": "Generic: 'manually isolate and compare eager vs compiled.' Not case-specific.",
+    "diagnosis": 1,
+    "diagnosis_rationale": "Wrongly claims minifier/repro_level are 'internal development tools not covered in public documentation' — repro_level IS in troubleshooting docs.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J3-1"
+  },
+  {
+    "actionability": 1,
+    "actionability_rationale": "Same generic template.",
+    "diagnosis": 1,
+    "diagnosis_rationale": "Identical wrong claim about minifier/repro_level. Same template as J3-1.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J3-2"
+  },
+  {
+    "actionability": 1,
+    "actionability_rationale": "Generic: 'check compatible data types and numerical stability.' Not specific.",
+    "diagnosis": 2,
+    "diagnosis_rationale": "Slightly better — mentions FlexAttention score_mod and block_mask as potential accuracy sources.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J3-3"
+  },
+  {
+    "actionability": 1,
+    "actionability_rationale": "detect_anomaly is real but not compile-specific. Generic precision advice.",
+    "diagnosis": 2,
+    "diagnosis_rationale": "Right area — mentions detect_anomaly, precision/scaling. Points to real float8 blog.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J3-4"
+  },
+  {
+    "actionability": 1,
+    "actionability_rationale": "Generic seed advice (manual_seed, cuda.manual_seed_all). Not compile-specific.",
+    "diagnosis": 2,
+    "diagnosis_rationale": "Right area — seed setting for reproducibility. Points to numerical accuracy docs.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J3-5"
+  },
+  {
+    "actionability": 1,
+    "actionability_rationale": "Same generic template.",
+    "diagnosis": 1,
+    "diagnosis_rationale": "Identical boilerplate to J3-1. Wrong claim about minifier/repro_level.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J3-6"
+  },
+  {
+    "actionability": 1,
+    "actionability_rationale": "Same generic template.",
+    "diagnosis": 1,
+    "diagnosis_rationale": "Identical boilerplate to J3-1.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J3-7"
+  },
+  {
+    "actionability": 1,
+    "actionability_rationale": "Same template as J3-4.",
+    "diagnosis": 2,
+    "diagnosis_rationale": "Same as J3-4 — detect_anomaly, precision advice.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J3-8"
+  },
+  {
+    "actionability": 1,
+    "actionability_rationale": "Same generic template.",
+    "diagnosis": 1,
+    "diagnosis_rationale": "Identical boilerplate to J3-1.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J3-9"
+  },
+  {
+    "actionability": 1,
+    "actionability_rationale": "Same generic template.",
+    "diagnosis": 1,
+    "diagnosis_rationale": "Identical boilerplate to J3-1.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J3-10"
+  },
+  {
+    "actionability": 1,
+    "actionability_rationale": "TORCH_LOGS is a real starting point, though generic.",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Accurately identifies doc gap for this unresolved issue. Mentions TORCH_LOGS.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J3-11"
+  },
+  {
+    "actionability": 0,
+    "actionability_rationale": "Just says 'isolate, create repro, check GitHub.' No specific approach.",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Accurately identifies doc gap. Correct that this is an open issue not covered in docs.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J3-12"
+  },
+  {
+    "actionability": 0,
+    "actionability_rationale": "Same generic template.",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Accurate gap identification.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J3-13"
+  },
+  {
+    "actionability": 0,
+    "actionability_rationale": "Same generic template.",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Accurate gap identification.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J3-14"
+  },
+  {
+    "actionability": 0,
+    "actionability_rationale": "Same generic template.",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Accurate gap identification.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J3-15"
+  },
+  {
+    "actionability": 0,
+    "actionability_rationale": "Same generic template.",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Accurate gap identification.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J3-16"
+  },
+  {
+    "actionability": 0,
+    "actionability_rationale": "Same generic template.",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Accurate gap identification.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J3-17"
+  },
+  {
+    "actionability": 0,
+    "actionability_rationale": "Same generic template.",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Accurate gap identification.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J3-18"
+  },
+  {
+    "actionability": 0,
+    "actionability_rationale": "Same generic template.",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Accurate gap identification.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J3-19"
+  },
+  {
+    "actionability": 0,
+    "actionability_rationale": "Generic template.",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Accurate gap identification. Mentions graph breaks and TORCH_LOGS.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J3-20"
+  },
+  {
+    "actionability": 1,
+    "actionability_rationale": "Real tools mentioned but completely non-specific to the actual issue.",
+    "diagnosis": 2,
+    "diagnosis_rationale": "Right area — graph break debugging is relevant. Mentions real tools (TORCH_LOGS='+dynamo', torch.compiler.disable). But same template for all cases.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J4-1"
+  },
+  {
+    "actionability": 1,
+    "actionability_rationale": "Same generic tools.",
+    "diagnosis": 2,
+    "diagnosis_rationale": "Same template. Right area but non-specific.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J4-2"
+  },
+  {
+    "actionability": 1,
+    "actionability_rationale": "Same generic tools.",
+    "diagnosis": 2,
+    "diagnosis_rationale": "Same template.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J4-3"
+  },
+  {
+    "actionability": 1,
+    "actionability_rationale": "Same generic tools.",
+    "diagnosis": 2,
+    "diagnosis_rationale": "Same template.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J4-4"
+  },
+  {
+    "actionability": 1,
+    "actionability_rationale": "Same generic tools.",
+    "diagnosis": 2,
+    "diagnosis_rationale": "Same template.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J4-5"
+  },
+  {
+    "actionability": 1,
+    "actionability_rationale": "Same generic tools.",
+    "diagnosis": 2,
+    "diagnosis_rationale": "Same template.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J4-6"
+  },
+  {
+    "actionability": 0,
+    "actionability_rationale": "No guidance.",
+    "diagnosis": 1,
+    "diagnosis_rationale": "Different template: 'specific guidance not available.' No analysis at all.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J4-7"
+  },
+  {
+    "actionability": 1,
+    "actionability_rationale": "Same generic tools.",
+    "diagnosis": 2,
+    "diagnosis_rationale": "Same graph break template.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J4-8"
+  },
+  {
+    "actionability": 1,
+    "actionability_rationale": "Same generic tools.",
+    "diagnosis": 2,
+    "diagnosis_rationale": "Same template.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J4-9"
+  },
+  {
+    "actionability": 1,
+    "actionability_rationale": "Same generic tools.",
+    "diagnosis": 2,
+    "diagnosis_rationale": "Same template.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J4-10"
+  },
+  {
+    "actionability": 0,
+    "actionability_rationale": "Just says 'check error messages, consult GitHub.' Generic.",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Accurate gap identification for unresolved graph break issue.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J4-11"
+  },
+  {
+    "actionability": 0,
+    "actionability_rationale": "Same template.",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Accurate gap identification.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J4-12"
+  },
+  {
+    "actionability": 0,
+    "actionability_rationale": "Same template.",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Accurate gap identification.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J4-13"
+  },
+  {
+    "actionability": 0,
+    "actionability_rationale": "Same template.",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Accurate gap identification.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J4-14"
+  },
+  {
+    "actionability": 0,
+    "actionability_rationale": "Same template.",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Accurate gap identification.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J4-15"
+  },
+  {
+    "actionability": 0,
+    "actionability_rationale": "Same template.",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Accurate gap identification.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J4-16"
+  },
+  {
+    "actionability": 0,
+    "actionability_rationale": "Same template.",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Accurate gap identification.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J4-17"
+  },
+  {
+    "actionability": 0,
+    "actionability_rationale": "Same template.",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Accurate gap identification.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J4-18"
+  },
+  {
+    "actionability": 0,
+    "actionability_rationale": "Same template.",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Accurate gap identification.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J4-19"
+  },
+  {
+    "actionability": 0,
+    "actionability_rationale": "Same template.",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Accurate gap identification.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J4-20"
+  },
+  {
+    "actionability": 1,
+    "actionability_rationale": "Generic: 'use default mode first, add validation.' No specific flags or techniques.",
+    "diagnosis": 2,
+    "diagnosis_rationale": "Right area — max-autotune enables aggressive optimization. Identifies precision gap. But doesn't explain the specific mechanism.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J5-1"
+  },
+  {
+    "actionability": 1,
+    "actionability_rationale": "Generic suggestions. No version-specific debugging.",
+    "diagnosis": 1,
+    "diagnosis_rationale": "No root cause analysis for 7x regression. Just says reduce-overhead uses CUDA graphs.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J5-2"
+  },
+  {
+    "actionability": 1,
+    "actionability_rationale": "No specific optimization technique for composed FlexAttention masks.",
+    "diagnosis": 2,
+    "diagnosis_rationale": "Right area — identifies register usage and memory patterns for composed masks. Points to real blogs.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J5-3"
+  },
+  {
+    "actionability": 1,
+    "actionability_rationale": "Suggests filing GitHub issue — reasonable for a compiler bug but no workaround.",
+    "diagnosis": 2,
+    "diagnosis_rationale": "Correctly identifies this as an internal compiler bug in an optimization pass.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J5-4"
+  },
+  {
+    "actionability": 1,
+    "actionability_rationale": "Generic debugging suggestions.",
+    "diagnosis": 1,
+    "diagnosis_rationale": "No bisection methodology. Just says gap exists.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J5-5"
+  },
+  {
+    "actionability": 1,
+    "actionability_rationale": "Suggests filing bug. No workaround.",
+    "diagnosis": 1,
+    "diagnosis_rationale": "No analysis of autotuner alignment error.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J5-6"
+  },
+  {
+    "actionability": 0,
+    "actionability_rationale": "No guidance on how to achieve or verify fusion.",
+    "diagnosis": 2,
+    "diagnosis_rationale": "Correctly identifies that CrossEntropyLoss is documented but fused variant isn't.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J5-7"
+  },
+  {
+    "actionability": 0,
+    "actionability_rationale": "No guidance.",
+    "diagnosis": 2,
+    "diagnosis_rationale": "Correctly identifies vLLM as external/third-party.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J5-8"
+  },
+  {
+    "actionability": 0,
+    "actionability_rationale": "No guidance.",
+    "diagnosis": 1,
+    "diagnosis_rationale": "No Windows-specific analysis beyond noting support is listed.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J5-9"
+  },
+  {
+    "actionability": 2,
+    "actionability_rationale": "'Compile training step function, not optimizer directly' is a real, useful workaround.",
+    "diagnosis": 2,
+    "diagnosis_rationale": "Right area — signature mismatch. Correctly identifies docs gap.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J5-10"
+  },
+  {
+    "actionability": 0,
+    "actionability_rationale": "No guidance.",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Accurately identifies mode combination gap.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J5-11"
+  },
+  {
+    "actionability": 1,
+    "actionability_rationale": "Basic suggestion: reduce batch/sequence/heads. Generic but directionally correct.",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Accurately identifies FlexAttention shared memory limit gap. Points to blog.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J5-12"
+  },
+  {
+    "actionability": 0,
+    "actionability_rationale": "No guidance.",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Accurately identifies embedding optimization gap.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J5-13"
+  },
+  {
+    "actionability": 0,
+    "actionability_rationale": "No guidance.",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Accurately identifies Triton specialization performance gap.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J5-14"
+  },
+  {
+    "actionability": 1,
+    "actionability_rationale": "Lists common issues (incorrect schema, missing fake/meta). Partially useful.",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Accurately identifies custom op registration error gap. Mentions common pitfalls.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J5-15"
+  },
+  {
+    "actionability": 0,
+    "actionability_rationale": "No guidance.",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Accurately identifies custom backend integration gap.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J5-16"
+  },
+  {
+    "actionability": 0,
+    "actionability_rationale": "No guidance.",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Accurately identifies algorithm selection gap.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J5-17"
+  },
+  {
+    "actionability": 0,
+    "actionability_rationale": "No guidance.",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Accurately identifies reduction kernel padding gap.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J5-18"
+  },
+  {
+    "actionability": 0,
+    "actionability_rationale": "No guidance.",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Accurately identifies Welford algorithm gap.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J5-19"
+  },
+  {
+    "actionability": 0,
+    "actionability_rationale": "No actionable guidance beyond understanding.",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Accurately identifies gap on why CUDA graphs aren't default. Notes limitations.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J5-20"
+  },
+  {
+    "actionability": 2,
+    "actionability_rationale": "Actionable: use dynamic=True or mark_dynamic. But doesn't explain LayerNorm-specific behavior.",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Correct: dynamic=True and mark_dynamic for batch dim address LayerNorm backward recompilation. Points to real docs.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J6-1"
+  },
+  {
+    "actionability": 1,
+    "actionability_rationale": "No workaround for empty tensor crash.",
+    "diagnosis": 2,
+    "diagnosis_rationale": "Right area — dynamic shapes + empty tensors. Identifies as likely bug.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J6-2"
+  },
+  {
+    "actionability": 1,
+    "actionability_rationale": "Generic. No specific guidance for reduction operations.",
+    "diagnosis": 2,
+    "diagnosis_rationale": "Right area — dynamic shapes for reductions. Notes rank-changing ops challenge.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J6-3"
+  },
+  {
+    "actionability": 1,
+    "actionability_rationale": "Generic dynamic shapes suggestion without GNN-specific guidance.",
+    "diagnosis": 2,
+    "diagnosis_rationale": "Correctly identifies PyTorch Geometric as third-party. Suggests dynamic shapes generally.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J6-4"
+  },
+  {
+    "actionability": 2,
+    "actionability_rationale": "Actionable: dynamic=True, mark_dynamic, bucketing. Sound approach.",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Correct: dynamic=True + mark_dynamic on sequence dim for variable-length attention.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J6-5"
+  },
+  {
+    "actionability": 1,
+    "actionability_rationale": "Suggests mark_dynamic but doesn't explain debugging methodology.",
+    "diagnosis": 2,
+    "diagnosis_rationale": "Right area — guard system and mark_dynamic. But doesn't explain why auto-detection fails.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J6-6"
+  },
+  {
+    "actionability": 2,
+    "actionability_rationale": "torch._dynamo.explain is a real, useful debugging tool.",
+    "diagnosis": 2,
+    "diagnosis_rationale": "Right area — symbolic shapes limitations. Mentions torch._dynamo.explain.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J6-7"
+  },
+  {
+    "actionability": 2,
+    "actionability_rationale": "Suggests masking instead of dynamic indexing — a real code-level alternative.",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Correct root cause: data-dependent indexing can't be traced ahead of time.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J6-8"
+  },
+  {
+    "actionability": 1,
+    "actionability_rationale": "Identifies problem but no solution for AMP+compile recompilation.",
+    "diagnosis": 2,
+    "diagnosis_rationale": "Right area — dtype changes cause recompilation. But doesn't explain AMP-specific mechanism.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J6-9"
+  },
+  {
+    "actionability": 2,
+    "actionability_rationale": "dynamic=True + mark_dynamic on time dim is actionable for variable-length audio.",
+    "diagnosis": 2,
+    "diagnosis_rationale": "Right general direction for speech models. Not model-specific.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J6-10"
+  },
+  {
+    "actionability": 0,
+    "actionability_rationale": "No workaround.",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Accurately identifies as_strided propagation gap in DTensor.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J6-11"
+  },
+  {
+    "actionability": 0,
+    "actionability_rationale": "No guidance.",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Accurately identifies mark_dynamic + nn.Parameter gap.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J6-12"
+  },
+  {
+    "actionability": 0,
+    "actionability_rationale": "No guidance.",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Accurately identifies symbol creation debugging gap.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J6-13"
+  },
+  {
+    "actionability": 0,
+    "actionability_rationale": "No guidance.",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Accurately identifies recompilation behavior-change gap.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J6-14"
+  },
+  {
+    "actionability": 0,
+    "actionability_rationale": "No guidance.",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Accurately identifies guard accumulation gap.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J6-15"
+  },
+  {
+    "actionability": 0,
+    "actionability_rationale": "No guidance.",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Accurately identifies type error reference gap.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J6-16"
+  },
+  {
+    "actionability": 0,
+    "actionability_rationale": "No guidance.",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Accurately identifies DeepSpeed as third-party, compile interaction not documented.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J6-17"
+  },
+  {
+    "actionability": 0,
+    "actionability_rationale": "No guidance.",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Accurately identifies guard recompilation debugging gap.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J6-18"
+  },
+  {
+    "actionability": 0,
+    "actionability_rationale": "No guidance.",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Accurately identifies data-dependent shapes + gradients gap.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J6-19"
+  },
+  {
+    "actionability": 0,
+    "actionability_rationale": "No guidance.",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Accurately identifies operation support status gap.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J6-20"
+  },
+  {
+    "actionability": 2,
+    "actionability_rationale": "Regional compilation tutorial is actionable. AOTInductor mention adds value.",
+    "diagnosis": 2,
+    "diagnosis_rationale": "Right area — regional compilation reduces cold start. But doesn't address inline_inbuilt_nn_modules or model-specific strategies.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J7-1"
+  },
+  {
+    "actionability": 0,
+    "actionability_rationale": "No mitigation strategy.",
+    "diagnosis": 1,
+    "diagnosis_rationale": "No explanation of why compilation grows exponentially with chained ops.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J7-2"
+  },
+  {
+    "actionability": 0,
+    "actionability_rationale": "No guidance.",
+    "diagnosis": 1,
+    "diagnosis_rationale": "No explanation of loop tracing overhead in optimizers.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J7-3"
+  },
+  {
+    "actionability": 1,
+    "actionability_rationale": "Identifies the problem mechanism but no solution for avoiding recompilation.",
+    "diagnosis": 2,
+    "diagnosis_rationale": "Right area — guards and recompilation from scheduler updates.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J7-4"
+  },
+  {
+    "actionability": 0,
+    "actionability_rationale": "No guidance.",
+    "diagnosis": 1,
+    "diagnosis_rationale": "No insight into compilation time variance by batch size.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J7-5"
+  },
+  {
+    "actionability": 0,
+    "actionability_rationale": "No guidance.",
+    "diagnosis": 1,
+    "diagnosis_rationale": "No Windows-specific cache path analysis.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J7-6"
+  },
+  {
+    "actionability": 0,
+    "actionability_rationale": "No guidance.",
+    "diagnosis": 1,
+    "diagnosis_rationale": "No bisection methodology or tools.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J7-7"
+  },
+  {
+    "actionability": 0,
+    "actionability_rationale": "No guidance.",
+    "diagnosis": 1,
+    "diagnosis_rationale": "No analysis of autotuning with None inputs.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J7-8"
+  },
+  {
+    "actionability": 2,
+    "actionability_rationale": "Two complementary real approaches. User can apply either.",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Correct: regional compilation + AOTInductor address compiling deep models in pieces.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J7-9"
+  },
+  {
+    "actionability": 0,
+    "actionability_rationale": "No guidance on maturity/stability.",
+    "diagnosis": 1,
+    "diagnosis_rationale": "Doesn't address compiled autograd readiness question.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J7-10"
+  },
+  {
+    "actionability": 0,
+    "actionability_rationale": "No actionable guidance despite env var being documented.",
+    "diagnosis": 2,
+    "diagnosis_rationale": "Partially inaccurate: claims TORCHINDUCTOR_FX_GRAPH_CACHE isn't documented, but the caching tutorial covers it. Correctly identifies advanced cold start gaps.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J7-11"
+  },
+  {
+    "actionability": 0,
+    "actionability_rationale": "Generic template. No guidance.",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Accurately identifies compile timeout + NCCL timeout gap.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J7-12"
+  },
+  {
+    "actionability": 0,
+    "actionability_rationale": "Generic template. No guidance.",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Accurately identifies loop compilation overhead gap.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J7-13"
+  },
+  {
+    "actionability": 0,
+    "actionability_rationale": "Generic template. No guidance.",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Accurately identifies pick_vec_isa overhead gap.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J7-14"
+  },
+  {
+    "actionability": 0,
+    "actionability_rationale": "Generic template. No guidance.",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Accurately identifies FSDP+dynamic shapes 2.10 regression gap.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J7-15"
+  },
+  {
+    "actionability": 2,
+    "actionability_rationale": "AOTInductor is a real, relevant solution for model serialization.",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Points to AOTInductor which directly addresses serializing compiled models.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J7-16"
+  },
+  {
+    "actionability": 0,
+    "actionability_rationale": "No workaround or partial solution.",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Correctly distinguishes Dynamo frontend from Inductor backend caching. Accurate gap ID.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J7-17"
+  },
+  {
+    "actionability": 0,
+    "actionability_rationale": "Generic template. No guidance.",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Accurately identifies AOT Autograd tracing time gap.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J7-18"
+  },
+  {
+    "actionability": 0,
+    "actionability_rationale": "Generic template. No guidance.",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Accurately identifies FSDP+mixed precision+compile gap.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J7-19"
+  },
+  {
+    "actionability": 0,
+    "actionability_rationale": "Generic template. No guidance.",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Accurately identifies GIL/background compilation gap.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J7-20"
+  },
+  {
+    "actionability": 1,
+    "actionability_rationale": "Points to tutorials but no specific registration guidance.",
+    "diagnosis": 2,
+    "diagnosis_rationale": "Right area — points to Triton kernel tutorial and Dynamo Overview. Limited custom op coverage.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J8-1"
+  },
+  {
+    "actionability": 0,
+    "actionability_rationale": "No debugging path.",
+    "diagnosis": 1,
+    "diagnosis_rationale": "No analysis of backward-specific segfault causes.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J8-2"
+  },
+  {
+    "actionability": 1,
+    "actionability_rationale": "Points to cond docs. No BatchNorm2d workaround.",
+    "diagnosis": 2,
+    "diagnosis_rationale": "Right area — identifies control flow ops. Notes while_loop not documented.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J8-3"
+  },
+  {
+    "actionability": 0,
+    "actionability_rationale": "No guidance.",
+    "diagnosis": 1,
+    "diagnosis_rationale": "No analysis of what causes wrong results with custom ops under compile.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J8-4"
+  },
+  {
+    "actionability": 1,
+    "actionability_rationale": "No specific workaround for BlockMask dynamic shape issues.",
+    "diagnosis": 2,
+    "diagnosis_rationale": "Identifies FlexAttention + Dynamic Shapes intersection. Points to relevant docs.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J8-5"
+  },
+  {
+    "actionability": 0,
+    "actionability_rationale": "No guidance for numerical deviation.",
+    "diagnosis": 1,
+    "diagnosis_rationale": "No precision analysis for FlexAttention.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J8-6"
+  },
+  {
+    "actionability": 0,
+    "actionability_rationale": "No guidance.",
+    "diagnosis": 1,
+    "diagnosis_rationale": "No analysis of third-party op compatibility.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J8-7"
+  },
+  {
+    "actionability": 1,
+    "actionability_rationale": "Points to docs but no specific workaround.",
+    "diagnosis": 2,
+    "diagnosis_rationale": "Right area — points to cond docs. Notes limitations gap.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J8-8"
+  },
+  {
+    "actionability": 0,
+    "actionability_rationale": "No guidance.",
+    "diagnosis": 1,
+    "diagnosis_rationale": "No complex tensor analysis.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J8-9"
+  },
+  {
+    "actionability": 0,
+    "actionability_rationale": "No guidance.",
+    "diagnosis": 1,
+    "diagnosis_rationale": "No autotuning error analysis.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J8-10"
+  },
+  {
+    "actionability": 0,
+    "actionability_rationale": "Generic template. No guidance.",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Accurately identifies custom op memory access gap.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J8-11"
+  },
+  {
+    "actionability": 0,
+    "actionability_rationale": "Generic template. No guidance.",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Accurately identifies FlexAttention memory access gap.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J8-12"
+  },
+  {
+    "actionability": 0,
+    "actionability_rationale": "Generic template. No guidance.",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Accurately identifies CUDA graphs + multithread gap.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J8-13"
+  },
+  {
+    "actionability": 0,
+    "actionability_rationale": "No alternative approach suggested.",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Correctly identifies no torch.scan equivalent. Accurate and specific gap identification.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J8-14"
+  },
+  {
+    "actionability": 0,
+    "actionability_rationale": "No alternative approach.",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Correctly identifies associative scan gap. Accurate.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J8-15"
+  },
+  {
+    "actionability": 0,
+    "actionability_rationale": "Generic template. No guidance.",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Accurately identifies symmetric memory + compile gap.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J8-16"
+  },
+  {
+    "actionability": 0,
+    "actionability_rationale": "Generic template. No guidance.",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Accurately identifies @custom_op vs Library.define perf gap.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J8-17"
+  },
+  {
+    "actionability": 0,
+    "actionability_rationale": "Generic template. No guidance.",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Accurately identifies CPU inductor custom reduction gap.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J8-18"
+  },
+  {
+    "actionability": 0,
+    "actionability_rationale": "Generic template. No guidance.",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Accurately identifies FlexAttention+Triton pin gap.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J8-19"
+  },
+  {
+    "actionability": 0,
+    "actionability_rationale": "Generic template. No guidance.",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Accurately identifies FlexAttention gradient gap.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J8-20"
+  }
+]
