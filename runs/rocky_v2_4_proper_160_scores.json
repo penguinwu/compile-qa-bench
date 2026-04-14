@@ -1,0 +1,1602 @@
+[
+  {
+    "id": "J1-1",
+    "resolution_status": "resolved",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Correctly identifies that FX graph caching is automatic and uses TORCHINDUCTOR_FX_GRAPH_CACHE env var.",
+    "actionability": 3,
+    "actionability_rationale": "Provides complete solution with specific env var, cache location, and explains automatic behavior user can directly apply.",
+    "fabrication": false,
+    "fabrication_detail": ""
+  },
+  {
+    "id": "J1-2",
+    "resolution_status": "resolved",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Correctly identifies the backend parameter controls which compiler is used.",
+    "actionability": 3,
+    "actionability_rationale": "Provides complete solution showing how to change backend with code example and lists available backends.",
+    "fabrication": false,
+    "fabrication_detail": ""
+  },
+  {
+    "id": "J1-3",
+    "resolution_status": "resolved",
+    "diagnosis": 2,
+    "diagnosis_rationale": "Identifies right area (interaction of DDP, AMP, and compile) but doesn't pinpoint the specific mechanism of the NotImplementedError.",
+    "actionability": 1,
+    "actionability_rationale": "Generic advice to apply autocast inside forward pass rather than wrapping compiled model, but lacks specific steps to resolve the error.",
+    "fabrication": false,
+    "fabrication_detail": ""
+  },
+  {
+    "id": "J1-4",
+    "resolution_status": "resolved",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Correctly identifies missing C++ compiler as the root cause for torch.compile failures.",
+    "actionability": 2,
+    "actionability_rationale": "Identifies need for C++ compiler but doesn't provide specific installation steps or how to verify the compiler is available.",
+    "fabrication": false,
+    "fabrication_detail": ""
+  },
+  {
+    "id": "J1-5",
+    "resolution_status": "resolved",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Correctly identifies compilation overhead on first call as the root cause of slower performance.",
+    "actionability": 3,
+    "actionability_rationale": "Provides complete solution with specific steps: warmup iteration, measure subsequent calls, explains amortization over many iterations.",
+    "fabrication": false,
+    "fabrication_detail": ""
+  },
+  {
+    "id": "J1-6",
+    "resolution_status": "resolved",
+    "diagnosis": 2,
+    "diagnosis_rationale": "Identifies right subsystem (tensor parallel + compile interaction) but doesn't explain the specific crash mechanism.",
+    "actionability": 0,
+    "actionability_rationale": "No actionable guidance provided, just acknowledges docs don't cover the interaction.",
+    "fabrication": false,
+    "fabrication_detail": ""
+  },
+  {
+    "id": "J1-7",
+    "resolution_status": "resolved",
+    "diagnosis": 2,
+    "diagnosis_rationale": "Identifies right area (torch.cuda.set_device behavior under compile) but doesn't explain why it's ignored.",
+    "actionability": 0,
+    "actionability_rationale": "No workarounds or solutions provided, just acknowledges the limitation isn't documented.",
+    "fabrication": false,
+    "fabrication_detail": ""
+  },
+  {
+    "id": "J1-8",
+    "resolution_status": "resolved",
+    "diagnosis": 2,
+    "diagnosis_rationale": "Identifies right area (CUDA/Triton compatibility issues) but doesn't pinpoint specific root cause.",
+    "actionability": 0,
+    "actionability_rationale": "No specific troubleshooting steps provided beyond acknowledging the error isn't documented.",
+    "fabrication": false,
+    "fabrication_detail": ""
+  },
+  {
+    "id": "J1-9",
+    "resolution_status": "resolved",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Correctly identifies FX graph caching as the mechanism for cross-process reuse.",
+    "actionability": 3,
+    "actionability_rationale": "Provides complete solution with env var, explains automatic caching behavior user can directly apply.",
+    "fabrication": false,
+    "fabrication_detail": ""
+  },
+  {
+    "id": "J1-10",
+    "resolution_status": "resolved",
+    "diagnosis": 2,
+    "diagnosis_rationale": "Identifies right subsystem (gradient checkpointing + compile) but doesn't explain the specific incompatibility mechanism.",
+    "actionability": 0,
+    "actionability_rationale": "No actionable guidance provided, just acknowledges docs don't cover compatibility.",
+    "fabrication": false,
+    "fabrication_detail": ""
+  },
+  {
+    "id": "J1-11",
+    "resolution_status": "unresolved",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Correctly identifies TORCH_LOGS recompiles logging as the tool, and accurately notes it doesn't provide granular cache layer visibility.",
+    "actionability": 2,
+    "actionability_rationale": "Provides TORCH_LOGS=+recompiles which gets user materially closer to diagnosing the issue.",
+    "fabrication": false,
+    "fabrication_detail": ""
+  },
+  {
+    "id": "J1-12",
+    "resolution_status": "unresolved",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Correctly identifies torch.autograd.grad as unsupported for tracing in dynamo (unresolved/undocumented issue).",
+    "actionability": 0,
+    "actionability_rationale": "No workarounds or solutions provided, just acknowledges the limitation isn't documented.",
+    "fabrication": false,
+    "fabrication_detail": ""
+  },
+  {
+    "id": "J1-13",
+    "resolution_status": "unresolved",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Correctly identifies GRU/RNN support as undocumented/unresolved issue.",
+    "actionability": 0,
+    "actionability_rationale": "No workarounds or solutions provided, just acknowledges docs don't cover GRU support.",
+    "fabrication": false,
+    "fabrication_detail": ""
+  },
+  {
+    "id": "J1-14",
+    "resolution_status": "unresolved",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Correctly identifies the issue as inductor's async compilation spawning subprocesses conflicting with daemon pool workers.",
+    "actionability": 0,
+    "actionability_rationale": "No workarounds provided, just characterizes the undocumented limitation.",
+    "fabrication": false,
+    "fabrication_detail": ""
+  },
+  {
+    "id": "J1-15",
+    "resolution_status": "unresolved",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Correctly identifies MXFP8 as unimplemented in inductor (unresolved issue).",
+    "actionability": 0,
+    "actionability_rationale": "No workarounds provided, just acknowledges the feature gap.",
+    "fabrication": false,
+    "fabrication_detail": ""
+  },
+  {
+    "id": "J1-16",
+    "resolution_status": "unresolved",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Correctly identifies complex dtype support as missing/undocumented in inductor.",
+    "actionability": 0,
+    "actionability_rationale": "No workarounds provided, just acknowledges the limitation.",
+    "fabrication": false,
+    "fabrication_detail": ""
+  },
+  {
+    "id": "J1-17",
+    "resolution_status": "unresolved",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Correctly identifies Windows C++ compiler setup as undocumented.",
+    "actionability": 0,
+    "actionability_rationale": "No specific setup steps provided, just acknowledges docs don't cover Windows.",
+    "fabrication": false,
+    "fabrication_detail": ""
+  },
+  {
+    "id": "J1-18",
+    "resolution_status": "unresolved",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Correctly identifies inductor pattern matcher behavior as undocumented internal implementation detail.",
+    "actionability": 0,
+    "actionability_rationale": "No way to control or debug pattern matching provided.",
+    "fabrication": false,
+    "fabrication_detail": ""
+  },
+  {
+    "id": "J1-19",
+    "resolution_status": "unresolved",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Correctly identifies libcuda.so linker path issue as the root cause.",
+    "actionability": 0,
+    "actionability_rationale": "No specific environment variables or configuration steps provided to fix the linker path.",
+    "fabrication": false,
+    "fabrication_detail": ""
+  },
+  {
+    "id": "J1-20",
+    "resolution_status": "unresolved",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Correctly identifies concurrent cache writes as the root cause of JSONDecodeError in multi-process scenarios.",
+    "actionability": 0,
+    "actionability_rationale": "No workarounds for cache synchronization provided.",
+    "fabrication": false,
+    "fabrication_detail": ""
+  },
+  {
+    "id": "J2-1",
+    "resolution_status": "resolved",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Correctly identifies profiling, graph breaks, and warmup as key diagnostic areas.",
+    "actionability": 3,
+    "actionability_rationale": "Provides complete diagnostic workflow with torch.profiler code example and specific TORCH_LOGS flags.",
+    "fabrication": false,
+    "fabrication_detail": ""
+  },
+  {
+    "id": "J2-2",
+    "resolution_status": "resolved",
+    "diagnosis": 2,
+    "diagnosis_rationale": "Identifies right area (profiling inductor codegen for cumprod backward) but doesn't explain why the backward is slow.",
+    "actionability": 2,
+    "actionability_rationale": "Provides profiling tools (TORCHINDUCTOR_PROFILE, TORCH_COMPILE_DEBUG) which gets user materially closer to diagnosing the issue.",
+    "fabrication": false,
+    "fabrication_detail": ""
+  },
+  {
+    "id": "J2-3",
+    "resolution_status": "resolved",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Correctly identifies kernel launch overhead exceeding optimization gains for small models.",
+    "actionability": 3,
+    "actionability_rationale": "Provides complete solution with warmup, reduce-overhead mode, and explains when torch.compile is unsuitable.",
+    "fabrication": false,
+    "fabrication_detail": ""
+  },
+  {
+    "id": "J2-4",
+    "resolution_status": "resolved",
+    "diagnosis": 2,
+    "diagnosis_rationale": "Identifies right area (profiling for version differences) but doesn't explain what changed between versions.",
+    "actionability": 2,
+    "actionability_rationale": "Provides profiling tools but no version-specific guidance; user can profile but won't know root cause.",
+    "fabrication": false,
+    "fabrication_detail": ""
+  },
+  {
+    "id": "J2-5",
+    "resolution_status": "resolved",
+    "diagnosis": 2,
+    "diagnosis_rationale": "Identifies right area (graph breaks for no speedup) but doesn't explain the free() crash mechanism.",
+    "actionability": 2,
+    "actionability_rationale": "Provides graph break debugging which addresses one part of the problem (no speedup) but not the crash.",
+    "fabrication": false,
+    "fabrication_detail": ""
+  },
+  {
+    "id": "J2-6",
+    "resolution_status": "resolved",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Correctly identifies that eager matmul already uses optimized libraries so compile may not add speedup.",
+    "actionability": 2,
+    "actionability_rationale": "Explains why no speedup occurs but doesn't provide clear next steps to improve performance.",
+    "fabrication": false,
+    "fabrication_detail": ""
+  },
+  {
+    "id": "J2-7",
+    "resolution_status": "resolved",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Correctly identifies GIL behavior with compiled kernels as undocumented.",
+    "actionability": 0,
+    "actionability_rationale": "No workarounds or configuration options provided.",
+    "fabrication": false,
+    "fabrication_detail": ""
+  },
+  {
+    "id": "J2-8",
+    "resolution_status": "resolved",
+    "diagnosis": 2,
+    "diagnosis_rationale": "Identifies right area (flex_attention as undocumented) but doesn't explain the backward scaling issue.",
+    "actionability": 0,
+    "actionability_rationale": "No profiling steps or optimization guidance provided for flex_attention.",
+    "fabrication": false,
+    "fabrication_detail": ""
+  },
+  {
+    "id": "J2-9",
+    "resolution_status": "resolved",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Correctly identifies profiling workflow to diagnose decoder slowness.",
+    "actionability": 3,
+    "actionability_rationale": "Provides complete diagnostic workflow with torch.profiler, Chrome traces, and specific flags.",
+    "fabrication": false,
+    "fabrication_detail": ""
+  },
+  {
+    "id": "J2-10",
+    "resolution_status": "resolved",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Correctly identifies lack of operator coverage list as a documentation gap.",
+    "actionability": 0,
+    "actionability_rationale": "No way to find the list or determine coverage for specific ops.",
+    "fabrication": false,
+    "fabrication_detail": ""
+  },
+  {
+    "id": "J2-11",
+    "resolution_status": "unresolved",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Correctly identifies fullgraph=True slowdown as unresolved/undocumented issue.",
+    "actionability": 0,
+    "actionability_rationale": "No guidance on when to avoid full compilation or workarounds provided.",
+    "fabrication": false,
+    "fabrication_detail": ""
+  },
+  {
+    "id": "J2-12",
+    "resolution_status": "unresolved",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Correctly identifies complex tensor support as using slow fallback path (unresolved).",
+    "actionability": 0,
+    "actionability_rationale": "No workarounds or optimization options provided.",
+    "fabrication": false,
+    "fabrication_detail": ""
+  },
+  {
+    "id": "J2-13",
+    "resolution_status": "unresolved",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Correctly identifies float8 support as undocumented/experimental feature.",
+    "actionability": 0,
+    "actionability_rationale": "No optimization guidance or configuration options provided.",
+    "fabrication": false,
+    "fabrication_detail": ""
+  },
+  {
+    "id": "J2-14",
+    "resolution_status": "unresolved",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Correctly identifies inductor codegen strategy as undocumented internal detail.",
+    "actionability": 0,
+    "actionability_rationale": "No way to control or influence codegen choices provided.",
+    "fabrication": false,
+    "fabrication_detail": ""
+  },
+  {
+    "id": "J2-15",
+    "resolution_status": "unresolved",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Correctly identifies SDPA backend + tf32 interaction as unresolved performance anomaly.",
+    "actionability": 0,
+    "actionability_rationale": "No workarounds or configuration guidance provided.",
+    "fabrication": false,
+    "fabrication_detail": ""
+  },
+  {
+    "id": "J2-16",
+    "resolution_status": "unresolved",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Correctly identifies inductor fusion heuristics as undocumented internal behavior.",
+    "actionability": 0,
+    "actionability_rationale": "No way to control fusion or optimize kernel performance provided.",
+    "fabrication": false,
+    "fabrication_detail": ""
+  },
+  {
+    "id": "J2-17",
+    "resolution_status": "unresolved",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Correctly identifies torch._foreach as undocumented internal API.",
+    "actionability": 0,
+    "actionability_rationale": "No guidance on when to use foreach vs loops or performance expectations.",
+    "fabrication": false,
+    "fabrication_detail": ""
+  },
+  {
+    "id": "J2-18",
+    "resolution_status": "unresolved",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Correctly identifies performance canary mode as feature request (doesn't exist yet).",
+    "actionability": 0,
+    "actionability_rationale": "No built-in feature available, acknowledges users need custom tooling.",
+    "fabrication": false,
+    "fabrication_detail": ""
+  },
+  {
+    "id": "J2-19",
+    "resolution_status": "unresolved",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Correctly identifies lack of CPU inductor benchmark dashboard as documentation gap.",
+    "actionability": 0,
+    "actionability_rationale": "No baseline numbers or comparison methodology provided.",
+    "fabrication": false,
+    "fabrication_detail": ""
+  },
+  {
+    "id": "J2-20",
+    "resolution_status": "unresolved",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Correctly identifies Intel GPU/XPU support as not part of upstream docs (community effort).",
+    "actionability": 0,
+    "actionability_rationale": "No installation steps or usage guidance provided for Intel GPUs.",
+    "fabrication": false,
+    "fabrication_detail": ""
+  },
+  {
+    "id": "J3-1",
+    "resolution_status": "resolved",
+    "diagnosis": 0,
+    "diagnosis_rationale": "Claims 'minifier' and 'repro_level' are internal development tools not in public docs, but this is fabricated - the question asks about debugging numerical differences and the response doesn't identify the actual root cause.",
+    "actionability": 0,
+    "actionability_rationale": "Only suggests 'manually isolate the problematic code section and compare eager vs. compiled outputs systematically' which is just problem restatement without specific steps.",
+    "fabrication": true,
+    "fabrication_detail": "Claims 'minifier' and 'repro_level' are internal development tools not covered in public documentation, but these may not exist or may be fabricated tools."
+  },
+  {
+    "id": "J3-2",
+    "resolution_status": "resolved",
+    "diagnosis": 0,
+    "diagnosis_rationale": "Same template response as J3-1, doesn't address conv2d + interpolate gradient issue specifically.",
+    "actionability": 0,
+    "actionability_rationale": "Same generic 'manually isolate and compare' advice without actionable steps.",
+    "fabrication": true,
+    "fabrication_detail": "Same fabrication about 'minifier' and 'repro_level' tools."
+  },
+  {
+    "id": "J3-3",
+    "resolution_status": "resolved",
+    "diagnosis": 2,
+    "diagnosis_rationale": "Correctly identifies this is about flex_attention numerical stability, right subsystem but doesn't pinpoint the specific mechanism causing accuracy divergence.",
+    "actionability": 1,
+    "actionability_rationale": "Generic advice to 'check compatible data types' and 'verify score_mod and block_mask functions are numerically stable' - not specific to THIS problem.",
+    "fabrication": false,
+    "fabrication_detail": ""
+  },
+  {
+    "id": "J3-4",
+    "resolution_status": "resolved",
+    "diagnosis": 2,
+    "diagnosis_rationale": "Correctly identifies this is a float8 + RMS norm NaN issue, right subsystem but doesn't explain why this specific combination causes NaNs.",
+    "actionability": 1,
+    "actionability_rationale": "Generic NaN debugging advice (check precision compatibility, verify gradient scaling, use detect_anomaly) - not specific to float8 rowwise scales with RMS norm.",
+    "fabrication": false,
+    "fabrication_detail": ""
+  },
+  {
+    "id": "J3-5",
+    "resolution_status": "resolved",
+    "diagnosis": 1,
+    "diagnosis_rationale": "Tangentially discusses reproducibility and seeds, but doesn't identify the actual mechanism causing non-determinism in torch.compile.",
+    "actionability": 1,
+    "actionability_rationale": "Generic seed-setting advice, doesn't address the torch.compile-specific reproducibility issue.",
+    "fabrication": false,
+    "fabrication_detail": ""
+  },
+  {
+    "id": "J3-6",
+    "resolution_status": "resolved",
+    "diagnosis": 0,
+    "diagnosis_rationale": "Same template response, doesn't identify why torch.compile + torch.func.grad composition produces wrong results.",
+    "actionability": 0,
+    "actionability_rationale": "Same generic 'manually isolate and compare' advice.",
+    "fabrication": true,
+    "fabrication_detail": "Same fabrication about 'minifier' and 'repro_level' tools."
+  },
+  {
+    "id": "J3-7",
+    "resolution_status": "resolved",
+    "diagnosis": 0,
+    "diagnosis_rationale": "Same template response, doesn't identify why dstack + reciprocal gives wrong results under compile.",
+    "actionability": 0,
+    "actionability_rationale": "Same generic 'manually isolate and compare' advice.",
+    "fabrication": true,
+    "fabrication_detail": "Same fabrication about 'minifier' and 'repro_level' tools."
+  },
+  {
+    "id": "J3-8",
+    "resolution_status": "resolved",
+    "diagnosis": 1,
+    "diagnosis_rationale": "Discusses NaN gradients but misses that the issue is specifically about GQA with SDPA under compile, not general float8 issues.",
+    "actionability": 1,
+    "actionability_rationale": "Generic NaN debugging advice not specific to this GQA/SDPA issue.",
+    "fabrication": false,
+    "fabrication_detail": ""
+  },
+  {
+    "id": "J3-9",
+    "resolution_status": "resolved",
+    "diagnosis": 0,
+    "diagnosis_rationale": "Question asks about benchmarking compile accuracy/performance across models, but response gives same template about debugging individual issues.",
+    "actionability": 0,
+    "actionability_rationale": "Doesn't address how to benchmark or set up infrastructure for monitoring compile effectiveness.",
+    "fabrication": true,
+    "fabrication_detail": "Same fabrication about 'minifier' and 'repro_level' tools."
+  },
+  {
+    "id": "J3-10",
+    "resolution_status": "resolved",
+    "diagnosis": 0,
+    "diagnosis_rationale": "Same template response, doesn't address Segformer AOT eager regression check.",
+    "actionability": 0,
+    "actionability_rationale": "Same generic 'manually isolate and compare' advice.",
+    "fabrication": true,
+    "fabrication_detail": "Same fabrication about 'minifier' and 'repro_level' tools."
+  },
+  {
+    "id": "J3-11",
+    "resolution_status": "unresolved",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Correctly identifies this as an open issue without specific guidance in docs - appropriate for unresolved case.",
+    "actionability": 1,
+    "actionability_rationale": "Generic advice to use TORCH_LOGS and check GitHub issues - not specific to Conv2d CPU precision.",
+    "fabrication": false,
+    "fabrication_detail": ""
+  },
+  {
+    "id": "J3-12",
+    "resolution_status": "unresolved",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Correctly identifies as open issue without specific guidance - appropriate for unresolved.",
+    "actionability": 1,
+    "actionability_rationale": "Generic advice to 'isolate the problem, create minimal reproduction, check GitHub issues' - template response across many unresolved cases.",
+    "fabrication": false,
+    "fabrication_detail": ""
+  },
+  {
+    "id": "J3-13",
+    "resolution_status": "unresolved",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Correctly identifies as open issue - appropriate for unresolved.",
+    "actionability": 1,
+    "actionability_rationale": "Same template 'isolate, reproduce, check GitHub' advice.",
+    "fabrication": false,
+    "fabrication_detail": ""
+  },
+  {
+    "id": "J3-14",
+    "resolution_status": "unresolved",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Correctly identifies as open issue - appropriate for unresolved case about macOS OpenMP.",
+    "actionability": 1,
+    "actionability_rationale": "Same template advice, doesn't provide macOS-specific OpenMP troubleshooting.",
+    "fabrication": false,
+    "fabrication_detail": ""
+  },
+  {
+    "id": "J3-15",
+    "resolution_status": "unresolved",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Correctly identifies as open issue - appropriate for unresolved.",
+    "actionability": 1,
+    "actionability_rationale": "Same template advice.",
+    "fabrication": false,
+    "fabrication_detail": ""
+  },
+  {
+    "id": "J3-16",
+    "resolution_status": "unresolved",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Correctly identifies as open issue about data-dependent control flow - appropriate for unresolved.",
+    "actionability": 1,
+    "actionability_rationale": "Same template advice.",
+    "fabrication": false,
+    "fabrication_detail": ""
+  },
+  {
+    "id": "J3-17",
+    "resolution_status": "unresolved",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Correctly identifies as open issue - appropriate for unresolved.",
+    "actionability": 1,
+    "actionability_rationale": "Same template advice.",
+    "fabrication": false,
+    "fabrication_detail": ""
+  },
+  {
+    "id": "J3-18",
+    "resolution_status": "unresolved",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Correctly identifies as open issue about AOT autograd stride handling - appropriate for unresolved.",
+    "actionability": 1,
+    "actionability_rationale": "Same template advice.",
+    "fabrication": false,
+    "fabrication_detail": ""
+  },
+  {
+    "id": "J3-19",
+    "resolution_status": "unresolved",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Correctly identifies as open issue - appropriate for unresolved ROCm test failure.",
+    "actionability": 1,
+    "actionability_rationale": "Same template advice.",
+    "fabrication": false,
+    "fabrication_detail": ""
+  },
+  {
+    "id": "J3-20",
+    "resolution_status": "unresolved",
+    "diagnosis": 1,
+    "diagnosis_rationale": "Discusses graph breaks (wrong subsystem) when the issue is about NaN values in specific compile modes - misidentified the problem.",
+    "actionability": 1,
+    "actionability_rationale": "Generic TORCH_LOGS advice about graph breaks, not relevant to NaN debugging.",
+    "fabrication": false,
+    "fabrication_detail": ""
+  },
+  {
+    "id": "J4-1",
+    "resolution_status": "resolved",
+    "diagnosis": 2,
+    "diagnosis_rationale": "Correctly identifies this as a graph break issue with fullgraph=True, right subsystem.",
+    "actionability": 2,
+    "actionability_rationale": "Provides TORCH_LOGS command and explains what to do (review error messages, use torch.compiler.disable or rewrite code) - gets user materially closer but not complete solution.",
+    "fabrication": false,
+    "fabrication_detail": ""
+  },
+  {
+    "id": "J4-2",
+    "resolution_status": "resolved",
+    "diagnosis": 2,
+    "diagnosis_rationale": "Correctly identifies as graph break issue with DDP, right subsystem.",
+    "actionability": 2,
+    "actionability_rationale": "Same TORCH_LOGS guidance and workaround options.",
+    "fabrication": false,
+    "fabrication_detail": ""
+  },
+  {
+    "id": "J4-3",
+    "resolution_status": "resolved",
+    "diagnosis": 2,
+    "diagnosis_rationale": "Correctly identifies as graph break issue, right subsystem.",
+    "actionability": 2,
+    "actionability_rationale": "Same TORCH_LOGS guidance and workaround options.",
+    "fabrication": false,
+    "fabrication_detail": ""
+  },
+  {
+    "id": "J4-4",
+    "resolution_status": "resolved",
+    "diagnosis": 2,
+    "diagnosis_rationale": "Correctly identifies as graph break issue after PyTorch upgrade, right subsystem.",
+    "actionability": 2,
+    "actionability_rationale": "Same TORCH_LOGS guidance and workaround options.",
+    "fabrication": false,
+    "fabrication_detail": ""
+  },
+  {
+    "id": "J4-5",
+    "resolution_status": "resolved",
+    "diagnosis": 2,
+    "diagnosis_rationale": "Correctly identifies as graph break issue with torch.compiler.disable, right subsystem.",
+    "actionability": 2,
+    "actionability_rationale": "Same TORCH_LOGS guidance and workaround options.",
+    "fabrication": false,
+    "fabrication_detail": ""
+  },
+  {
+    "id": "J4-6",
+    "resolution_status": "resolved",
+    "diagnosis": 2,
+    "diagnosis_rationale": "Correctly identifies as graph break issue with dataclasses, right subsystem.",
+    "actionability": 2,
+    "actionability_rationale": "Same TORCH_LOGS guidance and workaround options.",
+    "fabrication": false,
+    "fabrication_detail": ""
+  },
+  {
+    "id": "J4-7",
+    "resolution_status": "resolved",
+    "diagnosis": 2,
+    "diagnosis_rationale": "Correctly identifies this is about guards on global config, right subsystem but doesn't explain the specific mechanism.",
+    "actionability": 1,
+    "actionability_rationale": "Generic TORCH_LOGS advice and suggests checking GitHub issues - doesn't tell user how to prevent guards on global state.",
+    "fabrication": false,
+    "fabrication_detail": ""
+  },
+  {
+    "id": "J4-8",
+    "resolution_status": "resolved",
+    "diagnosis": 2,
+    "diagnosis_rationale": "Correctly identifies as graph break issue with activation checkpointing, right subsystem.",
+    "actionability": 2,
+    "actionability_rationale": "Same TORCH_LOGS guidance and workaround options.",
+    "fabrication": false,
+    "fabrication_detail": ""
+  },
+  {
+    "id": "J4-9",
+    "resolution_status": "resolved",
+    "diagnosis": 2,
+    "diagnosis_rationale": "Correctly identifies as graph break issue with create_block_mask, right subsystem.",
+    "actionability": 2,
+    "actionability_rationale": "Same TORCH_LOGS guidance and workaround options.",
+    "fabrication": false,
+    "fabrication_detail": ""
+  },
+  {
+    "id": "J4-10",
+    "resolution_status": "resolved",
+    "diagnosis": 2,
+    "diagnosis_rationale": "Correctly identifies as graph break issue with AdamW and LR scheduler, right subsystem.",
+    "actionability": 2,
+    "actionability_rationale": "Same TORCH_LOGS guidance and workaround options.",
+    "fabrication": false,
+    "fabrication_detail": ""
+  },
+  {
+    "id": "J4-11",
+    "resolution_status": "unresolved",
+    "diagnosis": 1,
+    "diagnosis_rationale": "Question is about optimizer being misclassified as training graph in AOT, but response focuses on generic graph breaks - wrong focus.",
+    "actionability": 1,
+    "actionability_rationale": "Generic TORCH_LOGS and GitHub advice doesn't address the AOT classification issue.",
+    "fabrication": false,
+    "fabrication_detail": ""
+  },
+  {
+    "id": "J4-12",
+    "resolution_status": "unresolved",
+    "diagnosis": 1,
+    "diagnosis_rationale": "Question is about DDP AllReduce causing graph breaks in distributed context, but response gives generic graph break advice - misses the distributed aspect.",
+    "actionability": 1,
+    "actionability_rationale": "Generic advice doesn't address how to compile through DDP communication.",
+    "fabrication": false,
+    "fabrication_detail": ""
+  },
+  {
+    "id": "J4-13",
+    "resolution_status": "unresolved",
+    "diagnosis": 1,
+    "diagnosis_rationale": "Question is about guards for frozen dataclasses, but response gives generic graph break advice - wrong focus.",
+    "actionability": 1,
+    "actionability_rationale": "Generic advice doesn't address guard generation for dataclasses.",
+    "fabrication": false,
+    "fabrication_detail": ""
+  },
+  {
+    "id": "J4-14",
+    "resolution_status": "unresolved",
+    "diagnosis": 1,
+    "diagnosis_rationale": "Question is about allow_in_graph not creating call_module nodes, but response gives generic graph break advice - wrong focus.",
+    "actionability": 1,
+    "actionability_rationale": "Generic advice doesn't address FX graph structure or module inlining.",
+    "fabrication": false,
+    "fabrication_detail": ""
+  },
+  {
+    "id": "J4-15",
+    "resolution_status": "unresolved",
+    "diagnosis": 1,
+    "diagnosis_rationale": "Question asks about single-step graph capture vs full forward tracing, but response gives generic graph break advice - wrong focus.",
+    "actionability": 1,
+    "actionability_rationale": "Generic advice doesn't address graph capture granularity.",
+    "fabrication": false,
+    "fabrication_detail": ""
+  },
+  {
+    "id": "J4-16",
+    "resolution_status": "unresolved",
+    "diagnosis": 1,
+    "diagnosis_rationale": "Question is about AOTAutograd cache misses, but response gives generic graph break advice - wrong subsystem entirely.",
+    "actionability": 1,
+    "actionability_rationale": "Generic advice doesn't address cache configuration or debugging.",
+    "fabrication": false,
+    "fabrication_detail": ""
+  },
+  {
+    "id": "J4-17",
+    "resolution_status": "unresolved",
+    "diagnosis": 1,
+    "diagnosis_rationale": "Question is about PT2E quantization failure on ARM/Graviton3, but response gives generic graph break advice - wrong focus.",
+    "actionability": 1,
+    "actionability_rationale": "Generic advice doesn't address quantization or ARM-specific issues.",
+    "fabrication": false,
+    "fabrication_detail": ""
+  },
+  {
+    "id": "J4-18",
+    "resolution_status": "unresolved",
+    "diagnosis": 1,
+    "diagnosis_rationale": "Question is about double backwards support in aotautograd, but response gives generic graph break advice - wrong focus.",
+    "actionability": 1,
+    "actionability_rationale": "Generic advice doesn't address second-order gradients.",
+    "fabrication": false,
+    "fabrication_detail": ""
+  },
+  {
+    "id": "J4-19",
+    "resolution_status": "unresolved",
+    "diagnosis": 1,
+    "diagnosis_rationale": "Question is about guardrails for combining distributed optimizations with non-fullgraph compile, but response gives generic graph break advice - wrong focus.",
+    "actionability": 1,
+    "actionability_rationale": "Generic advice doesn't address distributed + compile interaction.",
+    "fabrication": false,
+    "fabrication_detail": ""
+  },
+  {
+    "id": "J4-20",
+    "resolution_status": "unresolved",
+    "diagnosis": 2,
+    "diagnosis_rationale": "Correctly identifies this as about Parameter subclasses causing graph breaks, right subsystem.",
+    "actionability": 1,
+    "actionability_rationale": "Generic advice to check error messages and file bug report - doesn't provide workaround for Parameter subclass support.",
+    "fabrication": false,
+    "fabrication_detail": ""
+  },
+  {
+    "id": "J5-1",
+    "resolution_status": "resolved",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Correctly identifies max-autotune as aggressive optimization with kernel selection, precision issues from CUDA graphs/kernel selection",
+    "actionability": 2,
+    "actionability_rationale": "Provides recommendations (default mode, numerical validation, torch.amp) but acknowledges docs lack flags for accuracy-preserving speed",
+    "fabrication": false,
+    "fabrication_detail": null
+  },
+  {
+    "id": "J5-2",
+    "resolution_status": "resolved",
+    "diagnosis": 2,
+    "diagnosis_rationale": "Correct subsystem (reduce-overhead uses CUDA graphs), but doesn't identify specific root cause of 7x regression",
+    "actionability": 1,
+    "actionability_rationale": "Generic advice (enable logging, use profiler) not specific to this 7x regression problem",
+    "fabrication": false,
+    "fabrication_detail": null
+  },
+  {
+    "id": "J5-3",
+    "resolution_status": "resolved",
+    "diagnosis": 2,
+    "diagnosis_rationale": "Right subsystem (FlexAttention/Triton kernels), identifies mask composition affects register/memory but imprecise on mechanism",
+    "actionability": 0,
+    "actionability_rationale": "No actionable guidance, just acknowledges blogs lack composition performance guidance",
+    "fabrication": false,
+    "fabrication_detail": null
+  },
+  {
+    "id": "J5-4",
+    "resolution_status": "resolved",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Correctly identifies KeyError from UnbindCatRemover as compiler bug",
+    "actionability": 2,
+    "actionability_rationale": "Recommends filing GitHub issue, which gets user materially closer to resolution",
+    "fabrication": false,
+    "fabrication_detail": null
+  },
+  {
+    "id": "J5-5",
+    "resolution_status": "resolved",
+    "diagnosis": 2,
+    "diagnosis_rationale": "Right subsystem (performance regression between nightlies) but doesn't identify specific cause",
+    "actionability": 1,
+    "actionability_rationale": "Generic advice (profiler, verbose logs) not specific to bisecting nightly regression",
+    "fabrication": false,
+    "fabrication_detail": null
+  },
+  {
+    "id": "J5-6",
+    "resolution_status": "resolved",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Correctly identifies misaligned address from autotuner selecting incorrect template for memory alignment",
+    "actionability": 2,
+    "actionability_rationale": "Recommends filing bug report, which is appropriate action for autotuner bug",
+    "fabrication": false,
+    "fabrication_detail": null
+  },
+  {
+    "id": "J5-7",
+    "resolution_status": "resolved",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Correctly identifies no documented fused linear+cross-entropy operation",
+    "actionability": 0,
+    "actionability_rationale": "No actionable guidance beyond noting torch.compile may fuse automatically but not specified",
+    "fabrication": false,
+    "fabrication_detail": null
+  },
+  {
+    "id": "J5-8",
+    "resolution_status": "resolved",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Correctly identifies vLLM as external framework not covered in PyTorch docs",
+    "actionability": 2,
+    "actionability_rationale": "Directs user to vLLM's own documentation, which is the right next step",
+    "fabrication": false,
+    "fabrication_detail": null
+  },
+  {
+    "id": "J5-9",
+    "resolution_status": "resolved",
+    "diagnosis": 2,
+    "diagnosis_rationale": "Right area (Windows support) but doesn't identify specific linker error cause",
+    "actionability": 0,
+    "actionability_rationale": "No actionable guidance, just notes lack of Windows-specific docs suggests limited support",
+    "fabrication": false,
+    "fabrication_detail": null
+  },
+  {
+    "id": "J5-10",
+    "resolution_status": "resolved",
+    "diagnosis": 2,
+    "diagnosis_rationale": "Right subsystem (optimizer compilation), identifies signature mismatch but imprecise on root cause",
+    "actionability": 1,
+    "actionability_rationale": "Generic recommendation to compile training step function instead, not specific to 'too many arguments' error",
+    "fabrication": false,
+    "fabrication_detail": null
+  },
+  {
+    "id": "J5-11",
+    "resolution_status": "unresolved",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Correctly identifies docs don't cover mode combinations or why max-autotune+reduce-overhead causes graph reinstantiation",
+    "actionability": 0,
+    "actionability_rationale": "No actionable guidance beyond noting need to experiment separately",
+    "fabrication": false,
+    "fabrication_detail": null
+  },
+  {
+    "id": "J5-12",
+    "resolution_status": "unresolved",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Correctly identifies shared memory error from exceeding GPU limits and docs don't cover hardware-specific tuning",
+    "actionability": 1,
+    "actionability_rationale": "Suggests generic workaround (reduce batch/sequence/heads) but no specific guidance for flex_attention",
+    "fabrication": false,
+    "fabrication_detail": null
+  },
+  {
+    "id": "J5-13",
+    "resolution_status": "unresolved",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Correctly identifies docs don't explain inductor embedding optimization or why slower than eager",
+    "actionability": 0,
+    "actionability_rationale": "No actionable guidance, just characterizes embeddings as memory-bound gathers",
+    "fabrication": false,
+    "fabrication_detail": null
+  },
+  {
+    "id": "J5-14",
+    "resolution_status": "unresolved",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Correctly identifies docs don't explain specialization performance effects or why more specialization reduces performance",
+    "actionability": 0,
+    "actionability_rationale": "No actionable guidance beyond noting register pressure/occupancy trade-offs",
+    "fabrication": false,
+    "fabrication_detail": null
+  },
+  {
+    "id": "J5-15",
+    "resolution_status": "unresolved",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Correctly identifies docs cover torch.library but may miss edge cases for custom Triton kernel registration errors",
+    "actionability": 1,
+    "actionability_rationale": "Lists common issues (incorrect schema, missing fake/meta) but not specific to this error",
+    "fabrication": false,
+    "fabrication_detail": null
+  },
+  {
+    "id": "J5-16",
+    "resolution_status": "unresolved",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Correctly identifies no docs on custom backend integration with inductor",
+    "actionability": 0,
+    "actionability_rationale": "No actionable guidance beyond noting need to understand inductor internals",
+    "fabrication": false,
+    "fabrication_detail": null
+  },
+  {
+    "id": "J5-17",
+    "resolution_status": "unresolved",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Correctly identifies no docs on inductor algorithm selection or test infrastructure",
+    "actionability": 0,
+    "actionability_rationale": "No actionable guidance beyond noting may require examining test suite or filing bug",
+    "fabrication": false,
+    "fabrication_detail": null
+  },
+  {
+    "id": "J5-18",
+    "resolution_status": "unresolved",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Correctly identifies no docs on inductor kernel generation for specific ops or padding performance effects",
+    "actionability": 0,
+    "actionability_rationale": "No actionable guidance, just characterizes padding effects on performance",
+    "fabrication": false,
+    "fabrication_detail": null
+  },
+  {
+    "id": "J5-19",
+    "resolution_status": "unresolved",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Correctly identifies no docs on inductor implementation choices (Welford) or how to override codegen",
+    "actionability": 0,
+    "actionability_rationale": "No actionable guidance, notes no documented way to override implementation choices",
+    "fabrication": false,
+    "fabrication_detail": null
+  },
+  {
+    "id": "J5-20",
+    "resolution_status": "unresolved",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Correctly identifies docs don't explain whether default mode uses CUDA graphs or rationale for opt-in",
+    "actionability": 0,
+    "actionability_rationale": "No actionable guidance beyond noting reduce-overhead explicitly enables graphs",
+    "fabrication": false,
+    "fabrication_detail": null
+  },
+  {
+    "id": "J6-1",
+    "resolution_status": "resolved",
+    "diagnosis": 2,
+    "diagnosis_rationale": "Right subsystem (dynamic shapes/mark_dynamic) but doesn't explain why LayerNorm backward specifically specializes",
+    "actionability": 3,
+    "actionability_rationale": "Complete solution: use mark_dynamic to explicitly mark batch dimension as dynamic",
+    "fabrication": false,
+    "fabrication_detail": null
+  },
+  {
+    "id": "J6-2",
+    "resolution_status": "resolved",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Correctly identifies division by zero with empty tensors, compiled code doesn't handle zero-size dimensions",
+    "actionability": 0,
+    "actionability_rationale": "No actionable guidance beyond characterizing as bug",
+    "fabrication": false,
+    "fabrication_detail": null
+  },
+  {
+    "id": "J6-3",
+    "resolution_status": "resolved",
+    "diagnosis": 2,
+    "diagnosis_rationale": "Right subsystem (reductions with dynamic shapes) but doesn't identify specific root cause of dynamo error",
+    "actionability": 0,
+    "actionability_rationale": "No actionable guidance, just notes reductions are complex with dynamic shapes",
+    "fabrication": false,
+    "fabrication_detail": null
+  },
+  {
+    "id": "J6-4",
+    "resolution_status": "resolved",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Correctly identifies PyTorch Geometric as third-party not covered in docs",
+    "actionability": 0,
+    "actionability_rationale": "No actionable guidance beyond noting general dynamic shapes may help",
+    "fabrication": false,
+    "fabrication_detail": null
+  },
+  {
+    "id": "J6-5",
+    "resolution_status": "resolved",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Correctly identifies variable sequence length recompilation and dynamic shapes solution",
+    "actionability": 3,
+    "actionability_rationale": "Complete solution with three specific steps: use dynamic=True, mark_dynamic, consider bucketing",
+    "fabrication": false,
+    "fabrication_detail": null
+  },
+  {
+    "id": "J6-6",
+    "resolution_status": "resolved",
+    "diagnosis": 2,
+    "diagnosis_rationale": "Right subsystem (guard system, dynamic=True) but imprecise on why auto-detection fails for this case",
+    "actionability": 2,
+    "actionability_rationale": "Partial guidance: use mark_dynamic for explicit marking, but lacks debugging workflow",
+    "fabrication": false,
+    "fabrication_detail": null
+  },
+  {
+    "id": "J6-7",
+    "resolution_status": "resolved",
+    "diagnosis": 2,
+    "diagnosis_rationale": "Right subsystem (operations not supporting symbolic shapes) but doesn't identify specific incompatibility",
+    "actionability": 1,
+    "actionability_rationale": "Suggests using torch._dynamo.explain but doesn't provide detailed workflow",
+    "fabrication": false,
+    "fabrication_detail": null
+  },
+  {
+    "id": "J6-8",
+    "resolution_status": "resolved",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Correctly identifies data-dependent slicing as unsupported, explains why (runtime indices prevent ahead-of-time compilation)",
+    "actionability": 1,
+    "actionability_rationale": "General advice (use masking instead) but not specific to this pattern",
+    "fabrication": false,
+    "fabrication_detail": null
+  },
+  {
+    "id": "J6-9",
+    "resolution_status": "resolved",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Correctly identifies AMP autocast dtype changes cause recompilation, docs don't cover AMP+compile interaction",
+    "actionability": 0,
+    "actionability_rationale": "No actionable guidance beyond noting AMP docs focus on eager mode",
+    "fabrication": false,
+    "fabrication_detail": null
+  },
+  {
+    "id": "J6-10",
+    "resolution_status": "resolved",
+    "diagnosis": 2,
+    "diagnosis_rationale": "Right subsystem (variable audio length, dynamic shapes) but not wav2vec2-specific issues",
+    "actionability": 2,
+    "actionability_rationale": "Provides general approach (dynamic=True, mark_dynamic on time dimension) that should work",
+    "fabrication": false,
+    "fabrication_detail": null
+  },
+  {
+    "id": "J6-11",
+    "resolution_status": "unresolved",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Correctly identifies as_strided lacking DTensor placement propagation as limitation/missing feature",
+    "actionability": 0,
+    "actionability_rationale": "No actionable guidance beyond characterizing as limitation in DTensor operation coverage",
+    "fabrication": false,
+    "fabrication_detail": null
+  },
+  {
+    "id": "J6-12",
+    "resolution_status": "unresolved",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Correctly identifies docs don't cover mark_dynamic with nn.Parameter or why it has no effect",
+    "actionability": 0,
+    "actionability_rationale": "No actionable guidance, just characterizes limitation",
+    "fabrication": false,
+    "fabrication_detail": null
+  },
+  {
+    "id": "J6-13",
+    "resolution_status": "unresolved",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Correctly identifies no debugging tools for understanding symbol creation source",
+    "actionability": 0,
+    "actionability_rationale": "No actionable guidance, notes diagnostic capability missing from user tooling",
+    "fabrication": false,
+    "fabrication_detail": null
+  },
+  {
+    "id": "J6-14",
+    "resolution_status": "unresolved",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Correctly identifies docs don't cover whether recompilation can change behavior or cause training/eval differences",
+    "actionability": 0,
+    "actionability_rationale": "No actionable guidance on diagnosing such issues or confirming recompilation as cause",
+    "fabrication": false,
+    "fabrication_detail": null
+  },
+  {
+    "id": "J6-15",
+    "resolution_status": "unresolved",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Correctly identifies no docs on guard accumulation limits or how to control it",
+    "actionability": 0,
+    "actionability_rationale": "No actionable guidance on preventing excessive guard creation or recompilation storms",
+    "fabrication": false,
+    "fabrication_detail": null
+  },
+  {
+    "id": "J6-16",
+    "resolution_status": "unresolved",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Correctly identifies no comprehensive error message references or debugging for obscure type errors",
+    "actionability": 1,
+    "actionability_rationale": "Suggests using torch._dynamo.explain but not detailed troubleshooting for this specific error",
+    "fabrication": false,
+    "fabrication_detail": null
+  },
+  {
+    "id": "J6-17",
+    "resolution_status": "unresolved",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Correctly identifies DeepSpeed as third-party not covered, InternalTorchDynamoError suggests incompatibility",
+    "actionability": 0,
+    "actionability_rationale": "No actionable guidance beyond noting need to consult both DeepSpeed and PyTorch docs",
+    "fabrication": false,
+    "fabrication_detail": null
+  },
+  {
+    "id": "J6-18",
+    "resolution_status": "unresolved",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Correctly identifies no model-specific guidance for diagnosing excessive guard recompilations",
+    "actionability": 1,
+    "actionability_rationale": "General recommendation (use dynamic=True and mark_dynamic) but not debugging workflow for guard failures",
+    "fabrication": false,
+    "fabrication_detail": null
+  },
+  {
+    "id": "J6-19",
+    "resolution_status": "unresolved",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Correctly identifies no docs on interaction between data-dependent output shapes, gradients, and torch.compile",
+    "actionability": 0,
+    "actionability_rationale": "No actionable guidance, just characterizes the complex interaction not covered in docs",
+    "fabrication": false,
+    "fabrication_detail": null
+  },
+  {
+    "id": "J6-20",
+    "resolution_status": "unresolved",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Correctly identifies no comprehensive operation support status list for dynamic shapes, torch.combinations generates data-dependent output",
+    "actionability": 0,
+    "actionability_rationale": "No actionable guidance beyond noting need to test individually or file issues",
+    "fabrication": false,
+    "fabrication_detail": null
+  },
+  {
+    "id": "J7-1",
+    "resolution_status": "resolved",
+    "diagnosis": 2,
+    "diagnosis_rationale": "Right area (compilation time reduction) but imprecise on specific mechanisms like inline_inbuilt_nn_modules or guard optimization.",
+    "actionability": 2,
+    "actionability_rationale": "Provides regional compilation as a partial solution that gets user materially closer, though lacks model-specific strategies.",
+    "fabrication": false,
+    "fabrication_detail": ""
+  },
+  {
+    "id": "J7-2",
+    "resolution_status": "resolved",
+    "diagnosis": 2,
+    "diagnosis_rationale": "Identifies AOTAutograd gradient tracing as relevant subsystem but doesn't explain why logsumexp chains cause exponential growth.",
+    "actionability": 0,
+    "actionability_rationale": "Only states docs don't cover it; no actionable workaround or next steps provided.",
+    "fabrication": false,
+    "fabrication_detail": ""
+  },
+  {
+    "id": "J7-3",
+    "resolution_status": "resolved",
+    "diagnosis": 2,
+    "diagnosis_rationale": "Correctly identifies for-loop tracing as the issue area but doesn't specify foreach optimizer variants as the solution.",
+    "actionability": 0,
+    "actionability_rationale": "Points out docs don't cover optimizer compilation but provides no actionable guidance.",
+    "fabrication": false,
+    "fabrication_detail": ""
+  },
+  {
+    "id": "J7-4",
+    "resolution_status": "resolved",
+    "diagnosis": 2,
+    "diagnosis_rationale": "Correctly identifies guard failures from LR changes but doesn't pinpoint tensor wrapping or mark_dynamic solution.",
+    "actionability": 0,
+    "actionability_rationale": "Describes the problem but offers no actionable steps to prevent recompilation.",
+    "fabrication": false,
+    "fabrication_detail": ""
+  },
+  {
+    "id": "J7-5",
+    "resolution_status": "resolved",
+    "diagnosis": 1,
+    "diagnosis_rationale": "Discusses shape specialization (related concept) but misses the actual issue about graph complexity variance with input size.",
+    "actionability": 0,
+    "actionability_rationale": "Acknowledges docs don't explain the variance but provides no actionable solution.",
+    "fabrication": false,
+    "fabrication_detail": ""
+  },
+  {
+    "id": "J7-6",
+    "resolution_status": "resolved",
+    "diagnosis": 2,
+    "diagnosis_rationale": "Correctly identifies Windows filesystem issues with cache but not specific to tmp_path.rename limitations.",
+    "actionability": 0,
+    "actionability_rationale": "States docs don't cover Windows cache issues but provides no workaround.",
+    "fabrication": false,
+    "fabrication_detail": ""
+  },
+  {
+    "id": "J7-7",
+    "resolution_status": "resolved",
+    "diagnosis": 2,
+    "diagnosis_rationale": "Identifies performance regression diagnosis as the issue area but doesn't provide bisection methodology.",
+    "actionability": 0,
+    "actionability_rationale": "Notes docs lack bisection guidance but provides no actionable steps.",
+    "fabrication": false,
+    "fabrication_detail": ""
+  },
+  {
+    "id": "J7-8",
+    "resolution_status": "resolved",
+    "diagnosis": 2,
+    "diagnosis_rationale": "Identifies autotuning crashes as the area but doesn't pinpoint None tensor handling as root cause.",
+    "actionability": 0,
+    "actionability_rationale": "States docs don't cover autotuning with None inputs but provides no workaround.",
+    "fabrication": false,
+    "fabrication_detail": ""
+  },
+  {
+    "id": "J7-9",
+    "resolution_status": "resolved",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Correctly identifies regional compilation as the solution for breaking up compilation of deep models.",
+    "actionability": 3,
+    "actionability_rationale": "Provides complete solution (regional compilation) that user can directly apply.",
+    "fabrication": false,
+    "fabrication_detail": ""
+  },
+  {
+    "id": "J7-10",
+    "resolution_status": "resolved",
+    "diagnosis": 2,
+    "diagnosis_rationale": "Identifies compiled autograd maturity/stability as the issue area but doesn't diagnose specific LayerNorm problem.",
+    "actionability": 0,
+    "actionability_rationale": "Points out docs lack production readiness info but provides no actionable guidance.",
+    "fabrication": false,
+    "fabrication_detail": ""
+  },
+  {
+    "id": "J7-11",
+    "resolution_status": "unresolved",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Correctly identifies that TORCHINDUCTOR_FX_GRAPH_CACHE and AOTAutograd caching strategies are not documented.",
+    "actionability": 0,
+    "actionability_rationale": "Only states docs don't cover advanced caching; no actionable steps provided.",
+    "fabrication": false,
+    "fabrication_detail": ""
+  },
+  {
+    "id": "J7-12",
+    "resolution_status": "unresolved",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Correctly identifies this as an undocumented issue (17-30 min compilation with warm cache causing NCCL timeouts).",
+    "actionability": 0,
+    "actionability_rationale": "Only acknowledges docs don't cover it; no actionable guidance provided.",
+    "fabrication": false,
+    "fabrication_detail": ""
+  },
+  {
+    "id": "J7-13",
+    "resolution_status": "unresolved",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Correctly identifies this as undocumented (34 second compilation for simple for loop).",
+    "actionability": 0,
+    "actionability_rationale": "Only acknowledges docs don't cover it; no actionable guidance provided.",
+    "fabrication": false,
+    "fabrication_detail": ""
+  },
+  {
+    "id": "J7-14",
+    "resolution_status": "unresolved",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Correctly identifies cpu_vec_isa.pick_vec_isa slowness as undocumented issue.",
+    "actionability": 0,
+    "actionability_rationale": "Only acknowledges docs don't cover it; no actionable guidance provided.",
+    "fabrication": false,
+    "fabrication_detail": ""
+  },
+  {
+    "id": "J7-15",
+    "resolution_status": "unresolved",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Correctly identifies PyTorch 2.10 recompilation regression with FSDP+dynamic shapes as undocumented.",
+    "actionability": 0,
+    "actionability_rationale": "Only acknowledges docs don't cover it; no actionable guidance provided.",
+    "fabrication": false,
+    "fabrication_detail": ""
+  },
+  {
+    "id": "J7-16",
+    "resolution_status": "unresolved",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Correctly identifies AOTInductor as the solution for model serialization without recompiling.",
+    "actionability": 2,
+    "actionability_rationale": "Points to AOTInductor as relevant solution but doesn't provide specific usage steps or limitations.",
+    "fabrication": false,
+    "fabrication_detail": ""
+  },
+  {
+    "id": "J7-17",
+    "resolution_status": "unresolved",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Correctly identifies that Dynamo frontend persistent caching is not a documented feature.",
+    "actionability": 0,
+    "actionability_rationale": "Only acknowledges docs don't cover Dynamo caching; no actionable guidance provided.",
+    "fabrication": false,
+    "fabrication_detail": ""
+  },
+  {
+    "id": "J7-18",
+    "resolution_status": "unresolved",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Correctly identifies AOT Autograd tracing slowness as undocumented issue.",
+    "actionability": 0,
+    "actionability_rationale": "Only acknowledges docs don't cover it; no actionable guidance provided.",
+    "fabrication": false,
+    "fabrication_detail": ""
+  },
+  {
+    "id": "J7-19",
+    "resolution_status": "unresolved",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Correctly identifies torch.compile + FSDP + mixed precision combination as undocumented.",
+    "actionability": 0,
+    "actionability_rationale": "Only acknowledges docs don't cover it; no actionable guidance provided.",
+    "fabrication": false,
+    "fabrication_detail": ""
+  },
+  {
+    "id": "J7-20",
+    "resolution_status": "unresolved",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Correctly identifies GIL during Triton compilation causing thread blocking as undocumented issue.",
+    "actionability": 0,
+    "actionability_rationale": "Only acknowledges docs don't cover it; no actionable guidance provided.",
+    "fabrication": false,
+    "fabrication_detail": ""
+  },
+  {
+    "id": "J8-1",
+    "resolution_status": "resolved",
+    "diagnosis": 2,
+    "diagnosis_rationale": "Identifies custom op registration area and mentions torch.library but doesn't provide complete guide.",
+    "actionability": 1,
+    "actionability_rationale": "Points to Triton kernels tutorial as one approach but admits it's not complete; generic advice.",
+    "fabrication": false,
+    "fabrication_detail": ""
+  },
+  {
+    "id": "J8-2",
+    "resolution_status": "resolved",
+    "diagnosis": 2,
+    "diagnosis_rationale": "Identifies FlexAttention backward issues as the area but doesn't diagnose specific root cause.",
+    "actionability": 0,
+    "actionability_rationale": "Notes docs don't cover FlexAttention backward debugging but provides no actionable steps.",
+    "fabrication": false,
+    "fabrication_detail": ""
+  },
+  {
+    "id": "J8-3",
+    "resolution_status": "resolved",
+    "diagnosis": 2,
+    "diagnosis_rationale": "Identifies stateful modules in while_loop as the issue area but doesn't provide specific guidance.",
+    "actionability": 0,
+    "actionability_rationale": "States docs don't cover BatchNorm2d in while_loop but provides no workaround.",
+    "fabrication": false,
+    "fabrication_detail": ""
+  },
+  {
+    "id": "J8-4",
+    "resolution_status": "resolved",
+    "diagnosis": 2,
+    "diagnosis_rationale": "Identifies custom C++ op registration requirements as the area but lacks specific diagnostic details.",
+    "actionability": 0,
+    "actionability_rationale": "States docs lack complete guide but provides no actionable steps for correctness.",
+    "fabrication": false,
+    "fabrication_detail": ""
+  },
+  {
+    "id": "J8-5",
+    "resolution_status": "resolved",
+    "diagnosis": 2,
+    "diagnosis_rationale": "Identifies dynamic shapes with batch-dependent BlockMask as the issue but doesn't explain mechanism.",
+    "actionability": 0,
+    "actionability_rationale": "Notes docs don't cover this scenario but provides no workaround.",
+    "fabrication": false,
+    "fabrication_detail": ""
+  },
+  {
+    "id": "J8-6",
+    "resolution_status": "resolved",
+    "diagnosis": 2,
+    "diagnosis_rationale": "Identifies precision differences with FlexAttention as the area but doesn't explain why or expected tolerance.",
+    "actionability": 0,
+    "actionability_rationale": "States docs don't discuss precision trade-offs but provides no debugging steps.",
+    "fabrication": false,
+    "fabrication_detail": ""
+  },
+  {
+    "id": "J8-7",
+    "resolution_status": "resolved",
+    "diagnosis": 2,
+    "diagnosis_rationale": "Identifies third-party custom op compatibility as the issue area but not specific to pytorch_cluster.",
+    "actionability": 0,
+    "actionability_rationale": "States docs don't cover third-party ops but provides no actionable workaround.",
+    "fabrication": false,
+    "fabrication_detail": ""
+  },
+  {
+    "id": "J8-8",
+    "resolution_status": "resolved",
+    "diagnosis": 2,
+    "diagnosis_rationale": "Identifies torch.cond limitations as the area but doesn't enumerate specific restrictions.",
+    "actionability": 0,
+    "actionability_rationale": "Notes docs lack limitation details but provides no troubleshooting guidance.",
+    "fabrication": false,
+    "fabrication_detail": ""
+  },
+  {
+    "id": "J8-9",
+    "resolution_status": "resolved",
+    "diagnosis": 2,
+    "diagnosis_rationale": "Identifies complex tensor support as the issue area but doesn't specify which operations work or don't.",
+    "actionability": 0,
+    "actionability_rationale": "States docs don't clarify complex dtype support but provides no actionable steps.",
+    "fabrication": false,
+    "fabrication_detail": ""
+  },
+  {
+    "id": "J8-10",
+    "resolution_status": "resolved",
+    "diagnosis": 2,
+    "diagnosis_rationale": "Identifies Triton autotuning failures as the area but doesn't explain invalid argument CUDA error specifics.",
+    "actionability": 0,
+    "actionability_rationale": "States docs don't cover autotuning debugging but provides no actionable steps.",
+    "fabrication": false,
+    "fabrication_detail": ""
+  },
+  {
+    "id": "J8-11",
+    "resolution_status": "unresolved",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Correctly identifies custom torch.library op illegal memory access with compile as undocumented issue.",
+    "actionability": 0,
+    "actionability_rationale": "Only acknowledges docs don't cover it; no actionable guidance provided.",
+    "fabrication": false,
+    "fabrication_detail": ""
+  },
+  {
+    "id": "J8-12",
+    "resolution_status": "unresolved",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Correctly identifies compiled FlexAttention illegal memory access as undocumented issue.",
+    "actionability": 0,
+    "actionability_rationale": "Only acknowledges docs don't cover it; no actionable guidance provided.",
+    "fabrication": false,
+    "fabrication_detail": ""
+  },
+  {
+    "id": "J8-13",
+    "resolution_status": "unresolved",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Correctly identifies torch.compile + CUDA graphs + multithreading as undocumented combination.",
+    "actionability": 0,
+    "actionability_rationale": "Only acknowledges docs don't cover it; no actionable guidance provided.",
+    "fabrication": false,
+    "fabrication_detail": ""
+  },
+  {
+    "id": "J8-14",
+    "resolution_status": "unresolved",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Correctly identifies absence of torch.scan equivalent to JAX lax.scan in docs.",
+    "actionability": 0,
+    "actionability_rationale": "Only acknowledges missing feature; no actionable guidance provided.",
+    "fabrication": false,
+    "fabrication_detail": ""
+  },
+  {
+    "id": "J8-15",
+    "resolution_status": "unresolved",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Correctly identifies parallel associative scans as not documented in PyTorch.",
+    "actionability": 0,
+    "actionability_rationale": "Only acknowledges missing feature; no actionable guidance provided.",
+    "fabrication": false,
+    "fabrication_detail": ""
+  },
+  {
+    "id": "J8-16",
+    "resolution_status": "unresolved",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Correctly identifies symmetric memory with torch.compile as undocumented.",
+    "actionability": 0,
+    "actionability_rationale": "Only acknowledges docs don't cover it; no actionable guidance provided.",
+    "fabrication": false,
+    "fabrication_detail": ""
+  },
+  {
+    "id": "J8-17",
+    "resolution_status": "unresolved",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Correctly identifies custom_op decorator performance difference as undocumented issue.",
+    "actionability": 0,
+    "actionability_rationale": "Only acknowledges docs don't cover it; no actionable guidance provided.",
+    "fabrication": false,
+    "fabrication_detail": ""
+  },
+  {
+    "id": "J8-18",
+    "resolution_status": "unresolved",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Correctly identifies custom reduction ops slowness with C++ inductor backend as undocumented.",
+    "actionability": 0,
+    "actionability_rationale": "Only acknowledges docs don't cover it; no actionable guidance provided.",
+    "fabrication": false,
+    "fabrication_detail": ""
+  },
+  {
+    "id": "J8-19",
+    "resolution_status": "unresolved",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Correctly identifies Flex Attention LLVM crash after Triton update as undocumented issue.",
+    "actionability": 0,
+    "actionability_ratability": "Only acknowledges docs don't cover it; no actionable guidance provided.",
+    "fabrication": false,
+    "fabrication_detail": ""
+  },
+  {
+    "id": "J8-20",
+    "resolution_status": "unresolved",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Correctly identifies compiled flex_attention wrong gradients as undocumented issue.",
+    "actionability": 0,
+    "actionability_rationale": "Only acknowledges docs don't cover it; no actionable guidance provided.",
+    "fabrication": false,
+    "fabrication_detail": ""
+  }
+]
