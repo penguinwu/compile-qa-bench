@@ -1,0 +1,1442 @@
+[
+  {
+    "actionability": 2,
+    "actionability_rationale": "Imperative: 'Set the environment variable', 'run your script.' Partial — user can enable caching but advanced config left vague.",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Correct root cause: FX graph caching with TORCHINDUCTOR_FX_GRAPH_CACHE=1. Causal: 'cache is managed automatically, you enable it via env var.'",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J1-1"
+  },
+  {
+    "actionability": 2,
+    "actionability_rationale": "Imperative: 'pass the backend argument', shows code examples. Partial — lists some backends but not comprehensive.",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Correct: backend parameter controls compiler selection. Causal: 'pass the backend argument to torch.compile().'",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J1-2"
+  },
+  {
+    "actionability": 1,
+    "actionability_rationale": "Imperative: 'ensure autocast is applied inside the forward pass.' Generic advice, not verified against this specific error.",
+    "diagnosis": 1,
+    "diagnosis_rationale": "Mentions AMP docs and DDP but no causal assertion about WHY NotImplementedError occurs. Reports which docs exist without explaining mechanism.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J1-3"
+  },
+  {
+    "actionability": 0,
+    "actionability_rationale": "No imperative. Only describes what's missing from docs.",
+    "diagnosis": 1,
+    "diagnosis_rationale": "Reports doc gap about C++ compiler. No causal assertion — doesn't say 'inductor generates C++ code which requires a compiler to build.'",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J1-4"
+  },
+  {
+    "actionability": 2,
+    "actionability_rationale": "Imperative: 'Run a warmup iteration', 'Measure performance on subsequent iterations.' Partial — methodology clear but no code example.",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Correct root cause with causal claim: 'torch.compile incurs a one-time compilation cost on the first call' and 'compilation happens once, then you get speedups on repeated calls.'",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J1-5"
+  },
+  {
+    "actionability": 0,
+    "actionability_rationale": "No imperative. Only says 'you would need information beyond official docs.'",
+    "diagnosis": 1,
+    "diagnosis_rationale": "Reports doc gap about tensor parallel + compile. No causal assertion about why they interact.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J1-6"
+  },
+  {
+    "actionability": 0,
+    "actionability_rationale": "No imperative. Pure gap description.",
+    "diagnosis": 1,
+    "diagnosis_rationale": "Reports gap. No causal assertion about set_device behavior under compile.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J1-7"
+  },
+  {
+    "actionability": 0,
+    "actionability_rationale": "No imperative. Pure gap description.",
+    "diagnosis": 1,
+    "diagnosis_rationale": "Reports gap. No causal assertion about CUDA/Triton compatibility mechanism.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J1-8"
+  },
+  {
+    "actionability": 3,
+    "actionability_rationale": "Imperative: 'Enable FX graph cache with environment variable.' Complete solution user can apply immediately.",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Correct root cause: FX graph cache with automatic persistence. Causal: 'cache is persistent and shared across processes by default when enabled.'",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J1-9"
+  },
+  {
+    "actionability": 0,
+    "actionability_rationale": "No imperative. Only says 'does not explicitly address' compatibility.",
+    "diagnosis": 1,
+    "diagnosis_rationale": "Reports doc gap about checkpoint+compile. No causal assertion about compatibility mechanism.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J1-10"
+  },
+  {
+    "actionability": 1,
+    "actionability_rationale": "Imperative: 'enable logging: TORCH_LOGS=+recompiles.' Real tool but generic — same advice for any recompilation issue.",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Accurately identifies gap: troubleshooting covers recompilation logging but not 3-stage caching diagnostics.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J1-11"
+  },
+  {
+    "actionability": 0,
+    "actionability_rationale": "No imperative. Only describes what docs don't cover.",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Accurately identifies that autograd.grad tracing limitation is not documented.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J1-12"
+  },
+  {
+    "actionability": 0,
+    "actionability_rationale": "No imperative. Pure gap description.",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Accurately identifies no GRU compile support docs.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J1-13"
+  },
+  {
+    "actionability": 0,
+    "actionability_rationale": "No imperative. Pure gap description.",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Accurately identifies multiprocessing+compile gap.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J1-14"
+  },
+  {
+    "actionability": 0,
+    "actionability_rationale": "No imperative. Pure gap description.",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Accurately identifies MXFP8+compile gap.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J1-15"
+  },
+  {
+    "actionability": 0,
+    "actionability_rationale": "No imperative. Pure gap description.",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Accurately identifies complex dtype gap.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J1-16"
+  },
+  {
+    "actionability": 0,
+    "actionability_rationale": "No imperative. Pure gap description.",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Accurately identifies Windows compile setup gap.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J1-17"
+  },
+  {
+    "actionability": 0,
+    "actionability_rationale": "No imperative. Pure gap description.",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Accurately identifies inductor pattern matching gap.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J1-18"
+  },
+  {
+    "actionability": 0,
+    "actionability_rationale": "No imperative. Pure gap description.",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Accurately identifies linker path gap.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J1-19"
+  },
+  {
+    "actionability": 0,
+    "actionability_rationale": "No imperative. Describes the problem but suggests no workaround.",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Correctly identifies concurrent writes as cause of JSONDecodeError. Causal: 'suggests concurrent writes to cache files.'",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J1-20"
+  },
+  {
+    "actionability": 3,
+    "actionability_rationale": "Imperative: 'Use torch.profiler', 'Check for excessive graph breaks with TORCH_LOGS.' Code example provided. Complete diagnostic toolkit.",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Correct diagnostic approach with causal reasoning: 'slowness comes from compilation overhead, graph breaks causing fallback, or generated kernel performance.'",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J2-1"
+  },
+  {
+    "actionability": 1,
+    "actionability_rationale": "Imperative: 'Use torch.profiler to compare', 'Enable inductor profiling with TORCHINDUCTOR_PROFILE=1.' Generic profiling advice.",
+    "diagnosis": 1,
+    "diagnosis_rationale": "Mentions profiling tools but no causal assertion about why cumprod backward is 100x slower. Reports tools, doesn't diagnose.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J2-2"
+  },
+  {
+    "actionability": 1,
+    "actionability_rationale": "Imperative: 'Ensure proper warmup', 'Try mode=reduce-overhead', 'Consider whether the model is large enough.' Generic advice applicable to any perf question.",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Correct causal claim: 'small models may not benefit due to overhead exceeding optimization gains' and 'kernel launch overhead dominates.'",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J2-3"
+  },
+  {
+    "actionability": 1,
+    "actionability_rationale": "Imperative: 'use the profiling tools' to compare. Generic.",
+    "diagnosis": 1,
+    "diagnosis_rationale": "Reports no version changelog exists. No causal assertion about what could cause regression.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J2-4"
+  },
+  {
+    "actionability": 1,
+    "actionability_rationale": "Imperative: 'Check for graph breaks', 'Use TORCH_COMPILE_DEBUG=1.' Generic debugging advice.",
+    "diagnosis": 1,
+    "diagnosis_rationale": "Mentions debug tools but no causal assertion about the free() crash. Reports doc coverage without diagnosing.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J2-5"
+  },
+  {
+    "actionability": 1,
+    "actionability_rationale": "Imperative: 'Consider whether the operation is actually being fused.' Generic suggestion.",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Correct causal claim: 'PyTorch's eager matmul already calls highly optimized BLAS/cuBLAS libraries' — directly explains why no speedup.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J2-6"
+  },
+  {
+    "actionability": 0,
+    "actionability_rationale": "No imperative. Pure gap description.",
+    "diagnosis": 1,
+    "diagnosis_rationale": "Reports gap. No causal assertion about GIL behavior.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J2-7"
+  },
+  {
+    "actionability": 0,
+    "actionability_rationale": "No imperative. Pure gap description.",
+    "diagnosis": 1,
+    "diagnosis_rationale": "Reports gap. No analysis.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J2-8"
+  },
+  {
+    "actionability": 1,
+    "actionability_rationale": "Imperative: 'Use torch.profiler', 'Generate Chrome traces.' Generic profiling advice.",
+    "diagnosis": 1,
+    "diagnosis_rationale": "Mentions profiling methodology but no causal assertion about why decoder models specifically are slower.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J2-9"
+  },
+  {
+    "actionability": 0,
+    "actionability_rationale": "No imperative. Pure gap description.",
+    "diagnosis": 1,
+    "diagnosis_rationale": "Reports no operator coverage list. No causal assertion.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J2-10"
+  },
+  {
+    "actionability": 0,
+    "actionability_rationale": "No imperative. Only says profiling guide 'can help identify where the slowdown occurs' — descriptive, not imperative.",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Accurately identifies doc gap for full-model compilation perf.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J2-11"
+  },
+  {
+    "actionability": 0,
+    "actionability_rationale": "No imperative.",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Accurately identifies complex tensor perf gap.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J2-12"
+  },
+  {
+    "actionability": 0,
+    "actionability_rationale": "No imperative.",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Accurately identifies float8 perf gap.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J2-13"
+  },
+  {
+    "actionability": 0,
+    "actionability_rationale": "No imperative.",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Accurately identifies inductor codegen gap.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J2-14"
+  },
+  {
+    "actionability": 0,
+    "actionability_rationale": "No imperative.",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Accurately identifies SDPA+compile+tf32 gap.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J2-15"
+  },
+  {
+    "actionability": 0,
+    "actionability_rationale": "No imperative.",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Accurately identifies fusion strategy gap.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J2-16"
+  },
+  {
+    "actionability": 0,
+    "actionability_rationale": "No imperative.",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Accurately identifies torch._foreach gap.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J2-17"
+  },
+  {
+    "actionability": 0,
+    "actionability_rationale": "No imperative. Says 'users wanting automated canaries would need to build custom tooling' — descriptive.",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Accurately identifies no perf canary feature.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J2-18"
+  },
+  {
+    "actionability": 0,
+    "actionability_rationale": "No imperative. Describes blog existence but no action suggested.",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Accurately identifies no benchmark dashboard.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J2-19"
+  },
+  {
+    "actionability": 0,
+    "actionability_rationale": "No imperative.",
+    "diagnosis": 2,
+    "diagnosis_rationale": "Claims no XPU docs — but Intel GPU/XPU IS documented on pytorch.org. Partially inaccurate gap ID.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J2-20"
+  },
+  {
+    "actionability": 1,
+    "actionability_rationale": "Imperative: 'manually isolate the problematic code section and compare eager vs. compiled outputs.' Generic advice.",
+    "diagnosis": 1,
+    "diagnosis_rationale": "Wrong claim: says minifier/repro_level are 'internal development tools' — repro_level IS in troubleshooting docs. No causal assertion.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J3-1"
+  },
+  {
+    "actionability": 1,
+    "actionability_rationale": "Same generic imperative: 'isolate and compare.'",
+    "diagnosis": 1,
+    "diagnosis_rationale": "Same wrong claim about minifier/repro_level. No causal assertion.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J3-2"
+  },
+  {
+    "actionability": 1,
+    "actionability_rationale": "Imperative: 'check that you're using compatible data types.' Generic.",
+    "diagnosis": 1,
+    "diagnosis_rationale": "Mentions FlexAttention blogs but no causal assertion about what causes the accuracy issue.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J3-3"
+  },
+  {
+    "actionability": 1,
+    "actionability_rationale": "Imperative: 'check operations are compatible', 'verify gradient scaling', 'consider using detect_anomaly.' Generic.",
+    "diagnosis": 1,
+    "diagnosis_rationale": "Mentions detect_anomaly but no causal assertion about WHY NaN occurs with float8+compile.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J3-4"
+  },
+  {
+    "actionability": 1,
+    "actionability_rationale": "Imperative: 'set random seeds properly.' Generic.",
+    "diagnosis": 1,
+    "diagnosis_rationale": "Mentions seed setting but no causal assertion about compile-specific reproducibility mechanism.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J3-5"
+  },
+  {
+    "actionability": 1,
+    "actionability_rationale": "Same generic imperative.",
+    "diagnosis": 1,
+    "diagnosis_rationale": "Identical boilerplate. No causal assertion.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J3-6"
+  },
+  {
+    "actionability": 1,
+    "actionability_rationale": "Same generic imperative.",
+    "diagnosis": 1,
+    "diagnosis_rationale": "Identical boilerplate.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J3-7"
+  },
+  {
+    "actionability": 1,
+    "actionability_rationale": "Same generic imperatives.",
+    "diagnosis": 1,
+    "diagnosis_rationale": "Same as J3-4 template. No causal assertion.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J3-8"
+  },
+  {
+    "actionability": 1,
+    "actionability_rationale": "Same generic imperative.",
+    "diagnosis": 1,
+    "diagnosis_rationale": "Identical boilerplate.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J3-9"
+  },
+  {
+    "actionability": 1,
+    "actionability_rationale": "Same generic imperative.",
+    "diagnosis": 1,
+    "diagnosis_rationale": "Identical boilerplate.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J3-10"
+  },
+  {
+    "actionability": 1,
+    "actionability_rationale": "Imperative: 'Use TORCH_LOGS environment variable.' Generic but is an imperative.",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Accurately identifies doc gap. Mentions TORCH_LOGS.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J3-11"
+  },
+  {
+    "actionability": 1,
+    "actionability_rationale": "Imperative: 'isolate the problem, create a minimal reproduction, and check the PyTorch GitHub issues.' Generic.",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Accurate gap ID.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J3-12"
+  },
+  {
+    "actionability": 1,
+    "actionability_rationale": "Same imperative template: 'isolate, create repro, check GitHub.'",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Accurate gap ID.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J3-13"
+  },
+  {
+    "actionability": 1,
+    "actionability_rationale": "Same imperative template.",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Accurate gap ID.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J3-14"
+  },
+  {
+    "actionability": 1,
+    "actionability_rationale": "Same imperative template.",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Accurate gap ID.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J3-15"
+  },
+  {
+    "actionability": 1,
+    "actionability_rationale": "Same imperative template.",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Accurate gap ID.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J3-16"
+  },
+  {
+    "actionability": 1,
+    "actionability_rationale": "Same imperative template.",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Accurate gap ID.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J3-17"
+  },
+  {
+    "actionability": 1,
+    "actionability_rationale": "Same imperative template.",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Accurate gap ID.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J3-18"
+  },
+  {
+    "actionability": 1,
+    "actionability_rationale": "Same imperative template.",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Accurate gap ID.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J3-19"
+  },
+  {
+    "actionability": 1,
+    "actionability_rationale": "Imperative: 'Check the error messages.' Generic.",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Accurate gap ID. Mentions graph breaks and TORCH_LOGS.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J3-20"
+  },
+  {
+    "actionability": 1,
+    "actionability_rationale": "Imperative: 'Use TORCH_LOGS=+dynamo', 'use torch.compiler.disable().' Generic same-advice-for-all.",
+    "diagnosis": 1,
+    "diagnosis_rationale": "Template mentions graph breaks but no causal assertion about this specific case. Topic-matching, not diagnosis.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J4-1"
+  },
+  {
+    "actionability": 1,
+    "actionability_rationale": "Same generic imperatives.",
+    "diagnosis": 1,
+    "diagnosis_rationale": "Same template. No causal assertion.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J4-2"
+  },
+  {
+    "actionability": 1,
+    "actionability_rationale": "Same generic imperatives.",
+    "diagnosis": 1,
+    "diagnosis_rationale": "Same template.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J4-3"
+  },
+  {
+    "actionability": 1,
+    "actionability_rationale": "Same generic imperatives.",
+    "diagnosis": 1,
+    "diagnosis_rationale": "Same template.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J4-4"
+  },
+  {
+    "actionability": 1,
+    "actionability_rationale": "Same generic imperatives.",
+    "diagnosis": 1,
+    "diagnosis_rationale": "Same template.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J4-5"
+  },
+  {
+    "actionability": 1,
+    "actionability_rationale": "Same generic imperatives.",
+    "diagnosis": 1,
+    "diagnosis_rationale": "Same template.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J4-6"
+  },
+  {
+    "actionability": 0,
+    "actionability_rationale": "No imperative. Only says 'Consider checking PyTorch GitHub issues' — hedged, not directive.",
+    "diagnosis": 1,
+    "diagnosis_rationale": "'Specific guidance not available.' No causal assertion.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J4-7"
+  },
+  {
+    "actionability": 1,
+    "actionability_rationale": "Same generic imperatives.",
+    "diagnosis": 1,
+    "diagnosis_rationale": "Same template.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J4-8"
+  },
+  {
+    "actionability": 1,
+    "actionability_rationale": "Same generic imperatives.",
+    "diagnosis": 1,
+    "diagnosis_rationale": "Same template.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J4-9"
+  },
+  {
+    "actionability": 1,
+    "actionability_rationale": "Same generic imperatives.",
+    "diagnosis": 1,
+    "diagnosis_rationale": "Same template.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J4-10"
+  },
+  {
+    "actionability": 1,
+    "actionability_rationale": "Imperative: 'Check the error messages', 'consult PyTorch GitHub issues', 'consider filing a bug report.' Generic.",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Accurate gap ID.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J4-11"
+  },
+  {
+    "actionability": 1,
+    "actionability_rationale": "Same imperative template.",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Accurate gap ID.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J4-12"
+  },
+  {
+    "actionability": 1,
+    "actionability_rationale": "Same template.",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Accurate gap ID.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J4-13"
+  },
+  {
+    "actionability": 1,
+    "actionability_rationale": "Same template.",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Accurate gap ID.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J4-14"
+  },
+  {
+    "actionability": 1,
+    "actionability_rationale": "Same template.",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Accurate gap ID.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J4-15"
+  },
+  {
+    "actionability": 1,
+    "actionability_rationale": "Same template.",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Accurate gap ID.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J4-16"
+  },
+  {
+    "actionability": 1,
+    "actionability_rationale": "Same template.",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Accurate gap ID.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J4-17"
+  },
+  {
+    "actionability": 1,
+    "actionability_rationale": "Same template.",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Accurate gap ID.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J4-18"
+  },
+  {
+    "actionability": 1,
+    "actionability_rationale": "Same template.",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Accurate gap ID.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J4-19"
+  },
+  {
+    "actionability": 1,
+    "actionability_rationale": "Same template.",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Accurate gap ID.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J4-20"
+  },
+  {
+    "actionability": 1,
+    "actionability_rationale": "Imperative: 'use default mode first, add numerical validation, consider torch.amp.' Generic advice.",
+    "diagnosis": 1,
+    "diagnosis_rationale": "Mentions max-autotune and CUDA graphs but no causal assertion about why precision changes. Reports topics, doesn't explain mechanism.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J5-1"
+  },
+  {
+    "actionability": 1,
+    "actionability_rationale": "Imperative: 'enable verbose logging, use profiler, check graph breaks.' Generic.",
+    "diagnosis": 1,
+    "diagnosis_rationale": "Reports reduce-overhead uses CUDA graphs. No causal assertion about the 7x regression.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J5-2"
+  },
+  {
+    "actionability": 0,
+    "actionability_rationale": "No imperative. Describes the problem area without telling user what to do.",
+    "diagnosis": 1,
+    "diagnosis_rationale": "Mentions register usage and memory patterns but no causal assertion linking them to the performance issue.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J5-3"
+  },
+  {
+    "actionability": 1,
+    "actionability_rationale": "Imperative: 'Recommend filing GitHub issue.' Generic redirect.",
+    "diagnosis": 2,
+    "diagnosis_rationale": "Causal assertion: 'compiler bug' in internal optimization pass. Correctly characterizes as a code defect, not a user error.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J5-4"
+  },
+  {
+    "actionability": 1,
+    "actionability_rationale": "Imperative: 'use profiler, enable verbose logs, check graph breaks.' Generic.",
+    "diagnosis": 1,
+    "diagnosis_rationale": "Reports gap in bisection tools. No causal assertion.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J5-5"
+  },
+  {
+    "actionability": 1,
+    "actionability_rationale": "Imperative: 'Recommend filing bug report.' Generic.",
+    "diagnosis": 1,
+    "diagnosis_rationale": "Reports gap. No causal assertion about alignment error.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J5-6"
+  },
+  {
+    "actionability": 0,
+    "actionability_rationale": "No imperative. Only describes what exists vs doesn't.",
+    "diagnosis": 1,
+    "diagnosis_rationale": "Reports that fused variant not documented. No causal assertion about how fusion works or doesn't.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J5-7"
+  },
+  {
+    "actionability": 0,
+    "actionability_rationale": "No imperative. Only says 'Requires vLLM's own documentation.'",
+    "diagnosis": 1,
+    "diagnosis_rationale": "Reports vLLM is external. No causal assertion.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J5-8"
+  },
+  {
+    "actionability": 0,
+    "actionability_rationale": "No imperative. Only describes doc gap.",
+    "diagnosis": 1,
+    "diagnosis_rationale": "Reports Windows support unclear. No causal assertion.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J5-9"
+  },
+  {
+    "actionability": 2,
+    "actionability_rationale": "Imperative: 'compile training step function, not optimizer directly.' Case-specific workaround.",
+    "diagnosis": 2,
+    "diagnosis_rationale": "Causal assertion: ''too many arguments' suggests signature mismatch' — asserts what causes the error.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J5-10"
+  },
+  {
+    "actionability": 0,
+    "actionability_rationale": "No imperative. Says 'Need to experiment separately' — descriptive.",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Accurate gap ID for mode combinations.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J5-11"
+  },
+  {
+    "actionability": 1,
+    "actionability_rationale": "Imperative: 'reduce batch/sequence/heads.' Generic but directional.",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Accurate gap ID for FlexAttention shared memory.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J5-12"
+  },
+  {
+    "actionability": 0,
+    "actionability_rationale": "No imperative.",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Accurate gap ID.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J5-13"
+  },
+  {
+    "actionability": 0,
+    "actionability_rationale": "No imperative.",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Accurate gap ID.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J5-14"
+  },
+  {
+    "actionability": 1,
+    "actionability_rationale": "Imperative: implicit guidance to check schema, fake/meta implementations. Borderline but mentions specific things to check.",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Accurate gap ID. Notes common pitfalls.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J5-15"
+  },
+  {
+    "actionability": 0,
+    "actionability_rationale": "No imperative. Says 'Requires understanding inductor internals, engaging with developers' — descriptive.",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Accurate gap ID.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J5-16"
+  },
+  {
+    "actionability": 0,
+    "actionability_rationale": "No imperative. Says 'May require examining test suite or filing bug' — hedged.",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Accurate gap ID.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J5-17"
+  },
+  {
+    "actionability": 0,
+    "actionability_rationale": "No imperative.",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Accurate gap ID.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J5-18"
+  },
+  {
+    "actionability": 0,
+    "actionability_rationale": "No imperative. Says 'No documented way to override' — descriptive.",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Accurate gap ID.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J5-19"
+  },
+  {
+    "actionability": 0,
+    "actionability_rationale": "No imperative.",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Accurate gap ID.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J5-20"
+  },
+  {
+    "actionability": 2,
+    "actionability_rationale": "Imperative: 'Use torch.compile(..., dynamic=True)', 'Mark sequence dimension with mark_dynamic.' Case-relevant but not complete for LayerNorm specifics.",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Correct with causal assertion: 'dynamic=True enables automatic tracking' and 'Use mark_dynamic to explicitly mark batch dimension as dynamic' to prevent specialization.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J6-1"
+  },
+  {
+    "actionability": 0,
+    "actionability_rationale": "No imperative. Only says 'Appears to be bug where dynamic tracking doesn't guard against empties' — descriptive.",
+    "diagnosis": 1,
+    "diagnosis_rationale": "Reports dynamic shapes + empty tensor issue. No causal assertion about WHY division by zero occurs with empties under compile.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J6-2"
+  },
+  {
+    "actionability": 0,
+    "actionability_rationale": "No imperative. Only describes doc coverage.",
+    "diagnosis": 1,
+    "diagnosis_rationale": "Reports Dynamic Shapes Core Concepts content. No causal assertion about reductions specifically.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J6-3"
+  },
+  {
+    "actionability": 0,
+    "actionability_rationale": "No imperative. Only says 'General dynamic shapes may help' — descriptive.",
+    "diagnosis": 1,
+    "diagnosis_rationale": "Reports PyG is third-party. No causal assertion about compile interaction.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J6-4"
+  },
+  {
+    "actionability": 2,
+    "actionability_rationale": "Imperative: 'Use torch.compile(..., dynamic=True)', 'Mark sequence dimension with mark_dynamic', 'Consider bucketing.' Case-relevant.",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Correct with causal assertion: variable sequence lengths cause recompilation; dynamic=True + mark_dynamic prevent this.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J6-5"
+  },
+  {
+    "actionability": 1,
+    "actionability_rationale": "Imperative: 'use mark_dynamic for explicit marking.' Generic.",
+    "diagnosis": 1,
+    "diagnosis_rationale": "Mentions guard system but no causal assertion about WHY dynamic=True still fails. Reports doc content without explaining mechanism.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J6-6"
+  },
+  {
+    "actionability": 1,
+    "actionability_rationale": "Imperative: 'Could use torch._dynamo.explain.' Generic debugging tool.",
+    "diagnosis": 1,
+    "diagnosis_rationale": "Reports symbolic shapes limitations. No causal assertion about this specific error.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J6-7"
+  },
+  {
+    "actionability": 1,
+    "actionability_rationale": "Imperative: 'use masking instead of dynamic indexing.' Generic principle, not tailored to specific case.",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Correct causal assertion: 'indexing where indices/bounds depend on runtime tensor values, creating ahead-of-time compilation challenge.'",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J6-8"
+  },
+  {
+    "actionability": 0,
+    "actionability_rationale": "No imperative. Says 'May need consistent dtype' — hedged, descriptive.",
+    "diagnosis": 1,
+    "diagnosis_rationale": "Reports AMP docs don't cover compile interaction. No causal assertion about dtype recompilation mechanism.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J6-9"
+  },
+  {
+    "actionability": 1,
+    "actionability_rationale": "Imperative: 'use torch.compile(..., dynamic=True), mark_dynamic on time dimension.' Generic dynamic shapes advice.",
+    "diagnosis": 1,
+    "diagnosis_rationale": "Reports no wav2vec2 docs. No causal assertion about speech model compilation.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J6-10"
+  },
+  {
+    "actionability": 0,
+    "actionability_rationale": "No imperative.",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Accurate gap ID for DTensor as_strided.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J6-11"
+  },
+  {
+    "actionability": 0,
+    "actionability_rationale": "No imperative.",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Accurate gap ID.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J6-12"
+  },
+  {
+    "actionability": 0,
+    "actionability_rationale": "No imperative.",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Accurate gap ID.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J6-13"
+  },
+  {
+    "actionability": 0,
+    "actionability_rationale": "No imperative.",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Accurate gap ID.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J6-14"
+  },
+  {
+    "actionability": 0,
+    "actionability_rationale": "No imperative. Says 'No documented configuration' — descriptive.",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Accurate gap ID.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J6-15"
+  },
+  {
+    "actionability": 0,
+    "actionability_rationale": "No imperative. Says 'Could use torch._dynamo.explain' — hedged.",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Accurate gap ID.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J6-16"
+  },
+  {
+    "actionability": 0,
+    "actionability_rationale": "No imperative. Says 'Need to consult both' — descriptive.",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Accurate gap ID for DeepSpeed.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J6-17"
+  },
+  {
+    "actionability": 1,
+    "actionability_rationale": "Imperative: 'use dynamic=True and mark_dynamic.' Generic but is an imperative.",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Accurate gap ID.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J6-18"
+  },
+  {
+    "actionability": 0,
+    "actionability_rationale": "No imperative.",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Accurate gap ID.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J6-19"
+  },
+  {
+    "actionability": 0,
+    "actionability_rationale": "No imperative. Says 'need to test individually or file issues' — hedged.",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Accurate gap ID.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J6-20"
+  },
+  {
+    "actionability": 1,
+    "actionability_rationale": "Imperative: 'apply torch.compile selectively to performance-critical regions.' Generic regional compilation advice.",
+    "diagnosis": 1,
+    "diagnosis_rationale": "Mentions regional compilation but no causal assertion about why T5 specifically has long compile time.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J7-1"
+  },
+  {
+    "actionability": 0,
+    "actionability_rationale": "No imperative. Only describes what docs don't cover.",
+    "diagnosis": 1,
+    "diagnosis_rationale": "Reports Dynamo Overview content. No causal assertion about exponential growth mechanism.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J7-2"
+  },
+  {
+    "actionability": 0,
+    "actionability_rationale": "No imperative. Only describes gap.",
+    "diagnosis": 1,
+    "diagnosis_rationale": "Reports doc gap. No causal assertion about why optimizer loops are slow to trace.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J7-3"
+  },
+  {
+    "actionability": 0,
+    "actionability_rationale": "No imperative. Only says 'No official documentation explains how to structure code' — descriptive.",
+    "diagnosis": 1,
+    "diagnosis_rationale": "Reports Dynamic Shapes content. No causal assertion about LR scheduler interaction with guards.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J7-4"
+  },
+  {
+    "actionability": 0,
+    "actionability_rationale": "No imperative.",
+    "diagnosis": 1,
+    "diagnosis_rationale": "Reports Dynamic Shapes Core Concepts. No causal assertion.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J7-5"
+  },
+  {
+    "actionability": 0,
+    "actionability_rationale": "No imperative.",
+    "diagnosis": 1,
+    "diagnosis_rationale": "Reports doc gap for Windows cache path. No causal assertion.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J7-6"
+  },
+  {
+    "actionability": 0,
+    "actionability_rationale": "No imperative.",
+    "diagnosis": 1,
+    "diagnosis_rationale": "Reports doc gap. No causal assertion.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J7-7"
+  },
+  {
+    "actionability": 0,
+    "actionability_rationale": "No imperative.",
+    "diagnosis": 1,
+    "diagnosis_rationale": "Reports doc gap. No causal assertion.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J7-8"
+  },
+  {
+    "actionability": 2,
+    "actionability_rationale": "Imperative: 'apply torch.compile selectively to submodules.' Two real approaches. Case-relevant.",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Correct with causal assertion: regional compilation 'breaks compilation into smaller pieces' and AOTInductor 'can serialize compiled artifacts.' Identifies the solution mechanism.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J7-9"
+  },
+  {
+    "actionability": 0,
+    "actionability_rationale": "No imperative. Only describes what docs don't provide.",
+    "diagnosis": 1,
+    "diagnosis_rationale": "Reports doc gap about compiled autograd readiness. No causal assertion.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J7-10"
+  },
+  {
+    "actionability": 0,
+    "actionability_rationale": "No imperative. Only lists missing topics.",
+    "diagnosis": 2,
+    "diagnosis_rationale": "Partially inaccurate: claims FX_GRAPH_CACHE isn't documented but caching tutorial covers it. Not a clean gap ID.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J7-11"
+  },
+  {
+    "actionability": 0,
+    "actionability_rationale": "No imperative. Template response.",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Accurate gap ID.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J7-12"
+  },
+  {
+    "actionability": 0,
+    "actionability_rationale": "No imperative. Template response.",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Accurate gap ID.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J7-13"
+  },
+  {
+    "actionability": 0,
+    "actionability_rationale": "No imperative. Template response.",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Accurate gap ID.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J7-14"
+  },
+  {
+    "actionability": 0,
+    "actionability_rationale": "No imperative. Template response.",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Accurate gap ID.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J7-15"
+  },
+  {
+    "actionability": 2,
+    "actionability_rationale": "Imperative: implicit 'use AOTInductor to compile and deploy.' Points to directly relevant documentation.",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Correctly points to AOTInductor as solution for model serialization.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J7-16"
+  },
+  {
+    "actionability": 0,
+    "actionability_rationale": "No imperative. Only describes architecture.",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Correctly distinguishes Dynamo frontend from Inductor backend caching.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J7-17"
+  },
+  {
+    "actionability": 0,
+    "actionability_rationale": "No imperative. Template response.",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Accurate gap ID.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J7-18"
+  },
+  {
+    "actionability": 0,
+    "actionability_rationale": "No imperative. Template response.",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Accurate gap ID.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J7-19"
+  },
+  {
+    "actionability": 0,
+    "actionability_rationale": "No imperative. Template response.",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Accurate gap ID.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J7-20"
+  },
+  {
+    "actionability": 0,
+    "actionability_rationale": "No imperative. Says 'more detailed documentation may exist but was not found' — descriptive.",
+    "diagnosis": 1,
+    "diagnosis_rationale": "Mentions Triton tutorial and Dynamo Overview but no causal assertion about custom op registration issues.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J8-1"
+  },
+  {
+    "actionability": 0,
+    "actionability_rationale": "No imperative.",
+    "diagnosis": 1,
+    "diagnosis_rationale": "Reports doc gap. No causal assertion about backward segfault.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J8-2"
+  },
+  {
+    "actionability": 0,
+    "actionability_rationale": "No imperative. Only says 'No official documentation explains how to integrate.'",
+    "diagnosis": 1,
+    "diagnosis_rationale": "Reports cond docs exist but while_loop not documented. No causal assertion about BatchNorm2d + control flow interaction.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J8-3"
+  },
+  {
+    "actionability": 0,
+    "actionability_rationale": "No imperative.",
+    "diagnosis": 1,
+    "diagnosis_rationale": "Reports doc gap. No causal assertion about wrong results cause.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J8-4"
+  },
+  {
+    "actionability": 0,
+    "actionability_rationale": "No imperative. Only describes doc coverage.",
+    "diagnosis": 1,
+    "diagnosis_rationale": "Reports FlexAttention + Dynamic Shapes doc areas. No causal assertion about BlockMask issue.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J8-5"
+  },
+  {
+    "actionability": 0,
+    "actionability_rationale": "No imperative.",
+    "diagnosis": 1,
+    "diagnosis_rationale": "Reports precision gap. No causal assertion about FlexAttention numerical behavior.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J8-6"
+  },
+  {
+    "actionability": 0,
+    "actionability_rationale": "No imperative.",
+    "diagnosis": 1,
+    "diagnosis_rationale": "Reports doc gap. No causal assertion.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J8-7"
+  },
+  {
+    "actionability": 0,
+    "actionability_rationale": "No imperative. Says 'does not provide troubleshooting guidance' — descriptive.",
+    "diagnosis": 1,
+    "diagnosis_rationale": "Reports cond docs exist. No causal assertion about limitations.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J8-8"
+  },
+  {
+    "actionability": 0,
+    "actionability_rationale": "No imperative.",
+    "diagnosis": 1,
+    "diagnosis_rationale": "Reports doc gap. No causal assertion.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J8-9"
+  },
+  {
+    "actionability": 0,
+    "actionability_rationale": "No imperative.",
+    "diagnosis": 1,
+    "diagnosis_rationale": "Reports doc gap. No causal assertion about autotuning error mechanism.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J8-10"
+  },
+  {
+    "actionability": 0,
+    "actionability_rationale": "No imperative. Template response.",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Accurate gap ID.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J8-11"
+  },
+  {
+    "actionability": 0,
+    "actionability_rationale": "No imperative. Template response.",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Accurate gap ID.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J8-12"
+  },
+  {
+    "actionability": 0,
+    "actionability_rationale": "No imperative. Template response.",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Accurate gap ID.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J8-13"
+  },
+  {
+    "actionability": 0,
+    "actionability_rationale": "No imperative.",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Correctly identifies no torch.scan equivalent. Accurate and specific.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J8-14"
+  },
+  {
+    "actionability": 0,
+    "actionability_rationale": "No imperative.",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Correctly identifies associative scan gap.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J8-15"
+  },
+  {
+    "actionability": 0,
+    "actionability_rationale": "No imperative. Template response.",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Accurate gap ID.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J8-16"
+  },
+  {
+    "actionability": 0,
+    "actionability_rationale": "No imperative. Template response.",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Accurate gap ID.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J8-17"
+  },
+  {
+    "actionability": 0,
+    "actionability_rationale": "No imperative. Template response.",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Accurate gap ID.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J8-18"
+  },
+  {
+    "actionability": 0,
+    "actionability_rationale": "No imperative. Template response.",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Accurate gap ID.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J8-19"
+  },
+  {
+    "actionability": 0,
+    "actionability_rationale": "No imperative. Template response.",
+    "diagnosis": 3,
+    "diagnosis_rationale": "Accurate gap ID.",
+    "fabrication": false,
+    "fabrication_detail": "",
+    "id": "J8-20"
+  }
+]

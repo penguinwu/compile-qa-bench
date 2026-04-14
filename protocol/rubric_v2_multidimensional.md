@@ -1,6 +1,6 @@
 # Scoring Rubric v2: Multi-Dimensional Agent Guidance Quality
 
-**Version:** 2.5
+**Version:** 2.8
 **Date:** 2026-04-13
 **Replaces:** Single-score 0-3 rubric in `methodology.md` (Sections "Scoring for resolved issues" and "Scoring for unresolved issues")
 **Applies to:** Mode B evaluation (full-context agent guidance), both Track 1 (unrestricted) and Track 2 (doc-restricted)
@@ -119,7 +119,7 @@ This dimension measures practical value to the user, regardless of whether the d
 | Score | Label | Definition |
 |-------|-------|------------|
 | **3** | Complete solution | The user can directly apply the guidance to fix their problem. Includes code changes, config settings, or workarounds that resolve the issue. |
-| **2** | Partial solution | The guidance gets the user materially closer but requires additional steps the agent didn't provide. The user knows what to do next, just not the full path. |
+| **2** | Partial solution | After reading the guidance, the user can identify a concrete next step they could NOT have identified without it. The next step must be specific to their problem, not generic debugging. Requires additional steps the agent didn't provide, but the user knows where to go next. |
 | **1** | Generic advice | The advice is real but not specific to this problem. Could apply to any torch.compile issue. ("Try setting TORCH_LOGS=dynamo", "Check for graph breaks") |
 | **0** | No actionable guidance | The user cannot do anything concrete with this response. Includes: mere gap acknowledgment, pure diagnosis with no suggested actions, or "not documented" with nothing further. |
 
@@ -175,22 +175,56 @@ When the agent's response follows a generic template pattern — "docs don't cov
 
 For Track 2 (doc-restricted) unresolved cases, if the agent accurately identifies the specific documentation gap — naming what topic or API is not covered — score Diagnosis=3. Only score Diagnosis=2 if the agent mischaracterizes WHICH aspect is missing. Vague but accurate ("this specific issue is not addressed") still qualifies as Diag=3 when the gap identification is factually correct.
 
-### Diagnosis: Causal Assertion Required for Diag 2
+### Diagnosis: Case-Specific Causal Chain Required for Diag 2
 
-Diag=2 ("right area, imprecise") requires the agent to **assert a causal relationship** between a subsystem and the user's problem — e.g., "your issue is caused by X interacting with Y" or "this happens because Z."
+Diag=2 ("right area, imprecise") requires the agent to assert a **case-specific causal chain** — connecting the user's specific symptom to a specific mechanism. The causal claim must reference something unique to the user's situation (their model, error, config, or use case).
 
-Merely **mentioning** the relevant topic or listing which docs exist does NOT qualify as Diag=2. Saying "docs cover checkpointing" when the user has a checkpointing problem is topic-matching, not diagnosis. If the agent reports which docs exist and don't exist without asserting WHY the user's problem occurs, score Diag=1.
+A **generic causal truth** about a subsystem does NOT qualify as Diag=2. "Graph breaks cause performance loss" is true for any torch.compile user — it's topic-level knowledge (Diag=1). The agent must explain WHY graph breaks happen in THIS user's case to earn Diag=2.
 
-**Diag 2 test:** Does the agent say "X causes/triggers/explains your problem"? → Diag 2+
-**Diag 1 test:** Does the agent only say "docs cover X but don't cover Y"? → Diag 1
+**Diag 2 test:** Does the agent's causal claim reference something specific to THIS user's problem? Would the same statement make sense as a response to a DIFFERENT user's question? If it's interchangeable → Diag=1. If it's tailored → Diag=2.
+
+**Diag 1 test:** Could this exact causal statement appear in any torch.compile response about the same subsystem? → Diag 1.
 
 Examples:
+- "Graph breaks cause performance loss" → Diag 1 (generic truth, applies to any graph-break case)
+- "This is related to dynamic shapes" → Diag 1 (topic mention, no causal chain)
 - "The checkpointing docs exist but don't cover compile compatibility" → Diag 1 (reports gap, no causal claim)
-- "Your error occurs because gradient checkpointing recomputes activations, which conflicts with compile's graph tracing" → Diag 2 (causal claim, right area, imprecise on specifics)
+- "Your variable sequence lengths cause recompilation because Dynamo creates shape-specialized guards for each distinct length" → Diag 2 (references THIS user's variable sequences, names the specific mechanism)
+- "Your error occurs because gradient checkpointing recomputes activations, which conflicts with compile's graph tracing" → Diag 2 (references THIS user's checkpointing + compile interaction, names the conflict)
 
-### Actionability: Same Generic Workaround Across Cases = Act 1
+**Priority rule:** For unresolved Track 2 cases, the gap-ID rule (accurate gap identification = Diag 3) takes precedence over the causal chain test. Do NOT downgrade an accurate gap ID to Diag=2 for lacking a causal assertion — the gap identification IS the correct diagnosis. If the agent provides an accurate gap ID plus additional generic causal claims, score Diag=3. The presence of generic filler does not downgrade an accurate gap identification.
 
-When the same workaround appears verbatim across multiple cases of the same type (e.g., "use `torch.compiler.disable()` to skip unsupported code" for every graph-break case), score Act=1 (generic advice) not Act=2 (partial solution). Act=2 requires guidance tailored to the specific case's circumstances.
+### Diagnosis: Precision Threshold for Diag 2 vs 3 (Resolved Issues)
+
+For resolved issues, Diag=3 requires naming the **specific mechanism** the fix addresses — not just the subsystem. Diag=2: names the correct subsystem but not the specific mechanism.
+
+**Rule of thumb:** Could a developer use the diagnosis alone to write the fix? If yes → Diag=3. If they'd need to investigate further within the right subsystem → Diag=2.
+
+Examples:
+- "This is a Dynamo issue" → Diag=1 (topic only, no mechanism)
+- "This is a Dynamo guard issue" → Diag=2 (right subsystem, mechanism vague)
+- "Dynamo creates overly tight guards on the sequence_length dimension, causing recompilation on every batch" → Diag=3 (specific mechanism, developer could write the fix)
+
+### Actionability: Interchangeability Test for Act 1 vs Act 2
+
+Act=2 requires guidance the user could NOT have identified without the agent's response to THIS specific case. Act=1 is advice any knowledgeable user could have guessed given the general topic.
+
+**The test:** Would a different user with a different problem in the same general area (e.g., any torch.compile performance issue) receive the same actionable advice? If yes → Act=1. If the advice is specific to THIS user's model, error, or config → Act=2.
+
+**Same workaround across cases = Act 1.** When the same workaround appears verbatim across multiple cases of the same type (e.g., "use `torch.compiler.disable()` to skip unsupported code" for every graph-break case, or "use `torch.profiler` to compare" for every performance case), score Act=1 not Act=2. Naming a real tool is not enough — Act=2 requires telling the user HOW to apply that tool to THEIR specific situation.
+
+**SCOPE: This test applies at the 1/2 boundary only.** The interchangeability test does NOT cap Act=3. If a response contains a **standalone working fix** that the user can apply directly to solve their problem (Act=3 definition), it scores Act=3 regardless of whether the same fix would apply to other users with the same problem type. A correct, complete solution is Act=3 even if it's the canonical answer — the value to the user is the same.
+
+**Why:** An answer can be both "interchangeable" and a complete solution. E.g., `TORCHINDUCTOR_FX_GRAPH_CACHE=1` is the canonical fix for compile caching — any user asking about caching gets it. But it fully solves the problem. The interchangeability test was designed to distinguish vague tool-naming (Act=1) from case-specific application guidance (Act=2), not to penalize correct complete solutions.
+
+**The Act=3 test (standalone fix) takes priority over interchangeability.** When both tests apply, check Act=3 first: "Can the user apply this directly to fix their problem?" If yes → Act=3. Only if the answer falls short of a complete fix do you apply the interchangeability test to distinguish Act=1 from Act=2.
+
+Examples:
+- "Use TORCH_LOGS=+recompiles to diagnose" → Act=1 (same advice for any recompilation issue, not a fix)
+- "Use TORCH_LOGS=+recompiles and look for guards on the sequence_length dimension — you'll need to mark that dim as dynamic" → Act=2 (tells user what to look for in THEIR case, but user still needs to implement)
+- "Use torch.profiler to compare eager vs compiled" → Act=1 (generic profiling advice, not a fix)
+- "Use torch.profiler to compare — focus on the cumprod backward op, that's where the 100x gap is" → Act=2 (points to THIS user's specific bottleneck, but user still needs to act on it)
+- "Set `TORCHINDUCTOR_FX_GRAPH_CACHE=1`" for a user asking about persistent caching → Act=3 (standalone fix that directly solves the problem, even though any caching question gets same answer)
 
 ### Actionability: Bright-Line Test for Act 0 vs Act 1
 
@@ -201,6 +235,10 @@ The Act 0/1 boundary caused 42 disagreements in v2.4 scoring — scorers were in
 **Act=1:** The response contains **at least one imperative** that a user could follow, even if generic. Examples: "check GitHub issues," "isolate the problem and create a minimal reproduction," "use torch.profiler to compare." The user is told to DO something, even if the advice isn't specific to their case.
 
 **The test:** Does the agent's response contain a verb in imperative mood directed at the user ("check," "try," "set," "use," "file," "compare," "enable")? If yes → Act≥1. If no → Act=0.
+
+**Descriptive language ≠ imperative.** Phrases like "need to consult...", "requires understanding...", "would need to build..." describe what is necessary but do not direct the user to take a specific action. These are observations about the problem space, not instructions. Score Act=0 for descriptive necessity statements. Only score Act≥1 when the agent explicitly tells the user to DO something: "consult the docs" (imperative) vs "would need to consult the docs" (descriptive).
+
+**EXCEPTION:** The Template Response Rule (above) takes priority over the imperative test. If the response is a template (same text would appear for a different unresolved issue), score Act=0 even if it contains imperative verbs like "check the docs" or "refer to the tutorials." Template imperatives are boilerplate, not guidance.
 
 This replaces subjective judgments about whether advice is "meaningful" with an observable property of the text. Characterizing a problem is not actionable (Act=0) — that value is captured in the Diagnosis dimension.
 
@@ -375,8 +413,8 @@ No confirmed fix exists. Assess against issue evidence and honest uncertainty.
 
 | Diagnosis Score | Unresolved Meaning |
 |----------------|-------------------|
-| 3 | Agent correctly characterizes the issue (including "this is unsupported/open/a bug") |
-| 2 | Agent identifies the right area but speculates beyond the evidence |
+| 3 | Agent makes a characterization VERIFIABLE from the issue thread: states "open bug / known limitation / not supported" (confirmed by issue status), OR names the specific failing interaction (e.g., "compile + DDP + checkpointing") confirmed by the issue thread |
+| 2 | Agent names the correct subsystem but offers a mechanism that is plausible but NOT confirmed by the issue thread |
 | 1 | Agent addresses a tangentially related problem |
 | 0 | Agent fabricates a root cause that contradicts the evidence |
 
@@ -455,3 +493,9 @@ Before scoring the full 160-case dataset:
 *Rubric v2.4 -- 2026-04-14. Tightened four scoring boundaries after analyzing all remaining disagreement clusters. (1) Track 2 unresolved gap ID always = Diag 3 if factually accurate. (2) Right subsystem = Diag 2, wrong subsystem = Diag 1. (3) Same generic workaround across cases = Act 1, not 2. (4) Problem characterization without steps = Act 0. Note: v2.4 kappa was inflated by keyword-matching scoring — proper LLM scoring showed κ≈0.47, not 0.83.*
 
 *Rubric v2.5 -- 2026-04-14. Tightened the two remaining 0/1 boundaries that cause most disagreements. (1) Diagnosis: Diag=2 requires a causal assertion ("X causes Y"), not just mentioning the relevant topic. Gap-reporting without causal reasoning = Diag 1. (2) Actionability: Bright-line test — Act=1 requires at least one imperative verb directed at the user ("check X", "try Y"). Description-only responses = Act=0. These replace subjective boundary judgments with observable text properties.*
+
+*Rubric v2.6 -- 2026-04-14. Sharpened the Diag 1/2 boundary after v2.5 IAA showed Raven uses Diag=2 in only 4/160 cases vs Rocky's 42 — 1 agreement. Root cause: v2.5's "causal assertion" test was too vague. Rocky counted generic causal truths ("graph breaks cause perf loss") as Diag=2; Raven required case-specific reasoning. New rule: Diag=2 requires a case-specific causal chain referencing the user's particular symptom/config/model. Generic subsystem truths = Diag=1. Also added priority rule: unresolved Track 2 gap-ID (Diag=3) takes precedence over causal chain test — do not downgrade accurate gap IDs.*
+
+*Rubric v2.7 -- 2026-04-14. Applied the same interchangeability test to Act 1/2 boundary. v2.6 IAA showed Rocky=2/Raven=1 in 13 cases — Rocky counted naming a real tool (torch.profiler, TORCH_LOGS) as Act=2; Raven required case-specific application guidance. New rule: naming a tool is Act=1; telling the user HOW to apply that tool to THEIR specific case is Act=2. Also added explicit examples showing generic vs case-specific tool guidance.*
+
+*Rubric v2.8 -- 2026-04-14. Two fixes from v2.7 IAA (κ=0.697 on Act 4-level). (1) Interchangeability scope rule: the interchangeability test applies at 1/2 boundary only, not 2/3. If a response contains a standalone working fix → Act≥2 regardless of generality. Act=3 "standalone fix" test takes priority. This resolves 8 cases where Rocky=3/Raven=1 on complete working solutions (env vars, profiling commands). (2) Descriptive language clarification: "need to consult...", "requires understanding..." are descriptive (Act=0), not imperative (Act≥1). Resolves 8 cases at the 0/1 boundary.*
