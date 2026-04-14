@@ -1,6 +1,6 @@
 # Scoring Rubric v2: Multi-Dimensional Agent Guidance Quality
 
-**Version:** 2.4
+**Version:** 2.5
 **Date:** 2026-04-13
 **Replaces:** Single-score 0-3 rubric in `methodology.md` (Sections "Scoring for resolved issues" and "Scoring for unresolved issues")
 **Applies to:** Mode B evaluation (full-context agent guidance), both Track 1 (unrestricted) and Track 2 (doc-restricted)
@@ -175,17 +175,34 @@ When the agent's response follows a generic template pattern — "docs don't cov
 
 For Track 2 (doc-restricted) unresolved cases, if the agent accurately identifies the specific documentation gap — naming what topic or API is not covered — score Diagnosis=3. Only score Diagnosis=2 if the agent mischaracterizes WHICH aspect is missing. Vague but accurate ("this specific issue is not addressed") still qualifies as Diag=3 when the gap identification is factually correct.
 
-### Diagnosis: Right Subsystem = Diag 2, Not 1
+### Diagnosis: Causal Assertion Required for Diag 2
 
-For resolved cases where the agent identifies the correct subsystem or interaction (e.g., "AMP + compile", "C++ compiler requirement") but is vague on the mechanism, score Diagnosis=2 (right area). Reserve Diagnosis=1 for cases where the agent discusses the wrong subsystem entirely (e.g., discusses performance when the issue is correctness).
+Diag=2 ("right area, imprecise") requires the agent to **assert a causal relationship** between a subsystem and the user's problem — e.g., "your issue is caused by X interacting with Y" or "this happens because Z."
+
+Merely **mentioning** the relevant topic or listing which docs exist does NOT qualify as Diag=2. Saying "docs cover checkpointing" when the user has a checkpointing problem is topic-matching, not diagnosis. If the agent reports which docs exist and don't exist without asserting WHY the user's problem occurs, score Diag=1.
+
+**Diag 2 test:** Does the agent say "X causes/triggers/explains your problem"? → Diag 2+
+**Diag 1 test:** Does the agent only say "docs cover X but don't cover Y"? → Diag 1
+
+Examples:
+- "The checkpointing docs exist but don't cover compile compatibility" → Diag 1 (reports gap, no causal claim)
+- "Your error occurs because gradient checkpointing recomputes activations, which conflicts with compile's graph tracing" → Diag 2 (causal claim, right area, imprecise on specifics)
 
 ### Actionability: Same Generic Workaround Across Cases = Act 1
 
 When the same workaround appears verbatim across multiple cases of the same type (e.g., "use `torch.compiler.disable()` to skip unsupported code" for every graph-break case), score Act=1 (generic advice) not Act=2 (partial solution). Act=2 requires guidance tailored to the specific case's circumstances.
 
-### Actionability: Problem Characterization Without Steps = Act 0
+### Actionability: Bright-Line Test for Act 0 vs Act 1
 
-For unresolved cases where the agent characterizes the limitation ("this appears to be an undocumented limitation where X conflicts with Y") but provides no next steps (no workaround, no issue link, no debugging command), score Act=0. Characterizing a problem is not the same as giving actionable guidance — that value is captured in the Diagnosis dimension.
+The Act 0/1 boundary caused 42 disagreements in v2.4 scoring — scorers were inconsistent in both directions. This rule provides a mechanical test:
+
+**Act=0:** The response contains **no imperative** — it only describes or characterizes the situation. Examples: "docs don't cover this," "this appears to be an undocumented limitation," "you would need information beyond official docs." The user is told what IS, not what to DO.
+
+**Act=1:** The response contains **at least one imperative** that a user could follow, even if generic. Examples: "check GitHub issues," "isolate the problem and create a minimal reproduction," "use torch.profiler to compare." The user is told to DO something, even if the advice isn't specific to their case.
+
+**The test:** Does the agent's response contain a verb in imperative mood directed at the user ("check," "try," "set," "use," "file," "compare," "enable")? If yes → Act≥1. If no → Act=0.
+
+This replaces subjective judgments about whether advice is "meaningful" with an observable property of the text. Characterizing a problem is not actionable (Act=0) — that value is captured in the Diagnosis dimension.
 
 ### The Gap Acknowledgment Pattern (Key Disambiguation)
 
@@ -435,4 +452,6 @@ Before scoring the full 160-case dataset:
 
 *Rubric v2.3 -- 2026-04-14. Added Template Response Rule for Actionability. Full 160-case scoring revealed κ=0.027 on Actionability (down from 0.897 on calibration). Root cause: 90% of unresolved doc-restricted responses use generic template ("docs don't cover X + general topics"). Rocky scored Act=1-2 (relevant background), Raven scored Act=0 (no actionable guidance). Raven's interpretation is correct — template responses that appear identically across cases add no case-specific value. New rule: template = Act=0; only case-specific workarounds/pointers get credit.*
 
-*Rubric v2.4 -- 2026-04-14. Tightened four scoring boundaries after analyzing all remaining disagreement clusters. (1) Track 2 unresolved gap ID always = Diag 3 if factually accurate. (2) Right subsystem = Diag 2, wrong subsystem = Diag 1. (3) Same generic workaround across cases = Act 1, not 2. (4) Problem characterization without steps = Act 0. Result: Diagnosis κ=0.868 (Almost Perfect), Actionability κ=0.825 (Almost Perfect). Both above 0.80 threshold. Rubric validated.*
+*Rubric v2.4 -- 2026-04-14. Tightened four scoring boundaries after analyzing all remaining disagreement clusters. (1) Track 2 unresolved gap ID always = Diag 3 if factually accurate. (2) Right subsystem = Diag 2, wrong subsystem = Diag 1. (3) Same generic workaround across cases = Act 1, not 2. (4) Problem characterization without steps = Act 0. Note: v2.4 kappa was inflated by keyword-matching scoring — proper LLM scoring showed κ≈0.47, not 0.83.*
+
+*Rubric v2.5 -- 2026-04-14. Tightened the two remaining 0/1 boundaries that cause most disagreements. (1) Diagnosis: Diag=2 requires a causal assertion ("X causes Y"), not just mentioning the relevant topic. Gap-reporting without causal reasoning = Diag 1. (2) Actionability: Bright-line test — Act=1 requires at least one imperative verb directed at the user ("check X", "try Y"). Description-only responses = Act=0. These replace subjective boundary judgments with observable text properties.*
