@@ -22,7 +22,9 @@ Results are cross-referenced: Mode A scores explain *why* Mode B succeeds or fai
 │
 ├── protocol/                     # VERSIONED RULES
 │   ├── annotation_guide.md       # Scoring rubrics (Mode A + B)
-│   └── methodology.md            # Full evaluation methodology
+│   ├── methodology.md            # Full evaluation methodology
+│   ├── rubric_v2_multidimensional.md  # Mode B rubric v2.8 (production)
+│   └── scoring_workflow.md       # End-to-end scoring guide
 │
 ├── runs/                         # EVALUATION OUTPUTS (grows over time)
 │   ├── YYYY-MM-DD-baseline/      # Pre-fix baseline
@@ -36,14 +38,17 @@ Results are cross-referenced: Mode A scores explain *why* Mode B succeeds or fai
 ├── scripts/                      # EVALUATION CODE
 │   ├── run_mode_a.py             # Run Mode A (search + score)
 │   ├── run_mode_b.py             # Run Mode B (agent + score)
-│   ├── compute_iaa.py            # Compare annotator scores
+│   ├── compute_iaa.py            # Compare annotator scores (weighted κ)
+│   ├── verify_claims.py          # Automated fabrication detector
 │   ├── build_balanced_test_suite.py
 │   ├── build_expanded_suite.py
 │   └── extract_journey_issues.py
 │
-└── analysis/                     # CROSS-RUN ANALYSIS
-    ├── inter_annotator_agreement.md
-    └── ...
+├── analysis/                     # CROSS-RUN ANALYSIS
+│   ├── inter_annotator_agreement.md
+│   └── iaa_v2_2_full_160.md     # Kappa progression v2.2→v2.8
+│
+└── decisions.md                  # Design rationale (8 key decisions)
 ```
 
 ## Test Suite
@@ -72,13 +77,25 @@ See `suite/sampling.md` for full methodology.
 | 1 | Relevant result exists but buried |
 | 0 | No relevant official docs in results |
 
-### Mode B — Quality of Guidance (0-3)
+### Mode B — Multi-Dimensional Rubric (v2.8, validated)
 
-**Resolved issues:** 3=correct fix, 2=right diagnosis/partial solution, 1=wrong diagnosis, 0=hallucinated fix
+Mode B scores agent guidance on three independent dimensions:
 
-**Unresolved issues:** 3=correctly identifies limitation+workaround, 2=partially helpful, 1=vague/irrelevant, 0=confidently wrong
+| Dimension | Scale | Question |
+|-----------|-------|----------|
+| **Diagnosis** | 0-3 | Did the agent correctly identify the problem? |
+| **Actionability** | 0-3 | Can the user act on the guidance to solve their problem? |
+| **Fabrication** | Yes/No | Does the guidance contain fabricated technical claims? |
 
-See `protocol/annotation_guide.md` for full rubric with calibration examples.
+**IAA validation (v2.8, n=160):**
+
+| Dimension | Weighted κ | Interpretation |
+|-----------|-----------|----------------|
+| Diagnosis | 0.863 | Near-perfect |
+| Actionability | 0.885 | Near-perfect |
+| Fabrication | 96.2% agreement | Near-perfect |
+
+See `protocol/rubric_v2_multidimensional.md` for the full rubric with scoring rules, worked examples, and edge cases. See `analysis/iaa_v2_2_full_160.md` for the complete kappa progression from v2.2 to v2.8.
 
 ## How to Run
 
@@ -92,13 +109,15 @@ python scripts/run_mode_a.py --suite suite/cases.json --output-dir runs/YYYY-MM-
 # 3. Run Mode B (agent end-to-end)
 python scripts/run_mode_b.py --suite suite/cases.json --output-dir runs/YYYY-MM-DD-name/
 
-# 4. Compare annotators
-python scripts/compute_iaa.py --scorer1 rocky_scores.json --scorer2 raven_scores.json
+# 4. Compare annotators (computes weighted kappa + agreement + confusion matrix)
+python scripts/compute_iaa.py --scorer1 runs/rocky_v2_8_160_scores.json --scorer2 runs/raven_v2_8_full_160_scores.json --multidim
 ```
 
 ## IAA Validation
 
-Four rounds of inter-annotator agreement for Mode A, one pilot for Mode B. See `runs/iaa/` and `analysis/inter_annotator_agreement.md`.
+Mode B rubric validated through 7 iterations (v2.2→v2.8), achieving κ≥0.80 on all dimensions. Key techniques: dimension separation, bright-line boundary tests, priority rules for conflicting tests. See `analysis/iaa_v2_2_full_160.md` for full progression and `decisions.md` for design rationale.
+
+Mode A validated through 4 IAA rounds. See `runs/iaa/` and `analysis/inter_annotator_agreement.md`.
 
 ## Data Source
 

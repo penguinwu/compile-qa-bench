@@ -125,7 +125,9 @@ Track WHERE the answer comes from:
 
 **Goal:** Shift agent reliance from community/blog sources to official docs.
 
-### Dimension 4: Resolution Quality (semi-automated, medium cost)
+### ⚠️ SUPERSEDED — Dimension 4: Resolution Quality (semi-automated, medium cost)
+
+> This single-score Resolution Quality dimension was superseded by the Mode B multi-dimensional rubric v2 (see `protocol/rubric_v2_multidimensional.md`), which splits resolution quality into Diagnosis (0-3), Actionability (0-3), and Fabrication (binary). The v2 rubric achieved κ≥0.80 on all dimensions; this v1 scale produced κ=0.077.
 
 For the "full context" version of each test case, score whether retrieved content could plausibly resolve the user's problem:
 
@@ -195,6 +197,10 @@ The resolved/unresolved split tells the story: docs lack specific fixes (resolve
 Full coverage cases survive doc restriction — validating that Full coverage docs are genuinely good. Partial cases show the biggest gap — docs exist but aren't deep enough, so agents compensate with community sources.
 
 **After doc improvements:** Track 2 should improve directly (better docs → better doc-only answers). The gap between tracks should narrow as docs become sufficient.
+
+#### ⚠️ SUPERSEDED — Single-Score Rubric (v1)
+
+> The single-score 0-3 rubric below was superseded by the multi-dimensional rubric v2 (see `protocol/rubric_v2_multidimensional.md`). The v1 rubric produced near-chance IAA (κ=0.077, n=160) because it conflated diagnosis accuracy, actionability, and fabrication into one score. Kept here for historical reference.
 
 #### Scoring for resolved issues (J{n}-1 through J{n}-10):
 
@@ -392,16 +398,17 @@ Full repo access (14 fabrications) produces more fabrication than pip-only sourc
 
 ## Open Design Questions
 
-1. **Second independent scorer**: Currently Raven is the only independent scorer. Adding a second scorer (not Beaver — conflict of interest as doc author) would give three-way agreement data. Candidates: Otter, Prof, or a dedicated scorer agent.
+1. **Third independent scorer**: ⚠️ **OPEN** — Currently Rocky and Raven are the two scorers, with no human ground truth. Adding a third scorer would validate whether κ≥0.80 generalizes beyond the Rocky/Raven pair. Rocky both designed the rubric and served as scorer (structural bias risk). See `decisions.md` D1 and D6 for full rationale. PT2 Ontology (Prof) is a potential alternative ground truth source.
 
-2. **Mode B rubric refinement**: ✅ **ANALYZED** — 72.5% cluster at score 2 decomposes into 3 sub-groups:
-   - 11 cases with fabrication (should be capped at score 1 per pipeline rule — already addressed)
-   - 28 cases with correct diagnosis + actionable workaround (high-2, near score 3)
-   - 77 cases with correct area but generic/incomplete guidance (true score 2)
-   
-   **Proposed 0-4 scale** (see "Refined Scoring Rubric" section) splits score 2 into Partial (2) vs Workaround (3), and reserves 4 for exact match. Pending Peng's approval before re-scoring.
+2. **Mode B rubric refinement**: ✅ **RESOLVED** — The 72.5% score-2 clustering was solved by the multi-dimensional rubric v2 (`protocol/rubric_v2_multidimensional.md`), which separates Diagnosis, Actionability, and Fabrication into independent dimensions. This replaced the proposed 0-4 single-score expansion. IAA validated at κ≥0.80 on all dimensions (v2.8, n=160).
 
 3. **Fabrication detection**: ✅ **RESOLVED** — Automated detector (`scripts/verify_claims.py`) verified against PyTorch source with **zero false positives**. See "Automated Fabrication Detection" section below.
+
+4. **Held-out validation set**: ⚠️ **OPEN** — All 160 cases used for both rubric iteration and final validation. No held-out set exists to confirm κ generalizes to new data. See `decisions.md` D2. Validation path: score 20+ new cases without rubric changes.
+
+5. **Track 1 IAA**: ⚠️ **OPEN** — All IAA validation used Track 2 (doc-restricted) data only. The rubric includes Track 1 scoring rules that have never been empirically tested. See `decisions.md` D5.
+
+6. **Mode A × Mode B cross-reference**: ⚠️ **OPEN** — The Coverage × Discoverability → Agent Quality matrix is designed but not computed. Both Mode A and Mode B scores exist. See `decisions.md` D7.
 
 ## Automated Fabrication Detection
 
@@ -462,9 +469,11 @@ Fabrication detection is a **required step** in the Mode B pipeline:
 
 This ensures fabrication detection is codified and precise, not subject to scorer hallucination.
 
-## Refined Scoring Rubric (Proposed)
+## ⚠️ SUPERSEDED — Refined Scoring Rubric (Proposed)
 
-**Status:** Proposed (2026-04-13) — pending Peng's approval before re-scoring.
+> This proposed 0-4 single-score scale was superseded by the multi-dimensional rubric v2 (see `protocol/rubric_v2_multidimensional.md`). The v2 approach solved the score-2 clustering problem by separating Diagnosis, Actionability, and Fabrication into independent dimensions rather than expanding the single-score scale. Kept here for historical context on the design evolution.
+
+**Status:** ~~Proposed (2026-04-13) — pending Peng's approval before re-scoring.~~ Superseded by v2 multi-dimensional rubric.
 
 The original 0-3 scale puts 72.5% of cases at score 2, masking meaningful quality differences. Analysis of Raven's reasoning for 116 score-2 cases reveals three distinct sub-groups:
 
