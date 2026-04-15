@@ -1,0 +1,113 @@
+{
+  "track": 1,
+  "rubric_version": "3.0",
+  "date": "2026-04-15",
+  "act": {
+    "pre_calibration": {
+      "qwk": 0.661,
+      "exact_agreement": "123/160 (76.9%)",
+      "within_1": "159/160 (99.4%)",
+      "main_issue": "standalone_fix boundary (Owl=79 true, Raven=94 true)"
+    },
+    "calibration": {
+      "standalone_fix": {
+        "owl_flipped_true": [
+          "J1-12",
+          "J3-12",
+          "J3-17",
+          "J3-20",
+          "J3-8",
+          "J4-1",
+          "J4-2",
+          "J4-7",
+          "J4-8",
+          "J5-3",
+          "J5-14"
+        ],
+        "raven_flipped_false": [
+          "J1-8",
+          "J2-9",
+          "J3-1",
+          "J3-2",
+          "J3-4",
+          "J3-9",
+          "J5-8",
+          "J6-15",
+          "J7-20"
+        ],
+        "raven_flipped_true": [
+          "J4-18",
+          "J5-17",
+          "J7-13",
+          "J7-16",
+          "J7-19"
+        ],
+        "rule": "Immediately actionable workarounds count as standalone_fix=true per rubric"
+      },
+      "case_specific": "Not calibrated \u2014 11 within-1 disagreements remain (Owl more permissive)"
+    },
+    "post_calibration": {
+      "qwk": 0.9,
+      "exact_agreement": "148/160 (92.5%)",
+      "within_1": "159/160 (99.4%)",
+      "status": "PASS"
+    }
+  },
+  "diag": {
+    "pre_calibration": {
+      "qwk": 0.438,
+      "exact_agreement": "143/160 (89.4%)",
+      "within_1": "159/160 (99.4%)",
+      "main_issue": "causal_chain (22 disagree), case_specific_diagnosis (20 disagree)",
+      "note": "Low \u03ba despite high agreement due to extreme score distribution skew (93% Diag=3)"
+    },
+    "calibration": {
+      "causal_chain": {
+        "owl_flipped": {
+          "J3-3": true,
+          "J5-5": false
+        },
+        "raven_flipped_false": 17,
+        "raven_flipped_true": [
+          "J2-15",
+          "J2-5",
+          "J5-17"
+        ],
+        "rule": "Investigation methodology \u2260 causal chain. Hedged hypotheses \u2260 causal chain. Definitive mechanism-to-symptom connection required."
+      },
+      "names_mechanism": {
+        "raven_flipped_true": 9,
+        "owl_flipped_true": [
+          "J1-3",
+          "J8-12"
+        ],
+        "rule": "Track 1 responses name real mechanisms \u2014 validated in retroactive check"
+      },
+      "case_specific_diagnosis": {
+        "adjudicated_7": {
+          "owl_flipped_true": [
+            "J1-6",
+            "J2-20"
+          ],
+          "owl_flipped_false": [
+            "J3-5"
+          ],
+          "raven_flipped_true": [
+            "J2-18",
+            "J6-13"
+          ],
+          "remaining": [
+            "J7-12",
+            "J8-4"
+          ]
+        }
+      }
+    },
+    "post_calibration": {
+      "qwk": 0.918,
+      "exact_agreement": "158/160 (98.8%)",
+      "within_1": "160/160 (100.0%)",
+      "status": "PASS"
+    }
+  }
+}
