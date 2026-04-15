@@ -42,13 +42,17 @@
 - **Rule 4:** Echoed user terms ≠ case_specific_diagnosis — requires original diagnostic reasoning
 - **Rule 5:** Gap identification ("docs don't cover X") = correct_subsystem=true
 
+### Track 1 names_mechanism Retroactive Check
+- Reviewed all 157 names_mechanism=true Track 1 cases for diagnostic-tool-only rationales
+- **Result: No recalibration needed.** All 157 cases cite actual mechanisms (code paths, config options, APIs), not just diagnostic tools
+- Track 2's calibration issue was specific to doc-restricted responses, which often lack deeper technical content
+- Track 1 (unrestricted) responses consistently name real mechanisms alongside any diagnostic tools mentioned
+
 ## In Progress
 - **Raven:** Full 160-case Track 1 label scoring (Act + Diag)
-- **Owl:** Retroactive names_mechanism recalibration on Track 1 Diag labels (157/160 scored true — some may be diagnostic tools)
 
 ## Next Steps
-1. Apply names_mechanism calibration rule retroactively to Track 1 Diag labels
-2. Compute IAA on Raven's full 160-case scores vs Owl's (calibrated)
-3. Calibrate any label disagreements
-4. Full Track 2 scoring (160 cases, both scorers, both dimensions)
-5. Compile final dataset with all three dimensions
+1. Compute IAA on Raven's full 160-case scores vs Owl's
+2. Calibrate any label disagreements
+3. Full Track 2 scoring (160 cases, both scorers, both dimensions)
+4. Compile final dataset with all three dimensions
