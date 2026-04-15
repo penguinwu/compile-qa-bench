@@ -1,0 +1,1293 @@
+{
+  "metadata": {
+    "torch_dir": "/home/pengwu/fbsource/fbcode/caffe2/torch",
+    "total_claims": 18,
+    "verified": 18,
+    "fabricated": 0,
+    "cases_with_fabrication": 0,
+    "fabrication_by_type": {}
+  },
+  "results": [
+    {
+      "id": "J1-1",
+      "total_claims": 1,
+      "verified": 1,
+      "fabricated": 0,
+      "claims": [
+        {
+          "claim": "TORCHINDUCTOR_FX_GRAPH_CACHE",
+          "value": "TORCHINDUCTOR_FX_GRAPH_CACHE",
+          "type": "env_var",
+          "context": " Set the environment variable TORCHINDUCTOR_FX_GRAPH_CACHE=1 before running your script\n",
+          "verified": true,
+          "grep_output": "/home/pengwu/fbsource/fbcode/caffe2/torch/_inductor/config.py:110:    env_name_default=\"TORCHINDUCTOR_FX_GRAPH_CACHE_DEFAULT\",\n/home/pengwu/fbsource/fbcode/caffe2/torch/_inductor/config.py:111:    env"
+        }
+      ]
+    },
+    {
+      "id": "J1-2",
+      "total_claims": 0,
+      "verified": 0,
+      "fabricated": 0,
+      "claims": []
+    },
+    {
+      "id": "J1-3",
+      "total_claims": 0,
+      "verified": 0,
+      "fabricated": 0,
+      "claims": []
+    },
+    {
+      "id": "J1-4",
+      "total_claims": 0,
+      "verified": 0,
+      "fabricated": 0,
+      "claims": []
+    },
+    {
+      "id": "J1-5",
+      "total_claims": 0,
+      "verified": 0,
+      "fabricated": 0,
+      "claims": []
+    },
+    {
+      "id": "J1-6",
+      "total_claims": 0,
+      "verified": 0,
+      "fabricated": 0,
+      "claims": []
+    },
+    {
+      "id": "J1-7",
+      "total_claims": 0,
+      "verified": 0,
+      "fabricated": 0,
+      "claims": []
+    },
+    {
+      "id": "J1-8",
+      "total_claims": 0,
+      "verified": 0,
+      "fabricated": 0,
+      "claims": []
+    },
+    {
+      "id": "J1-9",
+      "total_claims": 1,
+      "verified": 1,
+      "fabricated": 0,
+      "claims": [
+        {
+          "claim": "TORCHINDUCTOR_FX_GRAPH_CACHE",
+          "value": "TORCHINDUCTOR_FX_GRAPH_CACHE",
+          "type": "env_var",
+          "context": "overs:\n- FX graph caching via TORCHINDUCTOR_FX_GRAPH_CACHE environment variable\n- Automa",
+          "verified": true,
+          "grep_output": "/home/pengwu/fbsource/fbcode/caffe2/torch/_inductor/config.py:110:    env_name_default=\"TORCHINDUCTOR_FX_GRAPH_CACHE_DEFAULT\",\n/home/pengwu/fbsource/fbcode/caffe2/torch/_inductor/config.py:111:    env"
+        }
+      ]
+    },
+    {
+      "id": "J1-10",
+      "total_claims": 1,
+      "verified": 1,
+      "fabricated": 0,
+      "claims": [
+        {
+          "claim": "torch.utils.checkpoint.checkpoint",
+          "value": "checkpoint",
+          "type": "checkpoint_api",
+          "context": "ocumentation shows how to use torch.utils.checkpoint.checkpoint() to reduce memory by recompu",
+          "verified": true,
+          "grep_output": "24:    \"checkpoint\",\n51:    Context manager that sets whether checkpoint should print additional debug\n53:    :func:`~torch.utils.checkpoint.checkpoint` for more information. Note that\n55:    checkpoi"
+        }
+      ]
+    },
+    {
+      "id": "J1-11",
+      "total_claims": 0,
+      "verified": 0,
+      "fabricated": 0,
+      "claims": []
+    },
+    {
+      "id": "J1-12",
+      "total_claims": 0,
+      "verified": 0,
+      "fabricated": 0,
+      "claims": []
+    },
+    {
+      "id": "J1-13",
+      "total_claims": 0,
+      "verified": 0,
+      "fabricated": 0,
+      "claims": []
+    },
+    {
+      "id": "J1-14",
+      "total_claims": 0,
+      "verified": 0,
+      "fabricated": 0,
+      "claims": []
+    },
+    {
+      "id": "J1-15",
+      "total_claims": 0,
+      "verified": 0,
+      "fabricated": 0,
+      "claims": []
+    },
+    {
+      "id": "J1-16",
+      "total_claims": 0,
+      "verified": 0,
+      "fabricated": 0,
+      "claims": []
+    },
+    {
+      "id": "J1-17",
+      "total_claims": 0,
+      "verified": 0,
+      "fabricated": 0,
+      "claims": []
+    },
+    {
+      "id": "J1-18",
+      "total_claims": 0,
+      "verified": 0,
+      "fabricated": 0,
+      "claims": []
+    },
+    {
+      "id": "J1-19",
+      "total_claims": 0,
+      "verified": 0,
+      "fabricated": 0,
+      "claims": []
+    },
+    {
+      "id": "J1-20",
+      "total_claims": 0,
+      "verified": 0,
+      "fabricated": 0,
+      "claims": []
+    },
+    {
+      "id": "J2-1",
+      "total_claims": 0,
+      "verified": 0,
+      "fabricated": 0,
+      "claims": []
+    },
+    {
+      "id": "J2-2",
+      "total_claims": 2,
+      "verified": 2,
+      "fabricated": 0,
+      "claims": [
+        {
+          "claim": "TORCHINDUCTOR_PROFILE",
+          "value": "TORCHINDUCTOR_PROFILE",
+          "type": "env_var",
+          "context": "nable inductor profiling with TORCHINDUCTOR_PROFILE=1\n3. Check generated kernel c",
+          "verified": true,
+          "grep_output": "/home/pengwu/fbsource/fbcode/caffe2/torch/_inductor/autotune_process.py:157:            \"TORCHINDUCTOR_PROFILE_WITH_DO_BENCH_USING_PROFILING\": \"1\"\n/home/pengwu/fbsource/fbcode/caffe2/torch/_inductor/c"
+        },
+        {
+          "claim": "TORCH_COMPILE_DEBUG",
+          "value": "TORCH_COMPILE_DEBUG",
+          "type": "env_var",
+          "context": "ck generated kernel code with TORCH_COMPILE_DEBUG=1\n\nHowever, the documentation",
+          "verified": true,
+          "grep_output": "/home/pengwu/fbsource/fbcode/caffe2/torch/_dynamo/config.py:633:    DEBUG_DIR_VAR_NAME = \"TORCH_COMPILE_DEBUG_DIR\"\n/home/pengwu/fbsource/fbcode/caffe2/torch/_dynamo/utils.py:957:    compile_debug = os"
+        }
+      ]
+    },
+    {
+      "id": "J2-3",
+      "total_claims": 0,
+      "verified": 0,
+      "fabricated": 0,
+      "claims": []
+    },
+    {
+      "id": "J2-4",
+      "total_claims": 1,
+      "verified": 1,
+      "fabricated": 0,
+      "claims": [
+        {
+          "claim": "TORCH_COMPILE_DEBUG",
+          "value": "TORCH_COMPILE_DEBUG",
+          "type": "env_var",
+          "context": "e with torch.profiler\n- Using TORCH_COMPILE_DEBUG for detailed logging\n- Compar",
+          "verified": true,
+          "grep_output": "/home/pengwu/fbsource/fbcode/caffe2/torch/_dynamo/config.py:633:    DEBUG_DIR_VAR_NAME = \"TORCH_COMPILE_DEBUG_DIR\"\n/home/pengwu/fbsource/fbcode/caffe2/torch/_dynamo/utils.py:957:    compile_debug = os"
+        }
+      ]
+    },
+    {
+      "id": "J2-5",
+      "total_claims": 1,
+      "verified": 1,
+      "fabricated": 0,
+      "claims": [
+        {
+          "claim": "TORCH_COMPILE_DEBUG",
+          "value": "TORCH_COMPILE_DEBUG",
+          "type": "env_var",
+          "context": " (no silent fallbacks)\n3. Use TORCH_COMPILE_DEBUG=1 for detailed debugging\n4. P",
+          "verified": true,
+          "grep_output": "/home/pengwu/fbsource/fbcode/caffe2/torch/_dynamo/config.py:633:    DEBUG_DIR_VAR_NAME = \"TORCH_COMPILE_DEBUG_DIR\"\n/home/pengwu/fbsource/fbcode/caffe2/torch/_dynamo/utils.py:957:    compile_debug = os"
+        }
+      ]
+    },
+    {
+      "id": "J2-6",
+      "total_claims": 0,
+      "verified": 0,
+      "fabricated": 0,
+      "claims": []
+    },
+    {
+      "id": "J2-7",
+      "total_claims": 0,
+      "verified": 0,
+      "fabricated": 0,
+      "claims": []
+    },
+    {
+      "id": "J2-8",
+      "total_claims": 0,
+      "verified": 0,
+      "fabricated": 0,
+      "claims": []
+    },
+    {
+      "id": "J2-9",
+      "total_claims": 1,
+      "verified": 1,
+      "fabricated": 0,
+      "claims": [
+        {
+          "claim": "TORCHINDUCTOR_PROFILE",
+          "value": "TORCHINDUCTOR_PROFILE",
+          "type": "env_var",
+          "context": "ailed inductor profiling with TORCHINDUCTOR_PROFILE=1\n\nFor decoder models that ar",
+          "verified": true,
+          "grep_output": "/home/pengwu/fbsource/fbcode/caffe2/torch/_inductor/autotune_process.py:157:            \"TORCHINDUCTOR_PROFILE_WITH_DO_BENCH_USING_PROFILING\": \"1\"\n/home/pengwu/fbsource/fbcode/caffe2/torch/_inductor/c"
+        }
+      ]
+    },
+    {
+      "id": "J2-10",
+      "total_claims": 0,
+      "verified": 0,
+      "fabricated": 0,
+      "claims": []
+    },
+    {
+      "id": "J2-11",
+      "total_claims": 0,
+      "verified": 0,
+      "fabricated": 0,
+      "claims": []
+    },
+    {
+      "id": "J2-12",
+      "total_claims": 0,
+      "verified": 0,
+      "fabricated": 0,
+      "claims": []
+    },
+    {
+      "id": "J2-13",
+      "total_claims": 0,
+      "verified": 0,
+      "fabricated": 0,
+      "claims": []
+    },
+    {
+      "id": "J2-14",
+      "total_claims": 0,
+      "verified": 0,
+      "fabricated": 0,
+      "claims": []
+    },
+    {
+      "id": "J2-15",
+      "total_claims": 0,
+      "verified": 0,
+      "fabricated": 0,
+      "claims": []
+    },
+    {
+      "id": "J2-16",
+      "total_claims": 0,
+      "verified": 0,
+      "fabricated": 0,
+      "claims": []
+    },
+    {
+      "id": "J2-17",
+      "total_claims": 0,
+      "verified": 0,
+      "fabricated": 0,
+      "claims": []
+    },
+    {
+      "id": "J2-18",
+      "total_claims": 0,
+      "verified": 0,
+      "fabricated": 0,
+      "claims": []
+    },
+    {
+      "id": "J2-19",
+      "total_claims": 0,
+      "verified": 0,
+      "fabricated": 0,
+      "claims": []
+    },
+    {
+      "id": "J2-20",
+      "total_claims": 0,
+      "verified": 0,
+      "fabricated": 0,
+      "claims": []
+    },
+    {
+      "id": "J3-1",
+      "total_claims": 0,
+      "verified": 0,
+      "fabricated": 0,
+      "claims": []
+    },
+    {
+      "id": "J3-2",
+      "total_claims": 0,
+      "verified": 0,
+      "fabricated": 0,
+      "claims": []
+    },
+    {
+      "id": "J3-3",
+      "total_claims": 0,
+      "verified": 0,
+      "fabricated": 0,
+      "claims": []
+    },
+    {
+      "id": "J3-4",
+      "total_claims": 0,
+      "verified": 0,
+      "fabricated": 0,
+      "claims": []
+    },
+    {
+      "id": "J3-5",
+      "total_claims": 0,
+      "verified": 0,
+      "fabricated": 0,
+      "claims": []
+    },
+    {
+      "id": "J3-6",
+      "total_claims": 0,
+      "verified": 0,
+      "fabricated": 0,
+      "claims": []
+    },
+    {
+      "id": "J3-7",
+      "total_claims": 0,
+      "verified": 0,
+      "fabricated": 0,
+      "claims": []
+    },
+    {
+      "id": "J3-8",
+      "total_claims": 0,
+      "verified": 0,
+      "fabricated": 0,
+      "claims": []
+    },
+    {
+      "id": "J3-9",
+      "total_claims": 0,
+      "verified": 0,
+      "fabricated": 0,
+      "claims": []
+    },
+    {
+      "id": "J3-10",
+      "total_claims": 0,
+      "verified": 0,
+      "fabricated": 0,
+      "claims": []
+    },
+    {
+      "id": "J3-11",
+      "total_claims": 0,
+      "verified": 0,
+      "fabricated": 0,
+      "claims": []
+    },
+    {
+      "id": "J3-12",
+      "total_claims": 0,
+      "verified": 0,
+      "fabricated": 0,
+      "claims": []
+    },
+    {
+      "id": "J3-13",
+      "total_claims": 0,
+      "verified": 0,
+      "fabricated": 0,
+      "claims": []
+    },
+    {
+      "id": "J3-14",
+      "total_claims": 0,
+      "verified": 0,
+      "fabricated": 0,
+      "claims": []
+    },
+    {
+      "id": "J3-15",
+      "total_claims": 0,
+      "verified": 0,
+      "fabricated": 0,
+      "claims": []
+    },
+    {
+      "id": "J3-16",
+      "total_claims": 0,
+      "verified": 0,
+      "fabricated": 0,
+      "claims": []
+    },
+    {
+      "id": "J3-17",
+      "total_claims": 0,
+      "verified": 0,
+      "fabricated": 0,
+      "claims": []
+    },
+    {
+      "id": "J3-18",
+      "total_claims": 0,
+      "verified": 0,
+      "fabricated": 0,
+      "claims": []
+    },
+    {
+      "id": "J3-19",
+      "total_claims": 0,
+      "verified": 0,
+      "fabricated": 0,
+      "claims": []
+    },
+    {
+      "id": "J3-20",
+      "total_claims": 0,
+      "verified": 0,
+      "fabricated": 0,
+      "claims": []
+    },
+    {
+      "id": "J4-1",
+      "total_claims": 1,
+      "verified": 1,
+      "fabricated": 0,
+      "claims": [
+        {
+          "claim": "torch.compiler.disable",
+          "value": "disable",
+          "type": "compiler_api",
+          "context": " documentation suggests using torch.compiler.disable() to skip compilation for uns",
+          "verified": true,
+          "grep_output": "/home/pengwu/fbsource/fbcode/caffe2/torch/__init__.py:2237:from torch._compile import _disable_dynamo  # usort: skip\n/home/pengwu/fbsource/fbcode/caffe2/torch/__init__.py:2571:    disable: builtins.bo"
+        }
+      ]
+    },
+    {
+      "id": "J4-2",
+      "total_claims": 1,
+      "verified": 1,
+      "fabricated": 0,
+      "claims": [
+        {
+          "claim": "torch.compiler.disable",
+          "value": "disable",
+          "type": "compiler_api",
+          "context": " documentation suggests using torch.compiler.disable() to skip compilation for uns",
+          "verified": true,
+          "grep_output": "/home/pengwu/fbsource/fbcode/caffe2/torch/__init__.py:2237:from torch._compile import _disable_dynamo  # usort: skip\n/home/pengwu/fbsource/fbcode/caffe2/torch/__init__.py:2571:    disable: builtins.bo"
+        }
+      ]
+    },
+    {
+      "id": "J4-3",
+      "total_claims": 1,
+      "verified": 1,
+      "fabricated": 0,
+      "claims": [
+        {
+          "claim": "torch.compiler.disable",
+          "value": "disable",
+          "type": "compiler_api",
+          "context": " documentation suggests using torch.compiler.disable() to skip compilation for uns",
+          "verified": true,
+          "grep_output": "/home/pengwu/fbsource/fbcode/caffe2/torch/__init__.py:2237:from torch._compile import _disable_dynamo  # usort: skip\n/home/pengwu/fbsource/fbcode/caffe2/torch/__init__.py:2571:    disable: builtins.bo"
+        }
+      ]
+    },
+    {
+      "id": "J4-4",
+      "total_claims": 1,
+      "verified": 1,
+      "fabricated": 0,
+      "claims": [
+        {
+          "claim": "torch.compiler.disable",
+          "value": "disable",
+          "type": "compiler_api",
+          "context": " documentation suggests using torch.compiler.disable() to skip compilation for uns",
+          "verified": true,
+          "grep_output": "/home/pengwu/fbsource/fbcode/caffe2/torch/__init__.py:2237:from torch._compile import _disable_dynamo  # usort: skip\n/home/pengwu/fbsource/fbcode/caffe2/torch/__init__.py:2571:    disable: builtins.bo"
+        }
+      ]
+    },
+    {
+      "id": "J4-5",
+      "total_claims": 1,
+      "verified": 1,
+      "fabricated": 0,
+      "claims": [
+        {
+          "claim": "torch.compiler.disable",
+          "value": "disable",
+          "type": "compiler_api",
+          "context": " documentation suggests using torch.compiler.disable() to skip compilation for uns",
+          "verified": true,
+          "grep_output": "/home/pengwu/fbsource/fbcode/caffe2/torch/__init__.py:2237:from torch._compile import _disable_dynamo  # usort: skip\n/home/pengwu/fbsource/fbcode/caffe2/torch/__init__.py:2571:    disable: builtins.bo"
+        }
+      ]
+    },
+    {
+      "id": "J4-6",
+      "total_claims": 1,
+      "verified": 1,
+      "fabricated": 0,
+      "claims": [
+        {
+          "claim": "torch.compiler.disable",
+          "value": "disable",
+          "type": "compiler_api",
+          "context": " documentation suggests using torch.compiler.disable() to skip compilation for uns",
+          "verified": true,
+          "grep_output": "/home/pengwu/fbsource/fbcode/caffe2/torch/__init__.py:2237:from torch._compile import _disable_dynamo  # usort: skip\n/home/pengwu/fbsource/fbcode/caffe2/torch/__init__.py:2571:    disable: builtins.bo"
+        }
+      ]
+    },
+    {
+      "id": "J4-7",
+      "total_claims": 0,
+      "verified": 0,
+      "fabricated": 0,
+      "claims": []
+    },
+    {
+      "id": "J4-8",
+      "total_claims": 1,
+      "verified": 1,
+      "fabricated": 0,
+      "claims": [
+        {
+          "claim": "torch.compiler.disable",
+          "value": "disable",
+          "type": "compiler_api",
+          "context": " documentation suggests using torch.compiler.disable() to skip compilation for uns",
+          "verified": true,
+          "grep_output": "/home/pengwu/fbsource/fbcode/caffe2/torch/__init__.py:2237:from torch._compile import _disable_dynamo  # usort: skip\n/home/pengwu/fbsource/fbcode/caffe2/torch/__init__.py:2571:    disable: builtins.bo"
+        }
+      ]
+    },
+    {
+      "id": "J4-9",
+      "total_claims": 1,
+      "verified": 1,
+      "fabricated": 0,
+      "claims": [
+        {
+          "claim": "torch.compiler.disable",
+          "value": "disable",
+          "type": "compiler_api",
+          "context": " documentation suggests using torch.compiler.disable() to skip compilation for uns",
+          "verified": true,
+          "grep_output": "/home/pengwu/fbsource/fbcode/caffe2/torch/__init__.py:2237:from torch._compile import _disable_dynamo  # usort: skip\n/home/pengwu/fbsource/fbcode/caffe2/torch/__init__.py:2571:    disable: builtins.bo"
+        }
+      ]
+    },
+    {
+      "id": "J4-10",
+      "total_claims": 1,
+      "verified": 1,
+      "fabricated": 0,
+      "claims": [
+        {
+          "claim": "torch.compiler.disable",
+          "value": "disable",
+          "type": "compiler_api",
+          "context": " documentation suggests using torch.compiler.disable() to skip compilation for uns",
+          "verified": true,
+          "grep_output": "/home/pengwu/fbsource/fbcode/caffe2/torch/__init__.py:2237:from torch._compile import _disable_dynamo  # usort: skip\n/home/pengwu/fbsource/fbcode/caffe2/torch/__init__.py:2571:    disable: builtins.bo"
+        }
+      ]
+    },
+    {
+      "id": "J4-11",
+      "total_claims": 0,
+      "verified": 0,
+      "fabricated": 0,
+      "claims": []
+    },
+    {
+      "id": "J4-12",
+      "total_claims": 0,
+      "verified": 0,
+      "fabricated": 0,
+      "claims": []
+    },
+    {
+      "id": "J4-13",
+      "total_claims": 0,
+      "verified": 0,
+      "fabricated": 0,
+      "claims": []
+    },
+    {
+      "id": "J4-14",
+      "total_claims": 0,
+      "verified": 0,
+      "fabricated": 0,
+      "claims": []
+    },
+    {
+      "id": "J4-15",
+      "total_claims": 0,
+      "verified": 0,
+      "fabricated": 0,
+      "claims": []
+    },
+    {
+      "id": "J4-16",
+      "total_claims": 0,
+      "verified": 0,
+      "fabricated": 0,
+      "claims": []
+    },
+    {
+      "id": "J4-17",
+      "total_claims": 0,
+      "verified": 0,
+      "fabricated": 0,
+      "claims": []
+    },
+    {
+      "id": "J4-18",
+      "total_claims": 0,
+      "verified": 0,
+      "fabricated": 0,
+      "claims": []
+    },
+    {
+      "id": "J4-19",
+      "total_claims": 0,
+      "verified": 0,
+      "fabricated": 0,
+      "claims": []
+    },
+    {
+      "id": "J4-20",
+      "total_claims": 0,
+      "verified": 0,
+      "fabricated": 0,
+      "claims": []
+    },
+    {
+      "id": "J5-1",
+      "total_claims": 0,
+      "verified": 0,
+      "fabricated": 0,
+      "claims": []
+    },
+    {
+      "id": "J5-2",
+      "total_claims": 0,
+      "verified": 0,
+      "fabricated": 0,
+      "claims": []
+    },
+    {
+      "id": "J5-3",
+      "total_claims": 0,
+      "verified": 0,
+      "fabricated": 0,
+      "claims": []
+    },
+    {
+      "id": "J5-4",
+      "total_claims": 0,
+      "verified": 0,
+      "fabricated": 0,
+      "claims": []
+    },
+    {
+      "id": "J5-5",
+      "total_claims": 0,
+      "verified": 0,
+      "fabricated": 0,
+      "claims": []
+    },
+    {
+      "id": "J5-6",
+      "total_claims": 0,
+      "verified": 0,
+      "fabricated": 0,
+      "claims": []
+    },
+    {
+      "id": "J5-7",
+      "total_claims": 0,
+      "verified": 0,
+      "fabricated": 0,
+      "claims": []
+    },
+    {
+      "id": "J5-8",
+      "total_claims": 0,
+      "verified": 0,
+      "fabricated": 0,
+      "claims": []
+    },
+    {
+      "id": "J5-9",
+      "total_claims": 0,
+      "verified": 0,
+      "fabricated": 0,
+      "claims": []
+    },
+    {
+      "id": "J5-10",
+      "total_claims": 0,
+      "verified": 0,
+      "fabricated": 0,
+      "claims": []
+    },
+    {
+      "id": "J5-11",
+      "total_claims": 0,
+      "verified": 0,
+      "fabricated": 0,
+      "claims": []
+    },
+    {
+      "id": "J5-12",
+      "total_claims": 0,
+      "verified": 0,
+      "fabricated": 0,
+      "claims": []
+    },
+    {
+      "id": "J5-13",
+      "total_claims": 0,
+      "verified": 0,
+      "fabricated": 0,
+      "claims": []
+    },
+    {
+      "id": "J5-14",
+      "total_claims": 0,
+      "verified": 0,
+      "fabricated": 0,
+      "claims": []
+    },
+    {
+      "id": "J5-15",
+      "total_claims": 0,
+      "verified": 0,
+      "fabricated": 0,
+      "claims": []
+    },
+    {
+      "id": "J5-16",
+      "total_claims": 0,
+      "verified": 0,
+      "fabricated": 0,
+      "claims": []
+    },
+    {
+      "id": "J5-17",
+      "total_claims": 0,
+      "verified": 0,
+      "fabricated": 0,
+      "claims": []
+    },
+    {
+      "id": "J5-18",
+      "total_claims": 0,
+      "verified": 0,
+      "fabricated": 0,
+      "claims": []
+    },
+    {
+      "id": "J5-19",
+      "total_claims": 0,
+      "verified": 0,
+      "fabricated": 0,
+      "claims": []
+    },
+    {
+      "id": "J5-20",
+      "total_claims": 0,
+      "verified": 0,
+      "fabricated": 0,
+      "claims": []
+    },
+    {
+      "id": "J6-1",
+      "total_claims": 0,
+      "verified": 0,
+      "fabricated": 0,
+      "claims": []
+    },
+    {
+      "id": "J6-2",
+      "total_claims": 0,
+      "verified": 0,
+      "fabricated": 0,
+      "claims": []
+    },
+    {
+      "id": "J6-3",
+      "total_claims": 0,
+      "verified": 0,
+      "fabricated": 0,
+      "claims": []
+    },
+    {
+      "id": "J6-4",
+      "total_claims": 0,
+      "verified": 0,
+      "fabricated": 0,
+      "claims": []
+    },
+    {
+      "id": "J6-5",
+      "total_claims": 0,
+      "verified": 0,
+      "fabricated": 0,
+      "claims": []
+    },
+    {
+      "id": "J6-6",
+      "total_claims": 0,
+      "verified": 0,
+      "fabricated": 0,
+      "claims": []
+    },
+    {
+      "id": "J6-7",
+      "total_claims": 0,
+      "verified": 0,
+      "fabricated": 0,
+      "claims": []
+    },
+    {
+      "id": "J6-8",
+      "total_claims": 0,
+      "verified": 0,
+      "fabricated": 0,
+      "claims": []
+    },
+    {
+      "id": "J6-9",
+      "total_claims": 0,
+      "verified": 0,
+      "fabricated": 0,
+      "claims": []
+    },
+    {
+      "id": "J6-10",
+      "total_claims": 0,
+      "verified": 0,
+      "fabricated": 0,
+      "claims": []
+    },
+    {
+      "id": "J6-11",
+      "total_claims": 0,
+      "verified": 0,
+      "fabricated": 0,
+      "claims": []
+    },
+    {
+      "id": "J6-12",
+      "total_claims": 0,
+      "verified": 0,
+      "fabricated": 0,
+      "claims": []
+    },
+    {
+      "id": "J6-13",
+      "total_claims": 0,
+      "verified": 0,
+      "fabricated": 0,
+      "claims": []
+    },
+    {
+      "id": "J6-14",
+      "total_claims": 0,
+      "verified": 0,
+      "fabricated": 0,
+      "claims": []
+    },
+    {
+      "id": "J6-15",
+      "total_claims": 0,
+      "verified": 0,
+      "fabricated": 0,
+      "claims": []
+    },
+    {
+      "id": "J6-16",
+      "total_claims": 0,
+      "verified": 0,
+      "fabricated": 0,
+      "claims": []
+    },
+    {
+      "id": "J6-17",
+      "total_claims": 0,
+      "verified": 0,
+      "fabricated": 0,
+      "claims": []
+    },
+    {
+      "id": "J6-18",
+      "total_claims": 0,
+      "verified": 0,
+      "fabricated": 0,
+      "claims": []
+    },
+    {
+      "id": "J6-19",
+      "total_claims": 0,
+      "verified": 0,
+      "fabricated": 0,
+      "claims": []
+    },
+    {
+      "id": "J6-20",
+      "total_claims": 0,
+      "verified": 0,
+      "fabricated": 0,
+      "claims": []
+    },
+    {
+      "id": "J7-1",
+      "total_claims": 0,
+      "verified": 0,
+      "fabricated": 0,
+      "claims": []
+    },
+    {
+      "id": "J7-2",
+      "total_claims": 0,
+      "verified": 0,
+      "fabricated": 0,
+      "claims": []
+    },
+    {
+      "id": "J7-3",
+      "total_claims": 0,
+      "verified": 0,
+      "fabricated": 0,
+      "claims": []
+    },
+    {
+      "id": "J7-4",
+      "total_claims": 0,
+      "verified": 0,
+      "fabricated": 0,
+      "claims": []
+    },
+    {
+      "id": "J7-5",
+      "total_claims": 0,
+      "verified": 0,
+      "fabricated": 0,
+      "claims": []
+    },
+    {
+      "id": "J7-6",
+      "total_claims": 0,
+      "verified": 0,
+      "fabricated": 0,
+      "claims": []
+    },
+    {
+      "id": "J7-7",
+      "total_claims": 0,
+      "verified": 0,
+      "fabricated": 0,
+      "claims": []
+    },
+    {
+      "id": "J7-8",
+      "total_claims": 0,
+      "verified": 0,
+      "fabricated": 0,
+      "claims": []
+    },
+    {
+      "id": "J7-9",
+      "total_claims": 0,
+      "verified": 0,
+      "fabricated": 0,
+      "claims": []
+    },
+    {
+      "id": "J7-10",
+      "total_claims": 0,
+      "verified": 0,
+      "fabricated": 0,
+      "claims": []
+    },
+    {
+      "id": "J7-11",
+      "total_claims": 1,
+      "verified": 1,
+      "fabricated": 0,
+      "claims": [
+        {
+          "claim": "TORCHINDUCTOR_FX_GRAPH_CACHE",
+          "value": "TORCHINDUCTOR_FX_GRAPH_CACHE",
+          "type": "env_var",
+          "context": "ilation, but does not mention TORCHINDUCTOR_FX_GRAPH_CACHE or other cache-related enviro",
+          "verified": true,
+          "grep_output": "/home/pengwu/fbsource/fbcode/caffe2/torch/_inductor/config.py:110:    env_name_default=\"TORCHINDUCTOR_FX_GRAPH_CACHE_DEFAULT\",\n/home/pengwu/fbsource/fbcode/caffe2/torch/_inductor/config.py:111:    env"
+        }
+      ]
+    },
+    {
+      "id": "J7-12",
+      "total_claims": 0,
+      "verified": 0,
+      "fabricated": 0,
+      "claims": []
+    },
+    {
+      "id": "J7-13",
+      "total_claims": 0,
+      "verified": 0,
+      "fabricated": 0,
+      "claims": []
+    },
+    {
+      "id": "J7-14",
+      "total_claims": 0,
+      "verified": 0,
+      "fabricated": 0,
+      "claims": []
+    },
+    {
+      "id": "J7-15",
+      "total_claims": 0,
+      "verified": 0,
+      "fabricated": 0,
+      "claims": []
+    },
+    {
+      "id": "J7-16",
+      "total_claims": 0,
+      "verified": 0,
+      "fabricated": 0,
+      "claims": []
+    },
+    {
+      "id": "J7-17",
+      "total_claims": 0,
+      "verified": 0,
+      "fabricated": 0,
+      "claims": []
+    },
+    {
+      "id": "J7-18",
+      "total_claims": 0,
+      "verified": 0,
+      "fabricated": 0,
+      "claims": []
+    },
+    {
+      "id": "J7-19",
+      "total_claims": 0,
+      "verified": 0,
+      "fabricated": 0,
+      "claims": []
+    },
+    {
+      "id": "J7-20",
+      "total_claims": 0,
+      "verified": 0,
+      "fabricated": 0,
+      "claims": []
+    },
+    {
+      "id": "J8-1",
+      "total_claims": 0,
+      "verified": 0,
+      "fabricated": 0,
+      "claims": []
+    },
+    {
+      "id": "J8-2",
+      "total_claims": 0,
+      "verified": 0,
+      "fabricated": 0,
+      "claims": []
+    },
+    {
+      "id": "J8-3",
+      "total_claims": 0,
+      "verified": 0,
+      "fabricated": 0,
+      "claims": []
+    },
+    {
+      "id": "J8-4",
+      "total_claims": 0,
+      "verified": 0,
+      "fabricated": 0,
+      "claims": []
+    },
+    {
+      "id": "J8-5",
+      "total_claims": 0,
+      "verified": 0,
+      "fabricated": 0,
+      "claims": []
+    },
+    {
+      "id": "J8-6",
+      "total_claims": 0,
+      "verified": 0,
+      "fabricated": 0,
+      "claims": []
+    },
+    {
+      "id": "J8-7",
+      "total_claims": 0,
+      "verified": 0,
+      "fabricated": 0,
+      "claims": []
+    },
+    {
+      "id": "J8-8",
+      "total_claims": 0,
+      "verified": 0,
+      "fabricated": 0,
+      "claims": []
+    },
+    {
+      "id": "J8-9",
+      "total_claims": 0,
+      "verified": 0,
+      "fabricated": 0,
+      "claims": []
+    },
+    {
+      "id": "J8-10",
+      "total_claims": 0,
+      "verified": 0,
+      "fabricated": 0,
+      "claims": []
+    },
+    {
+      "id": "J8-11",
+      "total_claims": 0,
+      "verified": 0,
+      "fabricated": 0,
+      "claims": []
+    },
+    {
+      "id": "J8-12",
+      "total_claims": 0,
+      "verified": 0,
+      "fabricated": 0,
+      "claims": []
+    },
+    {
+      "id": "J8-13",
+      "total_claims": 0,
+      "verified": 0,
+      "fabricated": 0,
+      "claims": []
+    },
+    {
+      "id": "J8-14",
+      "total_claims": 0,
+      "verified": 0,
+      "fabricated": 0,
+      "claims": []
+    },
+    {
+      "id": "J8-15",
+      "total_claims": 0,
+      "verified": 0,
+      "fabricated": 0,
+      "claims": []
+    },
+    {
+      "id": "J8-16",
+      "total_claims": 0,
+      "verified": 0,
+      "fabricated": 0,
+      "claims": []
+    },
+    {
+      "id": "J8-17",
+      "total_claims": 0,
+      "verified": 0,
+      "fabricated": 0,
+      "claims": []
+    },
+    {
+      "id": "J8-18",
+      "total_claims": 0,
+      "verified": 0,
+      "fabricated": 0,
+      "claims": []
+    },
+    {
+      "id": "J8-19",
+      "total_claims": 0,
+      "verified": 0,
+      "fabricated": 0,
+      "claims": []
+    },
+    {
+      "id": "J8-20",
+      "total_claims": 0,
+      "verified": 0,
+      "fabricated": 0,
+      "claims": []
+    }
+  ]
+}

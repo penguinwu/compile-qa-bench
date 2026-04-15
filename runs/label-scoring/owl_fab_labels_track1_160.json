@@ -1,0 +1,1282 @@
+[
+  {
+    "id": "J1-1",
+    "fabrication": false,
+    "fabrication_count": 0,
+    "fabrication_detail": "n/a",
+    "detector_confirmed": false,
+    "manual_additions": 0
+  },
+  {
+    "id": "J1-10",
+    "fabrication": false,
+    "fabrication_count": 0,
+    "fabrication_detail": "n/a",
+    "detector_confirmed": false,
+    "manual_additions": 0
+  },
+  {
+    "id": "J1-11",
+    "fabrication": true,
+    "fabrication_count": 1,
+    "fabrication_detail": "dynamo_config: torch._dynamo.config.log_recompilation",
+    "detector_confirmed": true,
+    "manual_additions": 0
+  },
+  {
+    "id": "J1-12",
+    "fabrication": false,
+    "fabrication_count": 0,
+    "fabrication_detail": "n/a",
+    "detector_confirmed": false,
+    "manual_additions": 0
+  },
+  {
+    "id": "J1-13",
+    "fabrication": false,
+    "fabrication_count": 0,
+    "fabrication_detail": "n/a",
+    "detector_confirmed": false,
+    "manual_additions": 0
+  },
+  {
+    "id": "J1-14",
+    "fabrication": false,
+    "fabrication_count": 0,
+    "fabrication_detail": "n/a",
+    "detector_confirmed": false,
+    "manual_additions": 0
+  },
+  {
+    "id": "J1-15",
+    "fabrication": false,
+    "fabrication_count": 0,
+    "fabrication_detail": "n/a",
+    "detector_confirmed": false,
+    "manual_additions": 0
+  },
+  {
+    "id": "J1-16",
+    "fabrication": false,
+    "fabrication_count": 0,
+    "fabrication_detail": "n/a",
+    "detector_confirmed": false,
+    "manual_additions": 0
+  },
+  {
+    "id": "J1-17",
+    "fabrication": false,
+    "fabrication_count": 0,
+    "fabrication_detail": "n/a",
+    "detector_confirmed": false,
+    "manual_additions": 0
+  },
+  {
+    "id": "J1-18",
+    "fabrication": false,
+    "fabrication_count": 0,
+    "fabrication_detail": "n/a",
+    "detector_confirmed": false,
+    "manual_additions": 0
+  },
+  {
+    "id": "J1-19",
+    "fabrication": true,
+    "fabrication_count": 1,
+    "fabrication_detail": "cpp_subconfig: torch._inductor.config.cpp.extra_ldflags",
+    "detector_confirmed": true,
+    "manual_additions": 0
+  },
+  {
+    "id": "J1-2",
+    "fabrication": false,
+    "fabrication_count": 0,
+    "fabrication_detail": "n/a",
+    "detector_confirmed": false,
+    "manual_additions": 0
+  },
+  {
+    "id": "J1-20",
+    "fabrication": false,
+    "fabrication_count": 0,
+    "fabrication_detail": "n/a",
+    "detector_confirmed": false,
+    "manual_additions": 0
+  },
+  {
+    "id": "J1-3",
+    "fabrication": false,
+    "fabrication_count": 0,
+    "fabrication_detail": "n/a",
+    "detector_confirmed": false,
+    "manual_additions": 0
+  },
+  {
+    "id": "J1-4",
+    "fabrication": false,
+    "fabrication_count": 0,
+    "fabrication_detail": "n/a",
+    "detector_confirmed": false,
+    "manual_additions": 0
+  },
+  {
+    "id": "J1-5",
+    "fabrication": false,
+    "fabrication_count": 0,
+    "fabrication_detail": "n/a",
+    "detector_confirmed": false,
+    "manual_additions": 0
+  },
+  {
+    "id": "J1-6",
+    "fabrication": false,
+    "fabrication_count": 0,
+    "fabrication_detail": "n/a",
+    "detector_confirmed": false,
+    "manual_additions": 0
+  },
+  {
+    "id": "J1-7",
+    "fabrication": false,
+    "fabrication_count": 0,
+    "fabrication_detail": "n/a",
+    "detector_confirmed": false,
+    "manual_additions": 0
+  },
+  {
+    "id": "J1-8",
+    "fabrication": true,
+    "fabrication_count": 1,
+    "fabrication_detail": "env_var: TORCHINDUCTOR_TRITON_CODEGEN",
+    "detector_confirmed": true,
+    "manual_additions": 0
+  },
+  {
+    "id": "J1-9",
+    "fabrication": false,
+    "fabrication_count": 0,
+    "fabrication_detail": "n/a",
+    "detector_confirmed": false,
+    "manual_additions": 0
+  },
+  {
+    "id": "J2-1",
+    "fabrication": false,
+    "fabrication_count": 0,
+    "fabrication_detail": "n/a",
+    "detector_confirmed": false,
+    "manual_additions": 0
+  },
+  {
+    "id": "J2-10",
+    "fabrication": false,
+    "fabrication_count": 0,
+    "fabrication_detail": "n/a",
+    "detector_confirmed": false,
+    "manual_additions": 0
+  },
+  {
+    "id": "J2-11",
+    "fabrication": false,
+    "fabrication_count": 0,
+    "fabrication_detail": "n/a",
+    "detector_confirmed": false,
+    "manual_additions": 0
+  },
+  {
+    "id": "J2-12",
+    "fabrication": false,
+    "fabrication_count": 0,
+    "fabrication_detail": "n/a",
+    "detector_confirmed": false,
+    "manual_additions": 0
+  },
+  {
+    "id": "J2-13",
+    "fabrication": false,
+    "fabrication_count": 0,
+    "fabrication_detail": "n/a",
+    "detector_confirmed": false,
+    "manual_additions": 0
+  },
+  {
+    "id": "J2-14",
+    "fabrication": false,
+    "fabrication_count": 0,
+    "fabrication_detail": "n/a",
+    "detector_confirmed": false,
+    "manual_additions": 0
+  },
+  {
+    "id": "J2-15",
+    "fabrication": false,
+    "fabrication_count": 0,
+    "fabrication_detail": "n/a",
+    "detector_confirmed": false,
+    "manual_additions": 0
+  },
+  {
+    "id": "J2-16",
+    "fabrication": false,
+    "fabrication_count": 0,
+    "fabrication_detail": "n/a",
+    "detector_confirmed": false,
+    "manual_additions": 0
+  },
+  {
+    "id": "J2-17",
+    "fabrication": false,
+    "fabrication_count": 0,
+    "fabrication_detail": "n/a",
+    "detector_confirmed": false,
+    "manual_additions": 0
+  },
+  {
+    "id": "J2-18",
+    "fabrication": false,
+    "fabrication_count": 0,
+    "fabrication_detail": "n/a",
+    "detector_confirmed": false,
+    "manual_additions": 0
+  },
+  {
+    "id": "J2-19",
+    "fabrication": false,
+    "fabrication_count": 0,
+    "fabrication_detail": "n/a",
+    "detector_confirmed": false,
+    "manual_additions": 0
+  },
+  {
+    "id": "J2-2",
+    "fabrication": false,
+    "fabrication_count": 0,
+    "fabrication_detail": "n/a",
+    "detector_confirmed": false,
+    "manual_additions": 0
+  },
+  {
+    "id": "J2-20",
+    "fabrication": false,
+    "fabrication_count": 0,
+    "fabrication_detail": "n/a",
+    "detector_confirmed": false,
+    "manual_additions": 0
+  },
+  {
+    "id": "J2-3",
+    "fabrication": false,
+    "fabrication_count": 0,
+    "fabrication_detail": "n/a",
+    "detector_confirmed": false,
+    "manual_additions": 0
+  },
+  {
+    "id": "J2-4",
+    "fabrication": false,
+    "fabrication_count": 0,
+    "fabrication_detail": "n/a",
+    "detector_confirmed": false,
+    "manual_additions": 0
+  },
+  {
+    "id": "J2-5",
+    "fabrication": false,
+    "fabrication_count": 0,
+    "fabrication_detail": "n/a",
+    "detector_confirmed": false,
+    "manual_additions": 0
+  },
+  {
+    "id": "J2-6",
+    "fabrication": false,
+    "fabrication_count": 0,
+    "fabrication_detail": "n/a",
+    "detector_confirmed": false,
+    "manual_additions": 0
+  },
+  {
+    "id": "J2-7",
+    "fabrication": false,
+    "fabrication_count": 0,
+    "fabrication_detail": "n/a",
+    "detector_confirmed": false,
+    "manual_additions": 0
+  },
+  {
+    "id": "J2-8",
+    "fabrication": false,
+    "fabrication_count": 0,
+    "fabrication_detail": "n/a",
+    "detector_confirmed": false,
+    "manual_additions": 0
+  },
+  {
+    "id": "J2-9",
+    "fabrication": false,
+    "fabrication_count": 0,
+    "fabrication_detail": "n/a",
+    "detector_confirmed": false,
+    "manual_additions": 0
+  },
+  {
+    "id": "J3-1",
+    "fabrication": false,
+    "fabrication_count": 0,
+    "fabrication_detail": "n/a",
+    "detector_confirmed": false,
+    "manual_additions": 0
+  },
+  {
+    "id": "J3-10",
+    "fabrication": false,
+    "fabrication_count": 0,
+    "fabrication_detail": "n/a",
+    "detector_confirmed": false,
+    "manual_additions": 0
+  },
+  {
+    "id": "J3-11",
+    "fabrication": false,
+    "fabrication_count": 0,
+    "fabrication_detail": "n/a",
+    "detector_confirmed": false,
+    "manual_additions": 0
+  },
+  {
+    "id": "J3-12",
+    "fabrication": false,
+    "fabrication_count": 0,
+    "fabrication_detail": "n/a",
+    "detector_confirmed": false,
+    "manual_additions": 0
+  },
+  {
+    "id": "J3-13",
+    "fabrication": true,
+    "fabrication_count": 1,
+    "fabrication_detail": "triton_subconfig: torch._inductor.config.triton.autotune",
+    "detector_confirmed": true,
+    "manual_additions": 0
+  },
+  {
+    "id": "J3-14",
+    "fabrication": false,
+    "fabrication_count": 0,
+    "fabrication_detail": "n/a",
+    "detector_confirmed": false,
+    "manual_additions": 0
+  },
+  {
+    "id": "J3-15",
+    "fabrication": false,
+    "fabrication_count": 0,
+    "fabrication_detail": "n/a",
+    "detector_confirmed": false,
+    "manual_additions": 0
+  },
+  {
+    "id": "J3-16",
+    "fabrication": false,
+    "fabrication_count": 0,
+    "fabrication_detail": "n/a",
+    "detector_confirmed": false,
+    "manual_additions": 0
+  },
+  {
+    "id": "J3-17",
+    "fabrication": false,
+    "fabrication_count": 0,
+    "fabrication_detail": "n/a",
+    "detector_confirmed": false,
+    "manual_additions": 0
+  },
+  {
+    "id": "J3-18",
+    "fabrication": false,
+    "fabrication_count": 0,
+    "fabrication_detail": "n/a",
+    "detector_confirmed": false,
+    "manual_additions": 0
+  },
+  {
+    "id": "J3-19",
+    "fabrication": false,
+    "fabrication_count": 0,
+    "fabrication_detail": "n/a",
+    "detector_confirmed": false,
+    "manual_additions": 0
+  },
+  {
+    "id": "J3-2",
+    "fabrication": false,
+    "fabrication_count": 0,
+    "fabrication_detail": "n/a",
+    "detector_confirmed": false,
+    "manual_additions": 0
+  },
+  {
+    "id": "J3-20",
+    "fabrication": false,
+    "fabrication_count": 0,
+    "fabrication_detail": "n/a",
+    "detector_confirmed": false,
+    "manual_additions": 0
+  },
+  {
+    "id": "J3-3",
+    "fabrication": false,
+    "fabrication_count": 0,
+    "fabrication_detail": "n/a",
+    "detector_confirmed": false,
+    "manual_additions": 0
+  },
+  {
+    "id": "J3-4",
+    "fabrication": false,
+    "fabrication_count": 0,
+    "fabrication_detail": "n/a",
+    "detector_confirmed": false,
+    "manual_additions": 0
+  },
+  {
+    "id": "J3-5",
+    "fabrication": true,
+    "fabrication_count": 1,
+    "fabrication_detail": "triton_subconfig: torch._inductor.config.triton.autotune",
+    "detector_confirmed": true,
+    "manual_additions": 0
+  },
+  {
+    "id": "J3-6",
+    "fabrication": false,
+    "fabrication_count": 0,
+    "fabrication_detail": "n/a",
+    "detector_confirmed": false,
+    "manual_additions": 0
+  },
+  {
+    "id": "J3-7",
+    "fabrication": false,
+    "fabrication_count": 0,
+    "fabrication_detail": "n/a",
+    "detector_confirmed": false,
+    "manual_additions": 0
+  },
+  {
+    "id": "J3-8",
+    "fabrication": false,
+    "fabrication_count": 0,
+    "fabrication_detail": "n/a",
+    "detector_confirmed": false,
+    "manual_additions": 0
+  },
+  {
+    "id": "J3-9",
+    "fabrication": false,
+    "fabrication_count": 0,
+    "fabrication_detail": "n/a",
+    "detector_confirmed": false,
+    "manual_additions": 0
+  },
+  {
+    "id": "J4-1",
+    "fabrication": false,
+    "fabrication_count": 0,
+    "fabrication_detail": "n/a",
+    "detector_confirmed": false,
+    "manual_additions": 0
+  },
+  {
+    "id": "J4-10",
+    "fabrication": false,
+    "fabrication_count": 0,
+    "fabrication_detail": "n/a",
+    "detector_confirmed": false,
+    "manual_additions": 0
+  },
+  {
+    "id": "J4-11",
+    "fabrication": false,
+    "fabrication_count": 0,
+    "fabrication_detail": "n/a",
+    "detector_confirmed": false,
+    "manual_additions": 0
+  },
+  {
+    "id": "J4-12",
+    "fabrication": true,
+    "fabrication_count": 1,
+    "fabrication_detail": "import_claim: from torch.distributed.optim import DDPOptimizer",
+    "detector_confirmed": true,
+    "manual_additions": 0
+  },
+  {
+    "id": "J4-13",
+    "fabrication": false,
+    "fabrication_count": 0,
+    "fabrication_detail": "n/a",
+    "detector_confirmed": false,
+    "manual_additions": 0
+  },
+  {
+    "id": "J4-14",
+    "fabrication": false,
+    "fabrication_count": 0,
+    "fabrication_detail": "n/a",
+    "detector_confirmed": false,
+    "manual_additions": 0
+  },
+  {
+    "id": "J4-15",
+    "fabrication": false,
+    "fabrication_count": 0,
+    "fabrication_detail": "n/a",
+    "detector_confirmed": false,
+    "manual_additions": 0
+  },
+  {
+    "id": "J4-16",
+    "fabrication": false,
+    "fabrication_count": 0,
+    "fabrication_detail": "n/a",
+    "detector_confirmed": false,
+    "manual_additions": 0
+  },
+  {
+    "id": "J4-17",
+    "fabrication": false,
+    "fabrication_count": 0,
+    "fabrication_detail": "n/a",
+    "detector_confirmed": false,
+    "manual_additions": 0
+  },
+  {
+    "id": "J4-18",
+    "fabrication": false,
+    "fabrication_count": 0,
+    "fabrication_detail": "n/a",
+    "detector_confirmed": false,
+    "manual_additions": 0
+  },
+  {
+    "id": "J4-19",
+    "fabrication": false,
+    "fabrication_count": 0,
+    "fabrication_detail": "n/a",
+    "detector_confirmed": false,
+    "manual_additions": 0
+  },
+  {
+    "id": "J4-2",
+    "fabrication": true,
+    "fabrication_count": 1,
+    "fabrication_detail": "distributed_optim_api: torch.distributed.optim.DDPOptimizer",
+    "detector_confirmed": true,
+    "manual_additions": 0
+  },
+  {
+    "id": "J4-20",
+    "fabrication": false,
+    "fabrication_count": 0,
+    "fabrication_detail": "n/a",
+    "detector_confirmed": false,
+    "manual_additions": 0
+  },
+  {
+    "id": "J4-3",
+    "fabrication": false,
+    "fabrication_count": 0,
+    "fabrication_detail": "n/a",
+    "detector_confirmed": false,
+    "manual_additions": 0
+  },
+  {
+    "id": "J4-4",
+    "fabrication": false,
+    "fabrication_count": 0,
+    "fabrication_detail": "n/a",
+    "detector_confirmed": false,
+    "manual_additions": 0
+  },
+  {
+    "id": "J4-5",
+    "fabrication": false,
+    "fabrication_count": 0,
+    "fabrication_detail": "n/a",
+    "detector_confirmed": false,
+    "manual_additions": 0
+  },
+  {
+    "id": "J4-6",
+    "fabrication": false,
+    "fabrication_count": 0,
+    "fabrication_detail": "n/a",
+    "detector_confirmed": false,
+    "manual_additions": 0
+  },
+  {
+    "id": "J4-7",
+    "fabrication": false,
+    "fabrication_count": 0,
+    "fabrication_detail": "n/a",
+    "detector_confirmed": false,
+    "manual_additions": 0
+  },
+  {
+    "id": "J4-8",
+    "fabrication": true,
+    "fabrication_count": 1,
+    "fabrication_detail": "import_claim: from torch.utils.checkpoint import checkpoint, SAC_checkpoint",
+    "detector_confirmed": true,
+    "manual_additions": 0
+  },
+  {
+    "id": "J4-9",
+    "fabrication": false,
+    "fabrication_count": 0,
+    "fabrication_detail": "n/a",
+    "detector_confirmed": false,
+    "manual_additions": 0
+  },
+  {
+    "id": "J5-1",
+    "fabrication": false,
+    "fabrication_count": 0,
+    "fabrication_detail": "n/a",
+    "detector_confirmed": false,
+    "manual_additions": 0
+  },
+  {
+    "id": "J5-10",
+    "fabrication": true,
+    "fabrication_count": 1,
+    "fabrication_detail": "config_assignment: config.split_large_kernels =",
+    "detector_confirmed": true,
+    "manual_additions": 0
+  },
+  {
+    "id": "J5-11",
+    "fabrication": false,
+    "fabrication_count": 0,
+    "fabrication_detail": "n/a",
+    "detector_confirmed": false,
+    "manual_additions": 0
+  },
+  {
+    "id": "J5-12",
+    "fabrication": true,
+    "fabrication_count": 2,
+    "fabrication_detail": "triton_subconfig: config.triton.max_block_size; triton_subconfig: config.triton.num_stages",
+    "detector_confirmed": true,
+    "manual_additions": 0
+  },
+  {
+    "id": "J5-13",
+    "fabrication": false,
+    "fabrication_count": 0,
+    "fabrication_detail": "n/a",
+    "detector_confirmed": false,
+    "manual_additions": 0
+  },
+  {
+    "id": "J5-14",
+    "fabrication": false,
+    "fabrication_count": 0,
+    "fabrication_detail": "n/a",
+    "detector_confirmed": false,
+    "manual_additions": 0
+  },
+  {
+    "id": "J5-15",
+    "fabrication": false,
+    "fabrication_count": 0,
+    "fabrication_detail": "n/a",
+    "detector_confirmed": false,
+    "manual_additions": 0
+  },
+  {
+    "id": "J5-16",
+    "fabrication": true,
+    "fabrication_count": 1,
+    "fabrication_detail": "import_claim: from torch._inductor.select_algorithm import register_template",
+    "detector_confirmed": true,
+    "manual_additions": 0
+  },
+  {
+    "id": "J5-17",
+    "fabrication": false,
+    "fabrication_count": 0,
+    "fabrication_detail": "n/a",
+    "detector_confirmed": false,
+    "manual_additions": 0
+  },
+  {
+    "id": "J5-18",
+    "fabrication": true,
+    "fabrication_count": 1,
+    "fabrication_detail": "triton_subconfig: config.triton.reduce_block_size",
+    "detector_confirmed": true,
+    "manual_additions": 0
+  },
+  {
+    "id": "J5-19",
+    "fabrication": true,
+    "fabrication_count": 1,
+    "fabrication_detail": "triton_subconfig: config.triton.use_welford_reduction",
+    "detector_confirmed": true,
+    "manual_additions": 0
+  },
+  {
+    "id": "J5-2",
+    "fabrication": false,
+    "fabrication_count": 0,
+    "fabrication_detail": "n/a",
+    "detector_confirmed": false,
+    "manual_additions": 0
+  },
+  {
+    "id": "J5-20",
+    "fabrication": false,
+    "fabrication_count": 0,
+    "fabrication_detail": "n/a",
+    "detector_confirmed": false,
+    "manual_additions": 0
+  },
+  {
+    "id": "J5-3",
+    "fabrication": false,
+    "fabrication_count": 0,
+    "fabrication_detail": "n/a",
+    "detector_confirmed": false,
+    "manual_additions": 0
+  },
+  {
+    "id": "J5-4",
+    "fabrication": false,
+    "fabrication_count": 0,
+    "fabrication_detail": "n/a",
+    "detector_confirmed": false,
+    "manual_additions": 0
+  },
+  {
+    "id": "J5-5",
+    "fabrication": true,
+    "fabrication_count": 1,
+    "fabrication_detail": "env_var: TORCHINDUCTOR_TRACE",
+    "detector_confirmed": true,
+    "manual_additions": 0
+  },
+  {
+    "id": "J5-6",
+    "fabrication": false,
+    "fabrication_count": 0,
+    "fabrication_detail": "n/a",
+    "detector_confirmed": false,
+    "manual_additions": 0
+  },
+  {
+    "id": "J5-7",
+    "fabrication": true,
+    "fabrication_count": 1,
+    "fabrication_detail": "config_assignment: config.fuse_cross_entropy_linear =",
+    "detector_confirmed": true,
+    "manual_additions": 0
+  },
+  {
+    "id": "J5-8",
+    "fabrication": false,
+    "fabrication_count": 0,
+    "fabrication_detail": "n/a",
+    "detector_confirmed": false,
+    "manual_additions": 0
+  },
+  {
+    "id": "J5-9",
+    "fabrication": false,
+    "fabrication_count": 0,
+    "fabrication_detail": "n/a",
+    "detector_confirmed": false,
+    "manual_additions": 0
+  },
+  {
+    "id": "J6-1",
+    "fabrication": false,
+    "fabrication_count": 0,
+    "fabrication_detail": "n/a",
+    "detector_confirmed": false,
+    "manual_additions": 0
+  },
+  {
+    "id": "J6-10",
+    "fabrication": false,
+    "fabrication_count": 0,
+    "fabrication_detail": "n/a",
+    "detector_confirmed": false,
+    "manual_additions": 0
+  },
+  {
+    "id": "J6-11",
+    "fabrication": false,
+    "fabrication_count": 0,
+    "fabrication_detail": "n/a",
+    "detector_confirmed": false,
+    "manual_additions": 0
+  },
+  {
+    "id": "J6-12",
+    "fabrication": false,
+    "fabrication_count": 0,
+    "fabrication_detail": "n/a",
+    "detector_confirmed": false,
+    "manual_additions": 0
+  },
+  {
+    "id": "J6-13",
+    "fabrication": false,
+    "fabrication_count": 0,
+    "fabrication_detail": "n/a",
+    "detector_confirmed": false,
+    "manual_additions": 0
+  },
+  {
+    "id": "J6-14",
+    "fabrication": false,
+    "fabrication_count": 0,
+    "fabrication_detail": "n/a",
+    "detector_confirmed": false,
+    "manual_additions": 0
+  },
+  {
+    "id": "J6-15",
+    "fabrication": false,
+    "fabrication_count": 0,
+    "fabrication_detail": "n/a",
+    "detector_confirmed": false,
+    "manual_additions": 0
+  },
+  {
+    "id": "J6-16",
+    "fabrication": false,
+    "fabrication_count": 0,
+    "fabrication_detail": "n/a",
+    "detector_confirmed": false,
+    "manual_additions": 0
+  },
+  {
+    "id": "J6-17",
+    "fabrication": false,
+    "fabrication_count": 0,
+    "fabrication_detail": "n/a",
+    "detector_confirmed": false,
+    "manual_additions": 0
+  },
+  {
+    "id": "J6-18",
+    "fabrication": false,
+    "fabrication_count": 0,
+    "fabrication_detail": "n/a",
+    "detector_confirmed": false,
+    "manual_additions": 0
+  },
+  {
+    "id": "J6-19",
+    "fabrication": false,
+    "fabrication_count": 0,
+    "fabrication_detail": "n/a",
+    "detector_confirmed": false,
+    "manual_additions": 0
+  },
+  {
+    "id": "J6-2",
+    "fabrication": false,
+    "fabrication_count": 0,
+    "fabrication_detail": "n/a",
+    "detector_confirmed": false,
+    "manual_additions": 0
+  },
+  {
+    "id": "J6-20",
+    "fabrication": false,
+    "fabrication_count": 0,
+    "fabrication_detail": "n/a",
+    "detector_confirmed": false,
+    "manual_additions": 0
+  },
+  {
+    "id": "J6-3",
+    "fabrication": false,
+    "fabrication_count": 0,
+    "fabrication_detail": "n/a",
+    "detector_confirmed": false,
+    "manual_additions": 0
+  },
+  {
+    "id": "J6-4",
+    "fabrication": false,
+    "fabrication_count": 0,
+    "fabrication_detail": "n/a",
+    "detector_confirmed": false,
+    "manual_additions": 0
+  },
+  {
+    "id": "J6-5",
+    "fabrication": false,
+    "fabrication_count": 0,
+    "fabrication_detail": "n/a",
+    "detector_confirmed": false,
+    "manual_additions": 0
+  },
+  {
+    "id": "J6-6",
+    "fabrication": false,
+    "fabrication_count": 0,
+    "fabrication_detail": "n/a",
+    "detector_confirmed": false,
+    "manual_additions": 0
+  },
+  {
+    "id": "J6-7",
+    "fabrication": false,
+    "fabrication_count": 0,
+    "fabrication_detail": "n/a",
+    "detector_confirmed": false,
+    "manual_additions": 0
+  },
+  {
+    "id": "J6-8",
+    "fabrication": false,
+    "fabrication_count": 0,
+    "fabrication_detail": "n/a",
+    "detector_confirmed": false,
+    "manual_additions": 0
+  },
+  {
+    "id": "J6-9",
+    "fabrication": true,
+    "fabrication_count": 1,
+    "fabrication_detail": "env_var: TORCHDYNAMO_INLINE_INBUILT_NN_MODULES",
+    "detector_confirmed": true,
+    "manual_additions": 0
+  },
+  {
+    "id": "J7-1",
+    "fabrication": false,
+    "fabrication_count": 0,
+    "fabrication_detail": "n/a",
+    "detector_confirmed": false,
+    "manual_additions": 0
+  },
+  {
+    "id": "J7-10",
+    "fabrication": false,
+    "fabrication_count": 0,
+    "fabrication_detail": "n/a",
+    "detector_confirmed": false,
+    "manual_additions": 0
+  },
+  {
+    "id": "J7-11",
+    "fabrication": false,
+    "fabrication_count": 0,
+    "fabrication_detail": "n/a",
+    "detector_confirmed": false,
+    "manual_additions": 0
+  },
+  {
+    "id": "J7-12",
+    "fabrication": false,
+    "fabrication_count": 0,
+    "fabrication_detail": "n/a",
+    "detector_confirmed": false,
+    "manual_additions": 0
+  },
+  {
+    "id": "J7-13",
+    "fabrication": false,
+    "fabrication_count": 0,
+    "fabrication_detail": "n/a",
+    "detector_confirmed": false,
+    "manual_additions": 0
+  },
+  {
+    "id": "J7-14",
+    "fabrication": true,
+    "fabrication_count": 1,
+    "fabrication_detail": "cpp_subconfig: torch._inductor.config.cpp.vec_isa",
+    "detector_confirmed": true,
+    "manual_additions": 0
+  },
+  {
+    "id": "J7-15",
+    "fabrication": false,
+    "fabrication_count": 0,
+    "fabrication_detail": "n/a",
+    "detector_confirmed": false,
+    "manual_additions": 0
+  },
+  {
+    "id": "J7-16",
+    "fabrication": false,
+    "fabrication_count": 0,
+    "fabrication_detail": "n/a",
+    "detector_confirmed": false,
+    "manual_additions": 0
+  },
+  {
+    "id": "J7-17",
+    "fabrication": false,
+    "fabrication_count": 0,
+    "fabrication_detail": "n/a",
+    "detector_confirmed": false,
+    "manual_additions": 0
+  },
+  {
+    "id": "J7-18",
+    "fabrication": true,
+    "fabrication_count": 1,
+    "fabrication_detail": "functorch_config: torch._functorch.config.use_functionalize",
+    "detector_confirmed": true,
+    "manual_additions": 0
+  },
+  {
+    "id": "J7-19",
+    "fabrication": false,
+    "fabrication_count": 0,
+    "fabrication_detail": "n/a",
+    "detector_confirmed": false,
+    "manual_additions": 0
+  },
+  {
+    "id": "J7-2",
+    "fabrication": false,
+    "fabrication_count": 0,
+    "fabrication_detail": "n/a",
+    "detector_confirmed": false,
+    "manual_additions": 0
+  },
+  {
+    "id": "J7-20",
+    "fabrication": false,
+    "fabrication_count": 0,
+    "fabrication_detail": "n/a",
+    "detector_confirmed": false,
+    "manual_additions": 0
+  },
+  {
+    "id": "J7-3",
+    "fabrication": false,
+    "fabrication_count": 0,
+    "fabrication_detail": "n/a",
+    "detector_confirmed": false,
+    "manual_additions": 0
+  },
+  {
+    "id": "J7-4",
+    "fabrication": false,
+    "fabrication_count": 0,
+    "fabrication_detail": "n/a",
+    "detector_confirmed": false,
+    "manual_additions": 0
+  },
+  {
+    "id": "J7-5",
+    "fabrication": false,
+    "fabrication_count": 0,
+    "fabrication_detail": "n/a",
+    "detector_confirmed": false,
+    "manual_additions": 0
+  },
+  {
+    "id": "J7-6",
+    "fabrication": false,
+    "fabrication_count": 0,
+    "fabrication_detail": "n/a",
+    "detector_confirmed": false,
+    "manual_additions": 0
+  },
+  {
+    "id": "J7-7",
+    "fabrication": false,
+    "fabrication_count": 0,
+    "fabrication_detail": "n/a",
+    "detector_confirmed": false,
+    "manual_additions": 0
+  },
+  {
+    "id": "J7-8",
+    "fabrication": false,
+    "fabrication_count": 0,
+    "fabrication_detail": "n/a",
+    "detector_confirmed": false,
+    "manual_additions": 0
+  },
+  {
+    "id": "J7-9",
+    "fabrication": false,
+    "fabrication_count": 0,
+    "fabrication_detail": "n/a",
+    "detector_confirmed": false,
+    "manual_additions": 0
+  },
+  {
+    "id": "J8-1",
+    "fabrication": true,
+    "fabrication_count": 1,
+    "fabrication_detail": "decorator_claim: @op.register_decomposition",
+    "detector_confirmed": true,
+    "manual_additions": 0
+  },
+  {
+    "id": "J8-10",
+    "fabrication": false,
+    "fabrication_count": 0,
+    "fabrication_detail": "n/a",
+    "detector_confirmed": false,
+    "manual_additions": 0
+  },
+  {
+    "id": "J8-11",
+    "fabrication": true,
+    "fabrication_count": 1,
+    "fabrication_detail": "dynamo_config: torch._dynamo.config.output_code",
+    "detector_confirmed": true,
+    "manual_additions": 0
+  },
+  {
+    "id": "J8-12",
+    "fabrication": false,
+    "fabrication_count": 0,
+    "fabrication_detail": "n/a",
+    "detector_confirmed": false,
+    "manual_additions": 0
+  },
+  {
+    "id": "J8-13",
+    "fabrication": false,
+    "fabrication_count": 0,
+    "fabrication_detail": "n/a",
+    "detector_confirmed": false,
+    "manual_additions": 0
+  },
+  {
+    "id": "J8-14",
+    "fabrication": false,
+    "fabrication_count": 0,
+    "fabrication_detail": "n/a",
+    "detector_confirmed": false,
+    "manual_additions": 0
+  },
+  {
+    "id": "J8-15",
+    "fabrication": false,
+    "fabrication_count": 0,
+    "fabrication_detail": "n/a",
+    "detector_confirmed": false,
+    "manual_additions": 0
+  },
+  {
+    "id": "J8-16",
+    "fabrication": false,
+    "fabrication_count": 0,
+    "fabrication_detail": "n/a",
+    "detector_confirmed": false,
+    "manual_additions": 0
+  },
+  {
+    "id": "J8-17",
+    "fabrication": false,
+    "fabrication_count": 0,
+    "fabrication_detail": "n/a",
+    "detector_confirmed": false,
+    "manual_additions": 0
+  },
+  {
+    "id": "J8-18",
+    "fabrication": false,
+    "fabrication_count": 0,
+    "fabrication_detail": "n/a",
+    "detector_confirmed": false,
+    "manual_additions": 0
+  },
+  {
+    "id": "J8-19",
+    "fabrication": false,
+    "fabrication_count": 0,
+    "fabrication_detail": "n/a",
+    "detector_confirmed": false,
+    "manual_additions": 0
+  },
+  {
+    "id": "J8-2",
+    "fabrication": false,
+    "fabrication_count": 0,
+    "fabrication_detail": "n/a",
+    "detector_confirmed": false,
+    "manual_additions": 0
+  },
+  {
+    "id": "J8-20",
+    "fabrication": false,
+    "fabrication_count": 0,
+    "fabrication_detail": "n/a",
+    "detector_confirmed": false,
+    "manual_additions": 0
+  },
+  {
+    "id": "J8-3",
+    "fabrication": false,
+    "fabrication_count": 0,
+    "fabrication_detail": "n/a",
+    "detector_confirmed": false,
+    "manual_additions": 0
+  },
+  {
+    "id": "J8-4",
+    "fabrication": true,
+    "fabrication_count": 1,
+    "fabrication_detail": "decorator_claim: @op.register_decomposition",
+    "detector_confirmed": true,
+    "manual_additions": 0
+  },
+  {
+    "id": "J8-5",
+    "fabrication": false,
+    "fabrication_count": 0,
+    "fabrication_detail": "n/a",
+    "detector_confirmed": false,
+    "manual_additions": 0
+  },
+  {
+    "id": "J8-6",
+    "fabrication": false,
+    "fabrication_count": 0,
+    "fabrication_detail": "n/a",
+    "detector_confirmed": false,
+    "manual_additions": 0
+  },
+  {
+    "id": "J8-7",
+    "fabrication": false,
+    "fabrication_count": 0,
+    "fabrication_detail": "n/a",
+    "detector_confirmed": false,
+    "manual_additions": 0
+  },
+  {
+    "id": "J8-8",
+    "fabrication": false,
+    "fabrication_count": 0,
+    "fabrication_detail": "n/a",
+    "detector_confirmed": false,
+    "manual_additions": 0
+  },
+  {
+    "id": "J8-9",
+    "fabrication": false,
+    "fabrication_count": 0,
+    "fabrication_detail": "n/a",
+    "detector_confirmed": false,
+    "manual_additions": 0
+  }
+]
