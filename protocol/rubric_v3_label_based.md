@@ -17,10 +17,12 @@ v2.9 achieved high inter-rater reliability on calibration sets but failed on ful
 
 **Validation results:**
 
-| Dimension | v2.8 Direct κ | v3.0 Labels Post-Cal κ | Pilot Size |
-|-----------|---------------|-------------------------|------------|
-| Act | 0.429 | **1.000** | 40 cases (20 T1 + 20 T2) |
-| Diag | 0.182 | **1.000** | 20 cases (Track 1) |
+| Dimension | v2.8 Direct κ | v3.0 Pilot κ | v3.0 Full T1 κ | v3.0 Full T2 κ |
+|-----------|---------------|--------------|----------------|----------------|
+| Act | 0.429 | 1.000 (40 cases) | **0.900** (160) | **0.945** (160) |
+| Diag | 0.182 | 1.000 (20 cases) | **0.918** (160) | **0.925** (160) |
+
+All dimensions PASS (κ ≥ 0.80) on both tracks. 10 calibration rules total (1-5 from Track 1, 6-10 from Track 2).
 
 Full methodology documented in `protocol/rubric_design_methodology.md`.
 
@@ -373,6 +375,20 @@ These rules were established during pilot calibration and are binding for all fu
 3. **Diagnostic tools ≠ names_mechanism.** Naming a debugging/diagnostic tool (TORCH_LOGS, profiler, torch.compiler.disable, torch.autograd.detect_anomaly) is NOT naming the mechanism. names_mechanism requires naming the internal mechanism *causing* the issue, not the tool you'd use to find or work around it.
 4. **Echoed user terms ≠ case_specific_diagnosis.** If the guidance echoes the user's problem statement (e.g., quoting the issue title or API names from the question) but adds no original diagnostic reasoning, score case_specific_diagnosis=false. Original reasoning tied to the case is required, not restating what the user already said.
 5. **Gap identification = correct_subsystem=true** if the response correctly places the gap in the right subsystem area, even when using generic template structure. Identifying "docs don't cover X in inductor" counts as correct subsystem identification for inductor.
+
+### Track 2 Calibration (Rules 6-10, added 2026-04-15)
+
+These rules were established during Track 2 (doc-restricted) full scoring IAA, resolving systematic disagreements:
+
+6. **Soft imperatives count as has_imperative.** Recommendation patterns like "the best approach is to [verb]", "you should [verb]", "consider [verb]ing", or "try [verb]ing" constitute imperative guidance — they direct the user to take action. The imperative doesn't need to be a bare command; recommendations framed as advice count.
+
+7. **Topic naming ≠ case_specific (Act).** For doc-restricted responses, listing what documentation is missing or referencing the user's topic area without providing unique *actionable* content (instructions, suggestions, workarounds) does NOT count as case_specific. Saying "the docs don't cover X for your use case" identifies a gap but doesn't provide case-specific action. Requires: instructions, suggestions, or workarounds tailored to this user's specific problem.
+
+8. **Config options and generic features ≠ mechanism (extends Rule 3).** Config options (fullgraph=True, dynamic=True), framework-level function names used as diagnostic tools (torch.profiler, torch.compiler.disable), and generic feature/symptom names (graph breaks, compilation, recompilation, backends) are NOT mechanisms. A mechanism is a specific internal component, algorithm, or code path — e.g., "Dynamo's guard system", "Inductor's codegen for embedding lookups", "AOT autograd's backward trace." The distinction: tools and symptoms vs. internal causes.
+
+9. **Hedged hypotheses ≠ causal_chain (extends Rule 2).** Phrases like "may be due to", "could stem from", "might cause", "this appears to be", or "possibly because" are hedged hypotheses, NOT definitive causal chains. causal_chain requires: (1) naming the specific mechanism, (2) explaining how it causes the symptom, (3) stated definitively, not as hypothesis. This is consistent with Track 1 calibration where investigation methodology also ≠ causal chain.
+
+10. **Topic identification ≠ case_specific_diagnosis.** Correctly identifying the relevant topic area is scored under correct_subsystem, not case_specific_diagnosis. case_specific_diagnosis requires the response to reference specific technical details unique to this case (error messages, specific API interactions, version-specific behavior) in its diagnostic reasoning, beyond just naming the topic area.
 
 ### Adding New Calibration Rules
 
