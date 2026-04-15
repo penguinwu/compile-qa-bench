@@ -1,7 +1,7 @@
 # Scoring Rubric v2: Multi-Dimensional Agent Guidance Quality
 
-**Version:** 2.8
-**Date:** 2026-04-13
+**Version:** 2.9
+**Date:** 2026-04-14
 **Replaces:** Single-score 0-3 rubric in `methodology.md` (Sections "Scoring for resolved issues" and "Scoring for unresolved issues")
 **Applies to:** Mode B evaluation (full-context agent guidance), both Track 1 (unrestricted) and Track 2 (doc-restricted)
 
@@ -205,6 +205,24 @@ Examples:
 - "This is a Dynamo guard issue" → Diag=2 (right subsystem, mechanism vague)
 - "Dynamo creates overly tight guards on the sequence_length dimension, causing recompilation on every batch" → Diag=3 (specific mechanism, developer could write the fix)
 
+### Diagnosis: Track 1 Worked Examples for the 2/3 Boundary
+
+Track 1 responses draw from diverse sources (GitHub, forums, source code) and are more varied than Track 2. The "could a developer write the fix?" test requires additional calibration. These examples set the boundary:
+
+**Diag=3 (correct root cause — developer could write the fix):**
+- "The recompilation is caused by cache_size_limit exhaustion. Set `TORCHINDUCTOR_FX_GRAPH_CACHE=1` for persistent caching." → Diag=3. Names the specific env var that IS the fix.
+- "Inductor's pattern matcher incorrectly treats reshape as view, changing semantics for non-contiguous tensors." → Diag=3. Identifies the exact mechanism: reshape→view equivalence assumption.
+- "SAC's context_fn creates graph breaks because the compiler can't trace through the context manager boundary." → Diag=3. Names the exact interaction: context_fn → graph break.
+- "This is an unsupported interaction — compiled autograd + non-reentrant checkpointing." → Diag=3 (for unresolved). Names the exact failing combination.
+
+**Diag=2 (right subsystem, imprecise mechanism):**
+- "This is related to the compile cache and may not persist across restarts." → Diag=2. Right subsystem (caching) but doesn't name the FX Graph Cache mechanism or env var.
+- "The issue is in how inductor handles certain tensor operations during codegen." → Diag=2. Right subsystem (inductor codegen) but no specific mechanism (reshape/view? memory layout? decomposition?).
+- "DDP + compile has known compatibility issues that may cause this error." → Diag=2. Right subsystem (DDP+compile) but no specific mechanism (ordering? allreduce hooks? gradient bucketing?).
+- "The recompilation may be related to dynamic shapes not being handled properly." → Diag=2. Right area but doesn't name WHY shapes trigger recompilation (guards? cache? specialization?).
+
+**Key distinction for Track 1:** On Track 1, the agent has access to GitHub issues, source code, and forums. A Diag=3 response uses that access to name the specific mechanism. A Diag=2 response stays at subsystem level despite having richer sources available. The test remains: "Could a developer write the fix from this diagnosis alone?"
+
 ### Actionability: Interchangeability Test for Act 1 vs Act 2
 
 Act=2 requires guidance the user could NOT have identified without the agent's response to THIS specific case. Act=1 is advice any knowledgeable user could have guessed given the general topic.
@@ -225,6 +243,9 @@ Examples:
 - "Use torch.profiler to compare eager vs compiled" → Act=1 (generic profiling advice, not a fix)
 - "Use torch.profiler to compare — focus on the cumprod backward op, that's where the 100x gap is" → Act=2 (points to THIS user's specific bottleneck, but user still needs to act on it)
 - "Set `TORCHINDUCTOR_FX_GRAPH_CACHE=1`" for a user asking about persistent caching → Act=3 (standalone fix that directly solves the problem, even though any caching question gets same answer)
+- "Use `torch._dynamo.mark_dynamic(audio, 1)` for the sequence dimension, and set `dynamic=True`" for a user with variable-length audio inputs → Act=3 (standalone fix: user can apply these two changes and recompilation stops. The same fix applies to other variable-length cases, but that doesn't reduce its value to THIS user)
+
+**Track 1 annotation for repetitive fixes:** When the same standalone fix appears across 3+ cases in a journey (e.g., `mark_dynamic` in J6), score each as Act=3 (the user still gets full value), but annotate the case with `[repetitive-fix]` in the rationale. This allows downstream analysis to separately assess agent pattern-matching behavior without penalizing the user-facing quality score.
 
 ### Actionability: Bright-Line Test for Act 0 vs Act 1
 
@@ -291,12 +312,15 @@ This decomposition eliminates the ambiguity. Rocky's "the agent got it right" an
 
 ### Fabrication and the Automated Detector
 
-The automated fabrication detector (`scripts/verify_claims.py`) catches fabricated names with zero false positives (validated on 160 cases, `analysis/iaa_doc_restricted.md`). The manual fabrication flag in this rubric serves as a cross-check and catches cases the automated detector misses (e.g., fabricated parameter names in function calls, invented module paths outside the 10 regex categories).
+The automated fabrication detector (`scripts/verify_claims.py`) catches fabricated names with zero false positives (validated on 160 Track 2 cases). The manual fabrication flag in this rubric serves as a cross-check for types the detector cannot catch.
 
-**Scoring workflow:**
-1. Score Fabrication manually during annotation.
-2. Run `verify_claims.py` on the same responses.
-3. Any discrepancy (manual=No but detector=Yes, or vice versa) must be resolved by checking PyTorch source. The detector's verified result takes precedence for name-based fabrication; the manual flag takes precedence for types the detector cannot catch.
+**Scoring workflow (v2.9 — detector-first process):**
+1. Run `verify_claims.py` on the agent guidance BEFORE manual scoring begins.
+2. Provide detector results to both manual scorers alongside the guidance.
+3. Manual scorers **confirm** detector flags (mark fabrication=Yes for flagged cases) and **add** cases the detector cannot catch: semantic fabrication (wrong return values, wrong function signatures), fabricated issue references, fabricated pip packages.
+4. Manual scorers do NOT independently search for name-based fabrication — the detector handles this.
+
+**Why this process exists (v2.9):** Track 1 IAA revealed that LLM scorers skip fabrication verification entirely when scoring at scale — Raven flagged 0/28 real fabrications across 1,064 cases scored. The detector-first process removes the "forgot to check" failure mode. See `analysis/track1_iaa_root_cause.md`.
 
 ### Fabrication and Overall Scoring
 
@@ -499,3 +523,5 @@ Before scoring the full 160-case dataset:
 *Rubric v2.7 -- 2026-04-14. Applied the same interchangeability test to Act 1/2 boundary. v2.6 IAA showed Rocky=2/Raven=1 in 13 cases — Rocky counted naming a real tool (torch.profiler, TORCH_LOGS) as Act=2; Raven required case-specific application guidance. New rule: naming a tool is Act=1; telling the user HOW to apply that tool to THEIR specific case is Act=2. Also added explicit examples showing generic vs case-specific tool guidance.*
 
 *Rubric v2.8 -- 2026-04-14. Two fixes from v2.7 IAA (κ=0.697 on Act 4-level). (1) Interchangeability scope rule: the interchangeability test applies at 1/2 boundary only, not 2/3. If a response contains a standalone working fix → Act≥2 regardless of generality. Act=3 "standalone fix" test takes priority. This resolves 8 cases where Rocky=3/Raven=1 on complete working solutions (env vars, profiling commands). (2) Descriptive language clarification: "need to consult...", "requires understanding..." are descriptive (Act=0), not imperative (Act≥1). Resolves 8 cases at the 0/1 boundary.*
+
+*Rubric v2.9 -- 2026-04-14. Track 1 IAA revealed three issues (Diag κ=0.415, Act κ=0.486, Fab κ=0.000). (1) Fabrication process: switched to detector-first workflow — run verify_claims.py before manual scoring, provide results to scorers, scorers confirm flags and add semantic cases only. Root cause: LLM scorers skip verification at scale (Raven flagged 0/28 real fabrications across 1,064 cases). (2) Act: added Track 1 mark_dynamic example reinforcing standalone-fix priority + [repetitive-fix] annotation for downstream analysis. Root cause: Owl applied interchangeability test to Act=3 cases despite v2.8's scope rule. (3) Diag: added 8 Track 1 worked examples at the 2/3 boundary. Root cause: "specific mechanism" threshold is more ambiguous on Track 1's richer responses.*

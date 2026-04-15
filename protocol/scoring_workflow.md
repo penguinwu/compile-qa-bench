@@ -35,16 +35,16 @@ This produces agent responses for all 160 cases. The generator agent sees:
 **Track 2 (doc-restricted):** Generator can ONLY reference official pytorch.org documentation.
 **Track 1 (unrestricted):** Generator searches freely (GitHub, forums, blogs, docs).
 
-## Step 2: Run Fabrication Detection
+## Step 2: Run Fabrication Detection (BEFORE manual scoring)
 
 ```bash
-python scripts/verify_claims.py --input runs/YYYY-MM-DD-name/mode_b_results.json \
-    --torch-path /path/to/torch/source
+python scripts/verify_claims.py --results runs/YYYY-MM-DD-name/mode_b_results.json \
+    --torch-dir /path/to/torch/source
 ```
 
-This extracts verifiable claims (config flags, env vars, API names, imports) from each agent response and checks them against PyTorch source. Zero false positive rate.
+This extracts verifiable claims (config flags, env vars, API names, imports) from each agent response and checks them against PyTorch source. Zero false positive rate on name-based fabrication.
 
-Output: JSON with fabrication flags per case. Any case with fabrication is **capped** in scoring.
+**CRITICAL (v2.9):** Run the detector BEFORE distributing guidance to manual scorers. Provide detector output alongside the guidance. Manual scorers confirm detector flags and add semantic fabrication (wrong return values, wrong function signatures, fabricated issue references) — they do NOT independently search for name-based fabrication. This prevents the failure mode where LLM scorers skip verification at scale.
 
 ## Step 3: Score with Two Independent Scorers
 
