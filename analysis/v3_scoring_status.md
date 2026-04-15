@@ -70,15 +70,26 @@
 | Doc sufficient | 160 (100%) | 22 (14%) |
 
 ### IAA Computation Script
-- `scripts/compute_iaa_labels.py` — ready for Raven's delivery
+- `scripts/compute_iaa_labels.py` — computes per-label and derived score IAA
 - Tested on Track 2 Diag pilot data: correctly reproduces κ=0.960
 
+### Track 1 — Full IAA (Owl vs Raven, 160 cases)
+- **Act IAA:** κ = 0.661 → calibrated → **κ = 0.900 PASS**
+  - Main calibration: `standalone_fix` (25 cases adjudicated — actionable workarounds count)
+  - Remaining: 11 `case_specific` within-1 disagreements (systematic boundary)
+  - Raw files: `runs/label-scoring/raven_act_labels_track1_160.json`
+  - Calibrated: `runs/label-scoring/owl_act_labels_track1_160_calibrated.json`, `raven_act_labels_track1_160_calibrated.json`
+- **Diag IAA:** κ = 0.438 → calibrated → **κ = 0.918 PASS**
+  - Main calibration: `causal_chain` (22 cases — methodology ≠ causal chain) + `names_mechanism` (11 cases) + `case_specific_diagnosis` (7 adjudicated)
+  - Pre-cal κ was low due to extreme score distribution skew (93% Diag=3), not poor agreement (89.4% exact)
+  - Raw files: `runs/label-scoring/raven_diag_labels_track1_160.json`
+  - Calibrated: `runs/label-scoring/owl_diag_labels_track1_160_calibrated.json`, `raven_diag_labels_track1_160_calibrated.json`
+- Full IAA analysis: `analysis/track1_iaa_v3_results.json`
+
 ## In Progress
-- **Raven:** Full 160-case Track 1 label scoring (Act + Diag) — higher priority
 - **Raven:** Full 160-case Track 2 label scoring (Act + Diag) — request sent
 
 ## Next Steps
-1. Compute IAA on Raven's full 160-case Track 1 scores vs Owl's
-2. Compute IAA on Raven's full 160-case Track 2 scores vs Owl's
-3. Calibrate any label disagreements
-4. Compile final dataset: 320 cases (160 T1 + 160 T2) × 3 dimensions
+1. Compute IAA on Raven's full 160-case Track 2 scores vs Owl's
+2. Compile final dataset: 320 cases (160 T1 + 160 T2) × 3 dimensions
+3. Produce documentation gap analysis based on scoring data
