@@ -86,10 +86,21 @@
   - Calibrated: `runs/label-scoring/owl_diag_labels_track1_160_calibrated.json`, `raven_diag_labels_track1_160_calibrated.json`
 - Full IAA analysis: `analysis/track1_iaa_v3_results.json`
 
+### Documentation Gap Analysis
+- `analysis/documentation_gap_analysis.md` — full markdown report
+- `analysis/documentation_gap_data.json` — structured data for downstream use
+- `scripts/doc_gap_analysis.py` — analysis script
+- GDrive: `1Swb85mm2icSfKQAoaQmPkF4vIR1hJ6Bk` (report), `1C0soZ8Q7mQ2A4awSa6S6CZTG8dXn3xm-` (data)
+- Key findings:
+  - 138/160 (86%) cases doc-insufficient
+  - Mean Act drop: 2.18 points; Mean Diag drop: 0.96 points
+  - J3 (Correctness) worst: 0/20 doc sufficient, 18/20 template responses
+  - 36 mechanism gaps (names_mechanism T1=true, T2=false)
+  - 83 standalone fix gaps; 38 template responses across 2 journeys
+
 ## In Progress
 - **Raven:** Full 160-case Track 2 label scoring (Act + Diag) — request sent
 
 ## Next Steps
 1. Compute IAA on Raven's full 160-case Track 2 scores vs Owl's
 2. Compile final dataset: 320 cases (160 T1 + 160 T2) × 3 dimensions
-3. Produce documentation gap analysis based on scoring data
