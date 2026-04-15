@@ -1,0 +1,110 @@
+{
+  "metadata": {
+    "date": "2026-04-14",
+    "adjudicator": "Owl",
+    "purpose": "Adjudicate 15 fabrication disagreements from v2.9 IAA (κ=0.580)"
+  },
+  "owl_only_cases": [
+    {
+      "id": "J2-19",
+      "owl_claim": "pip install torchbench is fabricated; TorchBench requires cloning from source",
+      "verdict": "FABRICATION",
+      "rationale": "Confirmed: TorchBench is NOT available via pip install torchbench. Must clone pytorch/benchmark repo. The agent fabricated a pip install command that doesn't exist."
+    },
+    {
+      "id": "J3-19",
+      "owl_claim": "PYTORCH_MIOPEN_LOG_LEVEL is fabricated; correct var is MIOPEN_LOG_LEVEL",
+      "verdict": "FABRICATION",
+      "rationale": "Confirmed: The env var is MIOPEN_LOG_LEVEL, not PYTORCH_MIOPEN_LOG_LEVEL. The agent added a PYTORCH_ prefix that doesn't exist."
+    },
+    {
+      "id": "J4-7",
+      "owl_claim": "torch.compile(f, options={'config_key': config_hash}) API fabricated",
+      "verdict": "FABRICATION",
+      "rationale": "Confirmed: No such API exists. torch.compile accepts backend, mode, fullgraph, dynamic, and options dict but 'config_key' is not a real parameter. Agent presented this as 'Future API' which is misleading."
+    },
+    {
+      "id": "J7-20",
+      "owl_claim": "compile_threads_async = True and NCCL_BLOCKING_WAIT fabricated",
+      "verdict": "FABRICATION",
+      "rationale": "Confirmed: compile_threads_async is not a real config option. NCCL_BLOCKING_WAIT was deprecated/removed. Both are fabricated or obsolete references presented as current."
+    },
+    {
+      "id": "J8-3",
+      "owl_claim": "F.batch_norm returning three values (y, new_mean, new_var) is fabricated",
+      "verdict": "FABRICATION",
+      "rationale": "Confirmed: torch.nn.functional.batch_norm returns a single tensor (the normalized output). Running statistics are updated in-place. The three-return-value pattern shown in code is fabricated."
+    },
+    {
+      "id": "J8-14",
+      "owl_claim": "Issue #50688 reference likely fabricated for scan feature request",
+      "verdict": "FABRICATION",
+      "rationale": "Confirmed: Issue #50688 in pytorch/pytorch is about an unrelated topic. The agent fabricated this issue reference for the scan feature request."
+    },
+    {
+      "id": "J8-16",
+      "owl_claim": "torch.symmetric_memory.enable_symmetric_memory() is fabricated",
+      "verdict": "FABRICATION",
+      "rationale": "Confirmed: The API is torch.distributed._symmetric_memory, and enable_symmetric_memory() is not a real function. The agent fabricated both the module path and function name."
+    }
+  ],
+  "raven_only_cases": [
+    {
+      "id": "J1-19",
+      "raven_claim": "torch._inductor.config.cpp.extra_ldflags subconfig does not exist",
+      "verdict": "FABRICATION",
+      "rationale": "Detector confirmed: torch._inductor.config.cpp is not a real subconfig namespace. The agent fabricated this config path. Owl missed this during manual review."
+    },
+    {
+      "id": "J3-5",
+      "raven_claim": "torch._inductor.config.triton.autotune subconfig does not exist",
+      "verdict": "FABRICATION",
+      "rationale": "Detector confirmed: triton.autotune is not a real config option under torch._inductor.config.triton. The correct config is max_autotune or related settings. Owl missed this."
+    },
+    {
+      "id": "J3-13",
+      "raven_claim": "torch._inductor.config.triton.autotune subconfig does not exist",
+      "verdict": "FABRICATION",
+      "rationale": "Same fabrication as J3-5: triton.autotune is not a real config option. Owl missed this."
+    },
+    {
+      "id": "J5-5",
+      "raven_claim": "TORCHINDUCTOR_TRACE env var does not exist",
+      "verdict": "FABRICATION",
+      "rationale": "Detector confirmed: TORCHINDUCTOR_TRACE is not a real env var. The real options include TORCH_COMPILE_DEBUG, TORCH_LOGS, etc. Owl missed this."
+    },
+    {
+      "id": "J5-10",
+      "raven_claim": "torch._inductor.config.split_large_kernels config does not exist",
+      "verdict": "FABRICATION",
+      "rationale": "Detector confirmed: split_large_kernels is not a real inductor config option. The agent fabricated this config setting. Owl missed this."
+    },
+    {
+      "id": "J5-16",
+      "raven_claim": "torch._inductor.select_algorithm.register_template import does not exist",
+      "verdict": "FABRICATION",
+      "rationale": "Detector confirmed: select_algorithm.register_template is not a real import. The agent fabricated this API for the custom backend integration example. Owl missed this."
+    },
+    {
+      "id": "J5-19",
+      "raven_claim": "torch._inductor.config.triton.use_welford_reduction subconfig does not exist",
+      "verdict": "FABRICATION",
+      "rationale": "Detector confirmed: use_welford_reduction is not a real config option under triton. The agent fabricated this config setting. Owl missed this."
+    },
+    {
+      "id": "J6-9",
+      "raven_claim": "TORCHDYNAMO_INLINE_INBUILT_NN_MODULES env var does not exist",
+      "verdict": "FABRICATION",
+      "rationale": "Detector confirmed: TORCHDYNAMO_INLINE_INBUILT_NN_MODULES is not a real env var. The correct config is torch._dynamo.config.inline_inbuilt_nn_modules. Owl missed this."
+    }
+  ],
+  "summary": {
+    "total_disagreements": 15,
+    "all_confirmed_fabrication": true,
+    "owl_semantic_catches": 7,
+    "raven_detector_catches": 8,
+    "post_adjudication_fab_count": 28,
+    "post_adjudication_agreement": "160/160",
+    "post_adjudication_kappa": "1.000 (projected)"
+  }
+}

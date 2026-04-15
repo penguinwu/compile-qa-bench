@@ -1,0 +1,102 @@
+[
+  {
+    "id": "J7-14",
+    "resolution_status": "unresolved",
+    "agent_guidance": "Based on a search of official PyTorch documentation (docs.pytorch.org, pytorch.org/tutorials, pytorch.org/blog), this specific issue is not addressed in available official sources.\n\nThe torch.compile documentation covers general compilation principles, troubleshooting basics, and common configuration options, but does not provide guidance for: On CPU, torch._inductor.cpu_vec_isa.pick_vec_isa takes 9 seconds just to detect the vector ISA. Why is this so slow and can I skip it?...\n\n**What official docs cover:**\n- Basic torch.compile usage and configuration\n- General troubleshooting approaches\n- Standard compilation workflows\n\n**What is missing:**\n- Specific diagnosis of this issue\n- Known limitations or bugs\n- Configuration workarounds\n\nThe official documentation is insufficient to address this problem. This may be an open issue, known limitation, or edge case not yet documented."
+  },
+  {
+    "id": "J5-5",
+    "resolution_status": "resolved",
+    "agent_guidance": "Troubleshooting docs provide general debugging, not regression bisection. Use profiler, enable verbose logs, check graph breaks. Missing: bisecting nightlies, version comparison tools, regression reporting, tracking dashboards."
+  },
+  {
+    "id": "J7-9",
+    "resolution_status": "resolved",
+    "agent_guidance": "The official documentation provides two relevant approaches:\n\n1. **Regional Compilation**: The tutorial demonstrates applying torch.compile selectively to submodules or functions rather than entire models, which naturally breaks compilation into smaller pieces.\n\n2. **AOTInductor**: The AOTInductor documentation describes ahead-of-time compilation for torch.export-ed models, which can serialize compiled artifacts, though it focuses on deployment rather than reducing compile time.\n\nThese approaches address compiling deep models in pieces, though the documentation does not explicitly frame this as a solution for very deep models with excessive compilation time. The regional compilation tutorial is the most directly applicable."
+  },
+  {
+    "id": "J4-19",
+    "resolution_status": "unresolved",
+    "agent_guidance": "The troubleshooting documentation covers how to identify graph breaks using logging (TORCH_LOGS=\"+dynamo\"), but if you're encountering an unresolved graph break, it may be due to an unsupported operation. Check the error messages for details on what operation is causing the break. The official documentation may not cover all edge cases, so consult the PyTorch GitHub issues for similar problems or consider filing a bug report with a minimal reproduction."
+  },
+  {
+    "id": "J4-6",
+    "resolution_status": "resolved",
+    "agent_guidance": "The torch.compile troubleshooting documentation discusses graph breaks and how to identify them. Use TORCH_LOGS=\"+dynamo\" environment variable to see where graph breaks occur. The TorchDynamo deep dive documentation explains the compilation process. For fullgraph=True mode, the compiler will fail if it encounters unsupported operations instead of silently breaking the graph. Review the error messages to identify which operation is causing the break. The documentation suggests using torch.compiler.disable() to skip compilation for unsupported code sections, or rewriting the code to avoid unsupported patterns."
+  },
+  {
+    "id": "J2-11",
+    "resolution_status": "unresolved",
+    "agent_guidance": "The official profiling documentation provides tools to diagnose performance issues, but does not specifically address scenarios where full model compilation results in significant slowdowns.\n\nThe documentation covers standard profiling approaches but doesn't explain:\n- Why fullgraph=True or full model compilation might be slower than partial compilation\n- Trade-offs between compilation granularity and runtime performance\n- When to avoid full model compilation\n\nThis appears to be an unresolved issue where compiling too much of the model at once can paradoxically hurt performance. The profiling guide can help identify where the slowdown occurs but doesn't provide specific guidance on full-model compilation strategies or known issues with large graph compilation."
+  },
+  {
+    "id": "J4-9",
+    "resolution_status": "resolved",
+    "agent_guidance": "The torch.compile troubleshooting documentation discusses graph breaks and how to identify them. Use TORCH_LOGS=\"+dynamo\" environment variable to see where graph breaks occur. The TorchDynamo deep dive documentation explains the compilation process. For fullgraph=True mode, the compiler will fail if it encounters unsupported operations instead of silently breaking the graph. Review the error messages to identify which operation is causing the break. The documentation suggests using torch.compiler.disable() to skip compilation for unsupported code sections, or rewriting the code to avoid unsupported patterns."
+  },
+  {
+    "id": "J4-13",
+    "resolution_status": "unresolved",
+    "agent_guidance": "The troubleshooting documentation covers how to identify graph breaks using logging (TORCH_LOGS=\"+dynamo\"), but if you're encountering an unresolved graph break, it may be due to an unsupported operation. Check the error messages for details on what operation is causing the break. The official documentation may not cover all edge cases, so consult the PyTorch GitHub issues for similar problems or consider filing a bug report with a minimal reproduction."
+  },
+  {
+    "id": "J4-17",
+    "resolution_status": "unresolved",
+    "agent_guidance": "The troubleshooting documentation covers how to identify graph breaks using logging (TORCH_LOGS=\"+dynamo\"), but if you're encountering an unresolved graph break, it may be due to an unsupported operation. Check the error messages for details on what operation is causing the break. The official documentation may not cover all edge cases, so consult the PyTorch GitHub issues for similar problems or consider filing a bug report with a minimal reproduction."
+  },
+  {
+    "id": "J1-19",
+    "resolution_status": "unresolved",
+    "agent_guidance": "No official documentation addresses this specific linker error with torch.compile. The official documentation does not cover:\n- How to configure library paths for Triton/inductor compilation\n- Troubleshooting linker errors when CUDA is in non-standard locations\n- Environment variables needed for successful torch.compile on CUDA\n\nThe error suggests libcuda.so is not in the linker's search path, but the official docs don't provide guidance on this setup requirement."
+  },
+  {
+    "id": "J4-2",
+    "resolution_status": "resolved",
+    "agent_guidance": "The torch.compile troubleshooting documentation discusses graph breaks and how to identify them. Use TORCH_LOGS=\"+dynamo\" environment variable to see where graph breaks occur. The TorchDynamo deep dive documentation explains the compilation process. For fullgraph=True mode, the compiler will fail if it encounters unsupported operations instead of silently breaking the graph. Review the error messages to identify which operation is causing the break. The documentation suggests using torch.compiler.disable() to skip compilation for unsupported code sections, or rewriting the code to avoid unsupported patterns."
+  },
+  {
+    "id": "J1-4",
+    "resolution_status": "resolved",
+    "agent_guidance": "The official PyTorch installation documentation at pytorch.org/get-started/locally/ covers how to install PyTorch but does not explicitly document the C++ compiler requirements for torch.compile/inductor.\n\nThe Get Started guide focuses on installing PyTorch itself via conda or pip, but does not mention that torch.compile's inductor backend requires a C++ compiler (like g++) to be installed on the system for code generation and compilation.\n\nThis gap in documentation means users may successfully install PyTorch but encounter compilation failures when using torch.compile because the required build tools are not present. The official documentation does not provide troubleshooting guidance for \"C++ compiler not found\" errors or list the system dependencies needed for torch.compile to function properly.\n\nTo use torch.compile, you need both PyTorch installed AND a C++ compiler available on your system, but this requirement is not clearly stated in the official installation documentation."
+  },
+  {
+    "id": "J5-1",
+    "resolution_status": "resolved",
+    "agent_guidance": "max-autotune enables aggressive optimization with extensive kernel autotuning. Official docs confirm benchmarking at compile time but do not explain precision differences. Precision issues may stem from CUDA graphs or kernel selection. Recommendations: use default mode first, add numerical validation, consider torch.amp. Docs lack flags to preserve accuracy while keeping speed."
+  },
+  {
+    "id": "J8-17",
+    "resolution_status": "unresolved",
+    "agent_guidance": "Based on a search of official PyTorch documentation (docs.pytorch.org, pytorch.org/tutorials, pytorch.org/blog), this specific issue is not addressed in available official sources.\n\nThe torch.compile documentation and related tutorials cover standard usage patterns but do not provide guidance for: Custom ops registered with @torch.library.custom_op decorator are much slower than ops registered with torch.Library.define + impl. Why the performanc...\n\n**What official docs cover:**\n- Basic torch.compile functionality\n- Standard higher-order ops (primarily cond)\n- General troubleshooting approaches\n\n**What is missing:**\n- Specific diagnosis or documentation of this issue\n- Known bugs or limitations related to this scenario\n- Workarounds or recommended approaches\n\nThe official documentation is insufficient to address this problem. This appears to be an open issue, known limitation, or advanced use case not yet documented officially."
+  },
+  {
+    "id": "J1-16",
+    "resolution_status": "unresolved",
+    "agent_guidance": "No official documentation addresses complex dtype support in torch.compile/inductor. The official documentation does not provide:\n- A list of supported dtypes for inductor code generation\n- Known limitations with complex numbers (complex64, complex128)\n- Workarounds or alternative backends for complex-valued operations\n\nUsers working with complex tensors would encounter errors without official guidance on whether this is a fundamental limitation or a missing feature."
+  },
+  {
+    "id": "J2-14",
+    "resolution_status": "unresolved",
+    "agent_guidance": "No official documentation addresses inductor's code generation strategy for matrix multiplication or the use of Triton tl.dot primitives. The documentation does not cover:\n- How inductor generates Triton kernels\n- Whether inductor uses native Triton operations like tl.dot\n- Performance implications of different codegen strategies\n\nThis is an internal implementation detail of inductor's code generation that is not exposed in user-facing documentation. Users wondering about kernel performance would not find information about the underlying codegen choices."
+  },
+  {
+    "id": "J7-17",
+    "resolution_status": "unresolved",
+    "agent_guidance": "Based on official PyTorch documentation, Dynamo frontend persistent caching is not documented as an available feature. The documentation discusses:\n\n- Inductor backend caching (mentioned in various docs)\n- Regional compilation for cold start reduction\n- General compilation workflow\n\nBut does not address:\n- Dynamo-level persistent caching\n- Whether Dynamo analysis can be cached separately from backend codegen\n- Frontend vs backend caching architecture\n- Roadmap for Dynamo caching features\n\nThe official documentation does not provide a solution for persistent Dynamo frontend caching."
+  },
+  {
+    "id": "J3-4",
+    "resolution_status": "resolved",
+    "agent_guidance": "The PyTorch blog on float8 training discusses using float8 with FSDP2 but does not cover specific debugging procedures for NaN issues. The numerical accuracy documentation provides general guidance on precision and NaN handling. For NaN debugging with torch.compile, check that your operations are compatible with reduced precision, verify gradient scaling is configured correctly, and consider using torch.autograd.detect_anomaly() in eager mode first to isolate the problematic operation. The official documentation does not provide compile-specific NaN debugging tools."
+  },
+  {
+    "id": "J7-3",
+    "resolution_status": "resolved",
+    "agent_guidance": "The official PyTorch documentation on torch.compile describes how to compile functions but does not specifically address optimizer compilation patterns or for-loop tracing overhead.\n\nThe Dynamo Overview explains that TorchDynamo traces Python bytecode but does not discuss:\n- How dynamo handles for-loops over parameter lists\n- Compilation time scaling with parameter count\n- Foreach optimizer variants or alternative iteration patterns\n- Strategies to reduce tracing overhead for optimizers\n\nThe torch.optim documentation describes optimizer APIs but makes no mention of compilation considerations. No official documentation provides guidance on reducing dynamo tracing time when compiling optimizers with many parameters."
+  },
+  {
+    "id": "J4-3",
+    "resolution_status": "resolved",
+    "agent_guidance": "The torch.compile troubleshooting documentation discusses graph breaks and how to identify them. Use TORCH_LOGS=\"+dynamo\" environment variable to see where graph breaks occur. The TorchDynamo deep dive documentation explains the compilation process. For fullgraph=True mode, the compiler will fail if it encounters unsupported operations instead of silently breaking the graph. Review the error messages to identify which operation is causing the break. The documentation suggests using torch.compiler.disable() to skip compilation for unsupported code sections, or rewriting the code to avoid unsupported patterns."
+  }
+]
