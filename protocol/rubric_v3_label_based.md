@@ -345,9 +345,10 @@ For each case, record:
 
 ### Edge Case 5: Doc-restricted gap acknowledgment
 
-- Diagnosis labels: correct_subsystem=true, names_mechanism=true (names specific gap), case_specific=true → **Diag=3**
+- Diagnosis labels: correct_subsystem=true, names_mechanism=false (gap identification ≠ mechanism), case_specific=varies → **Diag=1-2**
 - Act labels: standalone_fix=false, has_imperative=false → **Act=0**
 - Fabrication: **No**
+- Note: If the agent goes beyond gap identification and names the specific mechanism (e.g., "libcuda.so not in linker path"), names_mechanism=true and Diag may reach 3.
 
 ### Edge Case 6: Standalone fix that's repetitive across cases
 
@@ -369,6 +370,9 @@ These rules were established during pilot calibration and are binding for all fu
 ### Diagnosis Calibration
 1. **Referencing specific issue numbers or error messages = case_specific_diagnosis=true.**
 2. **Investigation methodology ≠ causal_chain.** "Run bisect to narrow down the commit" explains how to find the cause — it does not explain the cause itself. causal_chain requires stating the actual cause.
+3. **Diagnostic tools ≠ names_mechanism.** Naming a debugging/diagnostic tool (TORCH_LOGS, profiler, torch.compiler.disable, torch.autograd.detect_anomaly) is NOT naming the mechanism. names_mechanism requires naming the internal mechanism *causing* the issue, not the tool you'd use to find or work around it.
+4. **Echoed user terms ≠ case_specific_diagnosis.** If the guidance echoes the user's problem statement (e.g., quoting the issue title or API names from the question) but adds no original diagnostic reasoning, score case_specific_diagnosis=false. Original reasoning tied to the case is required, not restating what the user already said.
+5. **Gap identification = correct_subsystem=true** if the response correctly places the gap in the right subsystem area, even when using generic template structure. Identifying "docs don't cover X in inductor" counts as correct subsystem identification for inductor.
 
 ### Adding New Calibration Rules
 
