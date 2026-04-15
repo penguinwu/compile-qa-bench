@@ -1,0 +1,125 @@
+{
+  "track": 2,
+  "rubric_version": "v3.0 (label-based, calibration rules 1-10)",
+  "cases": 160,
+  "scorers": ["owl", "raven"],
+  "pre_calibration": {
+    "act": {
+      "qwk": 0.662,
+      "status": "WARN",
+      "exact_agreement": "79.4%",
+      "within_1": "95.0%",
+      "owl_distribution": {"0": 123, "1": 24, "2": 6, "3": 7},
+      "raven_distribution": {"0": 97, "1": 44, "2": 13, "3": 6},
+      "label_disagreements": {
+        "standalone_fix": 5,
+        "has_imperative": 29,
+        "case_specific": 96,
+        "is_template": 15
+      }
+    },
+    "diag": {
+      "qwk": 0.323,
+      "status": "FAIL",
+      "exact_agreement": "34.4%",
+      "within_1": "93.8%",
+      "owl_distribution": {"1": 35, "2": 95, "3": 30},
+      "raven_distribution": {"1": 64, "2": 26, "3": 70},
+      "label_disagreements": {
+        "correct_subsystem": 2,
+        "names_mechanism": 74,
+        "causal_chain": 39,
+        "consistent_with_resolution": 0,
+        "case_specific_diagnosis": 63
+      }
+    }
+  },
+  "calibration": {
+    "rules_applied": [
+      {
+        "rule": 6,
+        "label": "has_imperative",
+        "description": "Soft imperatives count: 'the best approach is to [verb]', 'you should [verb]'",
+        "owl_flips": 27,
+        "raven_flips": 0
+      },
+      {
+        "rule": 7,
+        "label": "case_specific",
+        "description": "Topic naming without unique actionable content ≠ case_specific",
+        "owl_flips": 89,
+        "raven_flips": 3
+      },
+      {
+        "rule": 8,
+        "label": "names_mechanism",
+        "description": "Extends Rule 3: diagnostic tools, config options, generic features ≠ mechanism",
+        "owl_flips": 60,
+        "raven_flips": 9
+      },
+      {
+        "rule": 9,
+        "label": "causal_chain",
+        "description": "Hedged hypotheses and investigation methodology ≠ causal chain",
+        "owl_flips": 0,
+        "raven_flips": 36
+      },
+      {
+        "rule": 10,
+        "label": "case_specific_diagnosis",
+        "description": "Topic identification ≠ case_specific_diagnosis; requires unique technical detail",
+        "owl_flips": 0,
+        "raven_flips": 60
+      },
+      {
+        "rule": "template_alignment",
+        "label": "is_template",
+        "description": "'Based on a search...' structural templates flagged consistently",
+        "owl_flips": 15,
+        "raven_flips": 0
+      }
+    ]
+  },
+  "post_calibration": {
+    "act": {
+      "qwk": 0.945,
+      "status": "PASS",
+      "exact_agreement": "95.0%",
+      "within_1": "99.4%",
+      "owl_distribution": {"0": 97, "1": 46, "2": 10, "3": 7},
+      "raven_distribution": {"0": 97, "1": 46, "2": 11, "3": 6},
+      "remaining_disagreements": 8,
+      "label_agreement": {
+        "standalone_fix": "155/160",
+        "has_imperative": "158/160",
+        "case_specific": "156/160",
+        "is_template": "160/160"
+      }
+    },
+    "diag": {
+      "qwk": 0.925,
+      "status": "PASS",
+      "exact_agreement": "93.8%",
+      "within_1": "99.4%",
+      "owl_distribution": {"1": 88, "2": 49, "3": 23},
+      "raven_distribution": {"1": 89, "2": 46, "3": 25},
+      "remaining_disagreements": 10,
+      "label_agreement": {
+        "correct_subsystem": "158/160",
+        "names_mechanism": "155/160",
+        "causal_chain": "157/160",
+        "consistent_with_resolution": "160/160",
+        "case_specific_diagnosis": "157/160"
+      }
+    }
+  },
+  "summary": {
+    "track1_act_kappa": 0.900,
+    "track1_diag_kappa": 0.918,
+    "track2_act_kappa": 0.945,
+    "track2_diag_kappa": 0.925,
+    "all_dimensions_pass": true,
+    "total_calibration_rules": 10,
+    "note": "Track 2 had more systematic disagreements than Track 1 due to doc-restricted responses being inherently ambiguous. Calibration rules 6-10 resolved systematic patterns around soft imperatives, topic naming vs actionable content, diagnostic tools vs mechanisms, and hedged hypotheses."
+  }
+}

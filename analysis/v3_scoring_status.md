@@ -98,9 +98,28 @@
   - 36 mechanism gaps (names_mechanism T1=true, T2=false)
   - 83 standalone fix gaps; 38 template responses across 2 journeys
 
-## In Progress
-- **Raven:** Full 160-case Track 2 label scoring (Act + Diag) — request sent
+### Track 2 IAA (v3.0, post-calibration)
+- **Act: κ=0.945 PASS** (95% exact, 99.4% within-1)
+- **Diag: κ=0.925 PASS** (93.8% exact, 99.4% within-1)
+- Pre-cal: Act κ=0.662, Diag κ=0.323
+- Calibration rules 6-10 applied (extending rules 1-5):
+  - Rule 6: Soft imperatives ("best approach is to [verb]") count as imperative
+  - Rule 7: Topic naming without unique actionable content ≠ case_specific
+  - Rule 8: Extends Rule 3 — config options, generic feature names ≠ mechanism
+  - Rule 9: Hedged hypotheses ≠ causal chain (consistent with T1 calibration)
+  - Rule 10: Topic identification ≠ case_specific_diagnosis
+- Calibration script: `scripts/calibrate_track2.py`
+- Calibrated files: `runs/label-scoring/*_track2_160_calibrated.json`
+- Full IAA analysis: `analysis/track2_iaa_v3_results.json`
+- Calibration log: `analysis/track2_calibration_log.json`
+
+## Completed — All IAA PASS
+
+| Dimension | Track 1 κ | Track 2 κ | Status |
+|-----------|-----------|-----------|--------|
+| Act       | 0.900     | 0.945     | PASS   |
+| Diag      | 0.918     | 0.925     | PASS   |
 
 ## Next Steps
-1. Compute IAA on Raven's full 160-case Track 2 scores vs Owl's
-2. Compile final dataset: 320 cases (160 T1 + 160 T2) × 3 dimensions
+1. Compile final dataset: 320 cases (160 T1 + 160 T2) × 2 dimensions (Act, Diag)
+2. Fabrication dimension (if needed)

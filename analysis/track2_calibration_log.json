@@ -1,0 +1,2428 @@
+{
+  "rules_applied": [
+    {
+      "rule": 6,
+      "description": "Soft imperatives ('best approach is to [verb]') count as imperative",
+      "owl_flips_true": [
+        "J3-1",
+        "J3-10",
+        "J3-12",
+        "J3-13",
+        "J3-14",
+        "J3-15",
+        "J3-16",
+        "J3-17",
+        "J3-18",
+        "J3-19",
+        "J3-2",
+        "J3-3",
+        "J3-4",
+        "J3-5",
+        "J3-6",
+        "J3-7",
+        "J3-8",
+        "J3-9",
+        "J5-1",
+        "J5-10",
+        "J5-2",
+        "J5-4",
+        "J5-6",
+        "J6-10",
+        "J6-18",
+        "J6-5",
+        "J6-8"
+      ],
+      "raven_flips": []
+    },
+    {
+      "rule": 7,
+      "description": "Topic naming without unique actionable content \u2260 case_specific",
+      "owl_flips_false": [
+        "J1-10",
+        "J1-12",
+        "J1-13",
+        "J1-14",
+        "J1-15",
+        "J1-16",
+        "J1-17",
+        "J1-18",
+        "J1-19",
+        "J1-20",
+        "J1-6",
+        "J1-7",
+        "J1-8",
+        "J2-11",
+        "J2-12",
+        "J2-13",
+        "J2-14",
+        "J2-15",
+        "J2-16",
+        "J2-17",
+        "J2-18",
+        "J2-19",
+        "J2-20",
+        "J2-4",
+        "J2-5",
+        "J2-7",
+        "J2-8",
+        "J3-5",
+        "J5-11",
+        "J5-13",
+        "J5-14",
+        "J5-15",
+        "J5-16",
+        "J5-18",
+        "J5-19",
+        "J5-2",
+        "J5-20",
+        "J5-3",
+        "J5-7",
+        "J5-9",
+        "J6-11",
+        "J6-12",
+        "J6-13",
+        "J6-14",
+        "J6-15",
+        "J6-16",
+        "J6-18",
+        "J6-19",
+        "J6-2",
+        "J6-20",
+        "J6-3",
+        "J6-4",
+        "J6-6",
+        "J6-7",
+        "J6-9",
+        "J7-1",
+        "J7-10",
+        "J7-12",
+        "J7-14",
+        "J7-15",
+        "J7-19",
+        "J7-2",
+        "J7-20",
+        "J7-3",
+        "J7-4",
+        "J7-5",
+        "J7-6",
+        "J7-7",
+        "J7-8",
+        "J8-1",
+        "J8-10",
+        "J8-11",
+        "J8-12",
+        "J8-13",
+        "J8-14",
+        "J8-15",
+        "J8-16",
+        "J8-17",
+        "J8-18",
+        "J8-19",
+        "J8-2",
+        "J8-20",
+        "J8-3",
+        "J8-4",
+        "J8-5",
+        "J8-6",
+        "J8-7",
+        "J8-8",
+        "J8-9"
+      ],
+      "raven_flips_false": [
+        "J1-4",
+        "J5-4",
+        "J6-8"
+      ]
+    },
+    {
+      "rule": 8,
+      "description": "Diagnostic tools, config options, generic feature names \u2260 mechanism",
+      "owl_flips_false": [
+        "J1-10",
+        "J1-6",
+        "J1-7",
+        "J2-11",
+        "J2-13",
+        "J2-16",
+        "J2-18",
+        "J2-2",
+        "J2-4",
+        "J2-8",
+        "J2-9",
+        "J3-20",
+        "J3-4",
+        "J3-8",
+        "J4-1",
+        "J4-10",
+        "J4-11",
+        "J4-12",
+        "J4-13",
+        "J4-14",
+        "J4-15",
+        "J4-16",
+        "J4-17",
+        "J4-18",
+        "J4-19",
+        "J4-2",
+        "J4-20",
+        "J4-3",
+        "J4-4",
+        "J4-5",
+        "J4-6",
+        "J4-8",
+        "J4-9",
+        "J5-13",
+        "J5-16",
+        "J5-18",
+        "J5-5",
+        "J5-7",
+        "J5-8",
+        "J6-14",
+        "J6-15",
+        "J6-4",
+        "J7-12",
+        "J7-13",
+        "J7-14",
+        "J7-15",
+        "J7-17",
+        "J7-18",
+        "J7-19",
+        "J7-20",
+        "J7-7",
+        "J7-9",
+        "J8-11",
+        "J8-12",
+        "J8-13",
+        "J8-16",
+        "J8-17",
+        "J8-18",
+        "J8-19",
+        "J8-20"
+      ],
+      "raven_flips_false": [
+        "J1-14",
+        "J1-20",
+        "J2-12",
+        "J2-15",
+        "J3-5",
+        "J5-4",
+        "J6-8",
+        "J7-10",
+        "J8-15"
+      ]
+    },
+    {
+      "rule": 9,
+      "description": "Hedged hypotheses and investigation methodology \u2260 causal chain",
+      "raven_flips_false": [
+        "J1-1",
+        "J1-14",
+        "J1-15",
+        "J1-19",
+        "J1-2",
+        "J1-20",
+        "J1-9",
+        "J2-12",
+        "J3-5",
+        "J5-1",
+        "J5-10",
+        "J5-12",
+        "J5-13",
+        "J5-14",
+        "J5-18",
+        "J5-2",
+        "J5-20",
+        "J5-3",
+        "J5-6",
+        "J6-1",
+        "J6-11",
+        "J6-12",
+        "J6-16",
+        "J6-17",
+        "J6-19",
+        "J6-2",
+        "J6-20",
+        "J6-5",
+        "J6-6",
+        "J6-7",
+        "J6-8",
+        "J7-16",
+        "J7-2",
+        "J7-4",
+        "J7-5",
+        "J7-8"
+      ]
+    },
+    {
+      "rule": 10,
+      "description": "Topic identification \u2260 case_specific_diagnosis; requires unique technical details",
+      "raven_flips_false": [
+        "J1-10",
+        "J1-14",
+        "J1-15",
+        "J1-16",
+        "J1-17",
+        "J1-18",
+        "J1-19",
+        "J1-20",
+        "J1-4",
+        "J1-8",
+        "J2-12",
+        "J2-13",
+        "J2-14",
+        "J2-15",
+        "J2-16",
+        "J2-18",
+        "J2-19",
+        "J3-3",
+        "J5-1",
+        "J5-10",
+        "J5-11",
+        "J5-12",
+        "J5-13",
+        "J5-14",
+        "J5-15",
+        "J5-17",
+        "J5-18",
+        "J5-19",
+        "J5-2",
+        "J5-20",
+        "J5-3",
+        "J5-4",
+        "J5-6",
+        "J5-7",
+        "J5-9",
+        "J6-10",
+        "J6-11",
+        "J6-12",
+        "J6-13",
+        "J6-14",
+        "J6-15",
+        "J6-17",
+        "J6-19",
+        "J6-2",
+        "J6-20",
+        "J6-4",
+        "J6-6",
+        "J6-8",
+        "J6-9",
+        "J7-11",
+        "J7-17",
+        "J7-2",
+        "J7-5",
+        "J7-7",
+        "J8-1",
+        "J8-10",
+        "J8-14",
+        "J8-2",
+        "J8-3",
+        "J8-4"
+      ]
+    }
+  ],
+  "act_flips": {
+    "owl": [
+      {
+        "id": "J3-1",
+        "label": "has_imperative",
+        "old": false,
+        "new": true,
+        "rule": 6
+      },
+      {
+        "id": "J3-10",
+        "label": "has_imperative",
+        "old": false,
+        "new": true,
+        "rule": 6
+      },
+      {
+        "id": "J3-12",
+        "label": "has_imperative",
+        "old": false,
+        "new": true,
+        "rule": 6
+      },
+      {
+        "id": "J3-13",
+        "label": "has_imperative",
+        "old": false,
+        "new": true,
+        "rule": 6
+      },
+      {
+        "id": "J3-14",
+        "label": "has_imperative",
+        "old": false,
+        "new": true,
+        "rule": 6
+      },
+      {
+        "id": "J3-15",
+        "label": "has_imperative",
+        "old": false,
+        "new": true,
+        "rule": 6
+      },
+      {
+        "id": "J3-16",
+        "label": "has_imperative",
+        "old": false,
+        "new": true,
+        "rule": 6
+      },
+      {
+        "id": "J3-17",
+        "label": "has_imperative",
+        "old": false,
+        "new": true,
+        "rule": 6
+      },
+      {
+        "id": "J3-18",
+        "label": "has_imperative",
+        "old": false,
+        "new": true,
+        "rule": 6
+      },
+      {
+        "id": "J3-19",
+        "label": "has_imperative",
+        "old": false,
+        "new": true,
+        "rule": 6
+      },
+      {
+        "id": "J3-2",
+        "label": "has_imperative",
+        "old": false,
+        "new": true,
+        "rule": 6
+      },
+      {
+        "id": "J3-3",
+        "label": "has_imperative",
+        "old": false,
+        "new": true,
+        "rule": 6
+      },
+      {
+        "id": "J3-4",
+        "label": "has_imperative",
+        "old": false,
+        "new": true,
+        "rule": 6
+      },
+      {
+        "id": "J3-5",
+        "label": "has_imperative",
+        "old": false,
+        "new": true,
+        "rule": 6
+      },
+      {
+        "id": "J3-6",
+        "label": "has_imperative",
+        "old": false,
+        "new": true,
+        "rule": 6
+      },
+      {
+        "id": "J3-7",
+        "label": "has_imperative",
+        "old": false,
+        "new": true,
+        "rule": 6
+      },
+      {
+        "id": "J3-8",
+        "label": "has_imperative",
+        "old": false,
+        "new": true,
+        "rule": 6
+      },
+      {
+        "id": "J3-9",
+        "label": "has_imperative",
+        "old": false,
+        "new": true,
+        "rule": 6
+      },
+      {
+        "id": "J5-1",
+        "label": "has_imperative",
+        "old": false,
+        "new": true,
+        "rule": 6
+      },
+      {
+        "id": "J5-10",
+        "label": "has_imperative",
+        "old": false,
+        "new": true,
+        "rule": 6
+      },
+      {
+        "id": "J5-2",
+        "label": "has_imperative",
+        "old": false,
+        "new": true,
+        "rule": 6
+      },
+      {
+        "id": "J5-4",
+        "label": "has_imperative",
+        "old": false,
+        "new": true,
+        "rule": 6
+      },
+      {
+        "id": "J5-6",
+        "label": "has_imperative",
+        "old": false,
+        "new": true,
+        "rule": 6
+      },
+      {
+        "id": "J6-10",
+        "label": "has_imperative",
+        "old": false,
+        "new": true,
+        "rule": 6
+      },
+      {
+        "id": "J6-18",
+        "label": "has_imperative",
+        "old": false,
+        "new": true,
+        "rule": 6
+      },
+      {
+        "id": "J6-5",
+        "label": "has_imperative",
+        "old": false,
+        "new": true,
+        "rule": 6
+      },
+      {
+        "id": "J6-8",
+        "label": "has_imperative",
+        "old": false,
+        "new": true,
+        "rule": 6
+      },
+      {
+        "id": "J1-10",
+        "label": "case_specific",
+        "old": true,
+        "new": false,
+        "rule": 7
+      },
+      {
+        "id": "J1-12",
+        "label": "case_specific",
+        "old": true,
+        "new": false,
+        "rule": 7
+      },
+      {
+        "id": "J1-13",
+        "label": "case_specific",
+        "old": true,
+        "new": false,
+        "rule": 7
+      },
+      {
+        "id": "J1-14",
+        "label": "case_specific",
+        "old": true,
+        "new": false,
+        "rule": 7
+      },
+      {
+        "id": "J1-15",
+        "label": "case_specific",
+        "old": true,
+        "new": false,
+        "rule": 7
+      },
+      {
+        "id": "J1-16",
+        "label": "case_specific",
+        "old": true,
+        "new": false,
+        "rule": 7
+      },
+      {
+        "id": "J1-17",
+        "label": "case_specific",
+        "old": true,
+        "new": false,
+        "rule": 7
+      },
+      {
+        "id": "J1-18",
+        "label": "case_specific",
+        "old": true,
+        "new": false,
+        "rule": 7
+      },
+      {
+        "id": "J1-19",
+        "label": "case_specific",
+        "old": true,
+        "new": false,
+        "rule": 7
+      },
+      {
+        "id": "J1-20",
+        "label": "case_specific",
+        "old": true,
+        "new": false,
+        "rule": 7
+      },
+      {
+        "id": "J1-6",
+        "label": "case_specific",
+        "old": true,
+        "new": false,
+        "rule": 7
+      },
+      {
+        "id": "J1-7",
+        "label": "case_specific",
+        "old": true,
+        "new": false,
+        "rule": 7
+      },
+      {
+        "id": "J1-8",
+        "label": "case_specific",
+        "old": true,
+        "new": false,
+        "rule": 7
+      },
+      {
+        "id": "J2-11",
+        "label": "case_specific",
+        "old": true,
+        "new": false,
+        "rule": 7
+      },
+      {
+        "id": "J2-12",
+        "label": "case_specific",
+        "old": true,
+        "new": false,
+        "rule": 7
+      },
+      {
+        "id": "J2-13",
+        "label": "case_specific",
+        "old": true,
+        "new": false,
+        "rule": 7
+      },
+      {
+        "id": "J2-14",
+        "label": "case_specific",
+        "old": true,
+        "new": false,
+        "rule": 7
+      },
+      {
+        "id": "J2-15",
+        "label": "case_specific",
+        "old": true,
+        "new": false,
+        "rule": 7
+      },
+      {
+        "id": "J2-16",
+        "label": "case_specific",
+        "old": true,
+        "new": false,
+        "rule": 7
+      },
+      {
+        "id": "J2-17",
+        "label": "case_specific",
+        "old": true,
+        "new": false,
+        "rule": 7
+      },
+      {
+        "id": "J2-18",
+        "label": "case_specific",
+        "old": true,
+        "new": false,
+        "rule": 7
+      },
+      {
+        "id": "J2-19",
+        "label": "case_specific",
+        "old": true,
+        "new": false,
+        "rule": 7
+      },
+      {
+        "id": "J2-20",
+        "label": "case_specific",
+        "old": true,
+        "new": false,
+        "rule": 7
+      },
+      {
+        "id": "J2-4",
+        "label": "case_specific",
+        "old": true,
+        "new": false,
+        "rule": 7
+      },
+      {
+        "id": "J2-5",
+        "label": "case_specific",
+        "old": true,
+        "new": false,
+        "rule": 7
+      },
+      {
+        "id": "J2-7",
+        "label": "case_specific",
+        "old": true,
+        "new": false,
+        "rule": 7
+      },
+      {
+        "id": "J2-8",
+        "label": "case_specific",
+        "old": true,
+        "new": false,
+        "rule": 7
+      },
+      {
+        "id": "J3-5",
+        "label": "case_specific",
+        "old": true,
+        "new": false,
+        "rule": 7
+      },
+      {
+        "id": "J5-11",
+        "label": "case_specific",
+        "old": true,
+        "new": false,
+        "rule": 7
+      },
+      {
+        "id": "J5-13",
+        "label": "case_specific",
+        "old": true,
+        "new": false,
+        "rule": 7
+      },
+      {
+        "id": "J5-14",
+        "label": "case_specific",
+        "old": true,
+        "new": false,
+        "rule": 7
+      },
+      {
+        "id": "J5-15",
+        "label": "case_specific",
+        "old": true,
+        "new": false,
+        "rule": 7
+      },
+      {
+        "id": "J5-16",
+        "label": "case_specific",
+        "old": true,
+        "new": false,
+        "rule": 7
+      },
+      {
+        "id": "J5-18",
+        "label": "case_specific",
+        "old": true,
+        "new": false,
+        "rule": 7
+      },
+      {
+        "id": "J5-19",
+        "label": "case_specific",
+        "old": true,
+        "new": false,
+        "rule": 7
+      },
+      {
+        "id": "J5-2",
+        "label": "case_specific",
+        "old": true,
+        "new": false,
+        "rule": 7
+      },
+      {
+        "id": "J5-20",
+        "label": "case_specific",
+        "old": true,
+        "new": false,
+        "rule": 7
+      },
+      {
+        "id": "J5-3",
+        "label": "case_specific",
+        "old": true,
+        "new": false,
+        "rule": 7
+      },
+      {
+        "id": "J5-7",
+        "label": "case_specific",
+        "old": true,
+        "new": false,
+        "rule": 7
+      },
+      {
+        "id": "J5-9",
+        "label": "case_specific",
+        "old": true,
+        "new": false,
+        "rule": 7
+      },
+      {
+        "id": "J6-11",
+        "label": "case_specific",
+        "old": true,
+        "new": false,
+        "rule": 7
+      },
+      {
+        "id": "J6-12",
+        "label": "case_specific",
+        "old": true,
+        "new": false,
+        "rule": 7
+      },
+      {
+        "id": "J6-13",
+        "label": "case_specific",
+        "old": true,
+        "new": false,
+        "rule": 7
+      },
+      {
+        "id": "J6-14",
+        "label": "case_specific",
+        "old": true,
+        "new": false,
+        "rule": 7
+      },
+      {
+        "id": "J6-15",
+        "label": "case_specific",
+        "old": true,
+        "new": false,
+        "rule": 7
+      },
+      {
+        "id": "J6-16",
+        "label": "case_specific",
+        "old": true,
+        "new": false,
+        "rule": 7
+      },
+      {
+        "id": "J6-18",
+        "label": "case_specific",
+        "old": true,
+        "new": false,
+        "rule": 7
+      },
+      {
+        "id": "J6-19",
+        "label": "case_specific",
+        "old": true,
+        "new": false,
+        "rule": 7
+      },
+      {
+        "id": "J6-2",
+        "label": "case_specific",
+        "old": true,
+        "new": false,
+        "rule": 7
+      },
+      {
+        "id": "J6-20",
+        "label": "case_specific",
+        "old": true,
+        "new": false,
+        "rule": 7
+      },
+      {
+        "id": "J6-3",
+        "label": "case_specific",
+        "old": true,
+        "new": false,
+        "rule": 7
+      },
+      {
+        "id": "J6-4",
+        "label": "case_specific",
+        "old": true,
+        "new": false,
+        "rule": 7
+      },
+      {
+        "id": "J6-6",
+        "label": "case_specific",
+        "old": true,
+        "new": false,
+        "rule": 7
+      },
+      {
+        "id": "J6-7",
+        "label": "case_specific",
+        "old": true,
+        "new": false,
+        "rule": 7
+      },
+      {
+        "id": "J6-9",
+        "label": "case_specific",
+        "old": true,
+        "new": false,
+        "rule": 7
+      },
+      {
+        "id": "J7-1",
+        "label": "case_specific",
+        "old": true,
+        "new": false,
+        "rule": 7
+      },
+      {
+        "id": "J7-10",
+        "label": "case_specific",
+        "old": true,
+        "new": false,
+        "rule": 7
+      },
+      {
+        "id": "J7-12",
+        "label": "case_specific",
+        "old": true,
+        "new": false,
+        "rule": 7
+      },
+      {
+        "id": "J7-14",
+        "label": "case_specific",
+        "old": true,
+        "new": false,
+        "rule": 7
+      },
+      {
+        "id": "J7-15",
+        "label": "case_specific",
+        "old": true,
+        "new": false,
+        "rule": 7
+      },
+      {
+        "id": "J7-19",
+        "label": "case_specific",
+        "old": true,
+        "new": false,
+        "rule": 7
+      },
+      {
+        "id": "J7-2",
+        "label": "case_specific",
+        "old": true,
+        "new": false,
+        "rule": 7
+      },
+      {
+        "id": "J7-20",
+        "label": "case_specific",
+        "old": true,
+        "new": false,
+        "rule": 7
+      },
+      {
+        "id": "J7-3",
+        "label": "case_specific",
+        "old": true,
+        "new": false,
+        "rule": 7
+      },
+      {
+        "id": "J7-4",
+        "label": "case_specific",
+        "old": true,
+        "new": false,
+        "rule": 7
+      },
+      {
+        "id": "J7-5",
+        "label": "case_specific",
+        "old": true,
+        "new": false,
+        "rule": 7
+      },
+      {
+        "id": "J7-6",
+        "label": "case_specific",
+        "old": true,
+        "new": false,
+        "rule": 7
+      },
+      {
+        "id": "J7-7",
+        "label": "case_specific",
+        "old": true,
+        "new": false,
+        "rule": 7
+      },
+      {
+        "id": "J7-8",
+        "label": "case_specific",
+        "old": true,
+        "new": false,
+        "rule": 7
+      },
+      {
+        "id": "J8-1",
+        "label": "case_specific",
+        "old": true,
+        "new": false,
+        "rule": 7
+      },
+      {
+        "id": "J8-10",
+        "label": "case_specific",
+        "old": true,
+        "new": false,
+        "rule": 7
+      },
+      {
+        "id": "J8-11",
+        "label": "case_specific",
+        "old": true,
+        "new": false,
+        "rule": 7
+      },
+      {
+        "id": "J8-12",
+        "label": "case_specific",
+        "old": true,
+        "new": false,
+        "rule": 7
+      },
+      {
+        "id": "J8-13",
+        "label": "case_specific",
+        "old": true,
+        "new": false,
+        "rule": 7
+      },
+      {
+        "id": "J8-14",
+        "label": "case_specific",
+        "old": true,
+        "new": false,
+        "rule": 7
+      },
+      {
+        "id": "J8-15",
+        "label": "case_specific",
+        "old": true,
+        "new": false,
+        "rule": 7
+      },
+      {
+        "id": "J8-16",
+        "label": "case_specific",
+        "old": true,
+        "new": false,
+        "rule": 7
+      },
+      {
+        "id": "J8-17",
+        "label": "case_specific",
+        "old": true,
+        "new": false,
+        "rule": 7
+      },
+      {
+        "id": "J8-18",
+        "label": "case_specific",
+        "old": true,
+        "new": false,
+        "rule": 7
+      },
+      {
+        "id": "J8-19",
+        "label": "case_specific",
+        "old": true,
+        "new": false,
+        "rule": 7
+      },
+      {
+        "id": "J8-2",
+        "label": "case_specific",
+        "old": true,
+        "new": false,
+        "rule": 7
+      },
+      {
+        "id": "J8-20",
+        "label": "case_specific",
+        "old": true,
+        "new": false,
+        "rule": 7
+      },
+      {
+        "id": "J8-3",
+        "label": "case_specific",
+        "old": true,
+        "new": false,
+        "rule": 7
+      },
+      {
+        "id": "J8-4",
+        "label": "case_specific",
+        "old": true,
+        "new": false,
+        "rule": 7
+      },
+      {
+        "id": "J8-5",
+        "label": "case_specific",
+        "old": true,
+        "new": false,
+        "rule": 7
+      },
+      {
+        "id": "J8-6",
+        "label": "case_specific",
+        "old": true,
+        "new": false,
+        "rule": 7
+      },
+      {
+        "id": "J8-7",
+        "label": "case_specific",
+        "old": true,
+        "new": false,
+        "rule": 7
+      },
+      {
+        "id": "J8-8",
+        "label": "case_specific",
+        "old": true,
+        "new": false,
+        "rule": 7
+      },
+      {
+        "id": "J8-9",
+        "label": "case_specific",
+        "old": true,
+        "new": false,
+        "rule": 7
+      },
+      {
+        "id": "J7-12",
+        "label": "is_template",
+        "old": false,
+        "new": true,
+        "rule": "template_alignment"
+      },
+      {
+        "id": "J7-13",
+        "label": "is_template",
+        "old": false,
+        "new": true,
+        "rule": "template_alignment"
+      },
+      {
+        "id": "J7-14",
+        "label": "is_template",
+        "old": false,
+        "new": true,
+        "rule": "template_alignment"
+      },
+      {
+        "id": "J7-15",
+        "label": "is_template",
+        "old": false,
+        "new": true,
+        "rule": "template_alignment"
+      },
+      {
+        "id": "J7-18",
+        "label": "is_template",
+        "old": false,
+        "new": true,
+        "rule": "template_alignment"
+      },
+      {
+        "id": "J7-19",
+        "label": "is_template",
+        "old": false,
+        "new": true,
+        "rule": "template_alignment"
+      },
+      {
+        "id": "J7-20",
+        "label": "is_template",
+        "old": false,
+        "new": true,
+        "rule": "template_alignment"
+      },
+      {
+        "id": "J8-11",
+        "label": "is_template",
+        "old": false,
+        "new": true,
+        "rule": "template_alignment"
+      },
+      {
+        "id": "J8-12",
+        "label": "is_template",
+        "old": false,
+        "new": true,
+        "rule": "template_alignment"
+      },
+      {
+        "id": "J8-13",
+        "label": "is_template",
+        "old": false,
+        "new": true,
+        "rule": "template_alignment"
+      },
+      {
+        "id": "J8-16",
+        "label": "is_template",
+        "old": false,
+        "new": true,
+        "rule": "template_alignment"
+      },
+      {
+        "id": "J8-17",
+        "label": "is_template",
+        "old": false,
+        "new": true,
+        "rule": "template_alignment"
+      },
+      {
+        "id": "J8-18",
+        "label": "is_template",
+        "old": false,
+        "new": true,
+        "rule": "template_alignment"
+      },
+      {
+        "id": "J8-19",
+        "label": "is_template",
+        "old": false,
+        "new": true,
+        "rule": "template_alignment"
+      },
+      {
+        "id": "J8-20",
+        "label": "is_template",
+        "old": false,
+        "new": true,
+        "rule": "template_alignment"
+      }
+    ],
+    "raven": [
+      {
+        "id": "J1-4",
+        "label": "case_specific",
+        "old": true,
+        "new": false,
+        "rule": 7
+      },
+      {
+        "id": "J5-4",
+        "label": "case_specific",
+        "old": true,
+        "new": false,
+        "rule": 7
+      },
+      {
+        "id": "J6-8",
+        "label": "case_specific",
+        "old": true,
+        "new": false,
+        "rule": 7
+      }
+    ]
+  },
+  "diag_flips": {
+    "owl": [
+      {
+        "id": "J1-10",
+        "label": "names_mechanism",
+        "old": true,
+        "new": false,
+        "rule": 8
+      },
+      {
+        "id": "J1-6",
+        "label": "names_mechanism",
+        "old": true,
+        "new": false,
+        "rule": 8
+      },
+      {
+        "id": "J1-7",
+        "label": "names_mechanism",
+        "old": true,
+        "new": false,
+        "rule": 8
+      },
+      {
+        "id": "J2-11",
+        "label": "names_mechanism",
+        "old": true,
+        "new": false,
+        "rule": 8
+      },
+      {
+        "id": "J2-13",
+        "label": "names_mechanism",
+        "old": true,
+        "new": false,
+        "rule": 8
+      },
+      {
+        "id": "J2-16",
+        "label": "names_mechanism",
+        "old": true,
+        "new": false,
+        "rule": 8
+      },
+      {
+        "id": "J2-18",
+        "label": "names_mechanism",
+        "old": true,
+        "new": false,
+        "rule": 8
+      },
+      {
+        "id": "J2-2",
+        "label": "names_mechanism",
+        "old": true,
+        "new": false,
+        "rule": 8
+      },
+      {
+        "id": "J2-4",
+        "label": "names_mechanism",
+        "old": true,
+        "new": false,
+        "rule": 8
+      },
+      {
+        "id": "J2-8",
+        "label": "names_mechanism",
+        "old": true,
+        "new": false,
+        "rule": 8
+      },
+      {
+        "id": "J2-9",
+        "label": "names_mechanism",
+        "old": true,
+        "new": false,
+        "rule": 8
+      },
+      {
+        "id": "J3-20",
+        "label": "names_mechanism",
+        "old": true,
+        "new": false,
+        "rule": 8
+      },
+      {
+        "id": "J3-4",
+        "label": "names_mechanism",
+        "old": true,
+        "new": false,
+        "rule": 8
+      },
+      {
+        "id": "J3-8",
+        "label": "names_mechanism",
+        "old": true,
+        "new": false,
+        "rule": 8
+      },
+      {
+        "id": "J4-1",
+        "label": "names_mechanism",
+        "old": true,
+        "new": false,
+        "rule": 8
+      },
+      {
+        "id": "J4-10",
+        "label": "names_mechanism",
+        "old": true,
+        "new": false,
+        "rule": 8
+      },
+      {
+        "id": "J4-11",
+        "label": "names_mechanism",
+        "old": true,
+        "new": false,
+        "rule": 8
+      },
+      {
+        "id": "J4-12",
+        "label": "names_mechanism",
+        "old": true,
+        "new": false,
+        "rule": 8
+      },
+      {
+        "id": "J4-13",
+        "label": "names_mechanism",
+        "old": true,
+        "new": false,
+        "rule": 8
+      },
+      {
+        "id": "J4-14",
+        "label": "names_mechanism",
+        "old": true,
+        "new": false,
+        "rule": 8
+      },
+      {
+        "id": "J4-15",
+        "label": "names_mechanism",
+        "old": true,
+        "new": false,
+        "rule": 8
+      },
+      {
+        "id": "J4-16",
+        "label": "names_mechanism",
+        "old": true,
+        "new": false,
+        "rule": 8
+      },
+      {
+        "id": "J4-17",
+        "label": "names_mechanism",
+        "old": true,
+        "new": false,
+        "rule": 8
+      },
+      {
+        "id": "J4-18",
+        "label": "names_mechanism",
+        "old": true,
+        "new": false,
+        "rule": 8
+      },
+      {
+        "id": "J4-19",
+        "label": "names_mechanism",
+        "old": true,
+        "new": false,
+        "rule": 8
+      },
+      {
+        "id": "J4-2",
+        "label": "names_mechanism",
+        "old": true,
+        "new": false,
+        "rule": 8
+      },
+      {
+        "id": "J4-20",
+        "label": "names_mechanism",
+        "old": true,
+        "new": false,
+        "rule": 8
+      },
+      {
+        "id": "J4-3",
+        "label": "names_mechanism",
+        "old": true,
+        "new": false,
+        "rule": 8
+      },
+      {
+        "id": "J4-4",
+        "label": "names_mechanism",
+        "old": true,
+        "new": false,
+        "rule": 8
+      },
+      {
+        "id": "J4-5",
+        "label": "names_mechanism",
+        "old": true,
+        "new": false,
+        "rule": 8
+      },
+      {
+        "id": "J4-6",
+        "label": "names_mechanism",
+        "old": true,
+        "new": false,
+        "rule": 8
+      },
+      {
+        "id": "J4-8",
+        "label": "names_mechanism",
+        "old": true,
+        "new": false,
+        "rule": 8
+      },
+      {
+        "id": "J4-9",
+        "label": "names_mechanism",
+        "old": true,
+        "new": false,
+        "rule": 8
+      },
+      {
+        "id": "J5-13",
+        "label": "names_mechanism",
+        "old": true,
+        "new": false,
+        "rule": 8
+      },
+      {
+        "id": "J5-16",
+        "label": "names_mechanism",
+        "old": true,
+        "new": false,
+        "rule": 8
+      },
+      {
+        "id": "J5-18",
+        "label": "names_mechanism",
+        "old": true,
+        "new": false,
+        "rule": 8
+      },
+      {
+        "id": "J5-5",
+        "label": "names_mechanism",
+        "old": true,
+        "new": false,
+        "rule": 8
+      },
+      {
+        "id": "J5-7",
+        "label": "names_mechanism",
+        "old": true,
+        "new": false,
+        "rule": 8
+      },
+      {
+        "id": "J5-8",
+        "label": "names_mechanism",
+        "old": true,
+        "new": false,
+        "rule": 8
+      },
+      {
+        "id": "J6-14",
+        "label": "names_mechanism",
+        "old": true,
+        "new": false,
+        "rule": 8
+      },
+      {
+        "id": "J6-15",
+        "label": "names_mechanism",
+        "old": true,
+        "new": false,
+        "rule": 8
+      },
+      {
+        "id": "J6-4",
+        "label": "names_mechanism",
+        "old": true,
+        "new": false,
+        "rule": 8
+      },
+      {
+        "id": "J7-12",
+        "label": "names_mechanism",
+        "old": true,
+        "new": false,
+        "rule": 8
+      },
+      {
+        "id": "J7-13",
+        "label": "names_mechanism",
+        "old": true,
+        "new": false,
+        "rule": 8
+      },
+      {
+        "id": "J7-14",
+        "label": "names_mechanism",
+        "old": true,
+        "new": false,
+        "rule": 8
+      },
+      {
+        "id": "J7-15",
+        "label": "names_mechanism",
+        "old": true,
+        "new": false,
+        "rule": 8
+      },
+      {
+        "id": "J7-17",
+        "label": "names_mechanism",
+        "old": true,
+        "new": false,
+        "rule": 8
+      },
+      {
+        "id": "J7-18",
+        "label": "names_mechanism",
+        "old": true,
+        "new": false,
+        "rule": 8
+      },
+      {
+        "id": "J7-19",
+        "label": "names_mechanism",
+        "old": true,
+        "new": false,
+        "rule": 8
+      },
+      {
+        "id": "J7-20",
+        "label": "names_mechanism",
+        "old": true,
+        "new": false,
+        "rule": 8
+      },
+      {
+        "id": "J7-7",
+        "label": "names_mechanism",
+        "old": true,
+        "new": false,
+        "rule": 8
+      },
+      {
+        "id": "J7-9",
+        "label": "names_mechanism",
+        "old": true,
+        "new": false,
+        "rule": 8
+      },
+      {
+        "id": "J8-11",
+        "label": "names_mechanism",
+        "old": true,
+        "new": false,
+        "rule": 8
+      },
+      {
+        "id": "J8-12",
+        "label": "names_mechanism",
+        "old": true,
+        "new": false,
+        "rule": 8
+      },
+      {
+        "id": "J8-13",
+        "label": "names_mechanism",
+        "old": true,
+        "new": false,
+        "rule": 8
+      },
+      {
+        "id": "J8-16",
+        "label": "names_mechanism",
+        "old": true,
+        "new": false,
+        "rule": 8
+      },
+      {
+        "id": "J8-17",
+        "label": "names_mechanism",
+        "old": true,
+        "new": false,
+        "rule": 8
+      },
+      {
+        "id": "J8-18",
+        "label": "names_mechanism",
+        "old": true,
+        "new": false,
+        "rule": 8
+      },
+      {
+        "id": "J8-19",
+        "label": "names_mechanism",
+        "old": true,
+        "new": false,
+        "rule": 8
+      },
+      {
+        "id": "J8-20",
+        "label": "names_mechanism",
+        "old": true,
+        "new": false,
+        "rule": 8
+      }
+    ],
+    "raven": [
+      {
+        "id": "J1-14",
+        "label": "names_mechanism",
+        "old": true,
+        "new": false,
+        "rule": 8
+      },
+      {
+        "id": "J1-20",
+        "label": "names_mechanism",
+        "old": true,
+        "new": false,
+        "rule": 8
+      },
+      {
+        "id": "J2-12",
+        "label": "names_mechanism",
+        "old": true,
+        "new": false,
+        "rule": 8
+      },
+      {
+        "id": "J2-15",
+        "label": "names_mechanism",
+        "old": true,
+        "new": false,
+        "rule": 8
+      },
+      {
+        "id": "J3-5",
+        "label": "names_mechanism",
+        "old": true,
+        "new": false,
+        "rule": 8
+      },
+      {
+        "id": "J5-4",
+        "label": "names_mechanism",
+        "old": true,
+        "new": false,
+        "rule": 8
+      },
+      {
+        "id": "J6-8",
+        "label": "names_mechanism",
+        "old": true,
+        "new": false,
+        "rule": 8
+      },
+      {
+        "id": "J7-10",
+        "label": "names_mechanism",
+        "old": true,
+        "new": false,
+        "rule": 8
+      },
+      {
+        "id": "J8-15",
+        "label": "names_mechanism",
+        "old": true,
+        "new": false,
+        "rule": 8
+      },
+      {
+        "id": "J1-1",
+        "label": "causal_chain",
+        "old": true,
+        "new": false,
+        "rule": 9
+      },
+      {
+        "id": "J1-14",
+        "label": "causal_chain",
+        "old": true,
+        "new": false,
+        "rule": 9
+      },
+      {
+        "id": "J1-15",
+        "label": "causal_chain",
+        "old": true,
+        "new": false,
+        "rule": 9
+      },
+      {
+        "id": "J1-19",
+        "label": "causal_chain",
+        "old": true,
+        "new": false,
+        "rule": 9
+      },
+      {
+        "id": "J1-2",
+        "label": "causal_chain",
+        "old": true,
+        "new": false,
+        "rule": 9
+      },
+      {
+        "id": "J1-20",
+        "label": "causal_chain",
+        "old": true,
+        "new": false,
+        "rule": 9
+      },
+      {
+        "id": "J1-9",
+        "label": "causal_chain",
+        "old": true,
+        "new": false,
+        "rule": 9
+      },
+      {
+        "id": "J2-12",
+        "label": "causal_chain",
+        "old": true,
+        "new": false,
+        "rule": 9
+      },
+      {
+        "id": "J3-5",
+        "label": "causal_chain",
+        "old": true,
+        "new": false,
+        "rule": 9
+      },
+      {
+        "id": "J5-1",
+        "label": "causal_chain",
+        "old": true,
+        "new": false,
+        "rule": 9
+      },
+      {
+        "id": "J5-10",
+        "label": "causal_chain",
+        "old": true,
+        "new": false,
+        "rule": 9
+      },
+      {
+        "id": "J5-12",
+        "label": "causal_chain",
+        "old": true,
+        "new": false,
+        "rule": 9
+      },
+      {
+        "id": "J5-13",
+        "label": "causal_chain",
+        "old": true,
+        "new": false,
+        "rule": 9
+      },
+      {
+        "id": "J5-14",
+        "label": "causal_chain",
+        "old": true,
+        "new": false,
+        "rule": 9
+      },
+      {
+        "id": "J5-18",
+        "label": "causal_chain",
+        "old": true,
+        "new": false,
+        "rule": 9
+      },
+      {
+        "id": "J5-2",
+        "label": "causal_chain",
+        "old": true,
+        "new": false,
+        "rule": 9
+      },
+      {
+        "id": "J5-20",
+        "label": "causal_chain",
+        "old": true,
+        "new": false,
+        "rule": 9
+      },
+      {
+        "id": "J5-3",
+        "label": "causal_chain",
+        "old": true,
+        "new": false,
+        "rule": 9
+      },
+      {
+        "id": "J5-6",
+        "label": "causal_chain",
+        "old": true,
+        "new": false,
+        "rule": 9
+      },
+      {
+        "id": "J6-1",
+        "label": "causal_chain",
+        "old": true,
+        "new": false,
+        "rule": 9
+      },
+      {
+        "id": "J6-11",
+        "label": "causal_chain",
+        "old": true,
+        "new": false,
+        "rule": 9
+      },
+      {
+        "id": "J6-12",
+        "label": "causal_chain",
+        "old": true,
+        "new": false,
+        "rule": 9
+      },
+      {
+        "id": "J6-16",
+        "label": "causal_chain",
+        "old": true,
+        "new": false,
+        "rule": 9
+      },
+      {
+        "id": "J6-17",
+        "label": "causal_chain",
+        "old": true,
+        "new": false,
+        "rule": 9
+      },
+      {
+        "id": "J6-19",
+        "label": "causal_chain",
+        "old": true,
+        "new": false,
+        "rule": 9
+      },
+      {
+        "id": "J6-2",
+        "label": "causal_chain",
+        "old": true,
+        "new": false,
+        "rule": 9
+      },
+      {
+        "id": "J6-20",
+        "label": "causal_chain",
+        "old": true,
+        "new": false,
+        "rule": 9
+      },
+      {
+        "id": "J6-5",
+        "label": "causal_chain",
+        "old": true,
+        "new": false,
+        "rule": 9
+      },
+      {
+        "id": "J6-6",
+        "label": "causal_chain",
+        "old": true,
+        "new": false,
+        "rule": 9
+      },
+      {
+        "id": "J6-7",
+        "label": "causal_chain",
+        "old": true,
+        "new": false,
+        "rule": 9
+      },
+      {
+        "id": "J6-8",
+        "label": "causal_chain",
+        "old": true,
+        "new": false,
+        "rule": 9
+      },
+      {
+        "id": "J7-16",
+        "label": "causal_chain",
+        "old": true,
+        "new": false,
+        "rule": 9
+      },
+      {
+        "id": "J7-2",
+        "label": "causal_chain",
+        "old": true,
+        "new": false,
+        "rule": 9
+      },
+      {
+        "id": "J7-4",
+        "label": "causal_chain",
+        "old": true,
+        "new": false,
+        "rule": 9
+      },
+      {
+        "id": "J7-5",
+        "label": "causal_chain",
+        "old": true,
+        "new": false,
+        "rule": 9
+      },
+      {
+        "id": "J7-8",
+        "label": "causal_chain",
+        "old": true,
+        "new": false,
+        "rule": 9
+      },
+      {
+        "id": "J1-10",
+        "label": "case_specific_diagnosis",
+        "old": true,
+        "new": false,
+        "rule": 10
+      },
+      {
+        "id": "J1-14",
+        "label": "case_specific_diagnosis",
+        "old": true,
+        "new": false,
+        "rule": 10
+      },
+      {
+        "id": "J1-15",
+        "label": "case_specific_diagnosis",
+        "old": true,
+        "new": false,
+        "rule": 10
+      },
+      {
+        "id": "J1-16",
+        "label": "case_specific_diagnosis",
+        "old": true,
+        "new": false,
+        "rule": 10
+      },
+      {
+        "id": "J1-17",
+        "label": "case_specific_diagnosis",
+        "old": true,
+        "new": false,
+        "rule": 10
+      },
+      {
+        "id": "J1-18",
+        "label": "case_specific_diagnosis",
+        "old": true,
+        "new": false,
+        "rule": 10
+      },
+      {
+        "id": "J1-19",
+        "label": "case_specific_diagnosis",
+        "old": true,
+        "new": false,
+        "rule": 10
+      },
+      {
+        "id": "J1-20",
+        "label": "case_specific_diagnosis",
+        "old": true,
+        "new": false,
+        "rule": 10
+      },
+      {
+        "id": "J1-4",
+        "label": "case_specific_diagnosis",
+        "old": true,
+        "new": false,
+        "rule": 10
+      },
+      {
+        "id": "J1-8",
+        "label": "case_specific_diagnosis",
+        "old": true,
+        "new": false,
+        "rule": 10
+      },
+      {
+        "id": "J2-12",
+        "label": "case_specific_diagnosis",
+        "old": true,
+        "new": false,
+        "rule": 10
+      },
+      {
+        "id": "J2-13",
+        "label": "case_specific_diagnosis",
+        "old": true,
+        "new": false,
+        "rule": 10
+      },
+      {
+        "id": "J2-14",
+        "label": "case_specific_diagnosis",
+        "old": true,
+        "new": false,
+        "rule": 10
+      },
+      {
+        "id": "J2-15",
+        "label": "case_specific_diagnosis",
+        "old": true,
+        "new": false,
+        "rule": 10
+      },
+      {
+        "id": "J2-16",
+        "label": "case_specific_diagnosis",
+        "old": true,
+        "new": false,
+        "rule": 10
+      },
+      {
+        "id": "J2-18",
+        "label": "case_specific_diagnosis",
+        "old": true,
+        "new": false,
+        "rule": 10
+      },
+      {
+        "id": "J2-19",
+        "label": "case_specific_diagnosis",
+        "old": true,
+        "new": false,
+        "rule": 10
+      },
+      {
+        "id": "J3-3",
+        "label": "case_specific_diagnosis",
+        "old": true,
+        "new": false,
+        "rule": 10
+      },
+      {
+        "id": "J5-1",
+        "label": "case_specific_diagnosis",
+        "old": true,
+        "new": false,
+        "rule": 10
+      },
+      {
+        "id": "J5-10",
+        "label": "case_specific_diagnosis",
+        "old": true,
+        "new": false,
+        "rule": 10
+      },
+      {
+        "id": "J5-11",
+        "label": "case_specific_diagnosis",
+        "old": true,
+        "new": false,
+        "rule": 10
+      },
+      {
+        "id": "J5-12",
+        "label": "case_specific_diagnosis",
+        "old": true,
+        "new": false,
+        "rule": 10
+      },
+      {
+        "id": "J5-13",
+        "label": "case_specific_diagnosis",
+        "old": true,
+        "new": false,
+        "rule": 10
+      },
+      {
+        "id": "J5-14",
+        "label": "case_specific_diagnosis",
+        "old": true,
+        "new": false,
+        "rule": 10
+      },
+      {
+        "id": "J5-15",
+        "label": "case_specific_diagnosis",
+        "old": true,
+        "new": false,
+        "rule": 10
+      },
+      {
+        "id": "J5-17",
+        "label": "case_specific_diagnosis",
+        "old": true,
+        "new": false,
+        "rule": 10
+      },
+      {
+        "id": "J5-18",
+        "label": "case_specific_diagnosis",
+        "old": true,
+        "new": false,
+        "rule": 10
+      },
+      {
+        "id": "J5-19",
+        "label": "case_specific_diagnosis",
+        "old": true,
+        "new": false,
+        "rule": 10
+      },
+      {
+        "id": "J5-2",
+        "label": "case_specific_diagnosis",
+        "old": true,
+        "new": false,
+        "rule": 10
+      },
+      {
+        "id": "J5-20",
+        "label": "case_specific_diagnosis",
+        "old": true,
+        "new": false,
+        "rule": 10
+      },
+      {
+        "id": "J5-3",
+        "label": "case_specific_diagnosis",
+        "old": true,
+        "new": false,
+        "rule": 10
+      },
+      {
+        "id": "J5-4",
+        "label": "case_specific_diagnosis",
+        "old": true,
+        "new": false,
+        "rule": 10
+      },
+      {
+        "id": "J5-6",
+        "label": "case_specific_diagnosis",
+        "old": true,
+        "new": false,
+        "rule": 10
+      },
+      {
+        "id": "J5-7",
+        "label": "case_specific_diagnosis",
+        "old": true,
+        "new": false,
+        "rule": 10
+      },
+      {
+        "id": "J5-9",
+        "label": "case_specific_diagnosis",
+        "old": true,
+        "new": false,
+        "rule": 10
+      },
+      {
+        "id": "J6-10",
+        "label": "case_specific_diagnosis",
+        "old": true,
+        "new": false,
+        "rule": 10
+      },
+      {
+        "id": "J6-11",
+        "label": "case_specific_diagnosis",
+        "old": true,
+        "new": false,
+        "rule": 10
+      },
+      {
+        "id": "J6-12",
+        "label": "case_specific_diagnosis",
+        "old": true,
+        "new": false,
+        "rule": 10
+      },
+      {
+        "id": "J6-13",
+        "label": "case_specific_diagnosis",
+        "old": true,
+        "new": false,
+        "rule": 10
+      },
+      {
+        "id": "J6-14",
+        "label": "case_specific_diagnosis",
+        "old": true,
+        "new": false,
+        "rule": 10
+      },
+      {
+        "id": "J6-15",
+        "label": "case_specific_diagnosis",
+        "old": true,
+        "new": false,
+        "rule": 10
+      },
+      {
+        "id": "J6-17",
+        "label": "case_specific_diagnosis",
+        "old": true,
+        "new": false,
+        "rule": 10
+      },
+      {
+        "id": "J6-19",
+        "label": "case_specific_diagnosis",
+        "old": true,
+        "new": false,
+        "rule": 10
+      },
+      {
+        "id": "J6-2",
+        "label": "case_specific_diagnosis",
+        "old": true,
+        "new": false,
+        "rule": 10
+      },
+      {
+        "id": "J6-20",
+        "label": "case_specific_diagnosis",
+        "old": true,
+        "new": false,
+        "rule": 10
+      },
+      {
+        "id": "J6-4",
+        "label": "case_specific_diagnosis",
+        "old": true,
+        "new": false,
+        "rule": 10
+      },
+      {
+        "id": "J6-6",
+        "label": "case_specific_diagnosis",
+        "old": true,
+        "new": false,
+        "rule": 10
+      },
+      {
+        "id": "J6-8",
+        "label": "case_specific_diagnosis",
+        "old": true,
+        "new": false,
+        "rule": 10
+      },
+      {
+        "id": "J6-9",
+        "label": "case_specific_diagnosis",
+        "old": true,
+        "new": false,
+        "rule": 10
+      },
+      {
+        "id": "J7-11",
+        "label": "case_specific_diagnosis",
+        "old": true,
+        "new": false,
+        "rule": 10
+      },
+      {
+        "id": "J7-17",
+        "label": "case_specific_diagnosis",
+        "old": true,
+        "new": false,
+        "rule": 10
+      },
+      {
+        "id": "J7-2",
+        "label": "case_specific_diagnosis",
+        "old": true,
+        "new": false,
+        "rule": 10
+      },
+      {
+        "id": "J7-5",
+        "label": "case_specific_diagnosis",
+        "old": true,
+        "new": false,
+        "rule": 10
+      },
+      {
+        "id": "J7-7",
+        "label": "case_specific_diagnosis",
+        "old": true,
+        "new": false,
+        "rule": 10
+      },
+      {
+        "id": "J8-1",
+        "label": "case_specific_diagnosis",
+        "old": true,
+        "new": false,
+        "rule": 10
+      },
+      {
+        "id": "J8-10",
+        "label": "case_specific_diagnosis",
+        "old": true,
+        "new": false,
+        "rule": 10
+      },
+      {
+        "id": "J8-14",
+        "label": "case_specific_diagnosis",
+        "old": true,
+        "new": false,
+        "rule": 10
+      },
+      {
+        "id": "J8-2",
+        "label": "case_specific_diagnosis",
+        "old": true,
+        "new": false,
+        "rule": 10
+      },
+      {
+        "id": "J8-3",
+        "label": "case_specific_diagnosis",
+        "old": true,
+        "new": false,
+        "rule": 10
+      },
+      {
+        "id": "J8-4",
+        "label": "case_specific_diagnosis",
+        "old": true,
+        "new": false,
+        "rule": 10
+      }
+    ]
+  }
+}
