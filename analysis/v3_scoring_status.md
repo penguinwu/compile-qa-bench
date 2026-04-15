@@ -46,13 +46,39 @@
 - Reviewed all 157 names_mechanism=true Track 1 cases for diagnostic-tool-only rationales
 - **Result: No recalibration needed.** All 157 cases cite actual mechanisms (code paths, config options, APIs), not just diagnostic tools
 - Track 2's calibration issue was specific to doc-restricted responses, which often lack deeper technical content
-- Track 1 (unrestricted) responses consistently name real mechanisms alongside any diagnostic tools mentioned
+
+### Track 2 — Owl Full Scoring (160 cases)
+- **Act labels:** `runs/label-scoring/owl_act_labels_track2_160.json`
+  - Distribution: Act=0: 123, Act=1: 24, Act=2: 6, Act=3: 7
+  - standalone_fix=true in 7/160 (4%); has_imperative=true in 36/160 (23%)
+  - 38/160 are exact template responses (6 template groups)
+  - 138/160 have doc_sufficient=False
+- **Diag labels:** `runs/label-scoring/owl_diag_labels_track2_160.json`
+  - Distribution: Diag=1: 35, Diag=2: 95, Diag=3: 30
+  - correct_subsystem=true in 158/160; names_mechanism=true in 123/160
+  - causal_chain is rare: true in 5/160 (3%) — most responses don't explain why
+  - Template responses score Diag=1 or 2 (never 3, since csd always false)
+
+### Track 1 vs Track 2 Comparison
+| Metric | Track 1 | Track 2 |
+|--------|---------|---------|
+| Act=3 (standalone fix) | 79 (49%) | 7 (4%) |
+| Act=0 (no actionable content) | 1 (1%) | 123 (77%) |
+| Diag=3 (full diagnosis) | 148 (93%) | 30 (19%) |
+| Diag=1 (minimal) | 1 (1%) | 35 (22%) |
+| Template responses | 0 | 38 (24%) |
+| Doc sufficient | 160 (100%) | 22 (14%) |
+
+### IAA Computation Script
+- `scripts/compute_iaa_labels.py` — ready for Raven's delivery
+- Tested on Track 2 Diag pilot data: correctly reproduces κ=0.960
 
 ## In Progress
-- **Raven:** Full 160-case Track 1 label scoring (Act + Diag)
+- **Raven:** Full 160-case Track 1 label scoring (Act + Diag) — higher priority
+- **Raven:** Full 160-case Track 2 label scoring (Act + Diag) — request sent
 
 ## Next Steps
-1. Compute IAA on Raven's full 160-case scores vs Owl's
-2. Calibrate any label disagreements
-3. Full Track 2 scoring (160 cases, both scorers, both dimensions)
-4. Compile final dataset with all three dimensions
+1. Compute IAA on Raven's full 160-case Track 1 scores vs Owl's
+2. Compute IAA on Raven's full 160-case Track 2 scores vs Owl's
+3. Calibrate any label disagreements
+4. Compile final dataset: 320 cases (160 T1 + 160 T2) × 3 dimensions
