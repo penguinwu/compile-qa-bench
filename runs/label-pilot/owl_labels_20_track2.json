@@ -1,0 +1,162 @@
+[
+  {
+    "id": "J7-14",
+    "standalone_fix": false,
+    "has_imperative": false,
+    "case_specific": true,
+    "is_template": false,
+    "derived_act": 0
+  },
+  {
+    "id": "J5-5",
+    "standalone_fix": false,
+    "has_imperative": true,
+    "case_specific": false,
+    "is_template": true,
+    "derived_act": 1
+  },
+  {
+    "id": "J7-9",
+    "standalone_fix": false,
+    "has_imperative": false,
+    "case_specific": true,
+    "is_template": false,
+    "derived_act": 0
+  },
+  {
+    "id": "J4-19",
+    "standalone_fix": false,
+    "has_imperative": true,
+    "case_specific": false,
+    "is_template": true,
+    "derived_act": 1
+  },
+  {
+    "id": "J4-6",
+    "standalone_fix": false,
+    "has_imperative": true,
+    "case_specific": false,
+    "is_template": true,
+    "derived_act": 1
+  },
+  {
+    "id": "J2-11",
+    "standalone_fix": false,
+    "has_imperative": false,
+    "case_specific": true,
+    "is_template": false,
+    "derived_act": 0
+  },
+  {
+    "id": "J4-9",
+    "standalone_fix": false,
+    "has_imperative": true,
+    "case_specific": false,
+    "is_template": true,
+    "derived_act": 1
+  },
+  {
+    "id": "J4-13",
+    "standalone_fix": false,
+    "has_imperative": true,
+    "case_specific": false,
+    "is_template": true,
+    "derived_act": 1
+  },
+  {
+    "id": "J4-17",
+    "standalone_fix": false,
+    "has_imperative": true,
+    "case_specific": false,
+    "is_template": true,
+    "derived_act": 1
+  },
+  {
+    "id": "J1-19",
+    "standalone_fix": false,
+    "has_imperative": false,
+    "case_specific": true,
+    "is_template": false,
+    "derived_act": 0
+  },
+  {
+    "id": "J4-2",
+    "standalone_fix": false,
+    "has_imperative": true,
+    "case_specific": false,
+    "is_template": true,
+    "derived_act": 1
+  },
+  {
+    "id": "J1-4",
+    "standalone_fix": false,
+    "has_imperative": false,
+    "case_specific": true,
+    "is_template": false,
+    "derived_act": 0
+  },
+  {
+    "id": "J5-1",
+    "standalone_fix": false,
+    "has_imperative": true,
+    "case_specific": true,
+    "is_template": false,
+    "derived_act": 2
+  },
+  {
+    "id": "J8-17",
+    "standalone_fix": false,
+    "has_imperative": false,
+    "case_specific": true,
+    "is_template": false,
+    "derived_act": 0
+  },
+  {
+    "id": "J1-16",
+    "standalone_fix": false,
+    "has_imperative": false,
+    "case_specific": true,
+    "is_template": false,
+    "derived_act": 0
+  },
+  {
+    "id": "J2-14",
+    "standalone_fix": false,
+    "has_imperative": false,
+    "case_specific": true,
+    "is_template": false,
+    "derived_act": 0
+  },
+  {
+    "id": "J7-17",
+    "standalone_fix": false,
+    "has_imperative": false,
+    "case_specific": true,
+    "is_template": false,
+    "derived_act": 0
+  },
+  {
+    "id": "J3-4",
+    "standalone_fix": false,
+    "has_imperative": true,
+    "case_specific": true,
+    "is_template": false,
+    "derived_act": 2
+  },
+  {
+    "id": "J7-3",
+    "standalone_fix": false,
+    "has_imperative": false,
+    "case_specific": true,
+    "is_template": false,
+    "derived_act": 0
+  },
+  {
+    "id": "J4-3",
+    "standalone_fix": false,
+    "has_imperative": true,
+    "case_specific": false,
+    "is_template": true,
+    "derived_act": 1
+  }
+]
