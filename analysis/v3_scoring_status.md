@@ -113,13 +113,25 @@
 - Full IAA analysis: `analysis/track2_iaa_v3_results.json`
 - Calibration log: `analysis/track2_calibration_log.json`
 
+### Fabrication IAA (v3.0)
+- **Track 1: κ=1.000 PASS** (perfect agreement, 21/160 flagged by both scorers)
+- Track 2: 0 fabrications from both scorers — no IAA needed
+- Owl scores: `runs/label-scoring/owl_fab_labels_track1_160.json`, `owl_fab_labels_track2_160.json`
+- Raven scores: `runs/label-scoring/raven_fab_labels_track1_160.json`
+- IAA analysis: `analysis/fabrication_iaa_results.json`
+
+### Final Dataset
+- `analysis/final_dataset_320.json` — 320 cases × 3 dimensions (Act, Diag, Fab)
+- `analysis/final_dataset_320.csv` — summary CSV
+- Script: `scripts/compile_final_dataset.py`
+
 ## Completed — All IAA PASS
 
 | Dimension | Track 1 κ | Track 2 κ | Status |
 |-----------|-----------|-----------|--------|
 | Act       | 0.900     | 0.945     | PASS   |
 | Diag      | 0.918     | 0.925     | PASS   |
+| Fab       | 1.000     | n/a (0/0) | PASS   |
 
-## Next Steps
-1. Compile final dataset: 320 cases (160 T1 + 160 T2) × 2 dimensions (Act, Diag)
-2. Fabrication dimension (if needed)
+## Status: COMPLETE
+All three dimensions scored, calibrated, and validated across both tracks. Final dataset compiled.
