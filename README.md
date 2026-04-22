@@ -1,16 +1,29 @@
-# torch-compile-doc-eval
+# CompileQA-Bench
 
-Evaluation framework for measuring whether torch.compile documentation helps AI agents resolve real user problems.
+A benchmark for evaluating any system's ability to answer real torch.compile user questions. The cases (320 real GitHub issues spanning 8 user journeys) are the invariant; the *answerer* varies — official docs today, QA bots / skill-augmented LLMs / internal agents tomorrow.
 
-**Core question:** When a user asks an AI agent for help with torch.compile, can the agent find and use official documentation to produce correct guidance?
+> Repo: `~/projects/compile-qa-bench/` (renamed from `torch-compile-doc-eval/` on 2026-04-22).
 
-## Two Evaluation Modes
+**Core question:** Given a real torch.compile problem, can system X (docs, agent, bot, model) produce correct, actionable, non-fabricated guidance?
 
-**Mode A — Coverage & Discoverability:** Does pytorch.org have relevant docs (Coverage), and can web search find them (Discoverability)?
+Analogous to **SWE-bench** for code-fix evaluation — but for question-answering capability rather than code generation.
 
-**Mode B — Resolution Quality:** Given a real torch.compile problem with full context, can an agent produce correct, actionable guidance?
+## Configurations (the answerer slot)
 
-Results are cross-referenced: Mode A scores explain *why* Mode B succeeds or fails.
+Each configuration plugs a different *answerer* into the same case suite + same rubric. Today:
+
+- **Track 1 — Unrestricted:** Agent answers from full knowledge (LLM + open web). Ceiling for what's possible.
+- **Track 2 — Doc-restricted:** Agent answers using only official pytorch.org docs. Measures doc quality directly.
+
+Future configurations: PyTorch+Skills agents, internal QA bots, fine-tuned models. Same scoring, plug in any answerer.
+
+## Three Scoring Dimensions (v3.0 rubric)
+
+- **Actionability (0–3):** Can the user act on this answer to fix their problem?
+- **Diagnostic Quality (0–3):** Does the answer correctly identify the cause?
+- **Fabrication (binary):** Did the answer invent APIs, behaviors, or facts?
+
+All three are validated with Cohen's quadratic weighted κ ≥ 0.90 across two independent scorers (Owl + Raven).
 
 ## Structure
 

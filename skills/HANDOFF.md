@@ -23,7 +23,7 @@ The evaluation framework consists of:
 ## Directory Structure
 
 ```
-torch-compile-doc-eval/
+compileqa-bench/
 ├── protocol/
 │   └── rubric_v2_multidimensional.md    # The scoring rubric (v2.6)
 ├── suite/

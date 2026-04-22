@@ -16,8 +16,8 @@ from typing import Any
 
 # Paths
 ISSUES_PATH = "/home/pengwu/projects/oss-model-graph-break-corpus/data/pt2-issues/pt2_all_issues.json"
-EXISTING_PATH = "/home/pengwu/projects/torch-compile-doc-eval/data/expanded_test_suite.json"
-OUTPUT_PATH = "/home/pengwu/projects/torch-compile-doc-eval/data/balanced_test_suite.json"
+EXISTING_PATH = "/home/pengwu/projects/compile-qa-bench/data/expanded_test_suite.json"
+OUTPUT_PATH = "/home/pengwu/projects/compile-qa-bench/data/balanced_test_suite.json"
 
 # Journey definitions
 JOURNEYS = {
